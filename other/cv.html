@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Ichrom Hadi Nugroho | Engine Department</title>
+
+    <!-- ==================== GOOGLE FONTS ==================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- ==================== FONT AWESOME ==================== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        /* ============================================================
+                   CSS CUSTOM PROPERTIES & THEMING
+                   ============================================================ */
+        :root {
+            /* Light theme (default) */
+            --bg-primary: #f5f7fa;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --bg-nav: rgba(255, 255, 255, 0.95);
+            --text-primary: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --navy-dark: #0a2f44;
+            --navy-mid: #0d3b55;
+            --accent: #1e90ff;
+            --accent-light: #5bb0ff;
+            --accent-glow: rgba(30, 144, 255, 0.35);
+            --gold: #d4a843;
+            --gold-light: #e8c86a;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.12);
+            --shadow-hover: 0 16px 50px rgba(0, 0, 0, 0.18);
+            --gradient-hero: linear-gradient(135deg, #0a2f44 0%, #0d3b55 40%, #1e90ff 100%);
+            --gradient-card: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            --input-bg: #ffffff;
+            --input-border: #d1d5db;
+            --modal-overlay: rgba(0, 0, 0, 0.6);
+            --particle-opacity: 0.12;
+            --timeline-line: #cbd5e1;
+            --footer-bg: #0a2f44;
+        }
+
+        /* Dark theme */
+        [data-theme="dark"] {
+            --bg-primary: #0f1923;
+            --bg-secondary: #162230;
+            --bg-card: #1a2a3a;
+            --bg-nav: rgba(15, 25, 35, 0.95);
+            --text-primary: #e2e8f0;
+            --text-secondary: #cbd5e1;
+            --text-muted: #94a3b8;
+            --navy-dark: #1e3a5f;
+            --navy-mid: #1a2d42;
+            --accent: #3b9eff;
+            --accent-light: #6bb8ff;
+            --accent-glow: rgba(59, 158, 255, 0.4);
+            --gold: #e0b84c;
+            --gold-light: #f0d070;
+            --border-color: #2d3f55;
+            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
+            --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.4);
+            --shadow-hover: 0 16px 50px rgba(0, 0, 0, 0.5);
+            --gradient-hero: linear-gradient(135deg, #0a1a2e 0%, #0d2538 40%, #1a4a7a 100%);
+            --gradient-card: linear-gradient(135deg, #1a2a3a 0%, #13202e 100%);
+            --input-bg: #1a2a3a;
+            --input-border: #3a5068;
+            --modal-overlay: rgba(0, 0, 0, 0.75);
+            --particle-opacity: 0.18;
+            --timeline-line: #3a5068;
+            --footer-bg: #0a1a2e;
+        }
+
+        /* ============================================================
+                   RESET & BASE STYLES
+                   ============================================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 70px;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color 0.4s ease, color 0.4s ease;
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--accent-light);
+        }
+
+        img {
+            max-width: 100%;
+            display: block;
+        }
+
+        /* ============================================================
+                   PARTICLE CANVAS BACKGROUND
+                   ============================================================ */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: var(--particle-opacity);
+        }
+
+        /* ============================================================
+                   STICKY NAVIGATION
+                   ============================================================ */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: var(--bg-nav);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 0.6rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .navbar .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 700;
+            font-size: 1.15rem;
+            color: var(--navy-dark);
+            letter-spacing: 0.5px;
+        }
+
+        [data-theme="dark"] .navbar .brand {
+            color: var(--text-primary);
+        }
+
+        .navbar .brand i {
+            color: var(--accent);
+            font-size: 1.4rem;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.88rem;
+            padding: 0.5rem 0.9rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+            background: rgba(30, 144, 255, 0.08);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 60%;
+        }
+
+        /* Dark mode toggle button */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            padding: 0.5rem;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+        }
+
+        .theme-toggle:hover {
+            background: rgba(30, 144, 255, 0.1);
+            color: var(--accent);
+            transform: rotate(20deg);
+        }
+
+        /* Hamburger menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0.5rem;
+            gap: 5px;
+            background: none;
+            border: none;
+        }
+
+        .hamburger span {
+            display: block;
+            width: 24px;
+            height: 2.5px;
+            background: var(--text-primary);
+            border-radius: 3px;
+            transition: all 0.35s ease;
+            transform-origin: center;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: translateY(7.5px) rotate(45deg);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: translateY(-7.5px) rotate(-45deg);
+        }
+
+        /* ============================================================
+                   MAIN CONTENT WRAPPER
+                   ============================================================ */
+        main {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ============================================================
+                   HERO SECTION
+                   ============================================================ */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 6rem 2rem 4rem;
+            background: var(--gradient-hero);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: rgba(30, 144, 255, 0.15);
+            animation: heroFloat 8s ease-in-out infinite alternate;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(212, 168, 67, 0.1);
+            animation: heroFloat 10s ease-in-out infinite alternate-reverse;
+        }
+
+        @keyframes heroFloat {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(30px, -30px) scale(1.08);
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+            color: #fff;
+            position: relative;
+            z-index: 2;
+            max-width: 700px;
+        }
+
+        .hero-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background: rgba(255, 255, 255, 0.15);
+            border: 4px solid rgba(255, 255, 255, 0.4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s ease;
+            animation: photoPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes photoPulse {
+            0%,
+            100% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 0 rgba(255, 255, 255, 0.2);
+            }
+            50% {
+                box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3), 0 0 0 15px rgba(255, 255, 255, 0);
+            }
+        }
+
+        .hero-photo:hover {
+            transform: scale(1.05);
+            border-color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero-name {
+            font-size: 2.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero-title {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: var(--gold-light);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-subtitle {
+            font-size: 1rem;
+            font-weight: 300;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.8rem 1.8rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            border: none;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(30, 144, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-light);
+            box-shadow: 0 8px 30px rgba(30, 144, 255, 0.55);
+            transform: translateY(-3px);
+            color: #fff;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: #fff;
+            transform: translateY(-3px);
+            color: #fff;
+        }
+
+        /* ============================================================
+                   SECTION COMMON STYLES
+                   ============================================================ */
+        .section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .section-header .icon-circle {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--accent), var(--navy-dark));
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin: 0 auto 1rem;
+            box-shadow: 0 4px 16px var(--accent-glow);
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="dark"] .section-header h2 {
+            color: var(--text-primary);
+        }
+
+        .section-header .divider {
+            width: 60px;
+            height: 3px;
+            background: var(--accent);
+            border-radius: 3px;
+            margin: 0.5rem auto 0;
+        }
+
+        /* ============================================================
+                   SCROLL REVEAL ANIMATIONS
+                   ============================================================ */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .reveal-delay-1 {
+            transition-delay: 0.1s;
+        }
+        .reveal-delay-2 {
+            transition-delay: 0.2s;
+        }
+        .reveal-delay-3 {
+            transition-delay: 0.3s;
+        }
+        .reveal-delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        /* ============================================================
+                   ABOUT SECTION
+                   ============================================================ */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-secondary);
+            font-size: 0.98rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            transition: all 0.4s ease;
+            cursor: default;
+        }
+
+        .stat-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-6px);
+            border-color: var(--accent);
+        }
+
+        .stat-card .stat-icon {
+            font-size: 1.8rem;
+            color: var(--accent);
+            margin-bottom: 0.6rem;
+        }
+
+        .stat-card .stat-number {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--navy-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        [data-theme="dark"] .stat-card .stat-number {
+            color: var(--text-primary);
+        }
+
+        .stat-card .stat-label {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* ============================================================
+                   PERSONAL DATA SECTION
+                   ============================================================ */
+        .personal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.2rem;
+        }
+
+        .personal-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 1.3rem 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.35s ease;
+        }
+
+        .personal-card:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-4px);
+            border-color: var(--accent);
+        }
+
+        .personal-card .p-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            background: rgba(30, 144, 255, 0.1);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .personal-card .p-label {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 0.1rem;
+        }
+
+        .personal-card .p-value {
+            font-size: 0.92rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        /* ============================================================
+                   DOCUMENTS & CERTIFICATES SECTION
+                   ============================================================ */
+        .doc-section-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--navy-dark);
+            margin: 2rem 0 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+
+        [data-theme="dark"] .doc-section-title {
+            color: var(--text-primary);
+        }
+
+        .doc-section-title i {
+            color: var(--accent);
+        }
+
+        /* Seaman Book Card */
+        .seaman-book-card {
+            background: var(--gradient-card);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 2px solid var(--gold);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease;
+        }
+
+        .seaman-book-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light), var(--gold));
+        }
+
+        .seaman-book-card:hover {
+            box-shadow: var(--shadow-hover);
+            transform: translateY(-4px);
+        }
+
+        .sb-info {
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+        }
+
+        .sb-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(212, 168, 67, 0.15);
+            color: var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            flex-shrink: 0;
+        }
+
+        .sb-text h3 {
+            font-weight: 600;
+            font-size: 1.1rem;
+            color: var(--navy-dark);
+            margin-bottom: 0.3rem;
+        }
+
+        [data-theme="dark"] .sb-text h3 {
+            color: var(--text-primary);
+        }
+
+        .sb-text p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+        }
+
+        .sb-badge {
+            background: var(--gold);
+            color: #fff;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+        }
+
+        /* Certificate Flip Cards Grid */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1.5rem;
+            perspective: 1200px;
+        }
+
+        .cert-card {
+            background: transparent;
+            height: 260px;
+            cursor: pointer;
+            position: relative;
+            perspective: 1000px;
+        }
+
+        .cert-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+        }
+
+        .cert-card.flipped .cert-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .cert-card:hover .cert-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .cert-card-face {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 18px;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .cert-card-face.front {
+            background: var(--gradient-card);
+            gap: 0.7rem;
+        }
+
+        .cert-card-face.front:hover {
+            box-shadow: var(--shadow-hover);
+            border-color: var(--accent);
+        }
+
+        .cert-card-face.back {
+            background: var(--navy-dark);
+            color: #fff;
+            transform: rotateY(180deg);
+            gap: 0.4rem;
+            justify-content: center;
+        }
+
+        .cert-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.7rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .cert-icon.blue {
+            background: rgba(30, 144, 255, 0.12);
+            color: var(--accent);
+        }
+        .cert-icon.gold {
+            background: rgba(212, 168, 67, 0.12);
+            color: var(--gold);
+        }
+        .cert-icon.red {
+            background: rgba(255, 80, 80, 0.12);
+            color: #ff5050;
+        }
+        .cert-icon.green {
+            background: rgba(40, 167, 69, 0.12);
+            color: #28a745;
+        }
+        .cert-icon.purple {
+            background: rgba(155, 89, 182, 0.12);
+            color: #9b59b6;
+        }
+
+        .cert-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--navy-dark);
+            line-height: 1.3;
+        }
+
+        [data-theme="dark"] .cert-name {
+            color: var(--text-primary);
+        }
+
+        .cert-place {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .cert-hint {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            opacity: 0.7;
+            margin-top: 0.4rem;
+        }
+
+        .cert-card-face.back .cert-serial {
+            font-size: 0.72rem;
+            letter-spacing: 1px;
+            opacity: 0.85;
+            word-break: break-all;
+            line-height: 1.5;
+            margin-top: 0.4rem;
+        }
+
+        .cert-card-face.back .cert-date {
+            font-size: 0.8rem;
+            color: var(--gold-light);
+            margin-top: 0.3rem;
+        }
+
+        /* Verification link */
+        .verification-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1.8rem;
+            padding: 0.7rem 1.4rem;
+            background: rgba(30, 144, 255, 0.08);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            border: 1px dashed var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .verification-link:hover {
+            background: rgba(30, 144, 255, 0.15);
+            color: var(--accent-light);
+            border-color: var(--accent-light);
+        }
+
+        /* ============================================================
+                   TIMELINE SECTION
+                   ============================================================ */
+        .timeline-container {
+            position: relative;
+            padding: 1rem 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: var(--timeline-line);
+            transform: translateX(-50%);
+            border-radius: 3px;
+        }
+
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 1.2rem 2rem 1.2rem 0;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            text-align: left;
+            padding: 1.2rem 0 1.2rem 2rem;
+        }
+
+        .timeline-dot {
+            position: absolute;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--bg-primary);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 2;
+        }
+
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -9px;
+        }
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -9px;
+        }
+
+        .timeline-content {
+            background: var(--bg-card);
+            border-radius: 14px;
+            padding: 1.2rem 1.5rem;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
+            display: inline-block;
+            transition: all 0.35s ease;
+            cursor: default;
+        }
+
+        .timeline-content:hover {
+            box-shadow: var(--shadow-md);
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+
+        .timeline-content h4 {
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--navy-dark);
+            margin-bottom: 0.2rem;
+        }
+
+        [data-theme="dark"] .timeline-content h4 {
+            color: var(--text-primary);
+        }
+
+        .timeline-content .tl-date {
+            font-size: 0.8rem;
+            color: var(--accent);
+            font-weight: 500;
+        }
+
+        .timeline-content .tl-desc {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+        }
+
+        /* ============================================================
+                   CONTACT SECTION
+                   ============================================================ */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2.5rem;
+        }
+
+        .contact-form {
+            background: var(--bg-card);
+            border-radius: 18px;
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-form .form-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .contact-form label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+            letter-spacing: 0.3px;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border-radius: 10px;
+            border: 2px solid var(--input-border);
+            background: var(--input-bg);
+            color: var(--text-primary);
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            outline: none;
+            resize: vertical;
+        }
+
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px var(--accent-glow);
+        }
+
+        .contact-form input.error,
+        .contact-form textarea.error {
+            border-color: #ff5050;
+            box-shadow: 0 0 0 4px rgba(255, 80, 80, 0.15);
+        }
+
+        .contact-form .error-message {
+            font-size: 0.75rem;
+            color: #ff5050;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .contact-form .error-message.show {
+            display: block;
+        }
+
+        .contact-form .btn-submit {
+            width: 100%;
+            padding: 0.9rem;
+            border-radius: 12px;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            transition: all 0.35s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.6rem;
+        }
+
+        .contact-form .btn-submit:hover {
+            background: var(--accent-light);
+            box-shadow: 0 8px 24px rgba(30, 144, 255, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .map-container {
+            border-radius: 18px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            min-height: 300px;
+            position: relative;
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            min-height: 380px;
+            border: none;
+            display: block;
+        }
+
+        /* ============================================================
+                   FOOTER
+                   ============================================================ */
+        .footer {
+            background: var(--footer-bg);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 2.5rem 2rem 1.5rem;
+            position: relative;
+            z-index: 1;
+            margin-top: 2rem;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .footer-info h3 {
+            color: #fff;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .footer-info p {
+            font-size: 0.85rem;
+            opacity: 0.7;
+        }
+
+        .footer-clock {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-size: 0.95rem;
+            font-weight: 500;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            letter-spacing: 0.5px;
+        }
+
+        .footer-clock i {
+            color: var(--gold);
+            animation: clockTick 1s ease-in-out infinite;
+        }
+
+        @keyframes clockTick {
+            0%,
+            100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        .footer-bottom {
+            text-align: center;
+            margin-top: 1.5rem;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.78rem;
+            opacity: 0.6;
+        }
+
+        /* ============================================================
+                   MODAL
+                   ============================================================ */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--modal-overlay);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        .modal-box {
+            background: var(--bg-card);
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 480px;
+            width: 90%;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.85) translateY(30px);
+            transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.8rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-close:hover {
+            background: rgba(255, 80, 80, 0.1);
+            color: #ff5050;
+        }
+
+        .modal-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .modal-box h3 {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--navy-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="dark"] .modal-box h3 {
+            color: var(--text-primary);
+        }
+
+        .modal-box .modal-detail {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.4rem;
+        }
+
+        .modal-box .modal-detail strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        /* ============================================================
+                   RESPONSIVE DESIGN - MEDIA QUERIES
+                   ============================================================ */
+        @media (max-width: 992px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .timeline-item:nth-child(odd),
+            .timeline-item:nth-child(even) {
+                left: 0;
+                width: 100%;
+                text-align: left;
+                padding: 1rem 0 1rem 2.5rem;
+            }
+            .timeline-line {
+                left: 9px;
+                transform: none;
+            }
+            .timeline-item:nth-child(odd) .timeline-dot,
+            .timeline-item:nth-child(even) .timeline-dot {
+                left: 0;
+                right: auto;
+            }
+        }
+
+        @media (max-width: 768px) {
+            html {
+                font-size: 14px;
+                scroll-padding-top: 60px;
+            }
+            .navbar {
+                padding: 0.5rem 1rem;
+                flex-wrap: wrap;
+            }
+            .nav-links {
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 260px;
+                height: 100vh;
+                background: var(--bg-nav);
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 5rem 1.5rem 2rem;
+                gap: 0.3rem;
+                transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: var(--shadow-lg);
+                z-index: 999;
+                border-right: 1px solid var(--border-color);
+            }
+            .nav-links.open {
+                left: 0;
+            }
+            .nav-links a {
+                font-size: 1rem;
+                padding: 0.8rem 1rem;
+                width: 100%;
+                border-radius: 10px;
+            }
+            .hamburger {
+                display: flex;
+                z-index: 1001;
+            }
+            .hero-name {
+                font-size: 2rem;
+            }
+            .hero-photo {
+                width: 120px;
+                height: 120px;
+                font-size: 3.5rem;
+            }
+            .section {
+                padding: 3rem 1.2rem;
+            }
+            .section-header h2 {
+                font-size: 1.5rem;
+            }
+            .personal-grid {
+                grid-template-columns: 1fr;
+            }
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            .seaman-book-card {
+                flex-direction: column;
+                text-align: center;
+                padding: 1.5rem;
+            }
+            .sb-info {
+                flex-direction: column;
+                text-align: center;
+            }
+            .about-stats {
+                grid-template-columns: 1fr 1fr;
+                gap: 0.8rem;
+            }
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            .map-container iframe {
+                min-height: 260px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-name {
+                font-size: 1.6rem;
+            }
+            .hero-title {
+                font-size: 1rem;
+                letter-spacing: 1px;
+            }
+            .hero-photo {
+                width: 100px;
+                height: 100px;
+                font-size: 3rem;
+            }
+            .btn {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.8rem;
+            }
+            .about-stats {
+                grid-template-columns: 1fr;
+            }
+            .cert-card {
+                height: 220px;
+            }
+            .modal-box {
+                padding: 1.5rem;
+            }
+            .timeline-content {
+                padding: 0.9rem 1rem;
+            }
+        }
+
+        /* ============================================================
+                   MOBILE NAV OVERLAY
+                   ============================================================ */
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+        }
+        .nav-overlay.active {
+            opacity: 1;
+            pointer-events: all;
+        }
+
+        /* ============================================================
+                   SUCCESS ALERT
+                   ============================================================ */
+        .success-alert {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #28a745;
+            color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            z-index: 3000;
+            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.4);
+            transform: translateX(120%);
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+        }
+        .success-alert.show {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== PARTICLE CANVAS ==================== -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- ==================== NAV OVERLAY (mobile) ==================== -->
+    <div class="nav-overlay" id="navOverlay"></div>
+
+    <!-- ==================== STICKY NAVBAR ==================== -->
+    <nav class="navbar" role="navigation" aria-label="Navigasi utama">
+        <div class="brand">
+            <i class="fa-solid fa-anchor" aria-hidden="true"></i>
+            <span>IHN</span>
+        </div>
+        <ul class="nav-links" id="navLinks" role="menubar">
+            <li role="none"><a href="#beranda" role="menuitem" class="active">Beranda</a></li>
+            <li role="none"><a href="#tentang" role="menuitem">Tentang</a></li>
+            <li role="none"><a href="#data-pribadi" role="menuitem">Data Pribadi</a></li>
+            <li role="none"><a href="#dokumen" role="menuitem">Dokumen</a></li>
+            <li role="none"><a href="#timeline" role="menuitem">Timeline</a></li>
+            <li role="none"><a href="#kontak" role="menuitem">Kontak</a></li>
+            <li role="none">
+                <button class="theme-toggle" id="themeToggle" aria-label="Ganti mode gelap/terang" title="Toggle Dark/Light Mode">
+                    <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
+                </button>
+            </li>
+        </ul>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Buka menu navigasi" aria-expanded="false">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- ==================== MAIN CONTENT ==================== -->
+    <main>
+
+        <!-- ========== HERO SECTION ========== -->
+        <section class="hero" id="beranda">
+            <div class="hero-content">
+                <div class="hero-photo" aria-label="Foto profil placeholder">
+                    <i class="fa-solid fa-user" aria-hidden="true"></i>
+                </div>
+                <h1 class="hero-name">Ichrom Hadi Nugroho</h1>
+                <p class="hero-title"><i class="fa-solid fa-gears" aria-hidden="true"></i> Engine Department</p>
+                <p class="hero-subtitle">
+                    Profesional di bidang permesinan kapal dengan sertifikasi lengkap dan pengalaman
+                    dalam operasional mesin kapal. Siap berkontribusi dalam industri maritim.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#dokumen" class="btn btn-primary">
+                        <i class="fa-solid fa-certificate" aria-hidden="true"></i> Lihat Sertifikat
+                    </a>
+                    <a href="#kontak" class="btn btn-outline">
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i> Hubungi Saya
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== ABOUT SECTION ========== -->
+        <section class="section" id="tentang">
+            <div class="section-header reveal">
+                <div class="icon-circle"><i class="fa-solid fa-user-tie" aria-hidden="true"></i></div>
+                <h2>Tentang Saya</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="about-grid">
+                <div class="about-text reveal">
+                    <p>
+                        Saya adalah lulusan pendidikan pelayaran dengan fokus pada <strong>Engine Department</strong>.
+                        Memiliki sertifikasi <em>Rating Engine</em> dan berbagai sertifikat keahlian pendukung
+                        seperti BST, AFF, SAT, dan SDSD. Berdedikasi tinggi dalam menjaga performa mesin kapal
+                        dan memastikan keselamatan operasional.
+                    </p>
+                    <p>
+                        Dengan tinggi 180 cm dan kondisi fisik prima, saya siap bekerja dalam lingkungan
+                        maritim yang dinamis. Berdomisili di Purworejo, Jawa Tengah, dan terbuka untuk
+                        penempatan di seluruh wilayah Indonesia maupun internasional.
+                    </p>
+                    <p>
+                        Mengutamakan keselamatan, disiplin, dan kerja sama tim dalam setiap tugas.
+                        Berkomitmen untuk terus mengembangkan keterampilan teknis dan profesional
+                        di bidang permesinan kapal.
+                    </p>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card reveal reveal-delay-1">
+                        <div class="stat-icon"><i class="fa-solid fa-certificate" aria-hidden="true"></i></div>
+                        <div class="stat-number">4+</div>
+                        <div class="stat-label">Sertifikat Keahlian</div>
+                    </div>
+                    <div class="stat-card reveal reveal-delay-2">
+                        <div class="stat-icon"><i class="fa-solid fa-book" aria-hidden="true"></i></div>
+                        <div class="stat-number">1</div>
+                        <div class="stat-label">Buku Pelaut</div>
+                    </div>
+                    <div class="stat-card reveal reveal-delay-3">
+                        <div class="stat-icon"><i class="fa-solid fa-gear" aria-hidden="true"></i></div>
+                        <div class="stat-number">COC</div>
+                        <div class="stat-label">Rating Engine</div>
+                    </div>
+                    <div class="stat-card reveal reveal-delay-4">
+                        <div class="stat-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">Siap Bekerja</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== PERSONAL DATA SECTION ========== -->
+        <section class="section" id="data-pribadi">
+            <div class="section-header reveal">
+                <div class="icon-circle"><i class="fa-solid fa-address-card" aria-hidden="true"></i></div>
+                <h2>Data Pribadi</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="personal-grid">
+                <div class="personal-card reveal">
+                    <div class="p-icon"><i class="fa-solid fa-user" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Nama Lengkap</div><div class="p-value">Ichrom Hadi Nugroho</div></div>
+                </div>
+                <div class="personal-card reveal reveal-delay-1">
+                    <div class="p-icon"><i class="fa-solid fa-calendar" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Tempat / Tgl Lahir</div><div class="p-value">Purworejo, 15 Desember 2001</div></div>
+                </div>
+                <div class="personal-card reveal reveal-delay-2">
+                    <div class="p-icon"><i class="fa-solid fa-venus-mars" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Jenis Kelamin</div><div class="p-value">Laki-laki</div></div>
+                </div>
+                <div class="personal-card reveal">
+                    <div class="p-icon"><i class="fa-solid fa-star-and-crescent" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Agama</div><div class="p-value">Islam</div></div>
+                </div>
+                <div class="personal-card reveal reveal-delay-1">
+                    <div class="p-icon"><i class="fa-solid fa-ruler-vertical" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Tinggi / Berat</div><div class="p-value">180 cm / 69 kg</div></div>
+                </div>
+                <div class="personal-card reveal reveal-delay-2">
+                    <div class="p-icon"><i class="fa-solid fa-heart" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Status Perkawinan</div><div class="p-value">Belum Kawin</div></div>
+                </div>
+                <div class="personal-card reveal">
+                    <div class="p-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Alamat Tetap</div><div class="p-value">Lubang Sampang, Butuh, Purworejo, Jawa Tengah</div></div>
+                </div>
+                <div class="personal-card reveal reveal-delay-1">
+                    <div class="p-icon"><i class="fa-solid fa-flag" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Kewarganegaraan</div><div class="p-value">Indonesia</div></div>
+                </div>
+                <div class="personal-card reveal reveal-delay-2">
+                    <div class="p-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Telepon</div><div class="p-value">+62 857-4902-9600</div></div>
+                </div>
+                <div class="personal-card reveal">
+                    <div class="p-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></div>
+                    <div><div class="p-label">Email</div><div class="p-value">Ichromputeramahessa@gmail.com</div></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== DOCUMENTS & CERTIFICATES SECTION ========== -->
+        <section class="section" id="dokumen">
+            <div class="section-header reveal">
+                <div class="icon-circle"><i class="fa-solid fa-file-shield" aria-hidden="true"></i></div>
+                <h2>Dokumen & Sertifikat</h2>
+                <div class="divider"></div>
+            </div>
+
+            <!-- Seaman Book -->
+            <div class="doc-section-title reveal">
+                <i class="fa-solid fa-book-open" aria-hidden="true"></i> Buku Pelaut (Seaman Book)
+            </div>
+            <div class="seaman-book-card reveal">
+                <div class="sb-info">
+                    <div class="sb-icon"><i class="fa-solid fa-book" aria-hidden="true"></i></div>
+                    <div class="sb-text">
+                        <h3>Buku Pelaut - Seaman Book</h3>
+                        <p><strong>Nomor:</strong> M060320 &nbsp;|&nbsp; <strong>Dikeluarkan di:</strong> Semarang</p>
+                        <p><strong>Tanggal Terbit:</strong> 04 Agustus 2026 &nbsp;|&nbsp; <strong>Berlaku s.d.:</strong> 04 Agustus 2029</p>
+                    </div>
+                </div>
+                <div class="sb-badge"><i class="fa-solid fa-check-circle" aria-hidden="true"></i> Aktif</div>
+            </div>
+
+            <!-- Certificate of Competency (COC) -->
+            <div class="doc-section-title reveal">
+                <i class="fa-solid fa-gears" aria-hidden="true"></i> Sertifikat Kompetensi (COC)
+            </div>
+            <div class="cert-grid">
+                <div class="cert-card reveal" data-cert="coc" tabindex="0" role="button" aria-label="Klik untuk detail Rating Engine">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-face front">
+                            <div class="cert-icon gold"><i class="fa-solid fa-gear" aria-hidden="true"></i></div>
+                            <div class="cert-name">Rating Engine</div>
+                            <div class="cert-place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Semarang, 04 Mei 2026</div>
+                            <div class="cert-hint">Klik untuk detail <i class="fa-solid fa-rotate" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="cert-card-face back">
+                            <div class="cert-icon gold" style="background:rgba(212,168,67,0.2);color:#e8c86a;">
+                                <i class="fa-solid fa-gear" aria-hidden="true"></i>
+                            </div>
+                            <strong style="font-size:1rem;">Rating Engine</strong>
+                            <div class="cert-serial">Nomor: CP82949496212535552350326</div>
+                            <div class="cert-date">Semarang, 04 Mei 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificate of Proficiency -->
+            <div class="doc-section-title reveal">
+                <i class="fa-solid fa-certificate" aria-hidden="true"></i> Sertifikat Keahlian (Certificate of Proficiency)
+            </div>
+            <div class="cert-grid">
+                <!-- BST -->
+                <div class="cert-card reveal" data-cert="bst" tabindex="0" role="button" aria-label="Klik untuk detail BST">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-face front">
+                            <div class="cert-icon blue"><i class="fa-solid fa-life-ring" aria-hidden="true"></i></div>
+                            <div class="cert-name">BST</div>
+                            <div class="cert-place">Basic Safety Training</div>
+                            <div class="cert-place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Semarang, 15 Juli 2025</div>
+                            <div class="cert-hint">Klik untuk detail <i class="fa-solid fa-rotate" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="cert-card-face back">
+                            <div class="cert-icon blue" style="background:rgba(30,144,255,0.2);color:#5bb0ff;">
+                                <i class="fa-solid fa-life-ring" aria-hidden="true"></i>
+                            </div>
+                            <strong style="font-size:1rem;">BST - Basic Safety Training</strong>
+                            <div class="cert-serial">Serial: CP 82950146212535552010326</div>
+                            <div class="cert-date">Semarang, 15 Juli 2025</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SAT -->
+                <div class="cert-card reveal reveal-delay-1" data-cert="sat" tabindex="0" role="button" aria-label="Klik untuk detail SAT">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-face front">
+                            <div class="cert-icon green"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
+                            <div class="cert-name">SAT</div>
+                            <div class="cert-place">Security Awareness Training</div>
+                            <div class="cert-place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Semarang, 29 Juli 2025</div>
+                            <div class="cert-hint">Klik untuk detail <i class="fa-solid fa-rotate" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="cert-card-face back">
+                            <div class="cert-icon green" style="background:rgba(40,167,69,0.2);color:#5ddb7a;">
+                                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                            </div>
+                            <strong style="font-size:1rem;">SAT - Security Awareness Training</strong>
+                            <div class="cert-serial">Serial: CP 73605326212535552310325</div>
+                            <div class="cert-date">Semarang, 29 Juli 2025</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AFF -->
+                <div class="cert-card reveal reveal-delay-2" data-cert="aff" tabindex="0" role="button" aria-label="Klik untuk detail AFF">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-face front">
+                            <div class="cert-icon red"><i class="fa-solid fa-fire-extinguisher" aria-hidden="true"></i></div>
+                            <div class="cert-name">AFF</div>
+                            <div class="cert-place">Advanced Fire Fighting</div>
+                            <div class="cert-place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Semarang, 28 Juli 2025</div>
+                            <div class="cert-hint">Klik untuk detail <i class="fa-solid fa-rotate" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="cert-card-face back">
+                            <div class="cert-icon red" style="background:rgba(255,80,80,0.2);color:#ff8080;">
+                                <i class="fa-solid fa-fire-extinguisher" aria-hidden="true"></i>
+                            </div>
+                            <strong style="font-size:1rem;">AFF - Advanced Fire Fighting</strong>
+                            <div class="cert-serial">Serial: CP 73615786212535552060325</div>
+                            <div class="cert-date">Semarang, 28 Juli 2025</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SDSD -->
+                <div class="cert-card reveal reveal-delay-3" data-cert="sdsd" tabindex="0" role="button" aria-label="Klik untuk detail SDSD">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-face front">
+                            <div class="cert-icon purple"><i class="fa-solid fa-lock" aria-hidden="true"></i></div>
+                            <div class="cert-name">SDSD</div>
+                            <div class="cert-place">Ship Security Duties</div>
+                            <div class="cert-place"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Semarang, 10 Maret 2026</div>
+                            <div class="cert-hint">Klik untuk detail <i class="fa-solid fa-rotate" aria-hidden="true"></i></div>
+                        </div>
+                        <div class="cert-card-face back">
+                            <div class="cert-icon purple" style="background:rgba(155,89,182,0.2);color:#c39bd3;">
+                                <i class="fa-solid fa-lock" aria-hidden="true"></i>
+                            </div>
+                            <strong style="font-size:1rem;">SDSD - Ship Security Duties</strong>
+                            <div class="cert-serial">Serial: CP 80463156212535552320326</div>
+                            <div class="cert-date">Semarang, 10 Maret 2026</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Link -->
+            <div style="text-align:center;margin-top:2rem;" class="reveal">
+                <a href="https://www.pelaut.dephub.go.id" target="_blank" rel="noopener noreferrer" class="verification-link">
+                    <i class="fa-solid fa-check-shield" aria-hidden="true"></i>
+                    Verifikasi Sertifikat di www.pelaut.dephub.go.id
+                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- ========== TIMELINE SECTION ========== -->
+        <section class="section" id="timeline">
+            <div class="section-header reveal">
+                <div class="icon-circle"><i class="fa-solid fa-timeline" aria-hidden="true"></i></div>
+                <h2>Timeline Penerbitan</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="timeline-container reveal">
+                <div class="timeline-line" aria-hidden="true"></div>
+                <!-- AFF -->
+                <div class="timeline-item">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <div class="timeline-content">
+                        <h4>AFF - Advanced Fire Fighting</h4>
+                        <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> 28 Juli 2025</div>
+                        <div class="tl-desc">Semarang</div>
+                    </div>
+                </div>
+                <!-- BST -->
+                <div class="timeline-item">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <div class="timeline-content">
+                        <h4>BST - Basic Safety Training</h4>
+                        <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> 15 Juli 2025</div>
+                        <div class="tl-desc">Semarang</div>
+                    </div>
+                </div>
+                <!-- SAT -->
+                <div class="timeline-item">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <div class="timeline-content">
+                        <h4>SAT - Security Awareness Training</h4>
+                        <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> 29 Juli 2025</div>
+                        <div class="tl-desc">Semarang</div>
+                    </div>
+                </div>
+                <!-- SDSD -->
+                <div class="timeline-item">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <div class="timeline-content">
+                        <h4>SDSD - Ship Security Duties</h4>
+                        <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> 10 Maret 2026</div>
+                        <div class="tl-desc">Semarang</div>
+                    </div>
+                </div>
+                <!-- COC -->
+                <div class="timeline-item">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <div class="timeline-content">
+                        <h4>COC - Rating Engine</h4>
+                        <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> 04 Mei 2026</div>
+                        <div class="tl-desc">Semarang</div>
+                    </div>
+                </div>
+                <!-- Seaman Book -->
+                <div class="timeline-item">
+                    <div class="timeline-dot" aria-hidden="true"></div>
+                    <div class="timeline-content">
+                        <h4>Buku Pelaut (Seaman Book)</h4>
+                        <div class="tl-date"><i class="fa-regular fa-calendar" aria-hidden="true"></i> 04 Agustus 2026</div>
+                        <div class="tl-desc">Berlaku hingga 04 Agustus 2029</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ========== CONTACT SECTION ========== -->
+        <section class="section" id="kontak">
+            <div class="section-header reveal">
+                <div class="icon-circle"><i class="fa-solid fa-paper-plane" aria-hidden="true"></i></div>
+                <h2>Hubungi Saya</h2>
+                <div class="divider"></div>
+            </div>
+            <div class="contact-grid">
+                <!-- Contact Form -->
+                <div class="contact-form reveal">
+                    <form id="contactForm" novalidate>
+                        <div class="form-group">
+                            <label for="formName">Nama Lengkap</label>
+                            <input type="text" id="formName" name="name" placeholder="Masukkan nama Anda" required minlength="3" aria-required="true">
+                            <div class="error-message" id="nameError">Nama minimal 3 karakter.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="formEmail">Email</label>
+                            <input type="email" id="formEmail" name="email" placeholder="nama@email.com" required aria-required="true">
+                            <div class="error-message" id="emailError">Masukkan alamat email yang valid.</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="formMessage">Pesan</label>
+                            <textarea id="formMessage" name="message" rows="5" placeholder="Tulis pesan Anda..." required minlength="10" aria-required="true"></textarea>
+                            <div class="error-message" id="messageError">Pesan minimal 10 karakter.</div>
+                        </div>
+                        <button type="submit" class="btn-submit">
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Kirim Pesan
+                        </button>
+                    </form>
+                </div>
+                <!-- Map -->
+                <div class="map-container reveal reveal-delay-1">
+                    <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63320.778947176!2d109.95!3d-7.7167!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7af2b17b2d9d6d%3A0x4f24e53a28e9de22!2sPurworejo%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    title="Peta Lokasi Purworejo, Jawa Tengah"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" id="footer">
+    <div class="footer-content">
+        <div class="footer-info">
+            <h3>Ichrom Hadi Nugroho</h3>
+            <p><i class="fa-solid fa-gears" aria-hidden="true"></i> Engine Department</p>
+            <p style="margin-top:0.3rem;">
+                <i class="fa-solid fa-envelope" aria-hidden="true"></i> Ichromputeramahessa@gmail.com &nbsp;|&nbsp;
+                <i class="fa-solid fa-phone" aria-hidden="true"></i> +62 857-4902-9600
+            </p>
+        </div>
+        <div class="footer-clock" id="footerClock" aria-live="polite">
+            <i class="fa-solid fa-clock" aria-hidden="true"></i>
+            <span id="clockText">--:--:--</span>
+            <span id="dateText" style="font-size:0.8rem;opacity:0.7;"></span>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2026 Ichrom Hadi Nugroho &mdash; Dibuat dengan <i class="fa-solid fa-heart" style="color:#ff5050;" aria-hidden="true"></i> untuk portofolio profesional
+    </div>
+</footer>
+
+<!-- ==================== MODAL ==================== -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-box">
+        <button class="modal-close" id="modalClose" aria-label="Tutup detail">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <div class="modal-icon" id="modalIcon">
+            <i class="fa-solid fa-certificate" aria-hidden="true"></i>
+        </div>
+        <h3 id="modalTitle">Detail Sertifikat</h3>
+        <div id="modalBody"></div>
+    </div>
+</div>
+
+<!-- ==================== SUCCESS ALERT ==================== -->
+<div class="success-alert" id="successAlert" role="alert">
+    <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+    <span>Pesan berhasil dikirim! Terima kasih.</span>
+</div>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+    (function() {
+        'use strict';
+
+        // ============================================================
+        // THEME TOGGLE (Dark/Light Mode)
+        // ============================================================
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = document.getElementById('themeIcon');
+        const root = document.documentElement;
+
+        // Check saved theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        root.setAttribute('data-theme', savedTheme);
+        updateThemeIcon(savedTheme);
+
+        themeToggle.addEventListener('click', function() {
+            const current = root.getAttribute('data-theme');
+            const next = current === 'light' ? 'dark' : 'light';
+            root.setAttribute('data-theme', next);
+            localStorage.setItem('theme', next);
+            updateThemeIcon(next);
+        });
+
+        function updateThemeIcon(theme) {
+            if (theme === 'dark') {
+                themeIcon.className = 'fa-solid fa-sun';
+                themeToggle.setAttribute('aria-label', 'Ganti ke mode terang');
+                themeToggle.title = 'Ganti ke mode terang';
+            } else {
+                themeIcon.className = 'fa-solid fa-moon';
+                themeToggle.setAttribute('aria-label', 'Ganti ke mode gelap');
+                themeToggle.title = 'Ganti ke mode gelap';
+            }
+        }
+
+        // ============================================================
+        // MOBILE NAVIGATION
+        // ============================================================
+        const hamburgerBtn = document.getElementById('hamburgerBtn');
+        const navLinks = document.getElementById('navLinks');
+        const navOverlay = document.getElementById('navOverlay');
+
+        hamburgerBtn.addEventListener('click', function() {
+            const isOpen = navLinks.classList.toggle('open');
+            hamburgerBtn.classList.toggle('active', isOpen);
+            navOverlay.classList.toggle('active', isOpen);
+            hamburgerBtn.setAttribute('aria-expanded', isOpen);
+            document.body.style.overflow = isOpen ? 'hidden' : '';
+        });
+
+        navOverlay.addEventListener('click', closeNav);
+        navLinks.querySelectorAll('a').forEach(function(link) {
+            link.addEventListener('click', closeNav);
+        });
+
+        function closeNav() {
+            navLinks.classList.remove('open');
+            hamburgerBtn.classList.remove('active');
+            navOverlay.classList.remove('active');
+            hamburgerBtn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        // ============================================================
+        // ACTIVE NAV LINK ON SCROLL
+        // ============================================================
+        const sections = document.querySelectorAll('section[id], main > section[id]');
+        const navAnchors = document.querySelectorAll('.nav-links a[href^="#"]');
+
+        window.addEventListener('scroll', function() {
+            let current = '';
+            sections.forEach(function(section) {
+                const top = section.offsetTop - 100;
+                if (window.scrollY >= top) {
+                    current = section.getAttribute('id');
+                }
+            });
+            navAnchors.forEach(function(anchor) {
+                anchor.classList.toggle('active', anchor.getAttribute('href') === '#' + current);
+            });
+        });
+
+        // ============================================================
+        // SCROLL REVEAL (Intersection Observer)
+        // ============================================================
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver(function(entries) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, {
+            threshold: 0.15,
+            rootMargin: '0px 0px -30px 0px'
+        });
+
+        revealElements.forEach(function(el) {
+            revealObserver.observe(el);
+        });
+
+        // ============================================================
+        // PARTICLE CANVAS BACKGROUND
+        // ============================================================
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let animationId;
+        let canvasWidth, canvasHeight;
+
+        function resizeCanvas() {
+            canvasWidth = canvas.width = window.innerWidth;
+            canvasHeight = canvas.height = window.innerHeight;
+        }
+
+        function createParticles(count) {
+            particles = [];
+            for (let i = 0; i < count; i++) {
+                particles.push({
+                    x: Math.random() * canvasWidth,
+                    y: Math.random() * canvasHeight,
+                    radius: Math.random() * 3 + 1,
+                    speedY: Math.random() * 0.3 + 0.1,
+                    speedX: (Math.random() - 0.5) * 0.15,
+                    opacity: Math.random() * 0.5 + 0.2,
+                    drift: Math.random() * Math.PI * 2
+                });
+            }
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+            const isDark = root.getAttribute('data-theme') === 'dark';
+            const baseColor = isDark ? '180, 210, 240' : '10, 47, 68';
+            const baseAlpha = isDark ? 0.5 : 0.3;
+
+            particles.forEach(function(p) {
+                p.y -= p.speedY;
+                p.drift += 0.01;
+                p.x += p.speedX + Math.sin(p.drift) * 0.15;
+
+                if (p.y < -10) {
+                    p.y = canvasHeight + 10;
+                    p.x = Math.random() * canvasWidth;
+                }
+                if (p.x < -10) p.x = canvasWidth + 10;
+                if (p.x > canvasWidth + 10) p.x = -10;
+
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + baseColor + ', ' + (p.opacity * baseAlpha) + ')';
+                ctx.fill();
+
+                // Subtle glow
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.radius * 2, 0, Math.PI * 2);
+                ctx.fillStyle = 'rgba(' + baseColor + ', ' + (p.opacity * baseAlpha * 0.25) + ')';
+                ctx.fill();
+            });
+
+            animationId = requestAnimationFrame(animateParticles);
+        }
+
+        window.addEventListener('resize', function() {
+            resizeCanvas();
+            createParticles(Math.floor(canvasWidth / 18));
+        });
+
+        resizeCanvas();
+        createParticles(Math.floor(canvasWidth / 18));
+        animateParticles();
+
+        // ============================================================
+        // CERTIFICATE FLIP CARDS (click to flip on all devices)
+        // ============================================================
+        const certCards = document.querySelectorAll('.cert-card');
+        certCards.forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                // Don't flip if user clicked on a link inside (shouldn't happen)
+                if (e.target.closest('a')) return;
+                card.classList.toggle('flipped');
+            });
+            card.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.classList.toggle('flipped');
+                }
+            });
+        });
+
+        // ============================================================
+        // MODAL SYSTEM
+        // ============================================================
+        const modalOverlay = document.getElementById('modalOverlay');
+        const modalClose = document.getElementById('modalClose');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalBody = document.getElementById('modalBody');
+        const modalIcon = document.getElementById('modalIcon');
+
+        // Certificate data for modal
+        const certData = {
+            coc: {
+                title: 'Rating Engine (COC)',
+                icon: 'fa-solid fa-gear',
+                iconColor: '#d4a843',
+                iconBg: 'rgba(212,168,67,0.15)',
+                details: [
+                    { label: 'Jenis', value: 'Certificate of Competency' },
+                    { label: 'Nomor Sertifikat', value: 'CP82949496212535552350326' },
+                    { label: 'Dikeluarkan di', value: 'Semarang' },
+                    { label: 'Tanggal Terbit', value: '04 Mei 2026' }
+                ]
+            },
+            bst: {
+                title: 'BST - Basic Safety Training',
+                icon: 'fa-solid fa-life-ring',
+                iconColor: '#1e90ff',
+                iconBg: 'rgba(30,144,255,0.15)',
+                details: [
+                    { label: 'Jenis', value: 'Certificate of Proficiency' },
+                    { label: 'Serial', value: 'CP 82950146212535552010326' },
+                    { label: 'Dikeluarkan di', value: 'Semarang' },
+                    { label: 'Tanggal Terbit', value: '15 Juli 2025' }
+                ]
+            },
+            sat: {
+                title: 'SAT - Security Awareness Training',
+                icon: 'fa-solid fa-shield-halved',
+                iconColor: '#28a745',
+                iconBg: 'rgba(40,167,69,0.15)',
+                details: [
+                    { label: 'Jenis', value: 'Certificate of Proficiency' },
+                    { label: 'Serial', value: 'CP 73605326212535552310325' },
+                    { label: 'Dikeluarkan di', value: 'Semarang' },
+                    { label: 'Tanggal Terbit', value: '29 Juli 2025' }
+                ]
+            },
+            aff: {
+                title: 'AFF - Advanced Fire Fighting',
+                icon: 'fa-solid fa-fire-extinguisher',
+                iconColor: '#ff5050',
+                iconBg: 'rgba(255,80,80,0.15)',
+                details: [
+                    { label: 'Jenis', value: 'Certificate of Proficiency' },
+                    { label: 'Serial', value: 'CP 73615786212535552060325' },
+                    { label: 'Dikeluarkan di', value: 'Semarang' },
+                    { label: 'Tanggal Terbit', value: '28 Juli 2025' }
+                ]
+            },
+            sdsd: {
+                title: 'SDSD - Ship Security Duties',
+                icon: 'fa-solid fa-lock',
+                iconColor: '#9b59b6',
+                iconBg: 'rgba(155,89,182,0.15)',
+                details: [
+                    { label: 'Jenis', value: 'Certificate of Proficiency' },
+                    { label: 'Serial', value: 'CP 80463156212535552320326' },
+                    { label: 'Dikeluarkan di', value: 'Semarang' },
+                    { label: 'Tanggal Terbit', value: '10 Maret 2026' }
+                ]
+            }
+        };
+
+        certCards.forEach(function(card) {
+            card.addEventListener('dblclick', function(e) {
+                e.preventDefault();
+                const certKey = card.getAttribute('data-cert');
+                if (certKey && certData[certKey]) {
+                    openModal(certData[certKey]);
+                }
+            });
+        });
+
+        // Also open modal on "back" face click after flip
+        certCards.forEach(function(card) {
+            card.addEventListener('click', function(e) {
+                // Check if card is already flipped and user clicked on back
+                if (card.classList.contains('flipped') && e.target.closest('.cert-card-face.back')) {
+                    const certKey = card.getAttribute('data-cert');
+                    if (certKey && certData[certKey]) {
+                        openModal(certData[certKey]);
+                    }
+                }
+            });
+        });
+
+        function openModal(data) {
+            modalTitle.textContent = data.title;
+            modalIcon.innerHTML = '<i class="' + data.icon + '" aria-hidden="true"></i>';
+            modalIcon.style.background = data.iconBg;
+            modalIcon.style.color = data.iconColor;
+
+            let html = '';
+            data.details.forEach(function(d) {
+                html += '<p class="modal-detail"><strong>' + d.label + ':</strong> ' + d.value + '</p>';
+            });
+            modalBody.innerHTML = html;
+            modalOverlay.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            modalOverlay.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modalOverlay.addEventListener('click', function(e) {
+            if (e.target === modalOverlay) closeModal();
+        });
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // ============================================================
+        // CONTACT FORM VALIDATION
+        // ============================================================
+        const contactForm = document.getElementById('contactForm');
+        const nameInput = document.getElementById('formName');
+        const emailInput = document.getElementById('formEmail');
+        const messageInput = document.getElementById('formMessage');
+        const successAlert = document.getElementById('successAlert');
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function setError(input, errorId, condition) {
+            const errorEl = document.getElementById(errorId);
+            if (!condition) {
+                input.classList.add('error');
+                errorEl.classList.add('show');
+                return false;
+            } else {
+                input.classList.remove('error');
+                errorEl.classList.remove('show');
+                return true;
+            }
+        }
+
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            let isValid = true;
+
+            const nameValid = setError(nameInput, 'nameError', nameInput.value.trim().length >= 3);
+            const emailValid = setError(emailInput, 'emailError', validateEmail(emailInput.value.trim()));
+            const messageValid = setError(messageInput, 'messageError', messageInput.value.trim().length >= 10);
+
+            isValid = nameValid && emailValid && messageValid;
+
+            if (isValid) {
+                // Simulate successful submission
+                successAlert.classList.add('show');
+                contactForm.reset();
+                // Hide alert after 4 seconds
+                setTimeout(function() {
+                    successAlert.classList.remove('show');
+                }, 4000);
+            }
+        });
+
+        // Real-time validation feedback
+        nameInput.addEventListener('input', function() {
+            if (nameInput.value.trim().length >= 3) {
+                nameInput.classList.remove('error');
+                document.getElementById('nameError').classList.remove('show');
+            }
+        });
+        emailInput.addEventListener('input', function() {
+            if (validateEmail(emailInput.value.trim())) {
+                emailInput.classList.remove('error');
+                document.getElementById('emailError').classList.remove('show');
+            }
+        });
+        messageInput.addEventListener('input', function() {
+            if (messageInput.value.trim().length >= 10) {
+                messageInput.classList.remove('error');
+                document.getElementById('messageError').classList.remove('show');
+            }
+        });
+
+        // ============================================================
+        // REAL-TIME CLOCK IN FOOTER
+        // ============================================================
+        const clockText = document.getElementById('clockText');
+        const dateText = document.getElementById('dateText');
+
+        function updateClock() {
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            clockText.textContent = hours + ':' + minutes + ':' + seconds;
+
+            const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            dateText.textContent = ' | ' + now.toLocaleDateString('id-ID', options);
+        }
+
+        updateClock();
+        setInterval(updateClock, 1000);
+
+        // ============================================================
+        // SMOOTH SCROLL FOR ANCHOR LINKS (enhancement)
+        // ============================================================
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+            anchor.addEventListener('click', function(e) {
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                const targetEl = document.querySelector(targetId);
+                if (targetEl) {
+                    e.preventDefault();
+                    targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        console.log('✅ CV Portfolio - Ichrom Hadi Nugroho | Fully Loaded');
+        console.log('📜 Tema:', savedTheme === 'dark' ? 'Gelap' : 'Terang');
+        console.log('🔗 Verifikasi sertifikat: www.pelaut.dephub.go.id');
+    })();
+</script>
+</body>
+</html>
