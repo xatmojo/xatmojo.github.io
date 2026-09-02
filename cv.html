@@ -1,2060 +1,455 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="light">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tri Mulyo Atmojo - Profesional Portfolio CV</title>
+    <title>Tri Mulyo Atmojo – Curriculum Vitae</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- ==================== CDN LINKS ==================== -->
-    <!-- Google Fonts: Poppins -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-
-    <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <!-- Font Awesome -->
+    <script src="https://kit.fontawesome.com/2d6e8c5b71.js" crossorigin="anonymous"></script>
     <!-- AOS (Animate On Scroll) -->
-    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css">
+    <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet">
+    <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+    <!-- Particles.js -->
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
-    <!-- ==================== STYLES ==================== -->
     <style>
-        /* ============ CSS VARIABLES (Light/Dark Mode) ============ */
         :root {
-            --primary: #0a2f44;
-            --primary-light: #0d3b54;
-            --primary-dark: #071e2c;
-            --accent: #1e90ff;
-            --accent-hover: #187bdb;
-            --accent-gold: #d4a94e;
-            --accent-gold-light: #e8c97a;
-            --bg: #f8f9fa;
-            --bg-alt: #eef1f5;
-            --bg-card: #ffffff;
-            --bg-card-hover: #f0f4f8;
-            --text: #2d3436;
-            --text-secondary: #555f6b;
-            --text-muted: #8a94a0;
-            --border: #e0e4e8;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
-            --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.1);
-            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.15);
-            --shadow-glow: 0 0 25px rgba(30, 144, 255, 0.35);
-            --nav-bg: rgba(10, 47, 68, 0.95);
-            --nav-text: #ffffff;
-            --footer-bg: #071e2c;
-            --flip-front-bg: #ffffff;
-            --flip-back-bg: #0a2f44;
-            --flip-back-text: #ffffff;
-            --input-bg: #ffffff;
-            --input-border: #d0d5da;
-            --input-focus: #1e90ff;
-            --modal-overlay: rgba(0, 0, 0, 0.6);
-            --timeline-line: #1e90ff;
-            --badge-bg: #0a2f44;
-            --badge-text: #ffffff;
-            --transition-speed: 0.3s;
+            --primary:#0a2f44;      /* dark navy */
+            --accent:#1e90ff;       /* bright blue */
+            --bg-light:#f5f8fa;
+            --text:#212529;
+            --card-bg:#fff;
         }
-
         [data-theme="dark"] {
-            --primary: #1a4a6e;
-            --primary-light: #225a82;
-            --primary-dark: #0a1a24;
-            --accent: #4da6ff;
-            --accent-hover: #66b3ff;
-            --accent-gold: #e0b84c;
-            --accent-gold-light: #f0cf7a;
-            --bg: #0d1117;
-            --bg-alt: #161b22;
-            --bg-card: #1c2333;
-            --bg-card-hover: #242e42;
-            --text: #e8ecf0;
-            --text-secondary: #b0b8c4;
-            --text-muted: #6b7686;
-            --border: #2d3545;
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
-            --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.4);
-            --shadow-lg: 0 15px 40px rgba(0, 0, 0, 0.5);
-            --shadow-glow: 0 0 25px rgba(77, 166, 255, 0.25);
-            --nav-bg: rgba(7, 30, 44, 0.97);
-            --nav-text: #ffffff;
-            --footer-bg: #050d14;
-            --flip-front-bg: #1c2333;
-            --flip-back-bg: #0a2f44;
-            --flip-back-text: #ffffff;
-            --input-bg: #1c2333;
-            --input-border: #3a4556;
-            --input-focus: #4da6ff;
-            --modal-overlay: rgba(0, 0, 0, 0.75);
-            --timeline-line: #4da6ff;
-            --badge-bg: #1a4a6e;
-            --badge-text: #ffffff;
+            --primary:#0a2f44;
+            --accent:#1e90ff;
+            --bg-light:#111d26;
+            --text:#e0e0e0;
+            --card-bg:#1a2836;
         }
 
-        /* ============ GLOBAL RESET & BASE ============ */
-        *,
-        *::before,
-        *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        *{box-sizing:border-box; margin:0; padding:0;}
+        body{
+            font-family:'Poppins',sans-serif;
+            background:var(--bg-light);
+            color:var(--text);
+            line-height:1.6;
+            overflow-x:hidden;
+        }
+        a{color:var(--accent); text-decoration:none;}
+        a:hover{opacity:0.8;}
+
+        /* ----- Header & Nav ----- */
+        header{
+            position:sticky; top:0; z-index:1000;
+            background:rgba(255,255,255,0.9);
+            backdrop-filter:blur(8px);
+            box-shadow:0 2px 4px rgba(0,0,0,0.1);
+        }
+        .nav{
+            display:flex; justify-content:space-between; align-items:center;
+            max-width:1200px; margin:auto; padding:0.8rem 1rem;
+        }
+        .nav .logo{
+            font-weight:600; font-size:1.2rem; color:var(--primary);
+        }
+        .nav ul{
+            display:flex; gap:1rem; list-style:none;
+        }
+        .nav ul li a{padding:0.4rem 0.8rem; font-weight:500;}
+        .nav .hamburger{
+            display:none; font-size:1.5rem; cursor:pointer;
         }
 
-        html {
-            scroll-behavior: smooth;
-            scroll-padding-top: 70px;
-            font-size: 16px;
+        /* ----- Hero ----- */
+        .hero{
+            position:relative; padding:4rem 1rem; text-align:center;
+            background:linear-gradient(135deg,var(--primary),#0b4b66);
+            color:#fff;
+        }
+        .hero .profile-pic{
+            width:140px; height:140px; border-radius:50%;
+            background:#ccc url('https://cdn.jsdelivr.net/npm/@iconify-icons/mdi/account.svg') center/70% no-repeat;
+            margin:auto;
+            border:4px solid var(--accent);
+        }
+        .hero h1{margin-top:1rem; font-size:2rem; font-weight:600;}
+        .hero h2{font-weight:300; margin-top:0.4rem;}
+
+        /* ----- Sections ----- */
+        .section{
+            max-width:1200px; margin:auto; padding:3rem 1rem;
+        }
+        .section-title{
+            font-size:1.8rem; margin-bottom:1.5rem; color:var(--primary);
+            border-left:4px solid var(--accent);
+            padding-left:0.8rem;
         }
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.7;
-            transition: background-color var(--transition-speed) ease,
-                color var(--transition-speed) ease;
-            overflow-x: hidden;
+        .grid{
+            display:grid; gap:1.5rem;
+        }
+        .grid-2{grid-template-columns:repeat(auto-fit,minmax(260px,1fr));}
+        .card{
+            background:var(--card-bg);
+            border-radius:12px; padding:1.5rem;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+            transition:transform .3s,box-shadow .3s;
+        }
+        .card:hover{
+            transform:translateY(-4px);
+            box-shadow:0 8px 20px rgba(0,0,0,0.15);
         }
 
-        a {
-            text-decoration: none;
-            color: var(--accent);
-            transition: color var(--transition-speed) ease;
+        .cert-card{
+            perspective:1000px;
         }
-        a:hover {
-            color: var(--accent-hover);
+        .cert-inner{
+            position:relative; width:100%; height:100%;
+            transition:transform .6s;
+            transform-style:preserve-3d;
         }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
+        .cert-card:hover .cert-inner{transform:rotateY(180deg);}
+        .cert-front,.cert-back{
+            position:absolute; width:100%; height:100%;
+            backface-visibility:hidden; border-radius:12px;
+            display:flex; flex-direction:column; justify-content:center; align-items:center;
+            padding:1rem;
         }
-
-        ul {
-            list-style: none;
+        .cert-front{
+            background:#fff;
         }
-
-        /* ============ SCROLLBAR STYLING ============ */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .cert-back{
+            background:#f0f8ff;
+            transform:rotateY(180deg);
         }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-alt);
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--primary);
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent);
+        .badge{
+            font-size:2rem; margin-bottom:0.5rem;
+            color:var(--accent);
         }
 
-        /* ============ NAVIGATION ============ */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background: var(--nav-bg);
-            padding: 0 24px;
-            height: 70px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            transition: all var(--transition-speed) ease;
+        /* ----- Timeline ----- */
+        .timeline{
+            position:relative; padding-left:2rem;
+        }
+        .timeline::before{
+            content:''; position:absolute; left:0; top:0; width:4px;
+            height:100%; background:var(--accent);
+            border-radius:2px;
+        }
+        .timeline-item{
+            margin-bottom:1.5rem;
+        }
+        .timeline-item::before{
+            content:''; position:absolute; left:-6px; top:0;
+            width:12px; height:12px; background:var(--primary);
+            border:3px solid var(--accent);
+            border-radius:50%;
+        }
+        .timeline-content{
+            background:var(--card-bg);
+            padding:0.8rem 1rem; border-radius:8px;
         }
 
-        .navbar .logo {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 0.5px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
+        /* ----- Footer ----- */
+        footer{
+            background:var(--primary);
+            color:#fff; padding:2rem 1rem;
+            text-align:center; position:relative;
         }
-        .navbar .logo i {
-            color: var(--accent-gold);
-            font-size: 1.5rem;
-        }
-        .navbar .logo span {
-            background: linear-gradient(135deg, #fff 60%, var(--accent-gold));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .footer-content{max-width:800px; margin:auto;}
+        .online-status{
+            margin-top:0.5rem;
+            font-size:0.9rem;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 6px;
-            align-items: center;
+        /* ----- Contact Form ----- */
+        .contact-form{
+            display:flex; flex-direction:column; gap:0.8rem;
         }
-        .nav-links a {
-            color: rgba(255, 255, 255, 0.85);
-            padding: 8px 16px;
-            border-radius: 8px;
-            font-size: 0.85rem;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            transition: all var(--transition-speed) ease;
-            position: relative;
+        .contact-form input,
+        .contact-form textarea{
+            padding:0.6rem; border:1px solid #ccc;
+            border-radius:6px; font-family:inherit;
         }
-        .nav-links a:hover,
-        .nav-links a.active {
-            color: #fff;
-            background: rgba(255, 255, 255, 0.12);
-            transform: translateY(-1px);
+        .contact-form button{
+            background:var(--accent);
+            color:#fff; border:none; padding:0.8rem;
+            border-radius:6px; cursor:pointer;
+            transition:background .3s;
         }
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 0;
-            height: 2px;
-            background: var(--accent-gold);
-            border-radius: 1px;
-            transition: width var(--transition-speed) ease;
-        }
-        .nav-links a:hover::after,
-        .nav-links a.active::after {
-            width: 60%;
+        .contact-form button:hover{
+            background:#1a78d6;
         }
 
-        /* Theme toggle button */
-        .theme-toggle {
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            color: #fff;
-            width: 42px;
-            height: 42px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            transition: all var(--transition-speed) ease;
-            margin-left: 8px;
-        }
-        .theme-toggle:hover {
-            background: rgba(255, 255, 255, 0.22);
-            transform: rotate(20deg);
+        /* ----- Dark/Light toggle ----- */
+        .theme-toggle{
+            cursor:pointer; font-size:1.4rem; color:var(--primary);
         }
 
-        /* Hamburger menu */
-        .hamburger {
-            display: none;
-            background: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 8px;
-            z-index: 1001;
-        }
-        .hamburger .bar {
-            display: block;
-            width: 26px;
-            height: 3px;
-            margin: 5px auto;
-            background: #fff;
-            border-radius: 2px;
-            transition: all var(--transition-speed) ease;
-        }
-        .hamburger.active .bar:nth-child(1) {
-            transform: translateY(8px) rotate(45deg);
-        }
-        .hamburger.active .bar:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active .bar:nth-child(3) {
-            transform: translateY(-8px) rotate(-45deg);
-        }
-
-        /* ============ HERO SECTION ============ */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: linear-gradient(135deg, #071e2c 0%, #0a2f44 40%, #0d3b54 70%, #0a2f44 100%);
-            overflow: hidden;
-            padding: 100px 24px 60px;
-        }
-
-        #particles-js {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            text-align: center;
-            color: #fff;
-            max-width: 800px;
-        }
-
-        .hero-avatar {
-            width: 160px;
-            height: 160px;
-            border-radius: 50%;
-            margin: 0 auto 30px;
-            background: rgba(255, 255, 255, 0.1);
-            border: 4px solid var(--accent-gold);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4.5rem;
-            color: rgba(255, 255, 255, 0.75);
-            position: relative;
-            animation: avatarPulse 3s ease-in-out infinite;
-            box-shadow: 0 0 40px rgba(212, 169, 78, 0.4), 0 0 80px rgba(30, 144, 255, 0.15);
-        }
-        .hero-avatar i {
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-        }
-
-        @keyframes avatarPulse {
-            0%,
-            100% {
-                box-shadow: 0 0 40px rgba(212, 169, 78, 0.4), 0 0 80px rgba(30, 144, 255, 0.15);
-                transform: scale(1);
-            }
-            50% {
-                box-shadow: 0 0 60px rgba(212, 169, 78, 0.6), 0 0 100px rgba(30, 144, 255, 0.3);
-                transform: scale(1.03);
-            }
-        }
-
-        .hero-name {
-            font-size: 3rem;
-            font-weight: 800;
-            letter-spacing: 1px;
-            margin-bottom: 8px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-            animation: fadeInDown 1s ease;
-        }
-        .hero-name .highlight {
-            color: var(--accent-gold);
-        }
-
-        .hero-title {
-            font-size: 1.3rem;
-            font-weight: 500;
-            color: rgba(255, 255, 255, 0.85);
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-            animation: fadeInDown 1s ease 0.2s both;
-        }
-        .hero-title i {
-            color: var(--accent-gold);
-            margin-right: 8px;
-        }
-
-        .hero-subtitle {
-            font-size: 0.95rem;
-            color: rgba(255, 255, 255, 0.7);
-            max-width: 560px;
-            margin: 0 auto 30px;
-            animation: fadeInDown 1s ease 0.4s both;
-        }
-
-        .hero-buttons {
-            display: flex;
-            gap: 16px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeInDown 1s ease 0.6s both;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 14px 28px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            letter-spacing: 0.5px;
-            cursor: pointer;
-            border: none;
-            transition: all var(--transition-speed) ease;
-            text-transform: uppercase;
-        }
-        .btn-primary {
-            background: var(--accent-gold);
-            color: #071e2c;
-            box-shadow: 0 6px 20px rgba(212, 169, 78, 0.4);
-        }
-        .btn-primary:hover {
-            background: var(--accent-gold-light);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(212, 169, 78, 0.5);
-            color: #071e2c;
-        }
-        .btn-outline {
-            background: transparent;
-            color: #fff;
-            border: 2px solid rgba(255, 255, 255, 0.5);
-        }
-        .btn-outline:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: #fff;
-            transform: translateY(-3px);
-            color: #fff;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .scroll-indicator {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 2;
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 1.5rem;
-            animation: bounceDown 2s ease-in-out infinite;
-            cursor: pointer;
-        }
-        @keyframes bounceDown {
-            0%,
-            100% {
-                transform: translateX(-50%) translateY(0);
-            }
-            50% {
-                transform: translateX(-50%) translateY(12px);
-            }
-        }
-
-        /* ============ SECTION COMMON STYLES ============ */
-        .section {
-            padding: 80px 24px;
-            position: relative;
-        }
-        .section-alt {
-            background: var(--bg-alt);
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 50px;
-        }
-        .section-header h2 {
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            letter-spacing: 0.5px;
-            margin-bottom: 10px;
-            position: relative;
-            display: inline-block;
-        }
-        .section-header h2::after {
-            content: '';
-            display: block;
-            width: 70px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-gold));
-            border-radius: 2px;
-            margin: 12px auto 0;
-        }
-        .section-header p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            max-width: 560px;
-            margin: 15px auto 0;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        /* ============ PERSONAL DATA SECTION ============ */
-        .personal-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .personal-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            transition: all var(--transition-speed) ease;
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-        }
-        .personal-card:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-4px);
-            border-color: var(--accent);
-            background: var(--bg-card-hover);
-        }
-        .personal-card .icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            color: #fff;
-            flex-shrink: 0;
-        }
-        .personal-card .info h3 {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-        .personal-card .info p {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        /* ============ SEAMAN BOOK & COC ============ */
-        .document-card {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: var(--shadow-md);
-            border: 2px solid var(--accent);
-            max-width: 700px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
-            transition: all var(--transition-speed) ease;
-        }
-        .document-card:hover {
-            box-shadow: var(--shadow-glow);
-            transform: translateY(-4px);
-        }
-        .document-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--accent), var(--accent-gold));
-        }
-        .document-card .doc-icon {
-            font-size: 3rem;
-            color: var(--accent);
-            margin-bottom: 16px;
-        }
-        .document-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 4px;
-        }
-        .document-card .doc-subtitle {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 20px;
-        }
-        .document-card .doc-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-        .document-card .doc-details .detail-item {
-            padding: 10px 14px;
-            background: var(--bg-alt);
-            border-radius: 8px;
-            border-left: 3px solid var(--accent);
-        }
-        .document-card .doc-details .detail-item .label {
-            font-size: 0.75rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .document-card .doc-details .detail-item .value {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text);
-        }
-
-        /* ============ CERTIFICATE FLIP CARDS ============ */
-        .certificate-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
-            gap: 24px;
-            perspective: 1200px;
-        }
-
-        .flip-card {
-            background: transparent;
-            height: 300px;
-            cursor: pointer;
-            position: relative;
-            perspective: 1200px;
-        }
-        .flip-card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: center;
-            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
-            transform-style: preserve-3d;
-        }
-        .flip-card:hover .flip-card-inner,
-        .flip-card.flipped .flip-card-inner {
-            transform: rotateY(180deg);
-        }
-
-        .flip-card-front,
-        .flip-card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            -webkit-backface-visibility: hidden;
-            border-radius: 18px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 24px;
-            box-shadow: var(--shadow-md);
-            border: 2px solid var(--border);
-            transition: all var(--transition-speed) ease;
-        }
-
-        .flip-card-front {
-            background: var(--flip-front-bg);
-        }
-        .flip-card-front:hover {
-            border-color: var(--accent);
-            box-shadow: var(--shadow-glow);
-        }
-        .flip-card-front .badge-icon {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            color: #fff;
-            margin-bottom: 16px;
-            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.3);
-            transition: all var(--transition-speed) ease;
-        }
-        .flip-card-front:hover .badge-icon {
-            transform: scale(1.1) rotate(5deg);
-            box-shadow: 0 12px 30px rgba(30, 144, 255, 0.45);
-        }
-        .flip-card-front h3 {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 6px;
-        }
-        .flip-card-front .cert-date {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            margin-bottom: 12px;
-        }
-        .flip-card-front .flip-hint {
-            font-size: 0.7rem;
-            color: var(--accent);
-            font-weight: 500;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-        }
-
-        .flip-card-back {
-            background: var(--flip-back-bg);
-            color: var(--flip-back-text);
-            transform: rotateY(180deg);
-            border-color: var(--accent-gold);
-            text-align: left;
-            align-items: flex-start;
-            justify-content: center;
-            gap: 8px;
-        }
-        .flip-card-back h4 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin-bottom: 8px;
-            text-align: center;
-            width: 100%;
-        }
-        .flip-card-back .back-detail {
-            font-size: 0.82rem;
-            color: rgba(255, 255, 255, 0.85);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            width: 100%;
-        }
-        .flip-card-back .back-detail i {
-            color: var(--accent-gold);
-            width: 18px;
-            text-align: center;
-            flex-shrink: 0;
-        }
-        .flip-card-back .verify-link {
-            margin-top: 10px;
-            font-size: 0.75rem;
-            color: var(--accent);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            background: rgba(255, 255, 255, 0.1);
-            padding: 6px 14px;
-            border-radius: 20px;
-            transition: all var(--transition-speed) ease;
-            width: 100%;
-            justify-content: center;
-        }
-        .flip-card-back .verify-link:hover {
-            background: rgba(255, 255, 255, 0.2);
-            color: var(--accent-gold);
-        }
-
-        /* ============ TIMELINE SECTION ============ */
-        .timeline-container {
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            padding: 20px 0;
-        }
-        .timeline-container::before {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 4px;
-            height: 100%;
-            background: linear-gradient(180deg, var(--accent), var(--accent-gold), var(--accent));
-            border-radius: 2px;
-            opacity: 0.4;
-        }
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            width: 50%;
-            padding: 0 30px;
-        }
-        .timeline-item:nth-child(odd) {
-            left: 0;
-            text-align: right;
-        }
-        .timeline-item:nth-child(even) {
-            left: 50%;
-            text-align: left;
-        }
-        .timeline-dot {
-            position: absolute;
-            width: 18px;
-            height: 18px;
-            border-radius: 50%;
-            background: var(--accent);
-            border: 4px solid var(--bg);
-            box-shadow: 0 0 15px rgba(30, 144, 255, 0.5);
-            top: 20px;
-            z-index: 2;
-        }
-        .timeline-item:nth-child(odd) .timeline-dot {
-            right: -9px;
-        }
-        .timeline-item:nth-child(even) .timeline-dot {
-            left: -9px;
-        }
-        .timeline-content {
-            background: var(--bg-card);
-            border-radius: 14px;
-            padding: 18px 22px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            transition: all var(--transition-speed) ease;
-            display: inline-block;
-        }
-        .timeline-content:hover {
-            box-shadow: var(--shadow-md);
-            transform: translateY(-3px);
-            border-color: var(--accent);
-        }
-        .timeline-content .tl-date {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 4px;
-        }
-        .timeline-content h4 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 2px;
-        }
-        .timeline-content p {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* ============ CONTACT SECTION ============ */
-        .contact-wrapper {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 30px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .contact-form {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
-        }
-        .contact-form h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .contact-form h3 i {
-            color: var(--accent);
-        }
-        .form-group {
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-            letter-spacing: 0.3px;
-        }
-        .form-group input,
-        .form-group textarea {
-            width: 100%;
-            padding: 13px 16px;
-            border: 2px solid var(--input-border);
-            border-radius: 10px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.9rem;
-            background: var(--input-bg);
-            color: var(--text);
-            transition: all var(--transition-speed) ease;
-            outline: none;
-        }
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: var(--input-focus);
-            box-shadow: 0 0 0 4px rgba(30, 144, 255, 0.15);
-        }
-        .form-group textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-        .form-group .error-msg {
-            font-size: 0.75rem;
-            color: #e74c3c;
-            margin-top: 4px;
-            display: none;
-        }
-        .form-group.error input,
-        .form-group.error textarea {
-            border-color: #e74c3c;
-        }
-        .form-group.error .error-msg {
-            display: block;
-        }
-
-        .btn-whatsapp {
-            background: #25d366;
-            color: #fff;
-            width: 100%;
-            justify-content: center;
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.4);
-        }
-        .btn-whatsapp:hover {
-            background: #1eb955;
-            box-shadow: 0 10px 30px rgba(37, 211, 102, 0.5);
-            color: #fff;
-        }
-
-        .map-container {
-            border-radius: 16px;
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--border);
-            min-height: 350px;
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 350px;
-            border: 0;
-            display: block;
-        }
-
-        /* ============ FOOTER ============ */
-        .footer {
-            background: var(--footer-bg);
-            color: rgba(255, 255, 255, 0.8);
-            padding: 40px 24px 30px;
-            text-align: center;
-        }
-        .footer .footer-content {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .footer .footer-info {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px 35px;
-            margin-bottom: 25px;
-        }
-        .footer .footer-info .fi-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.85rem;
-        }
-        .footer .footer-info .fi-item i {
-            color: var(--accent-gold);
-        }
-        .footer .footer-clock {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: #fff;
-            letter-spacing: 2px;
-            margin-bottom: 8px;
-        }
-        .footer .footer-date {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-bottom: 15px;
-        }
-        .footer .footer-divider {
-            width: 60px;
-            height: 2px;
-            background: var(--accent-gold);
-            margin: 15px auto;
-            border-radius: 1px;
-        }
-        .footer .footer-bottom {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.4);
-            letter-spacing: 0.5px;
-        }
-
-        /* ============ BACK TO TOP ============ */
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: #fff;
-            border: none;
-            cursor: pointer;
-            font-size: 1.2rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow-lg);
-            transition: all var(--transition-speed) ease;
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(20px);
-            z-index: 900;
-        }
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
-        }
-        .back-to-top:hover {
-            background: var(--accent);
-            transform: translateY(-4px);
-            box-shadow: var(--shadow-glow);
-        }
-
-        /* ============ MODAL ============ */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: var(--modal-overlay);
-            z-index: 2000;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            visibility: hidden;
-            transition: all var(--transition-speed) ease;
-            padding: 20px;
-        }
-        .modal-overlay.active {
-            opacity: 1;
-            visibility: visible;
-        }
-        .modal-content {
-            background: var(--bg-card);
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 450px;
-            width: 100%;
-            box-shadow: var(--shadow-lg);
-            border: 2px solid var(--accent);
-            position: relative;
-            transform: scale(0.9);
-            transition: transform var(--transition-speed) ease;
-        }
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-        .modal-close {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: transparent;
-            border: none;
-            font-size: 1.3rem;
-            cursor: pointer;
-            color: var(--text-muted);
-            transition: color var(--transition-speed) ease;
-        }
-        .modal-close:hover {
-            color: #e74c3c;
-        }
-        .modal-content h3 {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 16px;
-            text-align: center;
-        }
-        .modal-content .modal-detail {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            margin-bottom: 8px;
-            display: flex;
-            gap: 8px;
-        }
-        .modal-content .modal-detail i {
-            color: var(--accent);
-            width: 20px;
-            text-align: center;
-        }
-
-        /* ============ RESPONSIVE ============ */
-        @media (max-width: 1024px) {
-            .hero-name {
-                font-size: 2.4rem;
-            }
-            .contact-wrapper {
-                grid-template-columns: 1fr;
-            }
-            .document-card .doc-details {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                position: fixed;
-                top: 70px;
-                left: 0;
-                width: 100%;
-                background: var(--nav-bg);
-                flex-direction: column;
-                padding: 20px 24px;
-                gap: 4px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-                transform: translateY(-120%);
-                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-                z-index: 999;
-                backdrop-filter: blur(15px);
-                -webkit-backdrop-filter: blur(15px);
-            }
-            .nav-links.open {
-                transform: translateY(0);
-            }
-            .nav-links a {
-                padding: 12px 16px;
-                font-size: 0.9rem;
-                width: 100%;
-                text-align: center;
-            }
-            .hamburger {
-                display: block;
-            }
-
-            .hero {
-                padding: 80px 16px 50px;
-            }
-            .hero-avatar {
-                width: 120px;
-                height: 120px;
-                font-size: 3.2rem;
-            }
-            .hero-name {
-                font-size: 1.8rem;
-            }
-            .hero-title {
-                font-size: 1rem;
-                letter-spacing: 1px;
-            }
-            .hero-subtitle {
-                font-size: 0.8rem;
-            }
-            .btn {
-                padding: 11px 20px;
-                font-size: 0.78rem;
-            }
-
-            .section {
-                padding: 50px 16px;
-            }
-            .section-header h2 {
-                font-size: 1.6rem;
-            }
-
-            .personal-grid {
-                grid-template-columns: 1fr;
-                gap: 14px;
-            }
-            .personal-card {
-                padding: 18px;
-                gap: 12px;
-            }
-            .personal-card .icon {
-                width: 40px;
-                height: 40px;
-                font-size: 1.1rem;
-                border-radius: 10px;
-            }
-
-            .certificate-grid {
-                grid-template-columns: 1fr;
-                gap: 18px;
-            }
-            .flip-card {
-                height: 260px;
-            }
-            .flip-card-front,
-            .flip-card-back {
-                padding: 18px;
-            }
-            .flip-card-front .badge-icon {
-                width: 55px;
-                height: 55px;
-                font-size: 1.5rem;
-            }
-
-            .timeline-container::before {
-                left: 18px;
-            }
-            .timeline-item,
-            .timeline-item:nth-child(odd),
-            .timeline-item:nth-child(even) {
-                width: 100%;
-                left: 0;
-                text-align: left;
-                padding-left: 50px;
-                padding-right: 0;
-            }
-            .timeline-item:nth-child(odd) .timeline-dot,
-            .timeline-item:nth-child(even) .timeline-dot {
-                left: 9px;
-                right: auto;
-            }
-
-            .document-card {
-                padding: 20px;
-            }
-            .document-card h3 {
-                font-size: 1.2rem;
-            }
-
-            .contact-form {
-                padding: 20px;
-            }
-            .map-container,
-            .map-container iframe {
-                min-height: 250px;
-            }
-
-            .back-to-top {
-                bottom: 20px;
-                right: 20px;
-                width: 42px;
-                height: 42px;
-                font-size: 1rem;
-            }
-
-            .footer .footer-info {
-                gap: 12px 20px;
-                font-size: 0.75rem;
-            }
-            .footer .footer-clock {
-                font-size: 1.2rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            html {
-                font-size: 14px;
-            }
-            .hero-avatar {
-                width: 100px;
-                height: 100px;
-                font-size: 2.5rem;
-            }
-            .hero-name {
-                font-size: 1.5rem;
-            }
-            .btn {
-                padding: 10px 16px;
-                font-size: 0.7rem;
-                gap: 6px;
-            }
-            .hero-buttons {
-                gap: 10px;
-            }
-            .section-header h2 {
-                font-size: 1.4rem;
-            }
-            .personal-card .info h3 {
-                font-size: 0.7rem;
-            }
-            .personal-card .info p {
-                font-size: 0.85rem;
-            }
-            .flip-card {
-                height: 240px;
-            }
-            .timeline-content {
-                padding: 12px 16px;
-            }
-            .modal-content {
-                padding: 20px;
-            }
+        /* ----- Responsive ----- */
+        @media (max-width:768px){
+            .nav ul{display:none; flex-direction:column; background:var(--card-bg); position:absolute; top:100%; right:0; width:200px; box-shadow:0 4px 8px rgba(0,0,0,0.15);}
+            .nav ul.show{display:flex;}
+            .nav .hamburger{display:block;}
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
-    <!-- ==================== NAVIGATION ==================== -->
-    <nav class="navbar" role="navigation" aria-label="Navigasi Utama">
-        <div class="logo">
-            <i class="fa-solid fa-anchor" aria-hidden="true"></i>
-            <span>TMA</span>
-        </div>
-        <div class="nav-links" id="navLinks">
-            <a href="#home" class="active" aria-label="Beranda"><i class="fa-solid fa-house" aria-hidden="true"></i> Beranda</a>
-            <a href="#data-pribadi" aria-label="Data Pribadi"><i class="fa-solid fa-user" aria-hidden="true"></i> Data Pribadi</a>
-            <a href="#dokumen" aria-label="Dokumen"><i class="fa-solid fa-file" aria-hidden="true"></i> Dokumen</a>
-            <a href="#sertifikat" aria-label="Sertifikat"><i class="fa-solid fa-certificate" aria-hidden="true"></i> Sertifikat</a>
-            <a href="#timeline" aria-label="Timeline"><i class="fa-solid fa-clock" aria-hidden="true"></i> Timeline</a>
-            <a href="#kontak" aria-label="Kontak"><i class="fa-solid fa-envelope" aria-hidden="true"></i> Kontak</a>
-            <button class="theme-toggle" id="themeToggle" aria-label="Ganti Tema" title="Ganti Tema">
-                <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
-            </button>
-        </div>
-        <button class="hamburger" id="hamburger" aria-label="Menu Navigasi" aria-expanded="false">
-            <span class="bar"></span>
-            <span class="bar"></span>
-            <span class="bar"></span>
-        </button>
-    </nav>
+    <!-- Particles background -->
+    <div id="particles-js" style="position:fixed; top:0; left:0; width:100%; height:100%; z-index:-1;"></div>
 
-    <!-- ==================== HERO SECTION ==================== -->
-    <section class="hero" id="home" aria-label="Beranda">
-        <div id="particles-js"></div>
-        <div class="hero-content">
-            <div class="hero-avatar" aria-label="Foto Profil">
-                <i class="fa-solid fa-user" aria-hidden="true"></i>
+    <header>
+        <nav class="nav" aria-label="Main navigation">
+            <div class="logo">Tri Mulyo Atmojo</div>
+            <ul id="nav-links">
+                <li><a href="#personal">Data Pribadi</a></li>
+                <li><a href="#documents">Dokumen</a></li>
+                <li><a href="#certificates">Sertifikat</a></li>
+                <li><a href="#contact">Kontak</a></li>
+            </ul>
+            <div class="theme-toggle" id="toggle-theme" aria-label="Toggle dark/light mode">
+                <i class="fas fa-moon"></i>
             </div>
-            <h1 class="hero-name">Tri Mulyo <span class="highlight">Atmojo</span></h1>
-            <p class="hero-title">
-                <i class="fa-solid fa-ship" aria-hidden="true"></i>
-                Engine Department — Marine Engineer
-            </p>
-            <p class="hero-subtitle">
-                Profesional di bidang permesinan kapal dengan sertifikasi lengkap dan pengalaman
-                dalam industri pelayaran. Berkomitmen pada keselamatan, efisiensi, dan standar
-                operasional tertinggi.
-            </p>
-            <div class="hero-buttons">
-                <a href="#kontak" class="btn btn-primary">
-                    <i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Hubungi Saya
-                </a>
-                <a href="#sertifikat" class="btn btn-outline">
-                    <i class="fa-solid fa-certificate" aria-hidden="true"></i> Lihat Sertifikat
-                </a>
-            </div>
-        </div>
-        <div class="scroll-indicator" id="scrollIndicator" aria-label="Gulir ke bawah">
-            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
-        </div>
+            <div class="hamburger" id="hamburger"><i class="fas fa-bars"></i></div>
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="profile-pic" aria-label="Foto profil"></div>
+        <h1>Tri Mulyo Atmojo</h1>
+        <h2>Engine Department</h2>
     </section>
 
-    <!-- ==================== PERSONAL DATA SECTION ==================== -->
-    <section class="section" id="data-pribadi" aria-label="Data Pribadi">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Data Pribadi</h2>
-                <p>Informasi lengkap tentang identitas dan latar belakang pribadi.</p>
+    <!-- Personal Data -->
+    <section id="personal" class="section" data-aos="fade-up">
+        <h3 class="section-title">Data Pribadi</h3>
+        <div class="grid grid-2">
+            <div class="card">
+                <h4>Identitas</h4>
+                <p><strong>Nama:</strong> Tri Mulyo Atmojo</p>
+                <p><strong>TTL:</strong> Purworejo, 02 Desember 1998</p>
+                <p><strong>Jenis Kelamin:</strong> Laki-laki</p>
+                <p><strong>Agama:</strong> Islam</p>
+                <p><strong>Tinggi / Berat:</strong> 180 cm / 71 kg</p>
+                <p><strong>Status:</strong> Belum Kawin</p>
+                <p><strong>Kewarganegaraan:</strong> Indonesia</p>
             </div>
-            <div class="personal-grid">
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="0">
-                    <div class="icon"><i class="fa-solid fa-user" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Nama Lengkap</h3>
-                        <p>Tri Mulyo Atmojo</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="50">
-                    <div class="icon"><i class="fa-solid fa-calendar" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Tempat / Tgl Lahir</h3>
-                        <p>Purworejo, 02 Desember 1998</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="100">
-                    <div class="icon"><i class="fa-solid fa-venus-mars" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Jenis Kelamin</h3>
-                        <p>Laki-laki</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="150">
-                    <div class="icon"><i class="fa-solid fa-moon" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Agama</h3>
-                        <p>Islam</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="200">
-                    <div class="icon"><i class="fa-solid fa-ruler" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Tinggi / Berat</h3>
-                        <p>180 cm / 71 kg</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="250">
-                    <div class="icon"><i class="fa-solid fa-ring" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Status Perkawinan</h3>
-                        <p>Belum Kawin</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="300">
-                    <div class="icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Alamat Tetap</h3>
-                        <p>Lubang Sampang, Butuh, Purworejo, Jawa Tengah, Indonesia</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="350">
-                    <div class="icon"><i class="fa-solid fa-flag" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Kewarganegaraan</h3>
-                        <p>Indonesia</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="400">
-                    <div class="icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Nomor Telepon</h3>
-                        <p>+62 896-6826-2520</p>
-                    </div>
-                </div>
-                <div class="personal-card" data-aos="fade-up" data-aos-delay="450">
-                    <div class="icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></div>
-                    <div class="info">
-                        <h3>Email</h3>
-                        <p>xatmojo@gmail.com</p>
-                    </div>
-                </div>
+            <div class="card">
+                <h4>Kontak</h4>
+                <p><i class="fas fa-phone"></i> +62 896-6826-2520</p>
+                <p><i class="fas fa-envelope"></i> <a href="mailto:xatmojo@gmail.com">xatmojo@gmail.com</a></p>
+                <p><i class="fas fa-map-marker-alt"></i> Lubang Sampang, Butuh, Purworejo, Jawa Tengah, Indonesia</p>
+                <p><a href="https://www.google.com/maps/search/?api=1&query=Purworejo+Jawa+Tengah+Indonesia" target="_blank"><i class="fas fa-map"></i> Lihat di Peta</a></p>
             </div>
         </div>
     </section>
 
-    <!-- ==================== DOCUMENTS SECTION ==================== -->
-    <section class="section section-alt" id="dokumen" aria-label="Dokumen">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Dokumen & Sertifikat</h2>
-                <p>Dokumen resmi dan sertifikasi kompetensi yang dimiliki.</p>
+    <!-- Documents -->
+    <section id="documents" class="section" data-aos="fade-up">
+        <h3 class="section-title">Dokumen</h3>
+        <div class="grid grid-2">
+            <div class="card">
+                <h4>Buku Pelaut (Seaman Book)</h4>
+                <p><strong>No.:</strong> M 060321</p>
+                <p><strong>Dikeluarkan:</strong> Semarang, 04 Agustus 2026</p>
+                <p><strong>Berlaku hingga:</strong> 04 Agustus 2029</p>
             </div>
-
-            <!-- Seaman Book -->
-            <div class="document-card" data-aos="fade-up" style="margin-bottom: 40px;">
-                <div class="doc-icon"><i class="fa-solid fa-book" aria-hidden="true"></i></div>
-                <h3>Buku Pelaut (Seaman Book)</h3>
-                <p class="doc-subtitle">Dokumen identitas resmi untuk bekerja di kapal</p>
-                <div class="doc-details">
-                    <div class="detail-item">
-                        <div class="label">Nomor</div>
-                        <div class="value">M 060321</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="label">Dikeluarkan di</div>
-                        <div class="value">Semarang</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="label">Tanggal Terbit</div>
-                        <div class="value">04 Agustus 2026</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="label">Berlaku Hingga</div>
-                        <div class="value">04 Agustus 2029</div>
-                    </div>
-                </div>
+            <div class="card">
+                <h4>Sertifikat Kompetensi</h4>
+                <p><strong>Rating:</strong> Engine</p>
+                <p><strong>No. Seri:</strong> CP8294959</p>
+                <p><strong>No. Sertifikat:</strong> 6212535592350326</p>
+                <p><strong>Dikeluarkan:</strong> Jakarta, 06 Juli 2026</p>
             </div>
+        </div>
+    </section>
 
-            <!-- Certificate of Competency -->
-            <div class="document-card" data-aos="fade-up" style="margin-bottom: 40px;">
-                <div class="doc-icon"><i class="fa-solid fa-award" aria-hidden="true"></i></div>
-                <h3>Certificate of Competency (COC)</h3>
-                <p class="doc-subtitle">Rating Engine — Sertifikat Kompetensi</p>
-                <div class="doc-details">
-                    <div class="detail-item">
-                        <div class="label">Jabatan</div>
-                        <div class="value">Rating Engine</div>
+    <!-- Certificates -->
+    <section id="certificates" class="section" data-aos="fade-up">
+        <h3 class="section-title">Sertifikat Keahlian</h3>
+        <div class="grid grid-2">
+
+            <!-- BST -->
+            <div class="card cert-card">
+                <div class="cert-inner">
+                    <div class="cert-front">
+                        <div class="badge"><i class="fas fa-ship"></i></div>
+                        <h4>BST</h4>
+                        <p>Basic Safety Training</p>
                     </div>
-                    <div class="detail-item">
-                        <div class="label">Nomor Seri</div>
-                        <div class="value">CP8294959</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="label">Nomor Sertifikat</div>
-                        <div class="value">6212535592350326</div>
-                    </div>
-                    <div class="detail-item">
-                        <div class="label">Dikeluarkan di</div>
-                        <div class="value">Jakarta, 06 Juli 2026</div>
+                    <div class="cert-back">
+                        <p><strong>Serial:</strong> CP7359456</p>
+                        <p><strong>No. Sertifikat:</strong> 6212535592010325</p>
+                        <p><strong>Lokasi:</strong> Jakarta</p>
+                        <p><strong>Tanggal:</strong> 28 Juli 2025</p>
+                        <a href="https://pelaut.dephub.go.id" target="_blank"><i class="fas fa-link"></i> Verifikasi</a>
                     </div>
                 </div>
             </div>
 
-            <!-- Certificate of Proficiency -->
-            <h3 style="text-align:center; font-size:1.5rem; font-weight:700; color: var(--primary); margin-bottom:30px;" data-aos="fade-up">
-                <i class="fa-solid fa-certificate" style="color:var(--accent);" aria-hidden="true"></i>
-                Certificate of Proficiency (Sertifikat Keahlian)
-            </h3>
-            <div class="certificate-grid">
-                <!-- BST -->
-                <div class="flip-card" data-aos="fade-up" data-aos-delay="0" tabindex="0" aria-label="Kartu Sertifikat BST - klik untuk detail">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="badge-icon"><i class="fa-solid fa-life-ring" aria-hidden="true"></i></div>
-                            <h3>BST</h3>
-                            <p class="cert-date">Basic Safety Training</p>
-                            <span class="flip-hint"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail</span>
-                        </div>
-                        <div class="flip-card-back">
-                            <h4>BST — Basic Safety Training</h4>
-                            <div class="back-detail"><i class="fa-solid fa-barcode" aria-hidden="true"></i> Serial: CP7359456</div>
-                            <div class="back-detail"><i class="fa-solid fa-file-certificate" aria-hidden="true"></i> No. Sertifikat: 6212535592010325</div>
-                            <div class="back-detail"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Jakarta, 28 Juli 2025</div>
-                            <a href="https://pelaut.dephub.go.id" target="_blank" class="verify-link" rel="noopener">
-                                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Verifikasi di pelaut.dephub.go.id
-                            </a>
-                        </div>
+            <!-- SAT -->
+            <div class="card cert-card">
+                <div class="cert-inner">
+                    <div class="cert-front">
+                        <div class="badge"><i class="fas fa-shield-alt"></i></div>
+                        <h4>SAT</h4>
+                        <p>Security Awareness Training</p>
+                    </div>
+                    <div class="cert-back">
+                        <p><strong>Serial:</strong> CP7360568</p>
+                        <p><strong>No. Sertifikat:</strong> 6212535592310325</p>
+                        <p><strong>Lokasi:</strong> Jakarta</p>
+                        <p><strong>Tanggal:</strong> 10 Agustus 2025</p>
+                        <a href="https://pelaut.dephub.go.id" target="_blank"><i class="fas fa-link"></i> Verifikasi</a>
                     </div>
                 </div>
+            </div>
 
-                <!-- SAT -->
-                <div class="flip-card" data-aos="fade-up" data-aos-delay="80" tabindex="0" aria-label="Kartu Sertifikat SAT - klik untuk detail">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="badge-icon"><i class="fa-solid fa-shield-halved" aria-hidden="true"></i></div>
-                            <h3>SAT</h3>
-                            <p class="cert-date">Security Awareness Training</p>
-                            <span class="flip-hint"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail</span>
-                        </div>
-                        <div class="flip-card-back">
-                            <h4>SAT — Security Awareness Training</h4>
-                            <div class="back-detail"><i class="fa-solid fa-barcode" aria-hidden="true"></i> Serial: CP7360568</div>
-                            <div class="back-detail"><i class="fa-solid fa-file-certificate" aria-hidden="true"></i> No. Sertifikat: 6212535592310325</div>
-                            <div class="back-detail"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Jakarta, 10 Agustus 2025</div>
-                            <a href="https://pelaut.dephub.go.id" target="_blank" class="verify-link" rel="noopener">
-                                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Verifikasi di pelaut.dephub.go.id
-                            </a>
-                        </div>
+            <!-- AFF -->
+            <div class="card cert-card">
+                <div class="cert-inner">
+                    <div class="cert-front">
+                        <div class="badge"><i class="fas fa-fire"></i></div>
+                        <h4>AFF</h4>
+                        <p>Advanced Fire Fighting</p>
+                    </div>
+                    <div class="cert-back">
+                        <p><strong>Serial:</strong> CP7361607</p>
+                        <p><strong>No. Sertifikat:</strong> 6212535592060325</p>
+                        <p><strong>Lokasi:</strong> Jakarta</p>
+                        <p><strong>Tanggal:</strong> 04 Agustus 2025</p>
+                        <a href="https://pelaut.dephub.go.id" target="_blank"><i class="fas fa-link"></i> Verifikasi</a>
                     </div>
                 </div>
+            </div>
 
-                <!-- AFF -->
-                <div class="flip-card" data-aos="fade-up" data-aos-delay="160" tabindex="0" aria-label="Kartu Sertifikat AFF - klik untuk detail">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="badge-icon"><i class="fa-solid fa-fire-extinguisher" aria-hidden="true"></i></div>
-                            <h3>AFF</h3>
-                            <p class="cert-date">Advanced Fire Fighting</p>
-                            <span class="flip-hint"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail</span>
-                        </div>
-                        <div class="flip-card-back">
-                            <h4>AFF — Advanced Fire Fighting</h4>
-                            <div class="back-detail"><i class="fa-solid fa-barcode" aria-hidden="true"></i> Serial: CP7361607</div>
-                            <div class="back-detail"><i class="fa-solid fa-file-certificate" aria-hidden="true"></i> No. Sertifikat: 6212535592060325</div>
-                            <div class="back-detail"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Jakarta, 04 Agustus 2025</div>
-                            <a href="https://pelaut.dephub.go.id" target="_blank" class="verify-link" rel="noopener">
-                                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Verifikasi di pelaut.dephub.go.id
-                            </a>
-                        </div>
+            <!-- SDSD -->
+            <div class="card cert-card">
+                <div class="cert-inner">
+                    <div class="cert-front">
+                        <div class="badge"><i class="fas fa-id-badge"></i></div>
+                        <h4>SDSD</h4>
+                        <p>Ship Security Duties</p>
+                    </div>
+                    <div class="cert-back">
+                        <p><strong>Serial:</strong> CP8046330</p>
+                        <p><strong>No. Sertifikat:</strong> 6212535592320326</p>
+                        <p><strong>Lokasi:</strong> Jakarta</p>
+                        <p><strong>Tanggal:</strong> 16 Maret 2026</p>
+                        <a href="https://pelaut.dephub.go.id" target="_blank"><i class="fas fa-link"></i> Verifikasi</a>
                     </div>
                 </div>
+            </div>
 
-                <!-- SDSD -->
-                <div class="flip-card" data-aos="fade-up" data-aos-delay="240" tabindex="0" aria-label="Kartu Sertifikat SDSD - klik untuk detail">
-                    <div class="flip-card-inner">
-                        <div class="flip-card-front">
-                            <div class="badge-icon"><i class="fa-solid fa-lock" aria-hidden="true"></i></div>
-                            <h3>SDSD</h3>
-                            <p class="cert-date">Ship Security Duties</p>
-                            <span class="flip-hint"><i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail</span>
-                        </div>
-                        <div class="flip-card-back">
-                            <h4>SDSD — Ship Security Duties</h4>
-                            <div class="back-detail"><i class="fa-solid fa-barcode" aria-hidden="true"></i> Serial: CP8046330</div>
-                            <div class="back-detail"><i class="fa-solid fa-file-certificate" aria-hidden="true"></i> No. Sertifikat: 6212535592320326</div>
-                            <div class="back-detail"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Jakarta, 16 Maret 2026</div>
-                            <a href="https://pelaut.dephub.go.id" target="_blank" class="verify-link" rel="noopener">
-                                <i class="fa-solid fa-shield-halved" aria-hidden="true"></i> Verifikasi di pelaut.dephub.go.id
-                            </a>
-                        </div>
-                    </div>
+        </div>
+
+        <!-- Timeline visualising validity periods -->
+        <h4 style="margin-top:2rem; color:var(--primary);">Masa Berlaku Sertifikat</h4>
+        <div class="timeline">
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <strong>BST</strong> – valid 28 Jul 2025 → 28 Jul 2028
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <strong>SAT</strong> – valid 10 Aug 2025 → 10 Aug 2028
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <strong>AFF</strong> – valid 04 Aug 2025 → 04 Aug 2028
+                </div>
+            </div>
+            <div class="timeline-item" data-aos="fade-right">
+                <div class="timeline-content">
+                    <strong>SDSD</strong> – valid 16 Mar 2026 → 16 Mar 2029
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ==================== TIMELINE SECTION ==================== -->
-    <section class="section" id="timeline" aria-label="Timeline Sertifikat">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Timeline Sertifikasi</h2>
-                <p>Urutan kronologis perolehan sertifikat dan dokumen.</p>
-            </div>
-            <div class="timeline-container">
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <p class="tl-date">28 Juli 2025</p>
-                        <h4>BST — Basic Safety Training</h4>
-                        <p>Pelatihan keselamatan dasar</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <p class="tl-date">04 Agustus 2025</p>
-                        <h4>AFF — Advanced Fire Fighting</h4>
-                        <p>Pelatihan pemadaman kebakaran lanjutan</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <p class="tl-date">10 Agustus 2025</p>
-                        <h4>SAT — Security Awareness Training</h4>
-                        <p>Pelatihan kesadaran keamanan</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <p class="tl-date">16 Maret 2026</p>
-                        <h4>SDSD — Ship Security Duties</h4>
-                        <p>Pelatihan tugas keamanan kapal</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-aos="fade-right">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <p class="tl-date">06 Juli 2026</p>
-                        <h4>COC — Certificate of Competency</h4>
-                        <p>Rating Engine — Sertifikat Kompetensi</p>
-                    </div>
-                </div>
-                <div class="timeline-item" data-aos="fade-left">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <p class="tl-date">04 Agustus 2026</p>
-                        <h4>Buku Pelaut (Seaman Book)</h4>
-                        <p>Berlaku hingga 04 Agustus 2029</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <!-- Contact -->
+    <section id="contact" class="section" data-aos="fade-up">
+        <h3 class="section-title">Hubungi Saya</h3>
+        <form class="contact-form" id="contactForm" novalidate>
+            <input type="text" id="name" placeholder="Nama Anda" required aria-label="Nama">
+            <textarea id="message" rows="4" placeholder="Pesan..." required aria-label="Pesan"></textarea>
+            <button type="submit"><i class="fab fa-whatsapp"></i> Kirim via WhatsApp</button>
+        </form>
     </section>
 
-    <!-- ==================== CONTACT SECTION ==================== -->
-    <section class="section section-alt" id="kontak" aria-label="Kontak">
-        <div class="container">
-            <div class="section-header" data-aos="fade-up">
-                <h2>Hubungi Saya</h2>
-                <p>Kirim pesan melalui formulir atau langsung melalui WhatsApp.</p>
-            </div>
-            <div class="contact-wrapper">
-                <div class="contact-form" data-aos="fade-up" data-aos-delay="0">
-                    <h3><i class="fa-solid fa-envelope" aria-hidden="true"></i> Formulir Kontak</h3>
-                    <form id="contactForm" novalidate>
-                        <div class="form-group" id="fgName">
-                            <label for="formName">Nama Lengkap <span style="color:#e74c3c;">*</span></label>
-                            <input type="text" id="formName" name="name" placeholder="Masukkan nama Anda" required aria-required="true">
-                            <span class="error-msg"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> Nama minimal 3 karakter.</span>
-                        </div>
-                        <div class="form-group" id="fgMessage">
-                            <label for="formMessage">Pesan <span style="color:#e74c3c;">*</span></label>
-                            <textarea id="formMessage" name="message" placeholder="Tulis pesan Anda..." required aria-required="true"></textarea>
-                            <span class="error-msg"><i class="fa-solid fa-circle-exclamation" aria-hidden="true"></i> Pesan minimal 10 karakter.</span>
-                        </div>
-                        <button type="submit" class="btn btn-whatsapp" id="submitBtn">
-                            <i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Kirim via WhatsApp
-                        </button>
-                    </form>
-                </div>
-                <div class="map-container" data-aos="fade-up" data-aos-delay="100" aria-label="Peta Lokasi Purworejo">
-                    <iframe
-                    src="https://www.google.com/maps?q=Butuh%2C%20Purworejo%2C%20Jawa%20Tengah%2C%20Indonesia&output=embed"
-                    title="Peta Lokasi Purworejo"
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade"
-                    allowfullscreen>
-                </iframe>
-            </div>
+    <footer>
+        <div class="footer-content">
+            <p>© 2026 Tri Mulyo Atmojo – Semua hak dilindungi.</p>
+            <div class="online-status" id="status">Online: --:--:--</div>
         </div>
-    </div>
-</section>
+    </footer>
 
-<!-- ==================== FOOTER ==================== -->
-<footer class="footer" role="contentinfo">
-    <div class="footer-content">
-        <div class="footer-info">
-            <div class="fi-item">
-                <i class="fa-solid fa-phone" aria-hidden="true"></i>
-                <span>+62 896-6826-2520</span>
-            </div>
-            <div class="fi-item">
-                <i class="fa-solid fa-envelope" aria-hidden="true"></i>
-                <span>xatmojo@gmail.com</span>
-            </div>
-            <div class="fi-item">
-                <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
-                <span>Purworejo, Jawa Tengah, Indonesia</span>
-            </div>
-            <div class="fi-item">
-                <i class="fa-solid fa-globe" aria-hidden="true"></i>
-                <span>pelaut.dephub.go.id</span>
-            </div>
-        </div>
-        <div class="footer-clock" id="footerClock" aria-label="Jam real-time">--:--:--</div>
-        <div class="footer-date" id="footerDate" aria-label="Tanggal hari ini">-</div>
-        <div class="footer-divider"></div>
-        <p class="footer-bottom">
-            &copy; 2026 Tri Mulyo Atmojo &bull; Engine Department &bull; Dibuat dengan
-            <i class="fa-solid fa-heart" style="color:#e74c3c;" aria-hidden="true"></i>
-            oleh TMA
-        </p>
-    </div>
-</footer>
+    <script>
+        // Initialize AOS
+        AOS.init({duration:800, once:true});
 
-<!-- ==================== BACK TO TOP ==================== -->
-<button class="back-to-top" id="backToTop" aria-label="Kembali ke atas" title="Kembali ke atas">
-    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
-</button>
-
-<!-- ==================== MODAL ==================== -->
-<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
-    <div class="modal-content">
-        <button class="modal-close" id="modalClose" aria-label="Tutup modal">&times;</button>
-        <h3 id="modalTitle">Detail Sertifikat</h3>
-        <div id="modalBody"></div>
-    </div>
-</div>
-
-<!-- ==================== JAVASCRIPT CDN ==================== -->
-<script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js">
-</script>
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js">
-</script>
-
-<!-- ==================== JAVASCRIPT ==================== -->
-<script>
-    // ============================================================
-    //  INISIALISASI AOS (Animate On Scroll)
-    // ============================================================
-    AOS.init({
-        duration: 800,
-        easing: 'ease-out-cubic',
-        once: false,
-        offset: 60,
-        mirror: true,
-    });
-
-    // ============================================================
-    //  PARTICLES.JS — Background Hero
-    // ============================================================
-    particlesJS('particles-js', {
-        particles: {
-            number: { value: 70, density: { enable: true, value_area: 800 } },
-            color: { value: '#1e90ff' },
-            shape: { type: 'circle' },
-            opacity: {
-                value: 0.5,
-                random: true,
-                anim: { enable: true, speed: 0.8, opacity_min: 0.1, sync: false }
+        // Particles.js configuration
+        particlesJS('particles-js',{
+            "particles":{
+                "number":{"value":60},
+                "color":{"value":"#1e90ff"},
+                "shape":{"type":"circle"},
+                "opacity":{"value":0.5},
+                "size":{"value":3},
+                "move":{"speed":2}
             },
-            size: {
-                value: 3,
-                random: true,
-                anim: { enable: true, speed: 2, size_min: 0.5, sync: false }
+            "interactivity":{
+                "detect_on":"canvas",
+                "events":{"onhover":{"enable":true,"mode":"repulse"}}
             },
-            line_linked: {
-                enable: true,
-                distance: 150,
-                color: '#1e90ff',
-                opacity: 0.3,
-                width: 1
-            },
-            move: {
-                enable: true,
-                speed: 2,
-                direction: 'none',
-                random: true,
-                straight: false,
-                out_mode: 'out',
-                bounce: false,
-                attract: { enable: true, rotateX: 600, rotateY: 1200 }
-            }
-        },
-        interactivity: {
-            detect_on: 'canvas',
-            events: {
-                onhover: { enable: true, mode: 'grab' },
-                onclick: { enable: true, mode: 'push' },
-                resize: true
-            },
-            modes: {
-                grab: { distance: 180, line_linked: { opacity: 0.6 } },
-                push: { particles_nb: 5 }
-            }
-        },
-        retina_detect: true
-    });
-
-    // ============================================================
-    //  DARK/LIGHT MODE TOGGLE
-    // ============================================================
-    const themeToggle = document.getElementById('themeToggle');
-    const themeIcon = document.getElementById('themeIcon');
-    const htmlElement = document.documentElement;
-
-    function setTheme(theme) {
-        htmlElement.setAttribute('data-theme', theme);
-        localStorage.setItem('theme', theme);
-        if (theme === 'dark') {
-            themeIcon.className = 'fa-solid fa-sun';
-            themeToggle.setAttribute('aria-label', 'Ganti ke mode terang');
-            themeToggle.setAttribute('title', 'Ganti ke mode terang');
-        } else {
-            themeIcon.className = 'fa-solid fa-moon';
-            themeToggle.setAttribute('aria-label', 'Ganti ke mode gelap');
-            themeToggle.setAttribute('title', 'Ganti ke mode gelap');
-        }
-    }
-
-    // Cek preferensi tersimpan
-    const savedTheme = localStorage.getItem('theme') || 'light';
-    setTheme(savedTheme);
-
-    themeToggle.addEventListener('click', () => {
-        const currentTheme = htmlElement.getAttribute('data-theme');
-        setTheme(currentTheme === 'dark' ? 'light' : 'dark');
-    });
-
-    // ============================================================
-    //  HAMBURGER MENU
-    // ============================================================
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('navLinks');
-
-    hamburger.addEventListener('click', () => {
-        hamburger.classList.toggle('active');
-        navLinks.classList.toggle('open');
-        const isOpen = navLinks.classList.contains('open');
-        hamburger.setAttribute('aria-expanded', isOpen);
-    });
-
-    // Tutup menu saat link diklik (mobile)
-    navLinks.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            hamburger.classList.remove('active');
-            navLinks.classList.remove('open');
-            hamburger.setAttribute('aria-expanded', 'false');
+            "retina_detect":true
         });
-    });
 
-    // ============================================================
-    //  NAVBAR ACTIVE LINK — Scroll Spy
-    // ============================================================
-    const sections = document.querySelectorAll('section[id]');
-    const navAnchors = navLinks.querySelectorAll('a[href^="#"]');
-
-    function updateActiveNav() {
-        const scrollPos = window.scrollY + 100;
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            const sectionId = section.getAttribute('id');
-            if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
-                navAnchors.forEach(a => {
-                    a.classList.toggle('active', a.getAttribute('href') === '#' + sectionId);
-                });
-            }
+        // Dark/Light toggle
+        const toggle = document.getElementById('toggle-theme');
+        const html = document.documentElement;
+        toggle.addEventListener('click', () => {
+            const isDark = html.getAttribute('data-theme') === 'dark';
+            html.setAttribute('data-theme', isDark ? 'light' : 'dark');
+            toggle.innerHTML = isDark ? '<i class="fas fa-moon"></i>' : '<i class="fas fa-sun"></i>';
         });
-    }
 
-    window.addEventListener('scroll', updateActiveNav);
-    updateActiveNav();
-
-    // ============================================================
-    //  BACK TO TOP BUTTON
-    // ============================================================
-    const backToTop = document.getElementById('backToTop');
-
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 400) {
-            backToTop.classList.add('visible');
-        } else {
-            backToTop.classList.remove('visible');
-        }
-    });
-
-    backToTop.addEventListener('click', () => {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-
-    // ============================================================
-    //  SCROLL INDICATOR
-    // ============================================================
-    document.getElementById('scrollIndicator').addEventListener('click', () => {
-        document.getElementById('data-pribadi').scrollIntoView({ behavior: 'smooth' });
-    });
-
-    // ============================================================
-    //  FLIP CARDS — Toggle on click (untuk aksesibilitas & mobile)
-    // ============================================================
-    const flipCards = document.querySelectorAll('.flip-card');
-    flipCards.forEach(card => {
-        card.addEventListener('click', () => {
-            card.classList.toggle('flipped');
+        // Mobile navigation
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.getElementById('nav-links');
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('show');
         });
-        // Keyboard support
-        card.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' || e.key === ' ') {
-                e.preventDefault();
-                card.classList.toggle('flipped');
-            }
+        // Close menu on link click (mobile)
+        navLinks.querySelectorAll('a').forEach(link=> {
+            link.addEventListener('click',()=>navLinks.classList.remove('show'));
         });
-    });
 
-    // ============================================================
-    //  MODAL — Detail Sertifikat (dari flip card back)
-    // ============================================================
-    const modalOverlay = document.getElementById('modalOverlay');
-    const modalClose = document.getElementById('modalClose');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalBody = document.getElementById('modalBody');
-
-    // Tutup modal
-    function closeModal() {
-        modalOverlay.classList.remove('active');
-    }
-    modalClose.addEventListener('click', closeModal);
-    modalOverlay.addEventListener('click', (e) => {
-        if (e.target === modalOverlay) closeModal();
-    });
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') closeModal();
-    });
-
-    // Buka modal dengan detail sertifikat
-    function openCertModal(title, details) {
-        modalTitle.textContent = title;
-        modalBody.innerHTML = details.map(d =>
-            `<div class="modal-detail"><i class="fa-solid fa-circle-check" aria-hidden="true"></i><span>${d}</span></div>`
-        ).join('');
-        modalOverlay.classList.add('active');
-    }
-
-    // ============================================================
-    //  KONTAK FORM — Validasi & WhatsApp Redirect
-    // ============================================================
-    const contactForm = document.getElementById('contactForm');
-    const formName = document.getElementById('formName');
-    const formMessage = document.getElementById('formMessage');
-    const fgName = document.getElementById('fgName');
-    const fgMessage = document.getElementById('fgMessage');
-    const submitBtn = document.getElementById('submitBtn');
-
-    function validateName() {
-        const val = formName.value.trim();
-        if (val.length < 3) {
-            fgName.classList.add('error');
-            return false;
-        } else {
-            fgName.classList.remove('error');
-            return true;
+        // Real‑time clock in footer
+        function updateClock(){
+            const now = new Date();
+            const time = now.toLocaleTimeString();
+            document.getElementById('status').textContent = `Online: ${time}`;
         }
-    }
+        setInterval(updateClock,1000);
+        updateClock();
 
-    function validateMessage() {
-        const val = formMessage.value.trim();
-        if (val.length < 10) {
-            fgMessage.classList.add('error');
-            return false;
-        } else {
-            fgMessage.classList.remove('error');
-            return true;
-        }
-    }
-
-    // Validasi real-time saat mengetik
-    formName.addEventListener('input', validateName);
-    formMessage.addEventListener('input', validateMessage);
-    formName.addEventListener('blur', validateName);
-    formMessage.addEventListener('blur', validateMessage);
-
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const isNameValid = validateName();
-        const isMessageValid = validateMessage();
-
-        if (isNameValid && isMessageValid) {
-            const name = formName.value.trim();
-            const message = formMessage.value.trim();
-            const phoneNumber = '6289668262520'; // Format WhatsApp: +62 896-6826-2520
-            const waMessage = `Halo, saya ${name}.%0A%0A${message}`;
-            const waUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(waMessage)}`;
-
-            // Tampilkan animasi loading
-            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Mengirim...';
-            submitBtn.disabled = true;
-
-            // Redirect ke WhatsApp
-            setTimeout(() => {
-                window.open(waUrl, '_blank');
-                submitBtn.innerHTML = '<i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Kirim via WhatsApp';
-                submitBtn.disabled = false;
-                contactForm.reset();
-                fgName.classList.remove('error');
-                fgMessage.classList.remove('error');
-            }, 600);
-        }
-    });
-
-    // ============================================================
-    //  REAL-TIME CLOCK & DATE DI FOOTER
-    // ============================================================
-    function updateClock() {
-        const now = new Date();
-        const hours = String(now.getHours()).padStart(2, '0');
-        const minutes = String(now.getMinutes()).padStart(2, '0');
-        const seconds = String(now.getSeconds()).padStart(2, '0');
-        const clockElement = document.getElementById('footerClock');
-        if (clockElement) {
-            clockElement.textContent = `${hours}:${minutes}:${seconds}`;
-        }
-
-        // Format tanggal
-        const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
-        const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
-            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
-        ];
-        const dayName = days[now.getDay()];
-        const date = now.getDate();
-        const monthName = months[now.getMonth()];
-        const year = now.getFullYear();
-        const dateElement = document.getElementById('footerDate');
-        if (dateElement) {
-            dateElement.textContent = `${dayName}, ${date} ${monthName} ${year}`;
-        }
-    }
-
-    updateClock();
-    setInterval(updateClock, 1000);
-
-    // ============================================================
-    //  SMOOTH SCROLL FALLBACK (untuk browser lama)
-    // ============================================================
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                e.preventDefault();
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-            }
+        // Contact form – send to WhatsApp
+        document.getElementById('contactForm').addEventListener('submit',function(e){
+            e.preventDefault();
+            const name = encodeURIComponent(document.getElementById('name').value.trim());
+            const msg  = encodeURIComponent(document.getElementById('message').value.trim());
+            const whatsapp = `https://wa.me/6289668262520?text=Halo%20Tri%20Mulyo%20Atmojo,%20saya%20${name}%20ingin%20menanyakan:%20${msg}`;
+            window.open(whatsapp,'_blank');
         });
-    });
-
-    // ============================================================
-    //  LOG PADA KONSOL — Info Debug
-    // ============================================================
-    console.log('%c⚓ Tri Mulyo Atmojo — Portfolio CV',
-        'color: #1e90ff; font-size: 1.2rem; font-weight: bold;');
-    console.log('%cEngine Department • Marine Engineer • Purworejo, Indonesia',
-        'color: #d4a94e; font-size: 0.9rem;');
-    console.log('%cSertifikat dapat diverifikasi di pelaut.dephub.go.id',
-        'color: #8a94a0; font-size: 0.8rem;');
-</script>
+    </script>
 </body>
 </html>
