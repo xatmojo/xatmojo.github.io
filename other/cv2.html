@@ -1,0 +1,2368 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tri Mulyo Atmojo — CV Portfolio | Engine Department</title>
+
+    <!-- ==================== GOOGLE FONTS ==================== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Roboto+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- ==================== FONT AWESOME ==================== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- ==================== AOS ANIMATION ==================== -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+
+    <style>
+        /* ==========================================================
+                   CSS CUSTOM PROPERTIES (Light & Dark Theme)
+                   ========================================================== */
+        :root {
+            /* Light Theme (default) */
+            --primary: #0a2f44;
+            --primary-light: #1a4a6e;
+            --primary-lighter: #235a85;
+            --accent: #1e90ff;
+            --accent-soft: rgba(30, 144, 255, 0.12);
+            --gold: #c9a84c;
+            --gold-soft: rgba(201, 168, 76, 0.15);
+            --bg: #f5f7fa;
+            --bg-alt: #eef1f5;
+            --card-bg: #ffffff;
+            --text: #1a1a2e;
+            --text-secondary: #4a5568;
+            --text-muted: #718096;
+            --border: #e2e8f0;
+            --shadow: 0 4px 20px rgba(10, 47, 68, 0.08);
+            --shadow-lg: 0 12px 40px rgba(10, 47, 68, 0.15);
+            --shadow-glow: 0 0 30px rgba(30, 144, 255, 0.3);
+            --nav-bg: rgba(255, 255, 255, 0.92);
+            --nav-shadow: 0 2px 20px rgba(10, 47, 68, 0.08);
+            --glass-bg: rgba(255, 255, 255, 0.75);
+            --particle-color: rgba(10, 47, 68, 0.2);
+            --input-bg: #ffffff;
+            --input-border: #d1d5db;
+            --input-focus: #1e90ff;
+            --timeline-line: #cbd5e1;
+            --flip-back: linear-gradient(135deg, #0a2f44 0%, #1a4a6e 50%, #0a2f44 100%);
+            --modal-overlay: rgba(0, 0, 0, 0.6);
+            --scrollbar-track: #e2e8f0;
+            --scrollbar-thumb: #0a2f44;
+        }
+
+        [data-theme="dark"] {
+            --primary: #1a4a6e;
+            --primary-light: #2a5f8a;
+            --primary-lighter: #3a75a5;
+            --accent: #4da3ff;
+            --accent-soft: rgba(77, 163, 255, 0.15);
+            --gold: #d4b463;
+            --gold-soft: rgba(212, 180, 99, 0.18);
+            --bg: #0a0a14;
+            --bg-alt: #111122;
+            --card-bg: #151528;
+            --text: #e2e8f0;
+            --text-secondary: #b0c0d0;
+            --text-muted: #8899aa;
+            --border: #2d3748;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 12px 40px rgba(0, 0, 0, 0.6);
+            --shadow-glow: 0 0 30px rgba(77, 163, 255, 0.4);
+            --nav-bg: rgba(10, 10, 20, 0.92);
+            --nav-shadow: 0 2px 20px rgba(0, 0, 0, 0.4);
+            --glass-bg: rgba(21, 21, 40, 0.8);
+            --particle-color: rgba(255, 255, 255, 0.15);
+            --input-bg: #1a1a30;
+            --input-border: #3a4a5a;
+            --input-focus: #4da3ff;
+            --timeline-line: #3a4a5a;
+            --flip-back: linear-gradient(135deg, #1a1a30 0%, #0a0a14 100%);
+            --modal-overlay: rgba(0, 0, 0, 0.8);
+            --scrollbar-track: #1a1a30;
+            --scrollbar-thumb: #4a5a6a;
+        }
+
+        /* ==========================================================
+                   BASE RESET & GLOBAL STYLES
+                   ========================================================== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scrollbar-width: thin;
+            scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--scrollbar-track);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--scrollbar-thumb);
+            border-radius: 4px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.7;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+            min-height: 100vh;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--accent);
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: var(--primary-light);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* ==========================================================
+                   PARTICLE CANVAS BACKGROUND
+                   ========================================================== */
+        #particle-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* ==========================================================
+                   NAVIGATION BAR
+                   ========================================================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: var(--nav-bg);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
+            box-shadow: var(--nav-shadow);
+            padding: 14px 0;
+            transition: all 0.4s ease;
+            border-bottom: 2px solid transparent;
+        }
+        .navbar.scrolled {
+            border-bottom-color: var(--accent-soft);
+            padding: 10px 0;
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+        .nav-brand {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: -0.5px;
+            transition: color 0.3s;
+        }
+        .nav-brand i {
+            color: var(--gold);
+            font-size: 1.6rem;
+        }
+        .nav-brand:hover {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+        .nav-links a {
+            color: var(--text-secondary);
+            font-weight: 500;
+            font-size: 0.9rem;
+            padding: 8px 14px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--accent);
+            background: var(--accent-soft);
+        }
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 2px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 2px;
+            background: var(--accent);
+            border-radius: 2px;
+            transition: width 0.3s ease;
+        }
+        .nav-links a:hover::after,
+        .nav-links a.active::after {
+            width: 60%;
+        }
+
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .theme-toggle,
+        .hamburger {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            color: var(--text);
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: var(--shadow);
+        }
+        .theme-toggle:hover,
+        .hamburger:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+        .hamburger {
+            display: none;
+        }
+        .hamburger.active {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* Mobile Navigation */
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background: var(--nav-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: var(--shadow-lg);
+            z-index: 999;
+            padding: 16px 24px;
+            border-bottom: 2px solid var(--border);
+            animation: slideDown 0.3s ease forwards;
+        }
+        .mobile-menu.open {
+            display: block;
+        }
+        .mobile-menu a {
+            display: block;
+            padding: 14px 18px;
+            color: var(--text-secondary);
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+        .mobile-menu a:hover {
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ==========================================================
+                   HERO SECTION
+                   ========================================================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            position: relative;
+            padding: 120px 0 80px;
+            z-index: 1;
+            background: linear-gradient(160deg,
+                    var(--bg) 0%,
+                    var(--bg-alt) 30%,
+                    var(--accent-soft) 55%,
+                    var(--bg) 80%);
+            overflow: hidden;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: var(--bg);
+            clip-path: ellipse(70% 100% at 50% 100%);
+            z-index: 2;
+        }
+        .hero-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 48px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 3;
+        }
+        .hero-text {
+            flex: 1 1 380px;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--gold-soft);
+            color: var(--gold);
+            padding: 8px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            border: 1px solid var(--gold);
+        }
+        .hero-badge i {
+            font-size: 0.9rem;
+        }
+        .hero-text h1 {
+            font-size: 3.2rem;
+            font-weight: 800;
+            color: var(--primary);
+            letter-spacing: -1px;
+            line-height: 1.15;
+            margin-bottom: 12px;
+            transition: color 0.4s;
+        }
+        .hero-text h1 .highlight {
+            color: var(--accent);
+            position: relative;
+        }
+        .hero-text h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 4px;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: var(--gold-soft);
+            border-radius: 3px;
+            z-index: -1;
+        }
+        .hero-subtitle {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: var(--accent);
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+        .hero-description {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 28px;
+        }
+        .hero-buttons {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 13px 26px;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.35s ease;
+            border: none;
+            letter-spacing: 0.3px;
+            font-family: 'Poppins', sans-serif;
+        }
+        .btn-primary {
+            background: var(--accent);
+            color: #fff;
+            box-shadow: 0 6px 20px rgba(30, 144, 255, 0.35);
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            box-shadow: 0 10px 30px rgba(30, 144, 255, 0.5);
+            transform: translateY(-3px);
+            color: #fff;
+        }
+        .btn-outline {
+            background: transparent;
+            color: var(--primary);
+            border: 2px solid var(--accent);
+            box-shadow: none;
+        }
+        .btn-outline:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+        .btn-gold {
+            background: var(--gold);
+            color: #0a0a0a;
+            box-shadow: 0 6px 20px rgba(201, 168, 76, 0.35);
+        }
+        .btn-gold:hover {
+            background: #d4b463;
+            box-shadow: 0 10px 30px rgba(201, 168, 76, 0.5);
+            transform: translateY(-3px);
+            color: #0a0a0a;
+        }
+
+        .hero-image {
+            flex: 0 0 300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .profile-photo {
+            width: 260px;
+            height: 260px;
+            border-radius: 50%;
+            background: var(--glass-bg);
+            border: 4px solid var(--accent);
+            box-shadow: var(--shadow-lg), 0 0 60px rgba(30, 144, 255, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 7rem;
+            color: var(--accent);
+            position: relative;
+            transition: all 0.5s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .profile-photo:hover {
+            transform: scale(1.04);
+            box-shadow: var(--shadow-glow), 0 0 80px rgba(30, 144, 255, 0.4);
+        }
+        .profile-photo .ring {
+            position: absolute;
+            inset: -12px;
+            border-radius: 50%;
+            border: 2px dashed var(--accent);
+            animation: spinRing 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes spinRing {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+        .profile-photo i {
+            font-size: 6.5rem;
+        }
+
+        /* ==========================================================
+                   SECTION COMMON STYLES
+                   ========================================================== */
+        .section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-header .section-icon {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+        .section-header h2 {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+        .section-header .section-line {
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), var(--gold));
+            border-radius: 4px;
+            margin: 0 auto 16px;
+        }
+        .section-header p {
+            color: var(--text-secondary);
+            max-width: 560px;
+            margin: 0 auto;
+            font-size: 0.95rem;
+        }
+
+        /* ==========================================================
+                   ABOUT SECTION
+                   ========================================================== */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 40px;
+            align-items: start;
+        }
+        .about-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.4s ease;
+        }
+        .about-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .about-card h3 {
+            font-size: 1.2rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .about-card h3 i {
+            color: var(--accent);
+        }
+        .about-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 12px;
+        }
+
+        /* Personal Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+        .data-table th,
+        .data-table td {
+            padding: 11px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table th {
+            font-weight: 600;
+            color: var(--primary);
+            width: 38%;
+            white-space: nowrap;
+            background: var(--bg-alt);
+            border-radius: 6px 0 0 6px;
+        }
+        .data-table td {
+            color: var(--text-secondary);
+        }
+        .data-table tr:last-child th,
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+        .data-table tr {
+            transition: background 0.2s;
+        }
+        .data-table tr:hover {
+            background: var(--accent-soft);
+        }
+
+        /* ==========================================================
+                   CERTIFICATES SECTION
+                   ========================================================== */
+        .cert-section {
+            margin-bottom: 48px;
+        }
+        .cert-section-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 22px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .cert-section-title i {
+            color: var(--gold);
+            font-size: 1.5rem;
+        }
+        .cert-section-title .badge-count {
+            background: var(--accent-soft);
+            color: var(--accent);
+            padding: 3px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 22px;
+        }
+        .cert-card {
+            perspective: 1200px;
+            cursor: pointer;
+            height: 210px;
+        }
+        .cert-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0.2, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: 16px;
+        }
+        .cert-card.flipped .cert-card-inner {
+            transform: rotateY(180deg);
+        }
+        .cert-card-front,
+        .cert-card-back {
+            position: absolute;
+            inset: 0;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+            border-radius: 16px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 22px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: all 0.4s ease;
+        }
+        .cert-card-front {
+            background: var(--card-bg);
+            border: 2px solid var(--border);
+        }
+        .cert-card-front:hover {
+            border-color: var(--accent);
+            box-shadow: var(--shadow-lg);
+        }
+        .cert-card-back {
+            background: var(--flip-back);
+            color: #fff;
+            transform: rotateY(180deg);
+            border: 2px solid var(--accent);
+            overflow-y: auto;
+        }
+        .cert-icon {
+            font-size: 2.8rem;
+            color: var(--accent);
+            margin-bottom: 12px;
+            transition: transform 0.3s;
+        }
+        .cert-card-front:hover .cert-icon {
+            transform: scale(1.15);
+        }
+        .cert-card-front h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 4px;
+        }
+        .cert-card-front .cert-type {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .cert-flip-hint {
+            position: absolute;
+            bottom: 10px;
+            right: 14px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            opacity: 0.6;
+        }
+        .cert-card-back .back-detail {
+            width: 100%;
+            text-align: left;
+            margin-bottom: 8px;
+            font-size: 0.82rem;
+        }
+        .cert-card-back .back-detail strong {
+            color: var(--gold);
+            font-weight: 600;
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .cert-card-back .back-detail span {
+            color: #e2e8f0;
+            word-break: break-word;
+        }
+        .cert-card-back .back-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: #fff;
+        }
+
+        /* Seaman Book Card (Highlighted) */
+        .seaman-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px 30px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            transition: all 0.4s ease;
+            margin-bottom: 20px;
+        }
+        .seaman-card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-3px);
+            border-color: var(--accent);
+        }
+        .seaman-card .left {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+        }
+        .seaman-card .left .book-icon {
+            font-size: 2.8rem;
+            color: var(--gold);
+        }
+        .seaman-card .left h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        .seaman-card .left p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+        }
+        .seaman-card .right {
+            text-align: right;
+        }
+        .seaman-card .right .validity {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+        .seaman-card .right .valid {
+            font-weight: 600;
+            color: #10b981;
+            font-size: 0.9rem;
+        }
+
+        /* Verification link */
+        .verify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            border-radius: 8px;
+            background: var(--accent-soft);
+            transition: all 0.3s;
+            margin-top: 8px;
+        }
+        .verify-link:hover {
+            background: var(--accent);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* ==========================================================
+                   TIMELINE SECTION
+                   ========================================================== */
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: var(--timeline-line);
+            border-radius: 4px;
+            transform: translateY(-50%);
+        }
+        .timeline-items {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .timeline-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+            position: relative;
+            z-index: 1;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .timeline-item .dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 3px solid var(--card-bg);
+            box-shadow: 0 0 0 3px var(--accent), var(--shadow);
+            margin-bottom: 10px;
+            transition: all 0.3s;
+        }
+        .timeline-item:hover .dot {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 5px var(--accent-soft), var(--shadow-lg);
+        }
+        .timeline-item .date {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--accent);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+        .timeline-item .event {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text);
+            margin-top: 2px;
+        }
+        .timeline-item .detail {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
+
+        /* ==========================================================
+                   CONTACT SECTION
+                   ========================================================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+        .contact-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 28px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            transition: all 0.4s;
+        }
+        .contact-card:hover {
+            box-shadow: var(--shadow-lg);
+        }
+        .contact-card h3 {
+            font-size: 1.15rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .contact-card h3 i {
+            color: var(--accent);
+        }
+        .contact-info-item {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .contact-info-item:last-child {
+            border-bottom: none;
+        }
+        .contact-info-item .ci-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
+            background: var(--accent-soft);
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .contact-info-item .ci-text {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+        .contact-info-item .ci-text strong {
+            display: block;
+            color: var(--text);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Form */
+        .form-group {
+            margin-bottom: 18px;
+        }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+        }
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            background: var(--input-bg);
+            border: 2px solid var(--input-border);
+            border-radius: 10px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: var(--text);
+            transition: all 0.3s;
+            outline: none;
+            resize: vertical;
+        }
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--input-focus);
+            box-shadow: 0 0 0 4px var(--accent-soft);
+        }
+        .form-group .error-msg {
+            color: #ef4444;
+            font-size: 0.78rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .form-group.error input,
+        .form-group.error textarea {
+            border-color: #ef4444;
+        }
+        .form-group.error .error-msg {
+            display: block;
+        }
+
+        .map-container {
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            margin-top: 24px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 260px;
+            border: none;
+            display: block;
+        }
+
+        /* ==========================================================
+                   FOOTER
+                   ========================================================== */
+        .footer {
+            background: var(--primary);
+            color: #e2e8f0;
+            padding: 40px 0 30px;
+            position: relative;
+            z-index: 1;
+            margin-top: 40px;
+        }
+        .footer .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .footer-brand {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+        .footer-brand i {
+            color: var(--gold);
+            margin-right: 8px;
+        }
+        .footer-clock {
+            font-family: 'Roboto Mono', monospace;
+            font-size: 0.95rem;
+            color: #b0c0d0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .footer-clock .live-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #10b981;
+            animation: pulse 2s ease infinite;
+        }
+        @keyframes pulse {
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.5;
+                transform: scale(1.4);
+            }
+        }
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            list-style: none;
+        }
+        .footer-links a {
+            color: #b0c0d0;
+            font-size: 0.85rem;
+            transition: color 0.3s;
+        }
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            margin-top: 24px;
+            font-size: 0.8rem;
+            color: #8899aa;
+        }
+
+        /* ==========================================================
+                   BACK TO TOP BUTTON
+                   ========================================================== */
+        .back-to-top {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 48px;
+            height: 48px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            cursor: pointer;
+            box-shadow: 0 6px 24px rgba(30, 144, 255, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(20px);
+            transition: all 0.4s ease;
+            z-index: 900;
+        }
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+        .back-to-top:hover {
+            background: var(--primary-light);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(30, 144, 255, 0.5);
+        }
+
+        /* ==========================================================
+                   MODAL OVERLAY
+                   ========================================================== */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: var(--modal-overlay);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.4s ease;
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal-content {
+            background: var(--card-bg);
+            border-radius: 18px;
+            padding: 30px;
+            max-width: 480px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.8);
+            transition: transform 0.4s ease;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+        .modal-close {
+            position: absolute;
+            top: 14px;
+            right: 14px;
+            background: var(--bg-alt);
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .modal-close:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+        .modal-content h3 {
+            color: var(--primary);
+            margin-bottom: 16px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .modal-content .detail-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .modal-content .detail-row strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+        .modal-content .detail-row span {
+            color: var(--text-secondary);
+        }
+
+        /* ==========================================================
+                   RESPONSIVE BREAKPOINTS
+                   ========================================================== */
+        @media (max-width: 992px) {
+            .hero-content {
+                flex-direction: column-reverse;
+                text-align: center;
+                gap: 30px;
+            }
+            .hero-text h1 {
+                font-size: 2.5rem;
+            }
+            .hero-description {
+                margin-left: auto;
+                margin-right: auto;
+            }
+            .hero-buttons {
+                justify-content: center;
+            }
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .profile-photo {
+                width: 200px;
+                height: 200px;
+                font-size: 5rem;
+            }
+            .profile-photo i {
+                font-size: 5rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .mobile-menu {
+                display: none;
+            }
+            .mobile-menu.open {
+                display: block;
+            }
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            .hero-subtitle {
+                font-size: 1.1rem;
+            }
+            .section {
+                padding: 50px 0;
+            }
+            .section-header h2 {
+                font-size: 1.7rem;
+            }
+            .cert-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 14px;
+            }
+            .cert-card {
+                height: 180px;
+            }
+            .seaman-card {
+                flex-direction: column;
+                text-align: center;
+            }
+            .seaman-card .left {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .seaman-card .right {
+                text-align: center;
+            }
+            .timeline-container::before {
+                top: 15px;
+                left: 20px;
+                right: 20px;
+                height: 3px;
+            }
+            .timeline-items {
+                gap: 8px;
+            }
+            .timeline-item {
+                min-width: 70px;
+            }
+            .timeline-item .dot {
+                width: 14px;
+                height: 14px;
+            }
+            .timeline-item .date {
+                font-size: 0.6rem;
+            }
+            .timeline-item .event {
+                font-size: 0.7rem;
+            }
+            .footer .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .footer-links {
+                justify-content: center;
+            }
+            .back-to-top {
+                bottom: 16px;
+                right: 16px;
+                width: 40px;
+                height: 40px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            .cert-card {
+                height: 170px;
+            }
+            .hero-text h1 {
+                font-size: 1.6rem;
+            }
+            .btn {
+                padding: 10px 18px;
+                font-size: 0.85rem;
+            }
+            .profile-photo {
+                width: 160px;
+                height: 160px;
+            }
+            .profile-photo i {
+                font-size: 4rem;
+            }
+            .data-table th,
+            .data-table td {
+                padding: 8px 10px;
+                font-size: 0.8rem;
+            }
+            .data-table th {
+                width: 42%;
+            }
+            .timeline-items {
+                flex-wrap: nowrap;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+            .timeline-item {
+                min-width: 90px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ==================== PARTICLE CANVAS ==================== -->
+    <canvas id="particle-canvas" aria-hidden="true"></canvas>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
+        <div class="container">
+            <a href="#hero" class="nav-brand" aria-label="Beranda">
+                <i class="fa-solid fa-anchor" aria-hidden="true"></i>
+                <span>TMA</span>
+            </a>
+            <ul class="nav-links" role="menubar">
+                <li role="none"><a href="#hero" role="menuitem" class="active" aria-current="page">Beranda</a></li>
+                <li role="none"><a href="#tentang" role="menuitem">Tentang</a></li>
+                <li role="none"><a href="#data-pribadi" role="menuitem">Data Pribadi</a></li>
+                <li role="none"><a href="#sertifikat" role="menuitem">Sertifikat</a></li>
+                <li role="none"><a href="#timeline" role="menuitem">Timeline</a></li>
+                <li role="none"><a href="#kontak" role="menuitem">Kontak</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="themeToggle" aria-label="Ganti tema terang/gelap" title="Ganti tema">
+                    <i class="fa-solid fa-moon" id="themeIcon" aria-hidden="true"></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Buka menu navigasi" aria-expanded="false">
+                    <i class="fa-solid fa-bars" id="hamburgerIcon" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Menu mobile">
+        <a href="#hero" onclick="closeMobileMenu()">Beranda</a>
+        <a href="#tentang" onclick="closeMobileMenu()">Tentang</a>
+        <a href="#data-pribadi" onclick="closeMobileMenu()">Data Pribadi</a>
+        <a href="#sertifikat" onclick="closeMobileMenu()">Sertifikat</a>
+        <a href="#timeline" onclick="closeMobileMenu()">Timeline</a>
+        <a href="#kontak" onclick="closeMobileMenu()">Kontak</a>
+    </div>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="hero" aria-label="Bagian beranda">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text" data-aos="fade-right" data-aos-duration="800">
+                    <div class="hero-badge">
+                        <i class="fa-solid fa-ship" aria-hidden="true"></i>
+                        <span>Pelaut Profesional</span>
+                    </div>
+                    <h1>Tri Mulyo <span class="highlight">Atmojo</span></h1>
+                    <p class="hero-subtitle">
+                        <i class="fa-solid fa-gears" aria-hidden="true"></i>
+                        Engine Department
+                    </p>
+                    <p class="hero-description">
+                        Seorang profesional di bidang permesinan kapal dengan sertifikasi lengkap
+                        dan pengalaman sebagai <strong>Rating Engine</strong>. Berkomitmen pada
+                        keselamatan, kedisiplinan, dan kualitas kerja yang tinggi di industri maritim.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#sertifikat" class="btn btn-primary">
+                            <i class="fa-solid fa-certificate" aria-hidden="true"></i>
+                            Lihat Sertifikat
+                        </a>
+                        <a href="#kontak" class="btn btn-outline">
+                            <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                            Hubungi Saya
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-image" data-aos="fade-left" data-aos-duration="800" data-aos-delay="200">
+                    <div class="profile-photo">
+                        <div class="ring" aria-hidden="true"></div>
+                        <i class="fa-solid fa-user" aria-hidden="true" alt="Foto profil Tri Mulyo Atmojo"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TENTANG SECTION ==================== -->
+    <section class="section" id="tentang" aria-label="Tentang saya">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <i class="fa-solid fa-user-tie section-icon" aria-hidden="true"></i>
+                <h2>Tentang Saya</h2>
+                <div class="section-line"></div>
+                <p>Ringkasan profesional dan kualifikasi singkat</p>
+            </div>
+            <div class="about-grid">
+                <div class="about-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Ringkasan Profesional</h3>
+                    <p>
+                        Saya adalah seorang <strong>Rating Engine</strong> bersertifikat dengan pemahaman
+                        mendalam tentang permesinan kapal, keselamatan maritim, dan prosedur operasional
+                        standar di atas kapal. Memiliki komitmen tinggi terhadap keselamatan kerja
+                        dan kesiapan untuk bekerja dalam tim maupun secara mandiri.
+                    </p>
+                    <p>
+                        Dengan sertifikasi lengkap dari <strong>BST, SAT, AFF, dan SDSD</strong>,
+                        saya siap berkontribusi dalam operasional kapal yang aman dan efisien.
+                        Seluruh dokumen dan sertifikat dapat diverifikasi secara resmi melalui
+                        <a href="https://www.pelaut.dephub.go.id" target="_blank" rel="noopener noreferrer">
+                            pelaut.dephub.go.id
+                        </a>.
+                    </p>
+                    <a href="https://www.pelaut.dephub.go.id" target="_blank" rel="noopener noreferrer" class="verify-link">
+                        <i class="fa-solid fa-link" aria-hidden="true"></i>
+                        Verifikasi di pelaut.dephub.go.id
+                        <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                    </a>
+                </div>
+                <div class="about-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fa-solid fa-heart" aria-hidden="true"></i> Karakter & Nilai</h3>
+                    <p>
+                        <i class="fa-solid fa-check-circle" style="color:#10b981;margin-right:8px;" aria-hidden="true"></i>
+                        <strong>Disiplin</strong> — Tepat waktu dan mematuhi prosedur keselamatan.
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-check-circle" style="color:#10b981;margin-right:8px;" aria-hidden="true"></i>
+                        <strong>Bertanggung Jawab</strong> — Dapat diandalkan dalam setiap tugas.
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-check-circle" style="color:#10b981;margin-right:8px;" aria-hidden="true"></i>
+                        <strong>Adaptif</strong> — Mampu bekerja dalam kondisi dinamis di atas kapal.
+                    </p>
+                    <p>
+                        <i class="fa-solid fa-check-circle" style="color:#10b981;margin-right:8px;" aria-hidden="true"></i>
+                        <strong>Kolaboratif</strong> — Bekerja sama dengan kru dari berbagai latar belakang.
+                    </p>
+                    <p style="margin-top:14px;font-size:0.85rem;color:var(--text-muted);">
+                        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                        Berdomisili di Purworejo, Jawa Tengah, Indonesia. Siap ditempatkan di seluruh wilayah Indonesia.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DATA PRIBADI SECTION ==================== -->
+    <section class="section" id="data-pribadi" aria-label="Data pribadi" style="background:var(--bg-alt);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <i class="fa-solid fa-id-card section-icon" aria-hidden="true"></i>
+                <h2>Data Pribadi</h2>
+                <div class="section-line"></div>
+                <p>Informasi lengkap data diri dan kontak</p>
+            </div>
+            <div class="about-card" data-aos="fade-up" data-aos-delay="100" style="max-width:800px;margin:0 auto;">
+                <table class="data-table" aria-label="Tabel data pribadi">
+                    <tr>
+                        <th scope="row">Nama Lengkap</th>
+                        <td>Tri Mulyo Atmojo</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tempat / Tanggal Lahir</th>
+                        <td>Purworejo, 02 Desember 1998</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jenis Kelamin</th>
+                        <td>Laki-laki</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Agama</th>
+                        <td>Islam</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Tinggi / Berat Badan</th>
+                        <td>180 cm / 71 kg</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Status Perkawinan</th>
+                        <td>Belum Kawin</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Alamat Tetap</th>
+                        <td>Lubang Sampang, Butuh, Purworejo, Jawa Tengah, Indonesia</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Kewarganegaraan</th>
+                        <td>Indonesia</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Nomor Telepon</th>
+                        <td><a href="tel:+6289668262520">+62 896-6826-2520</a></td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Email</th>
+                        <td><a href="mailto:xatmojo@gmail.com">xatmojo@gmail.com</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERTIFIKAT SECTION ==================== -->
+    <section class="section" id="sertifikat" aria-label="Dokumen dan sertifikat">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <i class="fa-solid fa-certificate section-icon" aria-hidden="true"></i>
+                <h2>Dokumen & Sertifikat</h2>
+                <div class="section-line"></div>
+                <p>Seluruh dokumen resmi dan sertifikat pelaut yang dapat diverifikasi</p>
+            </div>
+
+            <!-- Buku Pelaut (Seaman Book) -->
+            <div class="seaman-card" data-aos="fade-up" data-aos-delay="50">
+                <div class="left">
+                    <i class="fa-solid fa-book book-icon" aria-hidden="true"></i>
+                    <div>
+                        <h4>Buku Pelaut (Seaman Book)</h4>
+                        <p>Nomor: <strong>M 060321</strong> &nbsp;|&nbsp; Dikeluarkan di <strong>Semarang</strong></p>
+                    </div>
+                </div>
+                <div class="right">
+                    <p class="validity">Berlaku hingga</p>
+                    <p class="valid">
+                        <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+                        04 Agustus 2029
+                    </p>
+                    <p style="font-size:0.75rem;color:var(--text-muted);">Diterbitkan: 04 Agustus 2026</p>
+                </div>
+            </div>
+
+            <!-- Certificate of Competency -->
+            <div class="cert-section" data-aos="fade-up" data-aos-delay="100">
+                <h3 class="cert-section-title">
+                    <i class="fa-solid fa-award" aria-hidden="true"></i>
+                    Certificate of Competency (COC)
+                    <span class="badge-count">1</span>
+                </h3>
+                <div class="cert-grid">
+                    <div class="cert-card" data-aos="zoom-in" data-aos-delay="150" onclick="flipCard(this)" role="button" tabindex="0" aria-label="Kartu sertifikat Rating Engine, klik untuk melihat detail" onkeydown="if(event.key==='Enter'||event.key===' '){flipCard(this);event.preventDefault();}">
+                        <div class="cert-card-inner">
+                            <div class="cert-card-front">
+                                <i class="fa-solid fa-gears cert-icon" aria-hidden="true"></i>
+                                <h4>Rating Engine</h4>
+                                <span class="cert-type">Certificate of Competency</span>
+                                <span class="cert-flip-hint">
+                                    <i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail
+                                </span>
+                            </div>
+                            <div class="cert-card-back">
+                                <p class="back-title">Rating Engine</p>
+                                <div class="back-detail">
+                                    <strong>Nomor Seri</strong>
+                                    <span>CP 8294959</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Nomor Sertifikat</strong>
+                                    <span>6212535592350326</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Dikeluarkan</strong>
+                                    <span>Semarang, 04 Mei 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificate of Proficiency -->
+            <div class="cert-section" data-aos="fade-up" data-aos-delay="150">
+                <h3 class="cert-section-title">
+                    <i class="fa-solid fa-shield-halved" aria-hidden="true"></i>
+                    Certificate of Proficiency (COP)
+                    <span class="badge-count">4</span>
+                </h3>
+                <div class="cert-grid">
+                    <!-- BST -->
+                    <div class="cert-card" data-aos="zoom-in" data-aos-delay="200" onclick="flipCard(this)" role="button" tabindex="0" aria-label="Kartu sertifikat BST, klik untuk melihat detail" onkeydown="if(event.key==='Enter'||event.key===' '){flipCard(this);event.preventDefault();}">
+                        <div class="cert-card-inner">
+                            <div class="cert-card-front">
+                                <i class="fa-solid fa-life-ring cert-icon" aria-hidden="true"></i>
+                                <h4>BST</h4>
+                                <span class="cert-type">Basic Safety Training</span>
+                                <span class="cert-flip-hint">
+                                    <i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail
+                                </span>
+                            </div>
+                            <div class="cert-card-back">
+                                <p class="back-title">Basic Safety Training</p>
+                                <div class="back-detail">
+                                    <strong>Nomor Seri</strong>
+                                    <span>CP 7359456</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Nomor Sertifikat</strong>
+                                    <span>6212535592010325</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Dikeluarkan</strong>
+                                    <span>Semarang, 15 Juli 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SAT -->
+                    <div class="cert-card" data-aos="zoom-in" data-aos-delay="250" onclick="flipCard(this)" role="button" tabindex="0" aria-label="Kartu sertifikat SAT, klik untuk melihat detail" onkeydown="if(event.key==='Enter'||event.key===' '){flipCard(this);event.preventDefault();}">
+                        <div class="cert-card-inner">
+                            <div class="cert-card-front">
+                                <i class="fa-solid fa-shield-halved cert-icon" aria-hidden="true"></i>
+                                <h4>SAT</h4>
+                                <span class="cert-type">Security Awareness Training</span>
+                                <span class="cert-flip-hint">
+                                    <i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail
+                                </span>
+                            </div>
+                            <div class="cert-card-back">
+                                <p class="back-title">Security Awareness Training</p>
+                                <div class="back-detail">
+                                    <strong>Nomor Seri</strong>
+                                    <span>CP 7361607</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Nomor Sertifikat</strong>
+                                    <span>6212535592060325</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Dikeluarkan</strong>
+                                    <span>Semarang, 29 Juli 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AFF -->
+                    <div class="cert-card" data-aos="zoom-in" data-aos-delay="300" onclick="flipCard(this)" role="button" tabindex="0" aria-label="Kartu sertifikat AFF, klik untuk melihat detail" onkeydown="if(event.key==='Enter'||event.key===' '){flipCard(this);event.preventDefault();}">
+                        <div class="cert-card-inner">
+                            <div class="cert-card-front">
+                                <i class="fa-solid fa-fire-extinguisher cert-icon" aria-hidden="true"></i>
+                                <h4>AFF</h4>
+                                <span class="cert-type">Advanced Fire Fighting</span>
+                                <span class="cert-flip-hint">
+                                    <i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail
+                                </span>
+                            </div>
+                            <div class="cert-card-back">
+                                <p class="back-title">Advanced Fire Fighting</p>
+                                <div class="back-detail">
+                                    <strong>Nomor Seri</strong>
+                                    <span>CP 7360568</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Nomor Sertifikat</strong>
+                                    <span>6212535592310325</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Dikeluarkan</strong>
+                                    <span>Semarang, 28 Juli 2025</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SDSD -->
+                    <div class="cert-card" data-aos="zoom-in" data-aos-delay="350" onclick="flipCard(this)" role="button" tabindex="0" aria-label="Kartu sertifikat SDSD, klik untuk melihat detail" onkeydown="if(event.key==='Enter'||event.key===' '){flipCard(this);event.preventDefault();}">
+                        <div class="cert-card-inner">
+                            <div class="cert-card-front">
+                                <i class="fa-solid fa-ship cert-icon" aria-hidden="true"></i>
+                                <h4>SDSD</h4>
+                                <span class="cert-type">Ship Security Duties</span>
+                                <span class="cert-flip-hint">
+                                    <i class="fa-solid fa-rotate" aria-hidden="true"></i> Klik untuk detail
+                                </span>
+                            </div>
+                            <div class="cert-card-back">
+                                <p class="back-title">Ship Security Duties</p>
+                                <div class="back-detail">
+                                    <strong>Nomor Seri</strong>
+                                    <span>CP 8046330</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Nomor Sertifikat</strong>
+                                    <span>6212535592320326</span>
+                                </div>
+                                <div class="back-detail">
+                                    <strong>Dikeluarkan</strong>
+                                    <span>Semarang, 10 Maret 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Verification Note -->
+            <div data-aos="fade-up" data-aos-delay="400" style="text-align:center;margin-top:30px;">
+                <a href="https://www.pelaut.dephub.go.id" target="_blank" rel="noopener noreferrer" class="verify-link" style="font-size:1rem;padding:12px 24px;">
+                    <i class="fa-solid fa-check-circle" aria-hidden="true"></i>
+                    Verifikasi seluruh sertifikat di www.pelaut.dephub.go.id
+                    <i class="fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TIMELINE SECTION ==================== -->
+    <section class="section" id="timeline" aria-label="Timeline masa berlaku sertifikat" style="background:var(--bg-alt);">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <i class="fa-solid fa-timeline section-icon" aria-hidden="true"></i>
+                <h2>Timeline Sertifikat</h2>
+                <div class="section-line"></div>
+                <p>Linimasa penerbitan dokumen dan sertifikat</p>
+            </div>
+            <div class="timeline-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="timeline-items">
+                    <div class="timeline-item" onclick="showTimelineDetail('BST — Basic Safety Training<br>15 Juli 2025 — Semarang')" role="button" tabindex="0" aria-label="BST, 15 Juli 2025">
+                        <div class="dot"></div>
+                        <span class="date">Jul 2025</span>
+                        <span class="event">BST</span>
+                        <span class="detail">15 Jul</span>
+                    </div>
+                    <div class="timeline-item" onclick="showTimelineDetail('AFF — Advanced Fire Fighting<br>28 Juli 2025 — Semarang')" role="button" tabindex="0" aria-label="AFF, 28 Juli 2025">
+                        <div class="dot"></div>
+                        <span class="date">Jul 2025</span>
+                        <span class="event">AFF</span>
+                        <span class="detail">28 Jul</span>
+                    </div>
+                    <div class="timeline-item" onclick="showTimelineDetail('SAT — Security Awareness Training<br>29 Juli 2025 — Semarang')" role="button" tabindex="0" aria-label="SAT, 29 Juli 2025">
+                        <div class="dot"></div>
+                        <span class="date">Jul 2025</span>
+                        <span class="event">SAT</span>
+                        <span class="detail">29 Jul</span>
+                    </div>
+                    <div class="timeline-item" onclick="showTimelineDetail('SDSD — Ship Security Duties<br>10 Maret 2026 — Semarang')" role="button" tabindex="0" aria-label="SDSD, 10 Maret 2026">
+                        <div class="dot"></div>
+                        <span class="date">Mar 2026</span>
+                        <span class="event">SDSD</span>
+                        <span class="detail">10 Mar</span>
+                    </div>
+                    <div class="timeline-item" onclick="showTimelineDetail('COC — Rating Engine<br>04 Mei 2026 — Semarang')" role="button" tabindex="0" aria-label="COC Rating Engine, 04 Mei 2026">
+                        <div class="dot"></div>
+                        <span class="date">Mei 2026</span>
+                        <span class="event">COC</span>
+                        <span class="detail">04 Mei</span>
+                    </div>
+                    <div class="timeline-item" onclick="showTimelineDetail('Buku Pelaut (Seaman Book)<br>04 Agustus 2026 — Berlaku hingga 04 Agustus 2029')" role="button" tabindex="0" aria-label="Buku Pelaut, 04 Agustus 2026">
+                        <div class="dot" style="border-color:var(--gold);box-shadow:0 0 0 3px var(--gold),var(--shadow);"></div>
+                        <span class="date">Agu 2026</span>
+                        <span class="event">Buku Pelaut</span>
+                        <span class="detail">04 Agu</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== KONTAK SECTION ==================== -->
+    <section class="section" id="kontak" aria-label="Kontak dan formulir">
+        <div class="container">
+            <div class="section-header" data-aos="fade-up">
+                <i class="fa-solid fa-envelope-open-text section-icon" aria-hidden="true"></i>
+                <h2>Hubungi Saya</h2>
+                <div class="section-line"></div>
+                <p>Silakan kirim pesan atau gunakan informasi kontak di bawah</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="100">
+                    <h3><i class="fa-solid fa-address-book" aria-hidden="true"></i> Informasi Kontak</h3>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fa-solid fa-phone" aria-hidden="true"></i></div>
+                        <div class="ci-text">
+                            <strong>Telepon</strong>
+                            <a href="tel:+6289668262520">+62 896-6826-2520</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fa-solid fa-envelope" aria-hidden="true"></i></div>
+                        <div class="ci-text">
+                            <strong>Email</strong>
+                            <a href="mailto:xatmojo@gmail.com">xatmojo@gmail.com</a>
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fa-solid fa-location-dot" aria-hidden="true"></i></div>
+                        <div class="ci-text">
+                            <strong>Alamat</strong>
+                            Lubang Sampang, Butuh, Purworejo, Jawa Tengah
+                        </div>
+                    </div>
+                    <div class="contact-info-item">
+                        <div class="ci-icon"><i class="fa-solid fa-globe" aria-hidden="true"></i></div>
+                        <div class="ci-text">
+                            <strong>Verifikasi</strong>
+                            <a href="https://www.pelaut.dephub.go.id" target="_blank" rel="noopener noreferrer">
+                                pelaut.dephub.go.id
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="contact-card" data-aos="fade-up" data-aos-delay="200">
+                    <h3><i class="fa-solid fa-paper-plane" aria-hidden="true"></i> Kirim Pesan</h3>
+                    <form id="contactForm" novalidate aria-label="Formulir kontak">
+                        <div class="form-group" id="fg-name">
+                            <label for="formName">Nama Lengkap <span style="color:#ef4444;">*</span></label>
+                            <input type="text" id="formName" name="name" placeholder="Masukkan nama Anda" required aria-required="true" autocomplete="name">
+                            <span class="error-msg">Nama wajib diisi.</span>
+                        </div>
+                        <div class="form-group" id="fg-email">
+                            <label for="formEmail">Email <span style="color:#ef4444;">*</span></label>
+                            <input type="email" id="formEmail" name="email" placeholder="nama@email.com" required aria-required="true" autocomplete="email">
+                            <span class="error-msg">Email wajib diisi dengan format yang benar.</span>
+                        </div>
+                        <div class="form-group" id="fg-message">
+                            <label for="formMessage">Pesan <span style="color:#ef4444;">*</span></label>
+                            <textarea id="formMessage" name="message" rows="5" placeholder="Tulis pesan Anda di sini..." required aria-required="true"></textarea>
+                            <span class="error-msg">Pesan wajib diisi.</span>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center;">
+                            <i class="fa-solid fa-paper-plane" aria-hidden="true"></i>
+                            Kirim Pesan
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="map-container" data-aos="fade-up" data-aos-delay="300">
+                <iframe
+                src="https://www.google.com/maps?q=Purworejo,Jawa+Tengah,Indonesia&output=embed"
+                title="Peta lokasi Purworejo, Jawa Tengah"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+                aria-label="Peta lokasi Purworejo">
+            </iframe>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-brand">
+            <i class="fa-solid fa-anchor" aria-hidden="true"></i>
+            Tri Mulyo Atmojo
+            <span style="font-weight:400;font-size:0.85rem;color:#8899aa;">— Engine Department</span>
+        </div>
+        <div class="footer-clock" aria-live="polite">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span id="footerClock">Memuat jam...</span>
+            <span style="margin-left:8px;font-size:0.75rem;color:#8899aa;" id="footerDate"></span>
+        </div>
+        <ul class="footer-links">
+            <li><a href="#hero">Beranda</a></li>
+            <li><a href="#tentang">Tentang</a></li>
+            <li><a href="#sertifikat">Sertifikat</a></li>
+            <li><a href="#kontak">Kontak</a></li>
+        </ul>
+    </div>
+    <div class="footer-bottom">
+        &copy; 2025 Tri Mulyo Atmojo. Seluruh hak cipta dilindungi. &nbsp;|&nbsp;
+        Dibuat dengan <i class="fa-solid fa-heart" style="color:#ef4444;" aria-hidden="true"></i> untuk industri maritim Indonesia.
+    </div>
+</footer>
+
+<!-- ==================== BACK TO TOP ==================== -->
+<button class="back-to-top" id="backToTop" aria-label="Kembali ke atas halaman" title="Kembali ke atas">
+    <i class="fa-solid fa-arrow-up" aria-hidden="true"></i>
+</button>
+
+<!-- ==================== MODAL OVERLAY ==================== -->
+<div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-label="Detail timeline">
+    <div class="modal-content">
+        <button class="modal-close" onclick="closeModal()" aria-label="Tutup detail" title="Tutup">
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+        </button>
+        <h3 id="modalTitle"><i class="fa-solid fa-circle-info" aria-hidden="true"></i> Detail</h3>
+        <div id="modalBody" style="color:var(--text-secondary);font-size:0.95rem;line-height:1.8;"></div>
+    </div>
+</div>
+
+<!-- ==================== AOS LIBRARY ==================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js">
+</script>
+
+<!-- ==================== JAVASCRIPT ==================== -->
+<script>
+    /**
+     * ==========================================================
+     * INISIALISASI AOS (Animate On Scroll)
+     * ==========================================================
+     */
+    AOS.init({
+        duration: 700,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 80,
+        delay: 0,
+    });
+
+    /**
+     * ==========================================================
+     * PARTICLE CANVAS BACKGROUND
+     * ==========================================================
+     */
+    (function initParticles() {
+        const canvas = document.getElementById('particle-canvas');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        const particleCount = 60;
+        let animationId;
+
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener('resize', resizeCanvas);
+
+        function getParticleColor() {
+            const theme = document.documentElement.getAttribute('data-theme');
+            if (theme === 'dark') {
+                return 'rgba(255,255,255,0.15)';
+            }
+            return 'rgba(10,47,68,0.2)';
+        }
+
+        class Particle {
+            constructor() {
+                this.reset();
+            }
+            reset() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2.5 + 1;
+                this.speedX = (Math.random() - 0.5) * 0.25;
+                this.speedY = -(Math.random() * 0.4 + 0.1);
+                this.opacity = Math.random() * 0.5 + 0.2;
+                this.color = getParticleColor();
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y < -20 || this.x < -20 || this.x > canvas.width + 20) {
+                    this.reset();
+                    this.y = canvas.height + 10;
+                }
+            }
+            draw() {
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.fill();
+                ctx.globalAlpha = 1;
+            }
+        }
+
+        function initParticlesArray() {
+            particles = [];
+            for (let i = 0; i < particleCount; i++) {
+                particles.push(new Particle());
+            }
+        }
+        initParticlesArray();
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            animationId = requestAnimationFrame(animateParticles);
+        }
+        animateParticles();
+
+        // Update particle colors when theme changes
+        const themeObserver = new MutationObserver(() => {
+            particles.forEach(p => { p.color = getParticleColor(); });
+        });
+        themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+
+        // Cleanup on page hide (performance)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                cancelAnimationFrame(animationId);
+            } else {
+                animateParticles();
+            }
+        });
+    })();
+
+    /**
+     * ==========================================================
+     * NAVBAR SCROLL EFFECT
+     * ==========================================================
+     */
+    const navbar = document.getElementById('navbar');
+    const backToTopBtn = document.getElementById('backToTop');
+
+    window.addEventListener('scroll', () => {
+        const scrollY = window.scrollY;
+        if (scrollY > 50) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        if (scrollY > 400) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+        // Update active nav link based on scroll position
+        updateActiveNavLink();
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    /**
+     * ==========================================================
+     * ACTIVE NAV LINK HIGHLIGHT
+     * ==========================================================
+     */
+    function updateActiveNavLink() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-links a');
+        let currentSectionId = 'hero';
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            if (rect.top <= 150 && rect.bottom >= 150) {
+                currentSectionId = section.id;
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            if (link.getAttribute('href') === '#' + currentSectionId) {
+                link.classList.add('active');
+            }
+        });
+    }
+
+    /**
+     * ==========================================================
+     * MOBILE MENU TOGGLE
+     * ==========================================================
+     */
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const hamburgerIcon = document.getElementById('hamburgerIcon');
+
+    hamburger.addEventListener('click', () => {
+        const isOpen = mobileMenu.classList.contains('open');
+        mobileMenu.classList.toggle('open');
+        hamburger.classList.toggle('active');
+        hamburgerIcon.className = isOpen ? 'fa-solid fa-bars' : 'fa-solid fa-xmark';
+        hamburger.setAttribute('aria-expanded', !isOpen);
+    });
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        hamburger.classList.remove('active');
+        hamburgerIcon.className = 'fa-solid fa-bars';
+        hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    // Close mobile menu on resize
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768) {
+            closeMobileMenu();
+        }
+    });
+
+    /**
+     * ==========================================================
+     * DARK/LIGHT MODE TOGGLE
+     * ==========================================================
+     */
+    const themeToggle = document.getElementById('themeToggle');
+    const themeIcon = document.getElementById('themeIcon');
+    const htmlElement = document.documentElement;
+
+    function getCurrentTheme() {
+        return htmlElement.getAttribute('data-theme') || 'light';
+    }
+
+    function setTheme(theme) {
+        htmlElement.setAttribute('data-theme', theme);
+        themeIcon.className = theme === 'dark' ? 'fa-solid fa-sun' : 'fa-solid fa-moon';
+        localStorage.setItem('theme', theme);
+    }
+
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme') || 'light';
+    setTheme(savedTheme);
+
+    themeToggle.addEventListener('click', () => {
+        const current = getCurrentTheme();
+        setTheme(current === 'light' ? 'dark' : 'light');
+    });
+
+    /**
+     * ==========================================================
+     * CERTIFICATE FLIP CARDS
+     * ==========================================================
+     */
+    function flipCard(card) {
+        card.classList.toggle('flipped');
+    }
+
+    /**
+     * ==========================================================
+     * MODAL FOR TIMELINE DETAILS
+     * ==========================================================
+     */
+    const modalOverlay = document.getElementById('modalOverlay');
+    const modalTitle = document.getElementById('modalTitle');
+    const modalBody = document.getElementById('modalBody');
+
+    function showTimelineDetail(htmlContent) {
+        modalTitle.innerHTML = '<i class="fa-solid fa-circle-info" aria-hidden="true"></i> Detail Timeline';
+        modalBody.innerHTML = htmlContent;
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Close modal on overlay click
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) {
+            closeModal();
+        }
+    });
+
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) {
+            closeModal();
+        }
+    });
+
+    /**
+     * ==========================================================
+     * REAL-TIME CLOCK IN FOOTER
+     * ==========================================================
+     */
+    const footerClock = document.getElementById('footerClock');
+    const footerDate = document.getElementById('footerDate');
+
+    function updateClock() {
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('id-ID', {
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false,
+        });
+        const dateStr = now.toLocaleDateString('id-ID', {
+            weekday: 'long',
+            day: 'numeric',
+            month: 'long',
+            year: 'numeric',
+        });
+        footerClock.textContent = timeStr + ' WIB';
+        footerDate.textContent = '— ' + dateStr;
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    /**
+     * ==========================================================
+     * CONTACT FORM VALIDATION
+     * ==========================================================
+     */
+    const contactForm = document.getElementById('contactForm');
+    const nameInput = document.getElementById('formName');
+    const emailInput = document.getElementById('formEmail');
+    const messageInput = document.getElementById('formMessage');
+
+    function validateField(input, formGroupId) {
+        const formGroup = document.getElementById(formGroupId);
+        let isValid = true;
+        if (input.id === 'formName' || input.id === 'formMessage') {
+            isValid = input.value.trim().length > 0;
+        } else if (input.id === 'formEmail') {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            isValid = emailRegex.test(input.value.trim());
+        }
+        if (!isValid) {
+            formGroup.classList.add('error');
+        } else {
+            formGroup.classList.remove('error');
+        }
+        return isValid;
+    }
+
+    // Real-time validation on blur
+    nameInput.addEventListener('blur', () => validateField(nameInput, 'fg-name'));
+    emailInput.addEventListener('blur', () => validateField(emailInput, 'fg-email'));
+    messageInput.addEventListener('blur', () => validateField(messageInput, 'fg-message'));
+
+    // Real-time validation on input (clear error)
+    nameInput.addEventListener('input', () => {
+        if (nameInput.value.trim().length > 0) document.getElementById('fg-name').classList.remove('error');
+    });
+    emailInput.addEventListener('input', () => {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (emailRegex.test(emailInput.value.trim())) document.getElementById('fg-email').classList.remove('error');
+    });
+    messageInput.addEventListener('input', () => {
+        if (messageInput.value.trim().length > 0) document.getElementById('fg-message').classList.remove('error');
+    });
+
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const isNameValid = validateField(nameInput, 'fg-name');
+        const isEmailValid = validateField(emailInput, 'fg-email');
+        const isMessageValid = validateField(messageInput, 'fg-message');
+
+        if (isNameValid && isEmailValid && isMessageValid) {
+            // Simulate sending
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i> Mengirim...';
+            submitBtn.disabled = true;
+
+            setTimeout(() => {
+                submitBtn.innerHTML = '<i class="fa-solid fa-check-circle" aria-hidden="true"></i> Pesan Terkirim!';
+                submitBtn.style.background = '#10b981';
+
+                // Show success alert
+                alert('✅ Pesan Anda berhasil dikirim!\n\nTerima kasih telah menghubungi Tri Mulyo Atmojo.');
+
+                // Reset form
+                contactForm.reset();
+                setTimeout(() => {
+                    submitBtn.innerHTML = originalText;
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = '';
+                }, 2000);
+            }, 1500);
+        } else {
+            // Focus first invalid field
+            if (!isNameValid) nameInput.focus();
+            else if (!isEmailValid) emailInput.focus();
+            else if (!isMessageValid) messageInput.focus();
+
+            alert('⚠️ Mohon lengkapi semua field yang wajib diisi dengan benar.');
+        }
+    });
+
+    /**
+     * ==========================================================
+     * SMOOTH SCROLL FOR ANCHOR LINKS (Fallback)
+     * ==========================================================
+     */
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                // Update URL hash without jump
+                history.pushState(null, '', targetId);
+            }
+        });
+    });
+
+    // ==========================================================
+    // LOG TO CONSOLE (untuk debugging)
+    // ==========================================================
+    console.log('%c⚓ CV Portfolio — Tri Mulyo Atmojo', 'font-size:18px;font-weight:bold;color:#0a2f44;');
+    console.log('%cEngine Department | Rating Engine', 'font-size:13px;color:#1e90ff;');
+    console.log('%cSeluruh sertifikat dapat diverifikasi di www.pelaut.dephub.go.id', 'font-size:12px;color:#c9a84c;');
+</script>
+</body>
+</html>
