@@ -1,0 +1,1879 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Profesional - Tri Mulyo Atmojo</title>
+
+    <!-- Google Fonts: Poppins -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Font Awesome 6 (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- AOS (Animate On Scroll) CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/aos@2.3.4/dist/aos.css">
+
+    <style>
+        /* ==================== CSS VARIABLES & THEMES ==================== */
+        :root {
+            --navy: #0a2f44;
+            --navy-light: #123c54;
+            --navy-lighter: #1a4a66;
+            --gold: #d4a537;
+            --blue-accent: #1e90ff;
+            --blue-accent-light: #5aa9e6;
+            --bg-body: #f4f7f9;
+            --bg-card: #ffffff;
+            --bg-card-alt: #ffffff;
+            --text-primary: #1a1a2e;
+            --text-secondary: #44445a;
+            --text-muted: #6b7280;
+            --border-color: #e2e8f0;
+            --shadow-sm: 0 4px 12px rgba(10, 47, 68, 0.08);
+            --shadow-md: 0 8px 30px rgba(10, 47, 68, 0.12);
+            --shadow-lg: 0 16px 48px rgba(10, 47, 68, 0.18);
+            --glow: rgba(30, 144, 255, 0.3);
+            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius: 16px;
+            --radius-sm: 10px;
+            --font-family: 'Poppins', sans-serif;
+            --header-bg: rgba(10, 47, 68, 0.95);
+            --footer-bg: #0a2f44;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0d1b2a;
+            --bg-card: #152638;
+            --bg-card-alt: #1a2f42;
+            --text-primary: #e8edf2;
+            --text-secondary: #c5cdd6;
+            --text-muted: #8fa0b0;
+            --border-color: #2a3d52;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+            --shadow-md: 0 8px 30px rgba(0, 0, 0, 0.4);
+            --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
+            --glow: rgba(30, 144, 255, 0.5);
+            --header-bg: rgba(13, 27, 42, 0.97);
+            --footer-bg: #0d1b2a;
+        }
+
+        /* ==================== GLOBAL RESET & BASE ==================== */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 80px;
+        }
+
+        body {
+            font-family: var(--font-family);
+            background-color: var(--bg-body);
+            color: var(--text-primary);
+            line-height: 1.7;
+            transition: background-color var(--transition), color var(--transition);
+            overflow-x: hidden;
+            position: relative;
+            min-height: 100vh;
+        }
+
+        a {
+            color: var(--blue-accent);
+            text-decoration: none;
+            transition: color var(--transition);
+        }
+        a:hover {
+            color: var(--gold);
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 80px 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title h2 {
+            font-size: 2.4rem;
+            font-weight: 700;
+            color: var(--navy);
+            letter-spacing: -0.5px;
+            position: relative;
+            display: inline-block;
+            padding-bottom: 12px;
+        }
+        [data-theme="dark"] .section-title h2 {
+            color: var(--blue-accent-light);
+        }
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 70px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--blue-accent), var(--gold));
+            border-radius: 4px;
+        }
+        .section-title p {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-top: 10px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* ==================== PARTICLE CANVAS ==================== */
+        #particles-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0.6;
+        }
+
+        /* ==================== NAVIGATION ==================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: var(--header-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 12px 0;
+            transition: all var(--transition);
+            border-bottom: 1px solid transparent;
+        }
+        .navbar.scrolled {
+            border-bottom: 1px solid rgba(30, 144, 255, 0.2);
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.2);
+        }
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #fff;
+            font-weight: 700;
+            font-size: 1.25rem;
+            letter-spacing: 0.5px;
+            text-decoration: none;
+        }
+        .navbar-brand .brand-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--blue-accent), var(--gold));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #fff;
+            flex-shrink: 0;
+        }
+        .navbar-links {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            list-style: none;
+        }
+        .navbar-links li a {
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 500;
+            font-size: 0.92rem;
+            padding: 8px 16px;
+            border-radius: 50px;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            text-decoration: none;
+        }
+        .navbar-links li a:hover,
+        .navbar-links li a.active {
+            background: rgba(30, 144, 255, 0.2);
+            color: #fff;
+        }
+        .nav-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .theme-toggle,
+        .hamburger {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: all var(--transition);
+        }
+        .theme-toggle:hover,
+        .hamburger:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .hamburger {
+            display: none;
+        }
+
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            width: 280px;
+            height: 100vh;
+            background: var(--header-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            z-index: 1001;
+            padding: 80px 24px 24px;
+            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-left: 1px solid rgba(30, 144, 255, 0.2);
+        }
+        .mobile-menu.open {
+            right: 0;
+        }
+        .mobile-menu a {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 12px 16px;
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .mobile-menu a:hover {
+            background: rgba(30, 144, 255, 0.2);
+            color: #fff;
+        }
+        .mobile-menu .close-mobile {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            font-size: 1.2rem;
+            cursor: pointer;
+        }
+        .mobile-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+        .mobile-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(160deg, #0a2f44 0%, #0d3b5e 30%, #123c54 60%, #0a2f44 100%);
+            position: relative;
+            overflow: hidden;
+            padding-top: 80px;
+            z-index: 1;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(30, 144, 255, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatGlow 8s ease-in-out infinite alternate;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(212, 165, 55, 0.15) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: floatGlow 10s ease-in-out infinite alternate-reverse;
+        }
+        @keyframes floatGlow {
+            0% {
+                transform: translate(0, 0) scale(1);
+            }
+            100% {
+                transform: translate(30px, -30px) scale(1.1);
+            }
+        }
+        .hero .container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+        .hero-profile {
+            text-align: center;
+            flex-shrink: 0;
+        }
+        .hero-profile .avatar {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--blue-accent), var(--gold));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 20px;
+            box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.15), 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: pulseRing 3s ease-in-out infinite;
+        }
+        @keyframes pulseRing {
+            0%,
+            100% {
+                box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.15), 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 0 12px rgba(255, 255, 255, 0.05), 0 20px 60px rgba(0, 0, 0, 0.3);
+            }
+        }
+        .hero-profile .avatar i {
+            font-size: 5rem;
+            color: #fff;
+            opacity: 0.9;
+        }
+        .hero-text {
+            max-width: 600px;
+            color: #fff;
+            text-align: center;
+        }
+        .hero-text .badge-title {
+            display: inline-block;
+            background: rgba(30, 144, 255, 0.25);
+            border: 1px solid rgba(30, 144, 255, 0.4);
+            padding: 6px 18px;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 16px;
+        }
+        .hero-text h1 {
+            font-size: 3rem;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -1px;
+            margin-bottom: 12px;
+        }
+        .hero-text h1 span {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero-text .subtitle {
+            font-size: 1.1rem;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 24px;
+        }
+        .hero-text .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            cursor: pointer;
+            border: 2px solid transparent;
+            transition: all var(--transition);
+            letter-spacing: 0.3px;
+        }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--blue-accent), #0a7ac9);
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(30, 144, 255, 0.35);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 14px 32px rgba(30, 144, 255, 0.5);
+            color: #fff;
+        }
+        .btn-outline {
+            background: transparent;
+            color: #fff;
+            border-color: rgba(255, 255, 255, 0.5);
+        }
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: #fff;
+            transform: translateY(-3px);
+            color: #fff;
+        }
+
+        /* ==================== CARDS & GRID ==================== */
+        .card {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            padding: 28px;
+            transition: all var(--transition);
+            border: 1px solid var(--border-color);
+            position: relative;
+            overflow: hidden;
+        }
+        .card:hover {
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
+        }
+        .card .card-icon {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(212, 165, 55, 0.1));
+            color: var(--blue-accent);
+        }
+
+        /* Personal Data Section */
+        .personal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .personal-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 16px 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            transition: all var(--transition);
+        }
+        .personal-item:hover {
+            border-color: var(--blue-accent);
+            box-shadow: var(--shadow-sm);
+        }
+        .personal-item .pi-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.15), rgba(212, 165, 55, 0.15));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--blue-accent);
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+        .personal-item .pi-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 500;
+        }
+        .personal-item .pi-value {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+        }
+
+        /* Sertifikat Cards - 3D Flip */
+        .cert-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 24px;
+            perspective: 1200px;
+        }
+        .cert-card {
+            background: transparent;
+            height: 280px;
+            cursor: pointer;
+            perspective: 1200px;
+        }
+        .cert-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+            transform-style: preserve-3d;
+            border-radius: var(--radius);
+        }
+        .cert-card:hover .cert-card-inner {
+            transform: rotateY(180deg);
+        }
+        .cert-card-front,
+        .cert-card-back {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            padding: 28px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: box-shadow var(--transition);
+        }
+        .cert-card-front {
+            background: var(--bg-card);
+        }
+        .cert-card-back {
+            background: var(--bg-card-alt);
+            transform: rotateY(180deg);
+            border-color: var(--blue-accent);
+        }
+        .cert-card:hover .cert-card-front,
+        .cert-card:hover .cert-card-back {
+            box-shadow: var(--shadow-lg), 0 0 30px var(--glow);
+            border-color: var(--blue-accent);
+        }
+        .cert-icon-badge {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--blue-accent), var(--navy-lighter));
+            color: #fff;
+            box-shadow: 0 8px 24px rgba(30, 144, 255, 0.3);
+        }
+        .cert-card h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 4px;
+        }
+        .cert-card .cert-type {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 12px;
+        }
+        .cert-card .cert-detail-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .cert-card .cert-detail-value {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 8px;
+            word-break: break-word;
+        }
+        .cert-card .btn-detail {
+            margin-top: 12px;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            border-radius: 50px;
+            background: transparent;
+            border: 1.5px solid var(--blue-accent);
+            color: var(--blue-accent);
+            cursor: pointer;
+            transition: all var(--transition);
+            font-weight: 600;
+        }
+        .cert-card .btn-detail:hover {
+            background: var(--blue-accent);
+            color: #fff;
+        }
+
+        /* Dokumen Section */
+        .doc-card {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 24px 28px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+            transition: all var(--transition);
+            flex-wrap: wrap;
+        }
+        .doc-card:hover {
+            box-shadow: var(--shadow-md);
+            border-color: var(--blue-accent);
+        }
+        .doc-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 14px;
+            background: linear-gradient(135deg, #1a4a66, #0a2f44);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+            color: #ffd700;
+            flex-shrink: 0;
+        }
+        .doc-info h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .doc-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        /* Timeline */
+        .timeline-container {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            padding: 36px 28px;
+            border: 1px solid var(--border-color);
+            box-shadow: var(--shadow-sm);
+        }
+        .timeline-bar-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+        .timeline-bar-item:last-child {
+            margin-bottom: 0;
+        }
+        .timeline-label {
+            min-width: 100px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-align: right;
+        }
+        .timeline-track {
+            flex: 1;
+            height: 24px;
+            background: var(--border-color);
+            border-radius: 50px;
+            overflow: hidden;
+            position: relative;
+        }
+        .timeline-fill {
+            height: 100%;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--blue-accent), #4db8ff);
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #fff;
+            min-width: 30px;
+        }
+        .timeline-fill.gold {
+            background: linear-gradient(90deg, #d4a537, #f0c860);
+            color: #1a1a2e;
+        }
+        .timeline-fill.green {
+            background: linear-gradient(90deg, #2ecc71, #82e0aa);
+            color: #0a2f44;
+        }
+
+        /* Verifikasi Link */
+        .verify-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--bg-card);
+            border: 1.5px dashed var(--blue-accent);
+            border-radius: 50px;
+            padding: 10px 20px;
+            color: var(--blue-accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all var(--transition);
+            text-decoration: none;
+        }
+        .verify-link:hover {
+            background: var(--blue-accent);
+            color: #fff;
+            border-color: var(--blue-accent);
+            box-shadow: 0 8px 24px rgba(30, 144, 255, 0.3);
+        }
+
+        /* ==================== CONTACT SECTION ==================== */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 36px;
+            align-items: start;
+        }
+        .contact-form .form-group {
+            margin-bottom: 20px;
+        }
+        .contact-form label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 6px;
+            color: var(--text-secondary);
+        }
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 14px 18px;
+            border-radius: var(--radius-sm);
+            border: 2px solid var(--border-color);
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-family: var(--font-family);
+            font-size: 0.95rem;
+            transition: all var(--transition);
+            outline: none;
+        }
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--blue-accent);
+            box-shadow: 0 0 0 4px rgba(30, 144, 255, 0.15);
+        }
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+        .contact-form .error-text {
+            color: #e74c3c;
+            font-size: 0.8rem;
+            margin-top: 4px;
+            display: none;
+        }
+        .contact-form .error-text.show {
+            display: block;
+        }
+        .map-embed {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            border: 1px solid var(--border-color);
+            height: 100%;
+            min-height: 350px;
+        }
+        .map-embed iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+            display: block;
+        }
+
+        /* ==================== FOOTER ==================== */
+        .footer {
+            background: var(--footer-bg);
+            color: rgba(255, 255, 255, 0.85);
+            padding: 40px 0 20px;
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid rgba(30, 144, 255, 0.2);
+        }
+        .footer .footer-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .footer .footer-links {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        .footer .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.9rem;
+        }
+        .footer .footer-links a:hover {
+            color: #fff;
+        }
+        .footer .footer-bottom {
+            text-align: center;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 16px;
+        }
+        .footer .clock-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        .online-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            animation: blink 2s infinite;
+        }
+        .online-dot.online {
+            background: #2ecc71;
+            box-shadow: 0 0 10px #2ecc71;
+        }
+        .online-dot.offline {
+            background: #e74c3c;
+            box-shadow: 0 0 10px #e74c3c;
+        }
+        @keyframes blink {
+            0%,
+            100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.4;
+            }
+        }
+
+        /* ==================== MODAL ==================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+            padding: 20px;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+        .modal-box {
+            background: var(--bg-card);
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 100%;
+            padding: 36px;
+            box-shadow: var(--shadow-lg);
+            transform: scale(0.9) translateY(20px);
+            transition: transform 0.3s ease;
+            position: relative;
+            border: 1px solid var(--border-color);
+        }
+        .modal-overlay.active .modal-box {
+            transform: scale(1) translateY(0);
+        }
+        .modal-box .modal-close {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+            transition: color var(--transition);
+        }
+        .modal-box .modal-close:hover {
+            color: var(--text-primary);
+        }
+        .modal-box h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .modal-box .modal-detail {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+        .modal-box .modal-detail .md-label {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+        }
+        .modal-box .modal-detail .md-value {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--text-primary);
+        }
+
+        /* ==================== RESPONSIVE MEDIA QUERIES ==================== */
+        @media (max-width: 992px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero .container {
+                gap: 32px;
+            }
+            .hero-text h1 {
+                font-size: 2.4rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar-links {
+                display: none;
+            }
+            .hamburger {
+                display: flex;
+            }
+            .hero {
+                padding-top: 60px;
+                min-height: auto;
+                padding-bottom: 60px;
+            }
+            .hero .container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .hero-profile .avatar {
+                width: 140px;
+                height: 140px;
+            }
+            .hero-profile .avatar i {
+                font-size: 3.8rem;
+            }
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            .section-title h2 {
+                font-size: 1.9rem;
+            }
+            section {
+                padding: 60px 0;
+            }
+            .cert-card {
+                height: 260px;
+            }
+            .timeline-label {
+                min-width: 70px;
+                font-size: 0.7rem;
+            }
+            .modal-box .modal-detail {
+                grid-template-columns: 1fr;
+            }
+            .footer .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 16px;
+            }
+            .hero-text h1 {
+                font-size: 1.6rem;
+            }
+            .personal-grid {
+                grid-template-columns: 1fr;
+            }
+            .cert-grid {
+                grid-template-columns: 1fr;
+            }
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.85rem;
+            }
+            .navbar-brand span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Particle Canvas Background -->
+    <canvas id="particles-canvas"></canvas>
+
+    <!-- ==================== NAVIGATION ==================== -->
+    <nav class="navbar" id="navbar" role="navigation" aria-label="Navigasi utama">
+        <div class="container">
+            <a href="#" class="navbar-brand" aria-label="Tri Mulyo Atmojo">
+                <span class="brand-icon"><i class="fas fa-anchor"></i></span>
+                <span>Tri M. Atmojo</span>
+            </a>
+            <ul class="navbar-links" id="navbar-links">
+                <li><a href="#beranda" class="active"><i class="fas fa-home"></i> Beranda</a></li>
+                <li><a href="#profil"><i class="fas fa-user"></i> Profil</a></li>
+                <li><a href="#dokumen"><i class="fas fa-file-alt"></i> Dokumen</a></li>
+                <li><a href="#sertifikat"><i class="fas fa-certificate"></i> Sertifikat</a></li>
+                <li><a href="#kontak"><i class="fas fa-envelope"></i> Kontak</a></li>
+            </ul>
+            <div class="nav-actions">
+                <button class="theme-toggle" id="theme-toggle" aria-label="Ganti mode gelap/terang" title="Mode Gelap/Terang">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button class="hamburger" id="hamburger" aria-label="Buka menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay & Panel -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="close-mobile" id="close-mobile" aria-label="Tutup menu"><i class="fas fa-times"></i></button>
+        <a href="#beranda"><i class="fas fa-home"></i> Beranda</a>
+        <a href="#profil"><i class="fas fa-user"></i> Profil</a>
+        <a href="#dokumen"><i class="fas fa-file-alt"></i> Dokumen</a>
+        <a href="#sertifikat"><i class="fas fa-certificate"></i> Sertifikat</a>
+        <a href="#kontak"><i class="fas fa-envelope"></i> Kontak</a>
+    </div>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="hero" id="beranda">
+        <div class="container">
+            <div class="hero-profile" data-aos="fade-down" data-aos-duration="800">
+                <div class="avatar" aria-label="Foto profil Tri Mulyo Atmojo">
+                    <i class="fas fa-user-circle" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="hero-text" data-aos="fade-up" data-aos-duration="800" data-aos-delay="200">
+                <span class="badge-title"><i class="fas fa-ship"></i> Engine Department</span>
+                <h1>Tri Mulyo <span>Atmojo</span></h1>
+                <p class="subtitle">
+                    <i class="fas fa-wrench"></i> Rating Engine • Profesional Maritim Bersertifikat
+                </p>
+                <div class="hero-buttons">
+                    <a href="#profil" class="btn btn-primary"><i class="fas fa-user"></i> Lihat Profil</a>
+                    <a href="#sertifikat" class="btn btn-outline"><i class="fas fa-certificate"></i> Sertifikat</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PERSONAL DATA SECTION ==================== -->
+    <section id="profil" aria-label="Data Pribadi">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Data Pribadi</h2>
+                <p>Informasi lengkap mengenai identitas dan kontak</p>
+            </div>
+            <div class="personal-grid" data-aos="fade-up" data-aos-delay="100">
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-user"></i></div>
+                    <div>
+                        <div class="pi-label">Nama Lengkap</div>
+                        <div class="pi-value">Tri Mulyo Atmojo</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-calendar-alt"></i></div>
+                    <div>
+                        <div class="pi-label">Tempat, Tanggal Lahir</div>
+                        <div class="pi-value">Purworejo, 02 Desember 1998</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-venus-mars"></i></div>
+                    <div>
+                        <div class="pi-label">Jenis Kelamin</div>
+                        <div class="pi-value">Laki-laki</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-star"></i></div>
+                    <div>
+                        <div class="pi-label">Agama</div>
+                        <div class="pi-value">Islam</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-ruler-vertical"></i></div>
+                    <div>
+                        <div class="pi-label">Tinggi / Berat</div>
+                        <div class="pi-value">180 cm / 70 kg</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-ring"></i></div>
+                    <div>
+                        <div class="pi-label">Status Perkawinan</div>
+                        <div class="pi-value">Belum Kawin</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div>
+                        <div class="pi-label">Alamat Tetap</div>
+                        <div class="pi-value">Lubang Sampang, Butuh, Purworejo, Jawa Tengah, Indonesia</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-flag"></i></div>
+                    <div>
+                        <div class="pi-label">Kewarganegaraan</div>
+                        <div class="pi-value">Indonesia</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-phone"></i></div>
+                    <div>
+                        <div class="pi-label">Telepon</div>
+                        <div class="pi-value">+62 896-6826-2520</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <div class="pi-icon"><i class="fas fa-envelope"></i></div>
+                    <div>
+                        <div class="pi-label">Email</div>
+                        <div class="pi-value">xatmojo@gmail.com</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== DOKUMEN SECTION ==================== -->
+    <section id="dokumen" aria-label="Dokumen" style="background: var(--bg-card-alt);">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Dokumen Resmi</h2>
+                <p>Dokumen pelaut yang dimiliki</p>
+            </div>
+            <div class="doc-card" data-aos="fade-up" data-aos-delay="100">
+                <div class="doc-icon" aria-hidden="true"><i class="fas fa-book"></i></div>
+                <div class="doc-info" style="flex:1;">
+                    <h3>Buku Pelaut (Seaman Book)</h3>
+                    <p>Nomor: <strong>M 060321</strong></p>
+                    <p>Dikeluarkan di Semarang, 04 Agustus 2026</p>
+                    <p>Berlaku hingga: 04 Agustus 2029</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERTIFIKAT SECTION ==================== -->
+    <section id="sertifikat" aria-label="Sertifikat">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Sertifikat Kompetensi & Keahlian</h2>
+                <p>Kartu dapat dibalik untuk melihat detail, klik tombol detail untuk informasi lengkap</p>
+                <div style="margin-top: 16px;">
+                    <a href="https://pelaut.dephub.go.id" target="_blank" rel="noopener noreferrer" class="verify-link">
+                        <i class="fas fa-external-link-alt"></i> Verifikasi via pelaut.dephub.go.id
+                    </a>
+                </div>
+            </div>
+
+            <!-- Certificate of Competency -->
+            <h3 style="text-align:center; margin-bottom: 24px; color: var(--blue-accent);" data-aos="fade-up">
+                <i class="fas fa-award"></i> Certificate of Competency
+            </h3>
+            <div class="cert-grid" data-aos="fade-up" data-aos-delay="100" style="margin-bottom: 40px;">
+                <div class="cert-card" data-cert="coc">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-front">
+                            <div class="cert-icon-badge"><i class="fas fa-cogs"></i></div>
+                            <h3>Rating Engine</h3>
+                            <span class="cert-type">Certificate of Competency</span>
+                            <button class="btn-detail" aria-label="Detail Rating Engine">Detail</button>
+                        </div>
+                        <div class="cert-card-back">
+                            <div class="cert-detail-label">Nomor Seri</div>
+                            <div class="cert-detail-value">CP8294959</div>
+                            <div class="cert-detail-label">Nomor Sertifikat</div>
+                            <div class="cert-detail-value">6212535592350326</div>
+                            <div class="cert-detail-label">Dikeluarkan</div>
+                            <div class="cert-detail-value">Jakarta, 06 Juli 2026</div>
+                            <button class="btn-detail" aria-label="Detail Rating Engine">Detail Lengkap</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certificate of Proficiency -->
+            <h3 style="text-align:center; margin-bottom: 24px; color: var(--blue-accent);" data-aos="fade-up">
+                <i class="fas fa-shield-alt"></i> Certificate of Proficiency
+            </h3>
+            <div class="cert-grid" data-aos="fade-up" data-aos-delay="200">
+                <div class="cert-card" data-cert="bst">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-front">
+                            <div class="cert-icon-badge" style="background: linear-gradient(135deg, #e74c3c, #c0392b);"><i class="fas fa-life-ring"></i></div>
+                            <h3>BST</h3>
+                            <span class="cert-type">Basic Safety Training</span>
+                            <button class="btn-detail" aria-label="Detail BST">Detail</button>
+                        </div>
+                        <div class="cert-card-back">
+                            <div class="cert-detail-label">Nomor Seri</div>
+                            <div class="cert-detail-value">CP7359456</div>
+                            <div class="cert-detail-label">Nomor Sertifikat</div>
+                            <div class="cert-detail-value">6212535592010325</div>
+                            <div class="cert-detail-label">Dikeluarkan</div>
+                            <div class="cert-detail-value">Jakarta, 28 Juli 2025</div>
+                            <button class="btn-detail" aria-label="Detail BST">Detail Lengkap</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cert-card" data-cert="sat">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-front">
+                            <div class="cert-icon-badge" style="background: linear-gradient(135deg, #f39c12, #e67e22);"><i class="fas fa-user-shield"></i></div>
+                            <h3>SAT</h3>
+                            <span class="cert-type">Security Awareness Training</span>
+                            <button class="btn-detail" aria-label="Detail SAT">Detail</button>
+                        </div>
+                        <div class="cert-card-back">
+                            <div class="cert-detail-label">Nomor Seri</div>
+                            <div class="cert-detail-value">CP7360568</div>
+                            <div class="cert-detail-label">Nomor Sertifikat</div>
+                            <div class="cert-detail-value">6212535592310325</div>
+                            <div class="cert-detail-label">Dikeluarkan</div>
+                            <div class="cert-detail-value">Jakarta, 10 Agustus 2025</div>
+                            <button class="btn-detail" aria-label="Detail SAT">Detail Lengkap</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cert-card" data-cert="aff">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-front">
+                            <div class="cert-icon-badge" style="background: linear-gradient(135deg, #e67e22, #d35400);"><i class="fas fa-fire-extinguisher"></i></div>
+                            <h3>AFF</h3>
+                            <span class="cert-type">Advanced Fire Fighting</span>
+                            <button class="btn-detail" aria-label="Detail AFF">Detail</button>
+                        </div>
+                        <div class="cert-card-back">
+                            <div class="cert-detail-label">Nomor Seri</div>
+                            <div class="cert-detail-value">CP7361607</div>
+                            <div class="cert-detail-label">Nomor Sertifikat</div>
+                            <div class="cert-detail-value">6212535592060325</div>
+                            <div class="cert-detail-label">Dikeluarkan</div>
+                            <div class="cert-detail-value">Jakarta, 04 Agustus 2025</div>
+                            <button class="btn-detail" aria-label="Detail AFF">Detail Lengkap</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="cert-card" data-cert="sdsd">
+                    <div class="cert-card-inner">
+                        <div class="cert-card-front">
+                            <div class="cert-icon-badge" style="background: linear-gradient(135deg, #2ecc71, #27ae60);"><i class="fas fa-ship"></i></div>
+                            <h3>SDSD</h3>
+                            <span class="cert-type">Ship Security Duties</span>
+                            <button class="btn-detail" aria-label="Detail SDSD">Detail</button>
+                        </div>
+                        <div class="cert-card-back">
+                            <div class="cert-detail-label">Nomor Seri</div>
+                            <div class="cert-detail-value">CP8046330</div>
+                            <div class="cert-detail-label">Nomor Sertifikat</div>
+                            <div class="cert-detail-value">6212535592320326</div>
+                            <div class="cert-detail-label">Dikeluarkan</div>
+                            <div class="cert-detail-value">Jakarta, 16 Maret 2026</div>
+                            <button class="btn-detail" aria-label="Detail SDSD">Detail Lengkap</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TIMELINE VALIDITAS ==================== -->
+    <section id="timeline" aria-label="Timeline Masa Berlaku" style="background: var(--bg-card-alt);">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Masa Berlaku Sertifikat</h2>
+                <p>Indikasi durasi validitas sertifikat keahlian</p>
+            </div>
+            <div class="timeline-container" data-aos="fade-up" data-aos-delay="100">
+                <div class="timeline-bar-item">
+                    <div class="timeline-label">Buku Pelaut</div>
+                    <div class="timeline-track">
+                        <div class="timeline-fill gold" style="width: 100%;" title="04 Agustus 2026 - 04 Agustus 2029">2026-2029</div>
+                    </div>
+                </div>
+                <div class="timeline-bar-item">
+                    <div class="timeline-label">BST</div>
+                    <div class="timeline-track">
+                        <div class="timeline-fill" style="width: 60%;" title="28 Juli 2025 - perkiraan 5 tahun">2025-2030</div>
+                    </div>
+                </div>
+                <div class="timeline-bar-item">
+                    <div class="timeline-label">SAT</div>
+                    <div class="timeline-track">
+                        <div class="timeline-fill" style="width: 55%;" title="10 Agustus 2025 - perkiraan 5 tahun">2025-2030</div>
+                    </div>
+                </div>
+                <div class="timeline-bar-item">
+                    <div class="timeline-label">AFF</div>
+                    <div class="timeline-track">
+                        <div class="timeline-fill" style="width: 58%;" title="04 Agustus 2025 - perkiraan 5 tahun">2025-2030</div>
+                    </div>
+                </div>
+                <div class="timeline-bar-item">
+                    <div class="timeline-label">SDSD</div>
+                    <div class="timeline-track">
+                        <div class="timeline-fill green" style="width: 70%;" title="16 Maret 2026 - perkiraan 5 tahun">2026-2031</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT SECTION ==================== -->
+    <section id="kontak" aria-label="Kontak">
+        <div class="container">
+            <div class="section-title" data-aos="fade-up">
+                <h2>Hubungi Saya</h2>
+                <p>Kirim pesan melalui formulir atau langsung via WhatsApp</p>
+            </div>
+            <div class="contact-grid">
+                <div class="contact-form" data-aos="fade-right" data-aos-delay="100">
+                    <form id="contact-form" novalidate>
+                        <div class="form-group">
+                            <label for="form-name">Nama Lengkap <span style="color:#e74c3c;">*</span></label>
+                            <input type="text" id="form-name" name="name" placeholder="Masukkan nama Anda" required>
+                            <div class="error-text" id="error-name">Nama wajib diisi (minimal 3 karakter).</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="form-message">Pesan <span style="color:#e74c3c;">*</span></label>
+                            <textarea id="form-message" name="message" placeholder="Tulis pesan Anda..." required></textarea>
+                            <div class="error-text" id="error-message">Pesan wajib diisi (minimal 10 karakter).</div>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center;">
+                            <i class="fab fa-whatsapp"></i> Kirim via WhatsApp
+                        </button>
+                    </form>
+                </div>
+                <div class="map-embed" data-aos="fade-left" data-aos-delay="200">
+                    <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d31650.522444786!2d109.893!3d-7.706!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7ab4b31d5e3d1d%3A0x0!2zN8KwNDInMjEuNiJTIDEwOcKwNTMnMzQuOCJF!5e0!3m2!1sid!2sid!4v1700000000000!5m2!1sid!2sid"
+                    loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+                    title="Peta lokasi Purworejo, Jawa Tengah"
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer" id="footer" role="contentinfo">
+    <div class="container">
+        <div class="footer-content">
+            <div>
+                <p style="font-weight:600; font-size:1.05rem;">Tri Mulyo Atmojo</p>
+                <p style="font-size:0.85rem;"><i class="fas fa-wrench"></i> Engine Department • Rating Engine</p>
+            </div>
+            <div class="footer-links">
+                <a href="mailto:xatmojo@gmail.com"><i class="fas fa-envelope"></i> Email</a>
+                <a href="tel:+6289668262520"><i class="fas fa-phone"></i> Telepon</a>
+                <a href="https://wa.me/6289668262520" target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                <a href="https://pelaut.dephub.go.id" target="_blank" rel="noopener"><i class="fas fa-external-link-alt"></i> Verifikasi</a>
+            </div>
+            <div class="clock-status">
+                <span class="online-dot online" id="status-dot"></span>
+                <span id="status-text">Online</span>
+                <span style="margin-left:12px; font-weight:600;" id="clock-display">00:00:00</span>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            &copy; 2025 Tri Mulyo Atmojo. Dibuat dengan <i class="fas fa-heart" style="color:#e74c3c;"></i> untuk portofolio profesional.
+        </div>
+    </div>
+</footer>
+
+<!-- ==================== MODAL OVERLAY ==================== -->
+<div class="modal-overlay" id="modal-overlay">
+    <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" id="modal-close" aria-label="Tutup detail"><i class="fas fa-times"></i></button>
+        <h3 id="modal-title"><i class="fas fa-certificate"></i> Detail Sertifikat</h3>
+        <div class="modal-detail" id="modal-detail-content">
+            <!-- Diisi oleh JavaScript -->
+        </div>
+    </div>
+</div>
+
+<!-- ==================== AOS JS ==================== -->
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js">
+</script>
+
+<script>
+    // ==================== INIT AOS ====================
+    AOS.init({
+        duration: 700,
+        easing: 'ease-out-cubic',
+        once: true,
+        offset: 60,
+    });
+
+    // ==================== THEME TOGGLE ====================
+    const themeToggle = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+
+    function getPreferredTheme() {
+        const saved = localStorage.getItem('cv-theme');
+        if (saved) return saved;
+        return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    }
+
+    function applyTheme(theme) {
+        root.setAttribute('data-theme', theme);
+        localStorage.setItem('cv-theme', theme);
+        const icon = themeToggle.querySelector('i');
+        if (theme === 'dark') {
+            icon.className = 'fas fa-sun';
+            themeToggle.setAttribute('aria-label', 'Ganti mode terang');
+        } else {
+            icon.className = 'fas fa-moon';
+            themeToggle.setAttribute('aria-label', 'Ganti mode gelap');
+        }
+    }
+
+    applyTheme(getPreferredTheme());
+
+    themeToggle.addEventListener('click', () => {
+        const current = root.getAttribute('data-theme');
+        applyTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // ==================== NAVBAR SCROLL EFFECT ====================
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 60) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
+        }
+        // Update active nav link
+        updateActiveNav();
+    });
+
+    function updateActiveNav() {
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.navbar-links a');
+        let currentId = '';
+        sections.forEach(section => {
+            const top = section.offsetTop - 120;
+            const bottom = top + section.offsetHeight;
+            if (window.scrollY >= top && window.scrollY < bottom) {
+                currentId = section.getAttribute('id');
+            }
+        });
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.getAttribute('href') === '#' + currentId);
+        });
+    }
+
+    // ==================== MOBILE MENU ====================
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileOverlay = document.getElementById('mobile-overlay');
+    const closeMobile = document.getElementById('close-mobile');
+
+    function openMobileMenu() {
+        mobileMenu.classList.add('open');
+        mobileOverlay.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeMobileMenu() {
+        mobileMenu.classList.remove('open');
+        mobileOverlay.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+    }
+
+    hamburger.addEventListener('click', openMobileMenu);
+    closeMobile.addEventListener('click', closeMobileMenu);
+    mobileOverlay.addEventListener('click', closeMobileMenu);
+    mobileMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMobileMenu);
+    });
+
+    // ==================== MODAL FOR SERTIFIKAT DETAILS ====================
+    const modalOverlay = document.getElementById('modal-overlay');
+    const modalClose = document.getElementById('modal-close');
+    const modalTitle = document.getElementById('modal-title');
+    const modalDetailContent = document.getElementById('modal-detail-content');
+
+    const certData = {
+        coc: {
+            title: 'Rating Engine - Certificate of Competency',
+            icon: 'fa-cogs',
+            items: [
+                { label: 'Nomor Seri', value: 'CP8294959' },
+                { label: 'Nomor Sertifikat', value: '6212535592350326' },
+                { label: 'Dikeluarkan di', value: 'Jakarta' },
+                { label: 'Tanggal Terbit', value: '06 Juli 2026' },
+                { label: 'Kategori', value: 'Certificate of Competency' },
+            ]
+        },
+        bst: {
+            title: 'BST - Basic Safety Training',
+            icon: 'fa-life-ring',
+            items: [
+                { label: 'Nomor Seri', value: 'CP7359456' },
+                { label: 'Nomor Sertifikat', value: '6212535592010325' },
+                { label: 'Dikeluarkan di', value: 'Jakarta' },
+                { label: 'Tanggal Terbit', value: '28 Juli 2025' },
+                { label: 'Kategori', value: 'Certificate of Proficiency' },
+            ]
+        },
+        sat: {
+            title: 'SAT - Security Awareness Training',
+            icon: 'fa-user-shield',
+            items: [
+                { label: 'Nomor Seri', value: 'CP7360568' },
+                { label: 'Nomor Sertifikat', value: '6212535592310325' },
+                { label: 'Dikeluarkan di', value: 'Jakarta' },
+                { label: 'Tanggal Terbit', value: '10 Agustus 2025' },
+                { label: 'Kategori', value: 'Certificate of Proficiency' },
+            ]
+        },
+        aff: {
+            title: 'AFF - Advanced Fire Fighting',
+            icon: 'fa-fire-extinguisher',
+            items: [
+                { label: 'Nomor Seri', value: 'CP7361607' },
+                { label: 'Nomor Sertifikat', value: '6212535592060325' },
+                { label: 'Dikeluarkan di', value: 'Jakarta' },
+                { label: 'Tanggal Terbit', value: '04 Agustus 2025' },
+                { label: 'Kategori', value: 'Certificate of Proficiency' },
+            ]
+        },
+        sdsd: {
+            title: 'SDSD - Ship Security Duties',
+            icon: 'fa-ship',
+            items: [
+                { label: 'Nomor Seri', value: 'CP8046330' },
+                { label: 'Nomor Sertifikat', value: '6212535592320326' },
+                { label: 'Dikeluarkan di', value: 'Jakarta' },
+                { label: 'Tanggal Terbit', value: '16 Maret 2026' },
+                { label: 'Kategori', value: 'Certificate of Proficiency' },
+            ]
+        }
+    };
+
+    function openModal(certKey) {
+        const data = certData[certKey];
+        if (!data) return;
+        modalTitle.innerHTML = `<i class="fas ${data.icon}" style="color: var(--blue-accent);"></i> ${data.title}`;
+        modalDetailContent.innerHTML = data.items.map(item => `
+                    <div>
+                        <div class="md-label">${item.label}</div>
+                        <div class="md-value">${item.value}</div>
+                    </div>
+                `).join('');
+        modalOverlay.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() {
+        modalOverlay.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+
+    // Delegasi event untuk semua tombol detail pada kartu sertifikat
+    document.querySelectorAll('.cert-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+            // Jangan buka modal jika yang diklik adalah area kartu (flip), hanya tombol detail
+            const btn = e.target.closest('.btn-detail');
+            if (btn) {
+                const certKey = card.getAttribute('data-cert');
+                openModal(certKey);
+            }
+        });
+    });
+
+    // Juga buka modal jika pengguna mengklik tombol detail di dalam kartu (sudah ditangani di atas)
+    // Tapi untuk aksesibilitas, tambahkan juga event pada tombol langsung
+    document.querySelectorAll('.cert-card .btn-detail').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const card = btn.closest('.cert-card');
+            const certKey = card.getAttribute('data-cert');
+            openModal(certKey);
+        });
+    });
+
+    modalClose.addEventListener('click', closeModal);
+    modalOverlay.addEventListener('click', (e) => {
+        if (e.target === modalOverlay) closeModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modalOverlay.classList.contains('active')) closeModal();
+    });
+
+    // ==================== CONTACT FORM VALIDATION & WHATSAPP ====================
+    const contactForm = document.getElementById('contact-form');
+    const nameInput = document.getElementById('form-name');
+    const messageInput = document.getElementById('form-message');
+    const errorName = document.getElementById('error-name');
+    const errorMessage = document.getElementById('error-message');
+
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        let valid = true;
+
+        // Validasi nama
+        if (nameInput.value.trim().length < 3) {
+            errorName.classList.add('show');
+            nameInput.style.borderColor = '#e74c3c';
+            valid = false;
+        } else {
+            errorName.classList.remove('show');
+            nameInput.style.borderColor = '';
+        }
+
+        // Validasi pesan
+        if (messageInput.value.trim().length < 10) {
+            errorMessage.classList.add('show');
+            messageInput.style.borderColor = '#e74c3c';
+            valid = false;
+        } else {
+            errorMessage.classList.remove('show');
+            messageInput.style.borderColor = '';
+        }
+
+        if (valid) {
+            const name = encodeURIComponent(nameInput.value.trim());
+            const message = encodeURIComponent(messageInput.value.trim());
+            const waNumber = '6289668262520';
+            const waUrl = `https://wa.me/${waNumber}?text=Halo,%20saya%20${name}.%0A%0A${message}`;
+            window.open(waUrl, '_blank', 'noopener,noreferrer');
+            contactForm.reset();
+            // Tampilkan feedback
+            const btn = contactForm.querySelector('button[type="submit"]');
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-check"></i> Terkirim!';
+            btn.style.background = 'linear-gradient(135deg, #2ecc71, #27ae60)';
+            setTimeout(() => {
+                btn.innerHTML = originalHTML;
+                btn.style.background = '';
+            }, 2500);
+        }
+    });
+
+    // Real-time clear error
+    nameInput.addEventListener('input', () => {
+        if (nameInput.value.trim().length >= 3) {
+            errorName.classList.remove('show');
+            nameInput.style.borderColor = '';
+        }
+    });
+    messageInput.addEventListener('input', () => {
+        if (messageInput.value.trim().length >= 10) {
+            errorMessage.classList.remove('show');
+            messageInput.style.borderColor = '';
+        }
+    });
+
+    // ==================== REAL-TIME CLOCK & STATUS ====================
+    function updateClock() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const seconds = String(now.getSeconds()).padStart(2, '0');
+        const clockDisplay = document.getElementById('clock-display');
+        if (clockDisplay) clockDisplay.textContent = `${hours}:${minutes}:${seconds}`;
+
+        // Status online: 08:00 - 20:00 dianggap online
+        const statusDot = document.getElementById('status-dot');
+        const statusText = document.getElementById('status-text');
+        const hour = now.getHours();
+        if (hour >= 8 && hour < 20) {
+            statusDot.className = 'online-dot online';
+            statusText.textContent = 'Online';
+        } else {
+            statusDot.className = 'online-dot offline';
+            statusText.textContent = 'Offline';
+        }
+    }
+    updateClock();
+    setInterval(updateClock, 1000);
+
+    // ==================== PARTICLE CANVAS ANIMATION ====================
+    const canvas = document.getElementById('particles-canvas');
+    const ctx = canvas.getContext('2d');
+    let particles = [];
+    const PARTICLE_COUNT = 80;
+    const MAX_DISTANCE = 120;
+
+    function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+    }
+    resizeCanvas();
+    window.addEventListener('resize', resizeCanvas);
+
+    class Particle {
+        constructor() {
+            this.x = Math.random() * canvas.width;
+            this.y = Math.random() * canvas.height;
+            this.vx = (Math.random() - 0.5) * 0.5;
+            this.vy = (Math.random() - 0.5) * 0.5;
+            this.radius = Math.random() * 2 + 1;
+            this.color = Math.random() > 0.7 ? 'rgba(30,144,255,' : 'rgba(212,165,55,';
+        }
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+            if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+        }
+        draw() {
+            ctx.beginPath();
+            ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            ctx.fillStyle = this.color + '0.6)';
+            ctx.fill();
+        }
+    }
+
+    function initParticles() {
+        particles = [];
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+            particles.push(new Particle());
+        }
+    }
+    initParticles();
+    window.addEventListener('resize', () => {
+        resizeCanvas();
+        initParticles();
+    });
+
+    function drawConnections() {
+        for (let i = 0; i < particles.length; i++) {
+            for (let j = i + 1; j < particles.length; j++) {
+                const dx = particles[i].x - particles[j].x;
+                const dy = particles[i].y - particles[j].y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < MAX_DISTANCE) {
+                    const alpha = (1 - dist / MAX_DISTANCE) * 0.3;
+                    const isGold = i % 3 === 0 || j % 3 === 0;
+                    ctx.strokeStyle = isGold ?
+                        `rgba(212,165,55,${alpha})` :
+                        `rgba(30,144,255,${alpha})`;
+                    ctx.lineWidth = 0.6;
+                    ctx.beginPath();
+                    ctx.moveTo(particles[i].x, particles[i].y);
+                    ctx.lineTo(particles[j].x, particles[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function animateParticles() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        particles.forEach(p => {
+            p.update();
+            p.draw();
+        });
+        drawConnections();
+        requestAnimationFrame(animateParticles);
+    }
+    animateParticles();
+
+    // ==================== SMOOTH SCROLL FOR ANCHOR LINKS ====================
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            const targetEl = document.querySelector(targetId);
+            if (targetEl) {
+                e.preventDefault();
+                targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        });
+    });
+
+    console.log('✅ CV Profesional Tri Mulyo Atmojo - berhasil dimuat');
+    console.log('🎨 Tema:', getPreferredTheme());
+    console.log('🔗 Verifikasi sertifikat: pelaut.dephub.go.id');
+</script>
+</body>
+</html>
