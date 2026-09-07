@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foto dengan Efek Partikel Interaktif</title>
+
+    <!-- ============================================================
+         CDN tsParticles (versi bundle lengkap dengan plugin emitters)
+         ============================================================ -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js">
+    </script>
+
+    <style>
+        /* ============================================================
+           RESET & DASAR
+           ============================================================ */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            /* Latar belakang gelap agar partikel terlihat jelas */
+            overflow: hidden;
+            /* Cegah scroll agar canvas penuh layar */
+            height: 100vh;
+            width: 100vw;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            /* Posisi konten di tengah */
+            -webkit-tap-highlight-color: transparent;
+            /* Hilangkan highlight sentuhan di mobile */
+            user-select: none;
+            /* Cegah seleksi teks */
+        }
+
+        /* ============================================================
+           KANVAS PARTIKEL (Latar Belakang)
+           ============================================================ */
+        #tsparticles {
+            position: fixed;
+            /* Kanvas menutupi seluruh layar */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+            /* Di belakang foto (z-index lebih rendah dari foto) */
+            pointer-events: auto;
+            /* Tetap menerima event mouse untuk interaktivitas */
+        }
+
+        /* ============================================================
+           KONTAINER FOTO
+           ============================================================ */
+        .photo-container {
+            position: relative;
+            /* Untuk positioning elemen anak */
+            z-index: 10;
+            /* Foto di atas canvas partikel */
+            cursor: pointer;
+            /* Tunjukkan kursor interaktif */
+            /* Animasi mengambang halus */
+            animation: floatPhoto 6s ease-in-out infinite;
+        }
+
+        /* ============================================================
+           FOTO UTAMA
+           ============================================================ */
+        .photo-container img {
+            width: 300px;
+            /* Ukuran default sesuai spesifikasi */
+            height: 400px;
+            object-fit: cover;
+            /* Pastikan foto mengisi area dengan proporsional */
+            border-radius: 12px;
+            /* Sedikit sudut membulat untuk estetika */
+            border: 3px solid rgba(255, 255, 255, 0.75);
+            /* Border terang */
+            /* Efek glow berlapis - shadow berganda dengan warna cyan/ungu */
+            box-shadow:
+                0 0 20px rgba(120, 200, 255, 0.7),
+                0 0 40px rgba(120, 200, 255, 0.4),
+                0 0 80px rgba(160, 120, 255, 0.25),
+                0 0 120px rgba(200, 100, 255, 0.15),
+                0 10px 40px rgba(0, 0, 0, 0.6);
+            /* Bayangan gelap untuk kedalaman */
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Transisi halus untuk hover */
+            display: block;
+            /* Hilangkan gap inline default */
+            will-change: transform, box-shadow;
+            /* Optimasi performa animasi */
+        }
+
+        /* ============================================================
+           EFEK RING GLOW DI SEKITAR FOTO (Lapisan dekoratif)
+           ============================================================ */
+        .photo-container::before {
+            content: '';
+            position: absolute;
+            top: -8px;
+            left: -8px;
+            right: -8px;
+            bottom: -8px;
+            border-radius: 18px;
+            /* Sedikit lebih besar dari foto */
+            background: transparent;
+            border: 2px solid rgba(180, 220, 255, 0.35);
+            /* Ring tipis transparan */
+            box-shadow:
+                0 0 15px rgba(140, 200, 255, 0.5),
+                0 0 35px rgba(160, 140, 255, 0.3);
+            pointer-events: none;
+            /* Ring tidak memblokir hover */
+            z-index: -1;
+            /* Di belakang foto tapi di atas canvas */
+            animation: pulseRing 3s ease-in-out infinite;
+            /* Animasi denyut */
+        }
+
+        /* ============================================================
+           EFEK PORTAL / GLOW RADIAL DI BELAKANG FOTO
+           ============================================================ */
+        .photo-container::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle,
+                    rgba(120, 180, 255, 0.12) 0%,
+                    rgba(160, 120, 255, 0.06) 30%,
+                    rgba(0, 0, 0, 0) 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: -2;
+            /* Paling belakang dari container foto */
+            animation: pulsePortal 4s ease-in-out infinite;
+        }
+
+        /* ============================================================
+           ANIMASI KEYFRAMES
+           ============================================================ */
+
+        /* Animasi foto mengambang halus */
+        @keyframes floatPhoto {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        /* Animasi ring berdenyut */
+        @keyframes pulseRing {
+            0%,
+            100% {
+                box-shadow:
+                    0 0 15px rgba(140, 200, 255, 0.5),
+                    0 0 35px rgba(160, 140, 255, 0.3);
+                border-color: rgba(180, 220, 255, 0.35);
+            }
+            50% {
+                box-shadow:
+                    0 0 25px rgba(140, 200, 255, 0.8),
+                    0 0 55px rgba(160, 140, 255, 0.5);
+                border-color: rgba(200, 230, 255, 0.6);
+            }
+        }
+
+        /* Animasi portal radial */
+        @keyframes pulsePortal {
+            0%,
+            100% {
+                opacity: 0.7;
+                transform: translate(-50%, -50%) scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, -50%) scale(1.15);
+            }
+        }
+
+        /* ============================================================
+           EFEK HOVER PADA FOTO
+           ============================================================ */
+        .photo-container:hover img {
+            /* Perbesar sedikit saat hover */
+            transform: scale(1.03);
+            /* Glow lebih intens saat hover */
+            box-shadow:
+                0 0 30px rgba(140, 220, 255, 0.9),
+                0 0 60px rgba(140, 200, 255, 0.5),
+                0 0 100px rgba(180, 140, 255, 0.35),
+                0 0 150px rgba(220, 120, 255, 0.2),
+                0 15px 50px rgba(0, 0, 0, 0.7);
+            /* Border lebih terang */
+            border-color: rgba(255, 255, 255, 0.95);
+        }
+
+        .photo-container:hover::before {
+            /* Ring lebih terang saat hover */
+            border-color: rgba(200, 240, 255, 0.8);
+            box-shadow:
+                0 0 25px rgba(160, 220, 255, 0.9),
+                0 0 60px rgba(180, 160, 255, 0.6);
+        }
+
+        /* ============================================================
+           RESPONSIVE DESIGN (Perangkat Mobile)
+           ============================================================ */
+        @media (max-width: 768px) {
+            .photo-container img {
+                width: 220px;
+                /* Ukuran lebih kecil di mobile */
+                height: 293px;
+                /* Pertahankan rasio 3:4 */
+                border-radius: 10px;
+                border-width: 2px;
+            }
+
+            .photo-container::before {
+                top: -6px;
+                left: -6px;
+                right: -6px;
+                bottom: -6px;
+                border-radius: 14px;
+            }
+
+            .photo-container::after {
+                width: 350px;
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .photo-container img {
+                width: 170px;
+                /* Lebih kecil lagi di layar sangat kecil */
+                height: 227px;
+                border-radius: 8px;
+                border-width: 2px;
+            }
+
+            .photo-container::before {
+                top: -4px;
+                left: -4px;
+                right: -4px;
+                bottom: -4px;
+                border-radius: 10px;
+            }
+
+            .photo-container::after {
+                width: 280px;
+                height: 280px;
+            }
+        }
+
+        /* ============================================================
+           FALLBACK JIKA GAMBAR GAGAL DIMUAT
+           ============================================================ */
+        .photo-container img.error {
+            background: #1a1a2e;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #aaa;
+            font-size: 14px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        /* ============================================================
+           PETUNJUK INTERAKSI (Teks kecil di bawah foto)
+           ============================================================ */
+        .hint {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 20;
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 13px;
+            letter-spacing: 1px;
+            text-align: center;
+            pointer-events: none;
+            /* Tidak menghalangi interaksi */
+            transition: opacity 0.5s;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ============================================================
+         KANVAS PARTIKEL (tsParticles akan dirender di sini)
+         ============================================================ -->
+    <div id="tsparticles"></div>
+
+    <!-- ============================================================
+         FOTO UTAMA
+         ============================================================ -->
+    <div class="photo-container" id="photoContainer">
+        <img
+        src="foto.jpg"
+        alt="Foto Saya"
+        id="myPhoto"
+        onerror="this.classList.add('error'); this.alt='Foto tidak ditemukan - letakkan foto.jpg di folder yang sama';"
+        />
+    </div>
+
+    <!-- ============================================================
+         PETUNJUK INTERAKSI
+         ============================================================ -->
+    <div class="hint" id="hintText">✨ Gerakkan mouse • Arahkan ke foto untuk efek spesial ✨</div>
+
+    <!-- ============================================================
+         JAVASCRIPT UTAMA
+         ============================================================ -->
+    <script>
+        (async function() {
+            // ============================================================
+            // KONFIGURASI PARTIKEL - MODE NORMAL (Tidak Hover)
+            // ============================================================
+            const normalConfig = {
+                // Batas FPS untuk performa optimal
+                fpsLimit: 60,
+
+                // Deteksi resolusi untuk mengurangi beban di mobile
+                detectRetina: true,
+
+                // === PENGATURAN PARTIKEL ===
+                particles: {
+                    // Jumlah awal partikel (0 karena kita gunakan emitter)
+                    number: {
+                        value: 0,
+                        density: {
+                            enable: true,
+                            area: 800, // Area distribusi kepadatan
+                        },
+                    },
+
+                    // Warna partikel (palet warna cerah)
+                    color: {
+                        value: [
+                            '#00ffff', // Cyan
+                            '#ff00ff', // Magenta
+                            '#ffff00', // Kuning
+                            '#00ff88', // Hijau neon
+                            '#ff6600', // Oranye
+                            '#aa44ff', // Ungu
+                            '#4488ff', // Biru
+                            '#ff4488', // Pink
+                            '#44ffcc', // Aquamarine
+                            '#ffcc00', // Emas
+                        ],
+                    },
+
+                    // Bentuk partikel
+                    shape: {
+                        type: ['circle', 'triangle', 'star', 'polygon'], // Variasi bentuk
+                        polygon: {
+                            nb_sides: 5, // Untuk bentuk polygon
+                        },
+                    },
+
+                    // Ukuran partikel
+                    size: {
+                        value: { min: 2, max: 6 }, // Ukuran acak 2-6 px
+                        animation: {
+                            enable: true,
+                            speed: 2,
+                            sync: false,
+                            startValue: 'random',
+                            destroy: 'none',
+                        },
+                    },
+
+                    // Opasitas partikel
+                    opacity: {
+                        value: { min: 0.4, max: 0.9 },
+                        animation: {
+                            enable: true,
+                            speed: 1,
+                            sync: false,
+                            startValue: 'random',
+                        },
+                    },
+
+                    // === GERAKAN PARTIKEL ===
+                    move: {
+                        enable: true,
+                        speed: { min: 1.5, max: 4 }, // Kecepatan gerak (px/frame)
+                        direction: 'none', // Arah acak (menyebar ke segala arah)
+                        random: true, // Gerakan sedikit acak
+                        straight: false, // Tidak lurus sepenuhnya
+                        outModes: {
+                            default: 'out', // Partikel keluar dari layar akan hilang
+                            bottom: 'out',
+                            left: 'out',
+                            right: 'out',
+                            top: 'out',
+                        },
+                        attract: {
+                            enable: false, // Atraksi antar partikel dimatikan
+                        },
+                        trail: {
+                            enable: false, // Tidak ada jejak partikel (hemat performa)
+                        },
+                        warp: false, // Tidak ada teleportasi
+                    },
+
+                    // === GARIS PENGHUBUNG ANTAR PARTIKEL (Constellation Effect) ===
+                    links: {
+                        enable: true,
+                        distance: 80, // Jarak maksimal untuk membentuk garis
+                        color: '#ffffff',
+                        opacity: 0.25, // Garis semi-transparan
+                        width: 1,
+                        triangles: {
+                            enable: false,
+                        },
+                    },
+
+                    // === KILAUAN / GLOW PADA PARTIKEL ===
+                    shadow: {
+                        enable: true,
+                        color: '#ffffff',
+                        blur: 8,
+                    },
+                },
+
+                // === EMITTER (Sumber partikel dari belakang foto) ===
+                emitters: {
+                    direction: 'none', // Arah emisi mengikuti arah partikel (acak)
+                    position: {
+                        x: 50, // Posisi X di tengah layar (persen)
+                        y: 50, // Posisi Y di tengah layar (persen)
+                    },
+                    rate: {
+                        delay: 0.08, // Jeda antar emisi (detik)
+                        quantity: 2, // Jumlah partikel per emisi
+                    },
+                    size: {
+                        width: 10,
+                        height: 10,
+                    },
+                    life: {
+                        duration: 0, // 0 = emiter hidup selamanya
+                        count: 0, // 0 = tanpa batas jumlah emisi
+                    },
+                },
+
+                // === INTERAKTIVITAS MOUSE ===
+                interactivity: {
+                    events: {
+                        onHover: {
+                            enable: true,
+                            mode: 'attract', // Partikel tertarik ke kursor
+                            parallax: {
+                                enable: false,
+                            },
+                        },
+                        onClick: {
+                            enable: true,
+                            mode: 'push', // Klik untuk menambah partikel
+                        },
+                        resize: {
+                            enable: true, // Respon saat ukuran layar berubah
+                            delay: 0.5,
+                        },
+                    },
+                    modes: {
+                        attract: {
+                            distance: 180, // Jarak efektif atraksi
+                            duration: 0.3, // Durasi efek
+                            speed: 2, // Kekuatan tarikan
+                            maxSpeed: 8,
+                        },
+                        push: {
+                            quantity: 6, // Partikel ditambahkan per klik
+                        },
+                        repulse: {
+                            distance: 100,
+                            duration: 0.4,
+                        },
+                        grab: {
+                            distance: 150,
+                            links: {
+                                opacity: 0.5,
+                            },
+                        },
+                    },
+                },
+
+                // === DETEKSI KINERJA ===
+                // Kurangi partikel secara otomatis di perangkat lemah
+                performance: {
+                    maxParticles: 300, // Batas maksimal partikel
+                },
+
+                // === BACKGROUND ===
+                background: {
+                    color: '#0a0a0a', // Latar belakang gelap
+                    opacity: 1,
+                },
+
+                // === MODE LAYAR PENUH ===
+                fullScreen: {
+                    enable: true,
+                    zIndex: 1,
+                },
+            };
+
+            // ============================================================
+            // KONFIGURASI PARTIKEL - MODE HOVER (Saat kursor di atas foto)
+            // ============================================================
+            const hoverConfig = JSON.parse(JSON.stringify(normalConfig)); // Salin konfigurasi normal
+
+            // Modifikasi untuk mode hover:
+            // 1. Kecepatan partikel lebih tinggi
+            hoverConfig.particles.move.speed = { min: 4, max: 8 };
+
+            // 2. Emisi partikel lebih banyak
+            hoverConfig.emitters.rate.delay = 0.03;
+            hoverConfig.emitters.rate.quantity = 5;
+
+            // 3. Warna partikel berubah ke palet lebih hangat/cerah
+            hoverConfig.particles.color.value = [
+                '#ff2244', // Merah terang
+                '#ff8800', // Oranye terang
+                '#ffdd00', // Kuning cerah
+                '#ff00aa', // Pink neon
+                '#ff4444', // Merah coral
+                '#ffaa00', // Amber
+                '#ff6600', // Oranye
+                '#ff0088', // Pink magenta
+            ];
+
+            // 4. Ukuran partikel sedikit lebih besar
+            hoverConfig.particles.size.value = { min: 3, max: 8 };
+
+            // 5. Opasitas lebih tinggi
+            hoverConfig.particles.opacity.value = { min: 0.6, max: 1.0 };
+
+            // 6. Jarak link antar partikel lebih jauh (lebih banyak garis)
+            hoverConfig.particles.links.distance = 120;
+            hoverConfig.particles.links.opacity = 0.4;
+
+            // 7. Atraksi mouse lebih kuat
+            hoverConfig.interactivity.modes.attract.speed = 3;
+            hoverConfig.interactivity.modes.attract.distance = 220;
+
+            // 8. Batas partikel lebih tinggi
+            hoverConfig.performance.maxParticles = 500;
+
+            // ============================================================
+            // INISIALISASI tsParticles
+            // ============================================================
+            let particlesInstance = null;
+            let isHovering = false; // Status hover foto
+            let isTransitioning = false; // Cegah race condition saat transisi
+
+            try {
+                // Muat tsParticles ke elemen dengan id "tsparticles"
+                particlesInstance = await tsParticles.load({
+                    id: 'tsparticles',
+                    options: normalConfig,
+                });
+
+                console.log('✅ tsParticles berhasil dimuat!');
+                console.log('   Partikel aktif: ' + particlesInstance.particles.count);
+            } catch (error) {
+                console.error('❌ Gagal memuat tsParticles:', error);
+                document.getElementById('hintText').textContent =
+                    '⚠️ Gagal memuat partikel - periksa koneksi internet Anda';
+                return; // Hentikan eksekusi jika partikel gagal dimuat
+            }
+
+            // ============================================================
+            // FUNGSI UNTUK MENGUBAH KONFIGURASI PARTIKEL
+            // ============================================================
+            async function switchParticleConfig(config, duration = 300) {
+                if (isTransitioning) return; // Cegah transisi bersamaan
+                isTransitioning = true;
+
+                try {
+                    // Gunakan metode load untuk mengganti opsi secara mulus
+                    await particlesInstance.load({
+                        id: 'tsparticles',
+                        options: config,
+                    });
+                } catch (error) {
+                    console.warn('⚠️ Transisi partikel gagal:', error);
+                } finally {
+                    isTransitioning = false;
+                }
+            }
+
+            // ============================================================
+            // EVENT HANDLER UNTUK HOVER FOTO
+            // ============================================================
+            const photoElement = document.getElementById('photoContainer');
+            const hintElement = document.getElementById('hintText');
+
+            // Saat kursor masuk ke area foto
+            photoElement.addEventListener('mouseenter', () => {
+                if (isHovering) return;
+                isHovering = true;
+                // Ubah teks petunjuk
+                hintElement.textContent = '🔥 Partikel dipercepat! 🔥';
+                hintElement.style.color = 'rgba(255, 200, 100, 0.8)';
+                // Ganti ke konfigurasi hover (partikel lebih cepat & warna hangat)
+                switchParticleConfig(hoverConfig);
+            });
+
+            // Saat kursor meninggalkan area foto
+            photoElement.addEventListener('mouseleave', () => {
+                if (!isHovering) return;
+                isHovering = false;
+                // Kembalikan teks petunjuk
+                hintElement.textContent = '✨ Gerakkan mouse • Arahkan ke foto untuk efek spesial ✨';
+                hintElement.style.color = 'rgba(255, 255, 255, 0.5)';
+                // Kembalikan ke konfigurasi normal
+                switchParticleConfig(normalConfig);
+            });
+
+            // ============================================================
+            // EVENT HANDLER UNTUK PERANGKAT SENTUH (MOBILE)
+            // ============================================================
+            // Di perangkat mobile, gunakan touchstart dan touchend
+            photoElement.addEventListener('touchstart', (e) => {
+                e.preventDefault(); // Cegah perilaku default (scroll/zoom)
+                if (isHovering) return;
+                isHovering = true;
+                hintElement.textContent = '🔥 Partikel dipercepat! 🔥';
+                hintElement.style.color = 'rgba(255, 200, 100, 0.8)';
+                switchParticleConfig(hoverConfig);
+            }, { passive: false });
+
+            photoElement.addEventListener('touchend', () => {
+                if (!isHovering) return;
+                isHovering = false;
+                hintElement.textContent = '✨ Gerakkan mouse • Arahkan ke foto untuk efek spesial ✨';
+                hintElement.style.color = 'rgba(255, 255, 255, 0.5)';
+                switchParticleConfig(normalConfig);
+            });
+
+            // ============================================================
+            // OPTIMASI UNTUK PERANGKAT MOBILE
+            // ============================================================
+            // Deteksi perangkat mobile dan kurangi beban partikel
+            const isMobile = /Android|iPhone|iPad|iPod|BlackBerry|Opera Mini|IEMobile/i.test(navigator.userAgent) ||
+                (navigator.maxTouchPoints > 1 && window.innerWidth < 768);
+
+            if (isMobile) {
+                console.log('📱 Mode mobile terdeteksi - mengurangi beban partikel');
+                // Kurangi kecepatan dan jumlah partikel di mobile
+                normalConfig.particles.move.speed = { min: 1, max: 2.5 };
+                normalConfig.emitters.rate.delay = 0.15;
+                normalConfig.emitters.rate.quantity = 1;
+                normalConfig.performance.maxParticles = 150;
+
+                // Terapkan ulang konfigurasi mobile
+                await particlesInstance.load({
+                    id: 'tsparticles',
+                    options: normalConfig,
+                });
+            }
+
+            // ============================================================
+            // HANDLE PERUBAHAN UKURAN LAYAR (RESPONSIVE)
+            // ============================================================
+            let resizeTimeout;
+            window.addEventListener('resize', () => {
+                clearTimeout(resizeTimeout);
+                resizeTimeout = setTimeout(() => {
+                    // tsParticles otomatis menyesuaikan dengan resize
+                    // Kita hanya perlu memastikan emiter tetap di tengah
+                    if (particlesInstance && particlesInstance.emitters) {
+                        particlesInstance.emitters.array.forEach(emitter => {
+                            emitter.shape.position.x = 50;
+                            emitter.shape.position.y = 50;
+                        });
+                    }
+                }, 200);
+            });
+
+            // ============================================================
+            // LOG STATUS DI CONSOLE
+            // ============================================================
+            console.log('🎨 Halaman siap!');
+            console.log('   - Foto: foto.jpg');
+            console.log('   - Partikel: tsParticles dengan emitter di tengah');
+            console.log('   - Interaksi: hover foto untuk mempercepat partikel');
+            console.log('   - Klik: tambah partikel baru');
+            console.log('   - Mode mobile:', isMobile ? 'aktif' : 'non-aktif');
+
+            // ============================================================
+            // KODE CADANGAN: JIKA tsParticles GAGAL DIMUAT DARI CDN
+            // ============================================================
+            // Fallback sederhana menggunakan canvas manual
+            if (!window.tsParticles) {
+                console.warn('⚠️ tsParticles CDN tidak tersedia, menggunakan fallback canvas manual...');
+                createManualParticleFallback();
+            }
+
+            /**
+             * Fallback sederhana jika CDN tsParticles gagal dimuat.
+             * Membuat partikel canvas manual yang lebih sederhana.
+             */
+            function createManualParticleFallback() {
+                const canvas = document.createElement('canvas');
+                canvas.id = 'fallbackCanvas';
+                canvas.style.cssText =
+                    'position:fixed;top:0;left:0;width:100%;height:100%;z-index:1;pointer-events:none;';
+                document.body.appendChild(canvas);
+                const ctx = canvas.getContext('2d');
+                let particles = [];
+                const maxParticles = 80;
+
+                function resizeCanvas() {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+                resizeCanvas();
+                window.addEventListener('resize', resizeCanvas);
+
+                class Particle {
+                    constructor() {
+                        this.reset();
+                    }
+                    reset() {
+                        const cx = canvas.width / 2;
+                        const cy = canvas.height / 2;
+                        const angle = Math.random() * Math.PI * 2;
+                        const dist = Math.random() * 50;
+                        this.x = cx + Math.cos(angle) * dist;
+                        this.y = cy + Math.sin(angle) * dist;
+                        const speed = Math.random() * 3 + 1;
+                        this.vx = Math.cos(angle) * speed;
+                        this.vy = Math.sin(angle) * speed;
+                        this.life = Math.random() * 300 + 100;
+                        this.maxLife = this.life;
+                        this.radius = Math.random() * 3 + 1;
+                        const colors = ['#00ffff', '#ff00ff', '#ffff00', '#00ff88', '#ff6600', '#aa44ff', '#4488ff'];
+                        this.color = colors[Math.floor(Math.random() * colors.length)];
+                    }
+                    update() {
+                        this.x += this.vx;
+                        this.y += this.vy;
+                        this.life--;
+                        if (this.life <= 0 || this.x < -50 || this.x > canvas.width + 50 ||
+                            this.y < -50 || this.y > canvas.height + 50) {
+                            this.reset();
+                        }
+                    }
+                    draw() {
+                        const alpha = Math.min(1, this.life / 50);
+                        ctx.globalAlpha = alpha;
+                        ctx.fillStyle = this.color;
+                        ctx.shadowColor = this.color;
+                        ctx.shadowBlur = 8;
+                        ctx.beginPath();
+                        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                        ctx.fill();
+                        ctx.shadowBlur = 0;
+                        ctx.globalAlpha = 1;
+                    }
+                }
+
+                for (let i = 0; i < maxParticles; i++) {
+                    particles.push(new Particle());
+                }
+
+                function animate() {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    particles.forEach(p => {
+                        p.update();
+                        p.draw();
+                    });
+                    requestAnimationFrame(animate);
+                }
+                animate();
+            }
+
+        })();
+    </script>
+</body>
+</html>
