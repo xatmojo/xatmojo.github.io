@@ -15,8 +15,8 @@
 
     <style>
         /* ============================================
-                   CSS CUSTOM PROPERTIES (TEMA)
-                   ============================================ */
+           CSS CUSTOM PROPERTIES (TEMA)
+           ============================================ */
         :root {
             --primary: #0a2f44;
             --primary-dark: #061b28;
@@ -63,8 +63,8 @@
         }
 
         /* ============================================
-                   RESET & BASE
-                   ============================================ */
+           RESET & BASE
+           ============================================ */
         *,
         *::before,
         *::after {
@@ -103,8 +103,8 @@
         }
 
         /* ============================================
-                   SCROLLBAR CUSTOM
-                   ============================================ */
+           SCROLLBAR CUSTOM
+           ============================================ */
         ::-webkit-scrollbar {
             width: 8px;
             height: 8px;
@@ -121,8 +121,8 @@
         }
 
         /* ============================================
-                   NAVIGASI (STICKY)
-                   ============================================ */
+           NAVIGASI (STICKY)
+           ============================================ */
         .navbar {
             position: fixed;
             top: 0;
@@ -280,8 +280,8 @@
         }
 
         /* ============================================
-                   HERO SECTION
-                   ============================================ */
+           HERO SECTION
+           ============================================ */
         .hero {
             min-height: 100vh;
             display: flex;
@@ -413,8 +413,8 @@
         }
 
         /* ============================================
-                   SECTION HEADERS
-                   ============================================ */
+           SECTION HEADERS
+           ============================================ */
         .section {
             padding: 5rem 2rem;
             max-width: 1200px;
@@ -456,8 +456,8 @@
         }
 
         /* ============================================
-                   SCROLL REVEAL ANIMATION
-                   ============================================ */
+           SCROLL REVEAL ANIMATION
+           ============================================ */
         .reveal {
             opacity: 0;
             transform: translateY(30px);
@@ -481,8 +481,8 @@
         }
 
         /* ============================================
-                   PERSONAL DATA SECTION
-                   ============================================ */
+           PERSONAL DATA SECTION
+           ============================================ */
         .personal-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -543,8 +543,8 @@
         }
 
         /* ============================================
-                   DOCUMENTS & CERTIFICATES SECTION
-                   ============================================ */
+           DOCUMENTS & CERTIFICATES SECTION
+           ============================================ */
         .doc-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -722,8 +722,8 @@
         }
 
         /* ============================================
-                   TIMELINE SECTION
-                   ============================================ */
+           TIMELINE SECTION
+           ============================================ */
         .timeline-container {
             position: relative;
             max-width: 800px;
@@ -828,8 +828,8 @@
         }
 
         /* ============================================
-                   CONTACT SECTION
-                   ============================================ */
+           CONTACT SECTION
+           ============================================ */
         .contact-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -944,8 +944,8 @@
         }
 
         /* ============================================
-                   FOOTER
-                   ============================================ */
+           FOOTER
+           ============================================ */
         .footer {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
             color: rgba(255, 255, 255, 0.85);
@@ -1019,8 +1019,8 @@
         }
 
         /* ============================================
-                   MODAL (Detail Sertifikat)
-                   ============================================ */
+           MODAL (Detail Sertifikat)
+           ============================================ */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1108,6 +1108,7 @@
             justify-content: space-between;
             border-bottom: 1px solid rgba(0, 0, 0, 0.06);
             padding-bottom: 8px;
+            gap: 12px;
         }
         body.dark-mode .modal-details p {
             color: var(--text-muted-dark);
@@ -1116,14 +1117,18 @@
         .modal-details p strong {
             color: var(--text-light);
             font-weight: 600;
+            flex-shrink: 0;
+        }
+        .modal-details p span {
+            text-align: right;
         }
         body.dark-mode .modal-details p strong {
             color: var(--text-dark);
         }
 
         /* ============================================
-                   RESPONSIVE MEDIA QUERIES
-                   ============================================ */
+           RESPONSIVE MEDIA QUERIES
+           ============================================ */
         @media (max-width: 1024px) {
             .section {
                 padding: 4rem 1.5rem;
@@ -1404,7 +1409,7 @@
                 </div>
                 <div class="flip-card-back">
                     <div class="detail-row">
-                        <span class="detail-label">Kode Pelaut</span>
+                        <span class="detail-label">Safarer Code</span>
                         <span class="detail-value">6212535592</span>
                     </div>
                     <div class="detail-row">
@@ -1443,16 +1448,12 @@
                     <span class="detail-value">Rating Engine</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Nomor Seri</span>
-                    <span class="detail-value">CP8294959</span>
-                </div>
-                <div class="detail-row">
                     <span class="detail-label">Nomor Sertifikat</span>
                     <span class="detail-value">6212535592350326</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Dikeluarkan di</span>
-                    <span class="detail-value">Jakarta, 06 Juli 2026</span>
+                    <span class="detail-label">Dikeluarkan oleh</span>
+                    <span class="detail-value">PIP Semarang, 06 Juli 2026</span>
                 </div>
                 <a href="https://pelaut.dephub.go.id/verifikasi" target="_blank" rel="noopener" class="verify-link">
                     <i class="fa-solid fa-circle-check"></i> Verifikasi
@@ -1474,16 +1475,16 @@
         </div>
         <div class="flip-card-back">
             <div class="detail-row">
-                <span class="detail-label">Nomor Seri</span>
-                <span class="detail-value">CP7359456</span>
-            </div>
-            <div class="detail-row">
-                <span class="detail-label">Nomor Sertifikat</span>
+                <span class="detail-label">Certificate Number</span>
                 <span class="detail-value">6212535592010325</span>
             </div>
             <div class="detail-row">
-                <span class="detail-label">Dikeluarkan di</span>
-                <span class="detail-value">Jakarta, 28 Juli 2025</span>
+                <span class="detail-label">Dikeluarkan oleh</span>
+                <span class="detail-value">PIP Semarang</span>
+            </div>
+            <div class="detail-row">
+                <span class="detail-label">Tanggal Terbit</span>
+                <span class="detail-value">28 Juli 2025</span>
             </div>
             <a href="https://pelaut.dephub.go.id/verifikasi" target="_blank" rel="noopener" class="verify-link">
                 <i class="fa-solid fa-circle-check"></i> Verifikasi
@@ -1505,16 +1506,16 @@ onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openM
     </div>
     <div class="flip-card-back">
         <div class="detail-row">
-            <span class="detail-label">Nomor Seri</span>
-            <span class="detail-value">CP7360568</span>
-        </div>
-        <div class="detail-row">
-            <span class="detail-label">Nomor Sertifikat</span>
+            <span class="detail-label">Certificate Number</span>
             <span class="detail-value">6212535592310325</span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Dikeluarkan di</span>
-            <span class="detail-value">Jakarta, 10 Agustus 2025</span>
+            <span class="detail-label">Dikeluarkan oleh</span>
+            <span class="detail-value">PIP Semarang</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Tanggal Terbit</span>
+            <span class="detail-value">10 Agustus 2025</span>
         </div>
         <a href="https://pelaut.dephub.go.id/verifikasi" target="_blank" rel="noopener" class="verify-link">
             <i class="fa-solid fa-circle-check"></i> Verifikasi
@@ -1536,16 +1537,16 @@ onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openM
     </div>
     <div class="flip-card-back">
         <div class="detail-row">
-            <span class="detail-label">Nomor Seri</span>
-            <span class="detail-value">CP7361607</span>
-        </div>
-        <div class="detail-row">
-            <span class="detail-label">Nomor Sertifikat</span>
+            <span class="detail-label">Certificate Number</span>
             <span class="detail-value">6212535592060325</span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Dikeluarkan di</span>
-            <span class="detail-value">Jakarta, 04 Agustus 2025</span>
+            <span class="detail-label">Dikeluarkan oleh</span>
+            <span class="detail-value">PIP Semarang</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Tanggal Terbit</span>
+            <span class="detail-value">04 Agustus 2025</span>
         </div>
         <a href="https://pelaut.dephub.go.id/verifikasi" target="_blank" rel="noopener" class="verify-link">
             <i class="fa-solid fa-circle-check"></i> Verifikasi
@@ -1567,16 +1568,16 @@ onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();openM
     </div>
     <div class="flip-card-back">
         <div class="detail-row">
-            <span class="detail-label">Nomor Seri</span>
-            <span class="detail-value">CP8046330</span>
-        </div>
-        <div class="detail-row">
-            <span class="detail-label">Nomor Sertifikat</span>
+            <span class="detail-label">Certificate Number</span>
             <span class="detail-value">6212535592320326</span>
         </div>
         <div class="detail-row">
-            <span class="detail-label">Dikeluarkan di</span>
-            <span class="detail-value">Jakarta, 16 Maret 2026</span>
+            <span class="detail-label">Dikeluarkan oleh</span>
+            <span class="detail-value">PIP Semarang</span>
+        </div>
+        <div class="detail-row">
+            <span class="detail-label">Tanggal Terbit</span>
+            <span class="detail-value">16 Maret 2026</span>
         </div>
         <a href="https://pelaut.dephub.go.id/verifikasi" target="_blank" rel="noopener" class="verify-link">
             <i class="fa-solid fa-circle-check"></i> Verifikasi
@@ -1602,7 +1603,7 @@ TIMELINE SECTION
             <div class="timeline-dot"></div>
             <div class="timeline-content">
                 <div class="tl-name">BST — Basic Safety Training</div>
-                <div class="tl-date">28 Juli 2025 · Jakarta</div>
+                <div class="tl-date">28 Juli 2025 · PIP Semarang</div>
                 <span class="tl-status tl-valid">Aktif</span>
             </div>
         </div>
@@ -1610,7 +1611,7 @@ TIMELINE SECTION
             <div class="timeline-dot"></div>
             <div class="timeline-content">
                 <div class="tl-name">AFF — Advanced Fire Fighting</div>
-                <div class="tl-date">04 Agustus 2025 · Jakarta</div>
+                <div class="tl-date">04 Agustus 2025 · PIP Semarang</div>
                 <span class="tl-status tl-valid">Aktif</span>
             </div>
         </div>
@@ -1618,7 +1619,7 @@ TIMELINE SECTION
             <div class="timeline-dot"></div>
             <div class="timeline-content">
                 <div class="tl-name">SAT — Security Awareness Training</div>
-                <div class="tl-date">10 Agustus 2025 · Jakarta</div>
+                <div class="tl-date">10 Agustus 2025 · PIP Semarang</div>
                 <span class="tl-status tl-valid">Aktif</span>
             </div>
         </div>
@@ -1626,7 +1627,7 @@ TIMELINE SECTION
             <div class="timeline-dot"></div>
             <div class="timeline-content">
                 <div class="tl-name">SDSD — Ship Security Duties</div>
-                <div class="tl-date">16 Maret 2026 · Jakarta</div>
+                <div class="tl-date">16 Maret 2026 · PIP Semarang</div>
                 <span class="tl-status tl-active">Aktif</span>
             </div>
         </div>
@@ -1634,7 +1635,7 @@ TIMELINE SECTION
             <div class="timeline-dot"></div>
             <div class="timeline-content">
                 <div class="tl-name">COC — Rating Engine</div>
-                <div class="tl-date">06 Juli 2026 · Jakarta</div>
+                <div class="tl-date">06 Juli 2026 · PIP Semarang</div>
                 <span class="tl-status tl-active">Aktif</span>
             </div>
         </div>
@@ -1743,6 +1744,7 @@ JAVASCRIPT
     /**
      * ============================================
      * DATA SERTIFIKAT (untuk modal)
+     * Disesuaikan dengan data CV
      * ============================================
      */
     const certData = {
@@ -1750,7 +1752,7 @@ JAVASCRIPT
             title: 'Buku Pelaut (Seaman Book)',
             icon: 'fa-solid fa-book',
             details: [
-                { label: 'Kode Pelaut', value: '6212535592' },
+                { label: 'Safarer Code', value: '6212535592' },
                 { label: 'Dikeluarkan di', value: 'Semarang' },
                 { label: 'Tanggal Terbit', value: '04 Agustus 2026' },
                 { label: 'Berlaku Hingga', value: '04 Agustus 2029' },
@@ -1762,9 +1764,9 @@ JAVASCRIPT
             icon: 'fa-solid fa-award',
             details: [
                 { label: 'Jabatan', value: 'Rating Engine' },
-                { label: 'Nomor Seri', value: 'CP8294959' },
                 { label: 'Nomor Sertifikat', value: '6212535592350326' },
-                { label: 'Dikeluarkan di', value: 'Jakarta, 06 Juli 2026' },
+                { label: 'Dikeluarkan oleh', value: 'PIP Semarang' },
+                { label: 'Tanggal Terbit', value: '06 Juli 2026' },
                 { label: 'Status', value: 'Aktif' },
             ]
         },
@@ -1772,9 +1774,9 @@ JAVASCRIPT
             title: 'BST — Basic Safety Training',
             icon: 'fa-solid fa-life-ring',
             details: [
-                { label: 'Nomor Seri', value: 'CP7359456' },
-                { label: 'Nomor Sertifikat', value: '6212535592010325' },
-                { label: 'Dikeluarkan di', value: 'Jakarta, 28 Juli 2025' },
+                { label: 'Certificate Number', value: '6212535592010325' },
+                { label: 'Dikeluarkan oleh', value: 'PIP Semarang' },
+                { label: 'Tanggal Terbit', value: '28 Juli 2025' },
                 { label: 'Status', value: 'Aktif' },
             ]
         },
@@ -1782,9 +1784,9 @@ JAVASCRIPT
             title: 'SAT — Security Awareness Training',
             icon: 'fa-solid fa-shield',
             details: [
-                { label: 'Nomor Seri', value: 'CP7360568' },
-                { label: 'Nomor Sertifikat', value: '6212535592310325' },
-                { label: 'Dikeluarkan di', value: 'Jakarta, 10 Agustus 2025' },
+                { label: 'Certificate Number', value: '6212535592310325' },
+                { label: 'Dikeluarkan oleh', value: 'PIP Semarang' },
+                { label: 'Tanggal Terbit', value: '10 Agustus 2025' },
                 { label: 'Status', value: 'Aktif' },
             ]
         },
@@ -1792,9 +1794,9 @@ JAVASCRIPT
             title: 'AFF — Advanced Fire Fighting',
             icon: 'fa-solid fa-fire-extinguisher',
             details: [
-                { label: 'Nomor Seri', value: 'CP7361607' },
-                { label: 'Nomor Sertifikat', value: '6212535592060325' },
-                { label: 'Dikeluarkan di', value: 'Jakarta, 04 Agustus 2025' },
+                { label: 'Certificate Number', value: '6212535592060325' },
+                { label: 'Dikeluarkan oleh', value: 'PIP Semarang' },
+                { label: 'Tanggal Terbit', value: '04 Agustus 2025' },
                 { label: 'Status', value: 'Aktif' },
             ]
         },
@@ -1802,9 +1804,9 @@ JAVASCRIPT
             title: 'SDSD — Ship Security Duties',
             icon: 'fa-solid fa-lock',
             details: [
-                { label: 'Nomor Seri', value: 'CP8046330' },
-                { label: 'Nomor Sertifikat', value: '6212535592320326' },
-                { label: 'Dikeluarkan di', value: 'Jakarta, 16 Maret 2026' },
+                { label: 'Certificate Number', value: '6212535592320326' },
+                { label: 'Dikeluarkan oleh', value: 'PIP Semarang' },
+                { label: 'Tanggal Terbit', value: '16 Maret 2026' },
                 { label: 'Status', value: 'Aktif' },
             ]
         }
