@@ -503,14 +503,15 @@ body.edit-on .edit-only{display:inline-flex !important}
 body.edit-on .edit-only.block{display:flex !important}
 body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);color:#12233a;border-color:transparent}
 
-/* Preview mode: header "Aksi" tetap tampil, tombol aksi per-baris disembunyikan */
+/* Preview mode: header "Aksi" tetap tampil,
+   tombol edit/hapus per-baris (tabel & timeline) disembunyikan */
 body:not(.edit-on) .cell-actions,
 body:not(.edit-on) .tl-actions{
   display: none !important;
 }
 
 @media (max-width:760px){
-  /* Mobile preview: baris Aksi kosong disembunyikan agar tidak menyisakan label */
+  /* Mobile preview: baris Aksi kosong disembunyikan agar tidak menyisakan label kosong */
   body:not(.edit-on) td[data-label="Aksi"]{
     display: none !important;
   }
@@ -1169,7 +1170,6 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
         const elm = form.elements[f.key];
         const raw = elm ? String(elm.value).trim() : '';
 
-        /* Tanggal: parse dd/mm/yyyy -> ISO */
         if(f.type === 'date'){
           if(!raw){
             if(f.required){
@@ -1235,7 +1235,7 @@ function addBtn(action, label, extra = ''){
 function emptyBox(msg){
   return `<div class="empty">${icon('file')}${esc(msg)}</div>`;
 }
-/* Aksi baris: SELALU terlihat (preview maupun edit) */
+/* Tombol aksi baris: dibungkus .cell-actions (disembunyikan di preview oleh CSS) */
 function editRowBtns(kind, id, label){
   return `<div class="cell-actions">
       <button class="icon-btn sm" data-action="edit-${kind}" data-id="${id}" title="Edit">${icon('edit')}</button>
@@ -2081,7 +2081,6 @@ document.addEventListener('click', (e) => {
 
 /* Input: date auto-format + search */
 document.addEventListener('input', (e) => {
-  /* Auto-format tanggal ke dd/mm/yyyy */
   const dateInp = e.target.closest('[data-date-input]');
   if(dateInp){
     let v = dateInp.value.replace(/[^\d]/g, '').slice(0, 8);
@@ -2092,7 +2091,6 @@ document.addEventListener('input', (e) => {
     return;
   }
 
-  /* Search */
   const inp = e.target.closest('[data-search]');
   if(!inp) return;
   const key = inp.dataset.search;
