@@ -503,6 +503,19 @@ body.edit-on .edit-only{display:inline-flex !important}
 body.edit-on .edit-only.block{display:flex !important}
 body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);color:#12233a;border-color:transparent}
 
+/* Preview mode: header "Aksi" tetap tampil, tombol aksi per-baris disembunyikan */
+body:not(.edit-on) .cell-actions,
+body:not(.edit-on) .tl-actions{
+  display: none !important;
+}
+
+@media (max-width:760px){
+  /* Mobile preview: baris Aksi kosong disembunyikan agar tidak menyisakan label */
+  body:not(.edit-on) td[data-label="Aksi"]{
+    display: none !important;
+  }
+}
+
 /* =========================================================
    15. APP FOOTER
    ========================================================= */
