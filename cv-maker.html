@@ -257,7 +257,7 @@ a.chip:hover{background:rgba(201,162,39,.22);border-color:rgba(201,162,39,.5);co
 .section-title p{margin:2px 0 0;font-size:.78rem;color:var(--muted)}
 .section-tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-/* ---------- Info grid (personal data) ---------- */
+/* ---------- Info grid ---------- */
 .info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
 .info-item{
   display:flex;gap:11px;padding:13px 14px;border-radius:var(--radius-sm);
@@ -311,7 +311,7 @@ table.data tbody tr:hover{background:rgba(201,162,39,.06)}
 [data-theme="dark"] .badge-red{color:#f87171}
 .cd{display:block;font-size:.68rem;color:var(--muted);margin-top:4px}
 
-/* ---------- Toolbar (search & sort) ---------- */
+/* ---------- Toolbar ---------- */
 .toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
 .search-box{position:relative;flex:1;min-width:190px}
 .search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem}
@@ -326,7 +326,7 @@ select.mini{
 }
 
 /* =========================================================
-   8. TIMELINE (work experience)
+   8. TIMELINE
    ========================================================= */
 .timeline{position:relative;padding-left:26px}
 .timeline::before{
@@ -379,7 +379,7 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);bord
 .contact-card strong{display:block;font-size:.87rem;word-break:break-word;font-weight:600}
 
 /* =========================================================
-   10. ALERT BANNER
+   10. ALERT
    ========================================================= */
 .alert-banner{
   display:flex;gap:13px;align-items:flex-start;padding:15px 18px;border-radius:var(--radius-sm);
@@ -431,6 +431,7 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);bord
   outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.18);
 }
 .field textarea{resize:vertical;min-height:78px;line-height:1.6}
+.field input[data-date-input]{letter-spacing:.03em;font-variant-numeric:tabular-nums}
 .confirm-msg{font-size:.92rem;line-height:1.75;margin:0}
 
 /* Photo editor */
@@ -529,7 +530,42 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   .content{padding:16px}
   .hero{padding:26px}
 }
+
 @media (max-width:760px){
+  .topbar{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    grid-template-areas:
+      "menu . theme"
+      "edit print reset";
+    align-items:center;
+    column-gap:8px;
+    row-gap:8px;
+    padding:10px 12px;
+  }
+  .topbar-title{display:none}
+  .save-indicator{display:none}
+  .topbar-actions{display:contents}
+  #menuBtn{grid-area:menu;justify-self:start;width:38px;height:38px}
+  #themeBtn{grid-area:theme;justify-self:end;width:38px;height:38px}
+  #editToggle{grid-area:edit}
+  .topbar-actions > [data-action="print"]{grid-area:print}
+  .topbar-actions > [data-action="reset"]{grid-area:reset}
+  .topbar-actions .btn{
+    width:100%;
+    padding:9px 8px;
+    font-size:.76rem;
+    gap:6px;
+    justify-content:center;
+    min-width:0;
+  }
+  .topbar-actions .btn span{
+    display:inline;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
   .hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px;padding:26px 20px}
   .hero-rank{justify-content:center}
   .hero-chips{justify-content:center}
@@ -538,12 +574,9 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   .form-grid{grid-template-columns:1fr}
   .photo-editor{grid-template-columns:1fr;justify-items:center}
   .photo-preview{width:170px;height:200px}
-  .topbar{padding:10px 14px}
-  .topbar-title{display:none}
   .section-tools{margin-left:0;width:100%}
   .section-head{gap:10px}
 
-  /* Tabel jadi kartu */
   table.data{min-width:0}
   table.data thead{display:none}
   table.data tr{
@@ -565,13 +598,16 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   .timeline{padding-left:20px}
   .tl-dot{left:-19px}
 }
+
 @media (max-width:420px){
-  .topbar-actions .btn span{display:none}
-  .topbar-actions .btn{padding:9px 11px}
+  .topbar{padding:8px 10px;column-gap:6px;row-gap:6px}
+  .topbar-actions .btn{padding:8px 6px;font-size:.72rem;gap:5px}
+  .topbar-actions .btn .icon{font-size:.88rem}
+  #themeBtn,#menuBtn{width:34px;height:34px}
 }
 
 /* =========================================================
-   17. PRINT — A4 PROFESSIONAL CV
+   17. PRINT
    ========================================================= */
 @media print{
   @page{size:A4 portrait;margin:12mm 11mm 13mm}
@@ -586,18 +622,15 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   .sidebar,.sidebar-backdrop,.topbar,.back-top,#toasts,#preloader,
   .no-print,#modalRoot{display:none !important}
 
-  /* Paksa sembunyikan kontrol edit walau Mode Edit aktif */
   body .edit-only,
   body.edit-on .edit-only{display:none !important}
 
-  /* Sembunyikan data kosong */
   .empty{display:none !important}
   section.is-empty{display:none !important}
   .v-empty{display:none !important}
   .info-item.item-empty{display:none !important}
   .contact-card.is-placeholder{display:none !important}
 
-  /* Sembunyikan kolom aksi (header + sel) */
   table.data th.th-actions{display:none !important}
   table.data td.cell-actions,
   table.data td[data-label="Aksi"]{display:none !important}
@@ -606,7 +639,6 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   .main{display:block !important}
   .content{padding:0 !important;max-width:none !important;margin:0 !important}
 
-  /* Hero ringkas untuk cetak */
   .hero{
     display:grid !important;grid-template-columns:26mm 1fr;gap:6mm;align-items:center;
     background:#0b1f3a !important;color:#fff !important;
@@ -645,7 +677,6 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   .info-item .ii-value{font-size:8.3pt !important}
   .summary-text{font-size:8.8pt !important;line-height:1.6 !important}
 
-  /* Tabel normal kembali */
   .table-wrap{overflow:visible !important;border:1px solid #c3cede !important;border-radius:3px !important}
   table.data{min-width:0 !important;width:100% !important;font-size:7.6pt !important}
   table.data thead{display:table-header-group !important}
@@ -694,9 +725,6 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
 </head>
 <body>
 
-<!-- =========================================================
-     SVG ICON SPRITE (offline-safe, no CDN required)
-     ========================================================= -->
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
   <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
@@ -733,11 +761,9 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
 </svg>
 
-<!-- Preloader -->
 <div id="preloader"><div class="loader"></div><span>Memuat CV Pelaut</span></div>
 
 <div class="app">
-  <!-- ============ SIDEBAR ============ -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-mark"><svg class="icon"><use href="#i-anchor"/></svg></div>
@@ -768,7 +794,6 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
   </aside>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
-  <!-- ============ MAIN ============ -->
   <div class="main">
     <header class="topbar">
       <button class="icon-btn" data-action="toggle-sidebar" title="Menu" id="menuBtn">
@@ -780,13 +805,14 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
         <button class="icon-btn" data-action="toggle-theme" id="themeBtn" title="Mode Gelap / Terang">
           <svg class="icon"><use href="#i-moon"/></svg>
         </button>
-        <button class="icon-btn" data-action="font-down" title="Perkecil font"><span style="font-size:.72rem;font-weight:800">A-</span></button>
-        <button class="icon-btn" data-action="font-up" title="Perbesar font"><span style="font-size:.82rem;font-weight:800">A+</span></button>
         <button class="btn" data-action="toggle-edit" id="editToggle">
           <svg class="icon"><use href="#i-edit"/></svg> <span>Mode Edit</span>
         </button>
         <button class="btn primary" data-action="print" title="Cetak / Simpan PDF">
           <svg class="icon"><use href="#i-print"/></svg> <span>Cetak / PDF</span>
+        </button>
+        <button class="btn danger" data-action="reset" title="Reset semua data">
+          <svg class="icon"><use href="#i-refresh"/></svg> <span>Reset</span>
         </button>
       </div>
     </header>
@@ -823,7 +849,6 @@ body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);
 "use strict";
 /* =========================================================================
    CV PELAUT — SEAFARER PROFESSIONAL PORTFOLIO
-   Vanilla JS · LocalStorage · Offline-ready
    ========================================================================= */
 
 /* ------------------------------------------------------------------
@@ -846,6 +871,25 @@ function esc(v){
 function uid(){
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
+
+/* ---- Tanggal: konversi ISO <-> dd/mm/yyyy untuk form ---- */
+function isoToDMY(iso){
+  if(!iso) return '';
+  const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? `${m[3]}/${m[2]}/${m[1]}` : String(iso);
+}
+function dmyToISO(dmy){
+  if(!dmy) return '';
+  const s = String(dmy).trim();
+  const m = s.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
+  if(!m) return null;
+  const d = parseInt(m[1], 10), mo = parseInt(m[2], 10), y = parseInt(m[3], 10);
+  if(mo < 1 || mo > 12 || d < 1 || d > 31) return null;
+  const dt = new Date(y, mo - 1, d);
+  if(dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+  return `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+}
+
 function fmtDate(v){
   if(!v) return '—';
   const d = new Date(String(v).length === 10 ? v + 'T00:00:00' : v);
@@ -859,19 +903,16 @@ function daysLeft(exp){
   const today = new Date(); today.setHours(0,0,0,0);
   return Math.round((d - today) / DAY);
 }
-
-/* Status hanya untuk item yang PUNYA tanggal kedaluwarsa.
-   Item tanpa masa berlaku -> tidak ditampilkan statusnya. */
 function certStatus(c){
   const d = daysLeft(c.expiryDate);
-  if(d === null) return null;                                  // <-- dihilangkan
+  if(d === null) return null;
   if(d < 0)   return { key:'expired', label:'Kedaluwarsa',      cls:'badge-red',   days:d };
   if(d <= 90) return { key:'soon',    label:'Akan Kedaluwarsa', cls:'badge-amber', days:d };
   return           { key:'active',  label:'Aktif',            cls:'badge-green', days:d };
 }
 function statusCell(item){
   const s = certStatus(item);
-  if(!s) return DASH;                                          // tampil "—", hilang saat print
+  if(!s) return DASH;
   const extra = s.days < 0 ? `lewat ${Math.abs(s.days)} hari` : `${s.days} hari lagi`;
   return `<span class="badge ${s.cls}">${s.label}</span><small class="cd">${extra}</small>`;
 }
@@ -900,7 +941,6 @@ function icon(id, cls = ''){
   return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`;
 }
 
-/* ---- placeholder kosong: tampil di layar, hilang saat dicetak ---- */
 const DASH = '<span class="v-empty">—</span>';
 function tv(v){
   const s = String(v ?? '').trim();
@@ -959,7 +999,7 @@ function loadData(){
 }
 function loadUI(){
   const def = {
-    edit: false, theme: 'light', fs: 15,
+    edit: false, theme: 'light',
     search: { documents:'', coc:'', cop:'', other:'' },
     sort:   { coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
   };
@@ -1082,6 +1122,10 @@ function fieldHTML(f, value){
       `<option value="${esc(o)}"${String(o) === String(v) ? ' selected' : ''}>${esc(o || '— Pilih —')}</option>`
     ).join('');
     input = `<select id="${id}" name="${esc(f.key)}">${opts}</select>`;
+  } else if(f.type === 'date'){
+    input = `<input id="${id}" name="${esc(f.key)}" type="text" inputmode="numeric"
+             value="${esc(isoToDMY(v))}" placeholder="dd/mm/yyyy" maxlength="10"
+             ${f.required ? 'required' : ''} autocomplete="off" data-date-input="1">`;
   } else {
     input = `<input id="${id}" name="${esc(f.key)}" type="${f.type || 'text'}" value="${esc(v)}"
              placeholder="${esc(f.ph || '')}"${f.min ? ` min="${esc(f.min)}"` : ''}
@@ -1111,6 +1155,28 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
       for(const f of fields){
         const elm = form.elements[f.key];
         const raw = elm ? String(elm.value).trim() : '';
+
+        /* Tanggal: parse dd/mm/yyyy -> ISO */
+        if(f.type === 'date'){
+          if(!raw){
+            if(f.required){
+              toast(`${f.label} wajib diisi`, 'err');
+              if(elm) elm.focus();
+              return false;
+            }
+            data[f.key] = '';
+            continue;
+          }
+          const iso = dmyToISO(raw);
+          if(iso === null){
+            toast(`Format ${f.label} harus dd/mm/yyyy`, 'err');
+            if(elm) elm.focus();
+            return false;
+          }
+          data[f.key] = iso;
+          continue;
+        }
+
         data[f.key] = raw;
 
         if(f.required && !raw){
@@ -1156,8 +1222,9 @@ function addBtn(action, label, extra = ''){
 function emptyBox(msg){
   return `<div class="empty">${icon('file')}${esc(msg)}</div>`;
 }
+/* Aksi baris: SELALU terlihat (preview maupun edit) */
 function editRowBtns(kind, id, label){
-  return `<div class="cell-actions edit-only">
+  return `<div class="cell-actions">
       <button class="icon-btn sm" data-action="edit-${kind}" data-id="${id}" title="Edit">${icon('edit')}</button>
       <button class="icon-btn sm" data-action="del-${kind}" data-id="${id}" data-label="${esc(label)}" title="Hapus">${icon('trash')}</button>
     </div>`;
@@ -1197,14 +1264,14 @@ function renderHero(){
 }
 
 /* ------------------------------------------------------------------
-   7. RENDER — ALERT SERTIFIKAT (hanya item yang punya expiry)
+   7. RENDER — ALERT SERTIFIKAT
    ------------------------------------------------------------------ */
 function renderAlerts(){
   const zone = $('#alertZone');
   const soon = [], expired = [];
   DATA.certificates.forEach(c => {
     const s = certStatus(c);
-    if(!s) return;                                     // tanpa expiry -> tidak ada alert
+    if(!s) return;
     if(s.key === 'expired') expired.push(c);
     else if(s.key === 'soon') soon.push(c);
   });
@@ -1492,7 +1559,7 @@ function renderWork(){
         </div>
         ${meta.length ? `<div class="tl-meta">${meta.map(m => `<span>${esc(m)}</span>`).join('')}</div>` : ''}
         ${w.description ? `<p class="tl-desc">${esc(w.description)}</p>` : ''}
-        <div class="tl-actions edit-only">
+        <div class="tl-actions">
           <button class="icon-btn sm" data-action="edit-work" data-id="${w.id}" title="Edit">${icon('edit')}</button>
           <button class="icon-btn sm" data-action="del-work" data-id="${w.id}" data-label="${esc(w.company || 'pengalaman')}" title="Hapus">${icon('trash')}</button>
         </div>
@@ -1611,7 +1678,6 @@ function applyEditMode(){
 }
 function applyTheme(){
   document.documentElement.setAttribute('data-theme', UI.theme);
-  document.documentElement.style.setProperty('--fs', UI.fs + 'px');
   const btn = $('#themeBtn');
   if(btn) btn.innerHTML = icon(UI.theme === 'dark' ? 'sun' : 'moon');
   const meta = document.querySelector('meta[name=theme-color]');
@@ -1638,7 +1704,6 @@ const PROFILE_FIELDS = [
   { key:'summary',       label:'Ringkasan Profesional',  type:'textarea', full:true, rows:5 }
 ];
 
-/* issueDate WAJIB diisi */
 const DOC_FIELDS = [
   { key:'type',       label:'Jenis Dokumen', type:'select', options:['Buku Pelaut','MCU','Sertifikat Medis','Paspor','Kartu Keluarga','Ijazah','Dokumen Lainnya'] },
   { key:'name',       label:'Nama Dokumen',  type:'text', required:true, ph:'Contoh: Buku Pelaut (Seaman Book)' },
@@ -1648,7 +1713,6 @@ const DOC_FIELDS = [
   { key:'expiryDate', label:'Tanggal Kedaluwarsa', type:'date' }
 ];
 
-/* issueDate WAJIB diisi */
 const CERT_FIELDS = [
   { key:'name',       label:'Nama Sertifikat', type:'text', required:true, full:true },
   { key:'number',     label:'Nomor Sertifikat', type:'text' },
@@ -1966,14 +2030,6 @@ document.addEventListener('click', (e) => {
       toast(UI.theme === 'dark' ? 'Mode gelap aktif' : 'Mode terang aktif', 'info');
       break;
 
-    case 'font-up':
-      UI.fs = Math.min(19, UI.fs + 1); saveUI(); applyTheme();
-      break;
-
-    case 'font-down':
-      UI.fs = Math.max(13, UI.fs - 1); saveUI(); applyTheme();
-      break;
-
     case 'toggle-edit':
       UI.edit = !UI.edit; saveUI(); applyEditMode();
       toast(UI.edit ? 'Mode Edit aktif — data dapat diubah' : 'Mode Preview aktif', 'info');
@@ -2010,8 +2066,20 @@ document.addEventListener('click', (e) => {
   }
 });
 
-/* Search (tanpa re-render, agar fokus input tidak hilang) */
+/* Input: date auto-format + search */
 document.addEventListener('input', (e) => {
+  /* Auto-format tanggal ke dd/mm/yyyy */
+  const dateInp = e.target.closest('[data-date-input]');
+  if(dateInp){
+    let v = dateInp.value.replace(/[^\d]/g, '').slice(0, 8);
+    let out = v.slice(0, 2);
+    if(v.length > 2) out += '/' + v.slice(2, 4);
+    if(v.length > 4) out += '/' + v.slice(4, 8);
+    if(dateInp.value !== out) dateInp.value = out;
+    return;
+  }
+
+  /* Search */
   const inp = e.target.closest('[data-search]');
   if(!inp) return;
   const key = inp.dataset.search;
@@ -2024,6 +2092,20 @@ document.addEventListener('input', (e) => {
     const text = tr.dataset.text || '';
     tr.style.display = (!q || text.includes(q)) ? '' : 'none';
   });
+});
+
+/* Paste: konversi ISO yyyy-mm-dd ke dd/mm/yyyy */
+document.addEventListener('paste', (e) => {
+  const inp = e.target.closest('[data-date-input]');
+  if(!inp) return;
+  const cb = e.clipboardData || window.clipboardData;
+  if(!cb) return;
+  const text = (cb.getData('text') || '').trim();
+  const iso = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(iso){
+    e.preventDefault();
+    inp.value = `${iso[3]}/${iso[2]}/${iso[1]}`;
+  }
 });
 
 /* Sort */
