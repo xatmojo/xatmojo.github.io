@@ -4,7 +4,50 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1f3a">
-<title>CV Pelaut — Seafarer Professional Portfolio</title>
+
+<!-- =========================================================
+     SEO META TAGS
+     ========================================================= -->
+<title>CV Pelaut Profesional — Seafarer Portfolio</title>
+<meta name="description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal (Sea Service Record), dan pengalaman kerja dengan mudah.">
+<meta name="keywords" content="CV Pelaut, Curriculum Vitae Pelaut, Seafarer CV, Marine CV, Sea Service Record, Sertifikat Pelaut, Oiler, ABK, Pelaut Indonesia, Professional Seafarer">
+<meta name="author" content="xatmojo">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://seafarer-cv.example.com/">
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://seafarer-cv.example.com/">
+<meta property="og:title" content="CV Pelaut Profesional — Seafarer Portfolio">
+<meta property="og:description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal, dan pengalaman kerja dengan mudah.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=1200&h=630&auto=format&fit=crop">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Seafarer CV">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CV Pelaut Profesional — Seafarer Portfolio">
+<meta name="twitter:description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal, dan pengalaman kerja dengan mudah.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=1200&h=630&auto=format&fit=crop">
+<meta name="twitter:creator" content="@xatmojo">
+
+<!-- JSON-LD Structured Data (Schema.org Person) -->
+<script type="application/ld+json" id="json-ld-person">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nama Lengkap Pelaut",
+  "jobTitle": "Oiler / Seafarer",
+  "description": "Curriculum Vitae (CV) interaktif dan profesional untuk pelaut.",
+  "nationality": "Indonesian",
+  "url": "https://seafarer-cv.example.com/",
+  "image": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=400&auto=format&fit=crop",
+  "sameAs": [
+    "https://instagram.com/xatmojo"
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
@@ -828,7 +871,6 @@ body:not(.edit-on) .tl-actions{display:none !important}
       <div class="topbar-actions">
         <span class="save-indicator" id="saveInd"><svg class="icon"><use href="#i-check"/></svg> <span data-i18n-key="save_indicator">Tersimpan</span></span>
         
-        <!-- Info Developer Button -->
         <button class="icon-btn" data-action="dev-info" id="devBtn" data-i18n-title="btn_dev_title" title="Info Developer">
           <svg class="icon"><use href="#i-help"/></svg>
         </button>
@@ -1644,6 +1686,8 @@ function renderHero(){
         <button class="btn sm gold edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit_profile'))}</button>
       </div>
     </div>`;
+
+  updateSEO();
 }
 
 /* ---------- 9. RENDER ALERTS ---------- */
@@ -2070,7 +2114,48 @@ function applyLang(){
   });
 }
 
-/* ---------- 19. FORM DEFINITIONS ---------- */
+/* ---------- 19. DYNAMIC SEO UPDATE ---------- */
+function updateSEO() {
+  const p = DATA.profile;
+  const name = p.name || 'Seafarer';
+  const rank = p.rank || 'Professional';
+  
+  const pageTitle = `${name} - ${rank} CV | Seafarer Portfolio`;
+  const pageDesc = `Curriculum Vitae (CV) of ${name}, a ${rank} with ${DATA.seaService.length} sea service records and ${DATA.certificates.length} certificates.`;
+  
+  document.title = pageTitle;
+  
+  const setMeta = (selector, content) => {
+    const el = document.querySelector(selector);
+    if(el) el.setAttribute('content', content);
+  };
+
+  setMeta('meta[name="description"]', pageDesc);
+  setMeta('meta[property="og:title"]', pageTitle);
+  setMeta('meta[property="og:description"]', pageDesc);
+  setMeta('meta[name="twitter:title"]', pageTitle);
+  setMeta('meta[name="twitter:description"]', pageDesc);
+  
+  const jsonLd = document.getElementById('json-ld-person');
+  if(jsonLd) {
+    const ldData = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": name,
+      "jobTitle": rank,
+      "description": pageDesc,
+      "nationality": p.nationality || "Indonesian",
+      "image": p.photo || "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=400&auto=format&fit=crop",
+      "url": "https://seafarer-cv.example.com/"
+    };
+    if (p.email) ldData.email = p.email;
+    if (p.phone) ldData.telephone = p.phone;
+    
+    jsonLd.textContent = JSON.stringify(ldData, null, 2);
+  }
+}
+
+/* ---------- 20. FORM DEFINITIONS ---------- */
 const OPTS = {
   gender: [
     { v:'', l:'opt_choose' },
@@ -2162,7 +2247,7 @@ const WORK_FIELDS = [
   { key:'description', labelKey:'lbl_description', type:'textarea', full:true, rows:4 }
 ];
 
-/* ---------- 20. ACTION HANDLERS ---------- */
+/* ---------- 21. ACTION HANDLERS ---------- */
 function editProfile(){
   openFormModal(t('modal_edit_profile'), PROFILE_FIELDS, DATA.profile, (data) => {
     DATA.profile = Object.assign(DATA.profile, data);
@@ -2237,7 +2322,7 @@ function deleteItem(kind, id, label){
   });
 }
 
-/* ---------- 21. PHOTO EDITOR ---------- */
+/* ---------- 22. PHOTO EDITOR ---------- */
 function resizeImage(file, maxSize = 720){
   return new Promise((resolve, reject) => {
     if(!file.type.startsWith('image/')){ reject(new Error(t('photo_not_image'))); return; }
@@ -2349,7 +2434,7 @@ function openPhotoModal(){
   $('#pvY').oninput    = (e) => { temp.y = parseInt(e.target.value, 10); sync(); };
 }
 
-/* ---------- 22. IMPORT / EXPORT / RESET ---------- */
+/* ---------- 23. IMPORT / EXPORT / RESET ---------- */
 function exportJSON(){
   try{
     const name = (DATA.profile.name || 'Seafarer').replace(/[^\w\-]+/g, '_');
@@ -2412,7 +2497,7 @@ function doPrint(){
   }, 260);
 }
 
-/* ---------- 23. EVENT DELEGATION ---------- */
+/* ---------- 24. EVENT DELEGATION ---------- */
 document.addEventListener('click', (e) => {
   const actionEl = e.target.closest('[data-action]');
   if(!actionEl) return;
@@ -2547,7 +2632,7 @@ $('#importInput').addEventListener('change', (e) => {
   e.target.value = '';
 });
 
-/* ---------- 24. SCROLL NAV ---------- */
+/* ---------- 25. SCROLL NAV ---------- */
 const NAV_IDS = ['home','personal','summary','documents','coc','cop','other','sea','work','contact'];
 let scrollTick = false;
 function onScroll(){
@@ -2569,7 +2654,7 @@ function onScroll(){
 }
 window.addEventListener('scroll', onScroll, { passive:true });
 
-/* ---------- 25. INIT ---------- */
+/* ---------- 26. INIT ---------- */
 (function init(){
   $('#year').textContent = new Date().getFullYear();
   applyLang();
