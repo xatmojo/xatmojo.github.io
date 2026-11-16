@@ -144,19 +144,6 @@ img{max-width:100%}
 }
 .save-indicator.show{opacity:1}
 
-/* Language toggle button */
-.lang-btn{
-  width:auto;
-  padding:0 11px;
-  display:inline-flex;
-  align-items:center;
-  gap:6px;
-  font-size:.72rem;
-  font-weight:700;
-  letter-spacing:.06em;
-  text-transform:uppercase;
-}
-
 /* ---------- Content ---------- */
 .content{padding:22px;max-width:1180px;width:100%;margin:0 auto;flex:1}
 section{scroll-margin-top:82px}
@@ -189,6 +176,22 @@ section{scroll-margin-top:82px}
 }
 .icon-btn:hover{background:var(--card-2);transform:translateY(-1px)}
 .icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
+
+/* Language toggle button — diletakkan SETELAH .icon-btn agar override bekerja */
+.lang-btn{
+  display:inline-flex !important;
+  width:auto !important;
+  height:38px;
+  padding:0 11px;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
 
 /* =========================================================
    5. HERO
@@ -557,8 +560,8 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .topbar-actions{display:contents}
 
   #menuBtn{order:1}
-  #langBtn{order:2;margin-left:auto}
-  #themeBtn{order:3}
+  #langBtn{order:2;margin-left:auto;height:38px;padding:0 9px;font-size:.7rem;}
+  #themeBtn{order:3;width:38px;height:38px}
 
   .topbar::after{
     content:'';
@@ -583,8 +586,6 @@ body:not(.edit-on) .tl-actions{display:none !important}
     overflow:hidden;
     text-overflow:ellipsis;
   }
-  #menuBtn,#themeBtn{width:38px;height:38px}
-  .lang-btn{height:38px}
 
   .hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px;padding:26px 20px}
   .hero-rank{justify-content:center}
@@ -624,7 +625,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .topbar-actions .btn{padding:8px 5px;font-size:.7rem;gap:4px}
   .topbar-actions .btn .icon{font-size:.85rem}
   #menuBtn,#themeBtn{width:34px;height:34px}
-  .lang-btn{height:34px;padding:0 8px;font-size:.68rem}
+  #langBtn{height:34px;padding:0 7px;font-size:.66rem;}
 }
 
 /* =========================================================
@@ -896,9 +897,7 @@ function icon(id, cls = ''){
   return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`;
 }
 
-/* ---------- 2. i18n DICTIONARY ----------
-   Format: key: ['Teks Indonesia', 'English Text']
-   -------------------------------------------------------- */
+/* ---------- 2. i18n DICTIONARY ---------- */
 const I18N = {
   /* Navigation */
   nav_home:['Profil Utama','Main Profile'],
@@ -1189,7 +1188,6 @@ function t(key){
   return pair[UI.lang === 'en' ? 1 : 0];
 }
 
-/* Nilai enum (dropdown) -> terjemahan untuk ditampilkan. Data tetap disimpan dalam Bahasa Indonesia. */
 const VAL_EN = {
   'Laki-laki':'Male', 'Perempuan':'Female',
   'Islam':'Islam', 'Kristen':'Christian', 'Katolik':'Catholic',
@@ -1996,12 +1994,10 @@ function applyLang(){
   const lbl = $('#langLabel');
   if(lbl) lbl.textContent = UI.lang === 'en' ? 'EN' : 'ID';
 
-  // Update statis ber-atribut data-i18n-key
   $$('[data-i18n-key]').forEach(el => {
     const key = el.dataset.i18nKey;
     if(key) el.textContent = t(key);
   });
-  // Title tooltip
   $$('[data-i18n-title]').forEach(el => {
     el.title = t(el.dataset.i18nTitle);
   });
