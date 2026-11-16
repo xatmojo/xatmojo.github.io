@@ -370,7 +370,7 @@ select.mini{
 .tl-actions{display:flex;gap:6px;margin-top:12px;justify-content:flex-end}
 
 /* =========================================================
-   9. CONTACT CARDS
+   9. CONTACT CARDS (Termasuk untuk Developer Modal)
    ========================================================= */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px}
 .contact-card{
@@ -385,6 +385,7 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);bord
 }
 .cc-icon.wa{background:linear-gradient(140deg,#128C7E,#25D366);color:#fff}
 .cc-icon.mail{background:linear-gradient(140deg,#1b4066,#2a6ba8);color:#fff}
+.cc-icon.ig{background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);color:#fff}
 .contact-card small{display:block;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .contact-card strong{display:block;font-size:.87rem;word-break:break-word;font-weight:600}
 
@@ -560,19 +561,20 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .topbar-actions{display:contents}
 
   #menuBtn{order:1}
-  #langBtn{order:2;margin-left:auto;height:38px;padding:0 9px;font-size:.7rem;}
-  #themeBtn{order:3;width:38px;height:38px}
+  #devBtn{order:2;margin-left:auto;width:38px;height:38px}
+  #langBtn{order:3;height:38px;padding:0 9px;font-size:.7rem;}
+  #themeBtn{order:4;width:38px;height:38px}
 
   .topbar::after{
     content:'';
-    order:4;
+    order:5;
     flex-basis:100%;
     height:0;
   }
 
-  #editToggle{order:5;flex:1 1 0;min-width:0}
-  .topbar-actions > [data-action="print"]{order:6;flex:1 1 0;min-width:0}
-  .topbar-actions > [data-action="reset"]{order:7;flex:1 1 0;min-width:0}
+  #editToggle{order:6;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="print"]{order:7;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="reset"]{order:8;flex:1 1 0;min-width:0}
 
   .topbar-actions .btn{
     padding:9px 6px;
@@ -624,7 +626,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .topbar{padding:8px 10px;gap:6px}
   .topbar-actions .btn{padding:8px 5px;font-size:.7rem;gap:4px}
   .topbar-actions .btn .icon{font-size:.85rem}
-  #menuBtn,#themeBtn{width:34px;height:34px}
+  #menuBtn,#themeBtn,#devBtn{width:34px;height:34px}
   #langBtn{height:34px;padding:0 7px;font-size:.66rem;}
 }
 
@@ -780,6 +782,8 @@ body:not(.edit-on) .tl-actions{display:none !important}
   <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
   <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+  <symbol id="i-instagram" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
+  <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
 </svg>
 
 <div id="preloader"><div class="loader"></div><span>Memuat CV Pelaut</span></div>
@@ -823,6 +827,12 @@ body:not(.edit-on) .tl-actions{display:none !important}
       <div class="topbar-title">Curriculum Vitae</div>
       <div class="topbar-actions">
         <span class="save-indicator" id="saveInd"><svg class="icon"><use href="#i-check"/></svg> <span data-i18n-key="save_indicator">Tersimpan</span></span>
+        
+        <!-- Info Developer Button -->
+        <button class="icon-btn" data-action="dev-info" id="devBtn" data-i18n-title="btn_dev_title" title="Info Developer">
+          <svg class="icon"><use href="#i-help"/></svg>
+        </button>
+
         <button class="icon-btn lang-btn" data-action="toggle-lang" id="langBtn" data-i18n-title="btn_lang_title" title="Ganti bahasa">
           <svg class="icon"><use href="#i-globe"/></svg><span id="langLabel">ID</span>
         </button>
@@ -922,6 +932,7 @@ const I18N = {
   btn_theme_title:['Mode Gelap / Terang','Dark / Light Mode'],
   btn_lang_title:['Ganti bahasa','Change language'],
   btn_menu_title:['Menu','Menu'],
+  btn_dev_title:['Info Developer','Developer Info'],
   save_indicator:['Tersimpan','Saved'],
 
   /* Sidebar */
@@ -1054,6 +1065,11 @@ const I18N = {
   photo_not_image:['Bukan file gambar','Not an image file'],
   photo_read_err:['Gagal membaca gambar','Failed to read image'],
   photo_file_err:['Gagal membaca file','Failed to read file'],
+
+  /* Developer Modal */
+  dev_modal_title:['Info Developer','Developer Info'],
+  dev_modal_sub:['Terhubung dengan pengembang aplikasi','Connect with the app developer'],
+  dev_close:['Tutup','Close'],
 
   /* Modal actions */
   btn_save:['Simpan','Save'],
@@ -1375,7 +1391,7 @@ function toast(msg, type = 'ok'){
 }
 
 let modalSaveHandler = null;
-function openModal({ title, bodyHTML, saveLabel = 'Save', onSave = null, danger = false }){
+function openModal({ title, bodyHTML, saveLabel = 'Save', onSave = null, danger = false, cancelLabel = null }){
   const root = $('#modalRoot');
   root.innerHTML = `
     <div class="modal-backdrop" data-close></div>
@@ -1386,7 +1402,7 @@ function openModal({ title, bodyHTML, saveLabel = 'Save', onSave = null, danger 
       </div>
       <div class="modal-body">${bodyHTML}</div>
       <div class="modal-foot">
-        <button class="btn ghost" data-close>${esc(t('btn_cancel'))}</button>
+        <button class="btn ghost" data-close>${esc(cancelLabel || t('btn_cancel'))}</button>
         ${onSave ? `<button class="btn ${danger ? 'danger' : 'primary'}" id="modalSave">${icon('save')}${esc(saveLabel)}</button>` : ''}
       </div>
     </div>`;
@@ -1423,6 +1439,57 @@ function confirmModal(title, message, onYes){
     saveLabel: t('btn_yes_continue'),
     danger: true,
     onSave: () => { onYes(); }
+  });
+}
+
+/* ---------- 5b. DEVELOPER MODAL ---------- */
+function openDevModal(){
+  const bodyHTML = `
+    <div style="text-align:center; padding: 10px 0 20px;">
+      <div style="width:86px; height:86px; border-radius:50%; background:linear-gradient(135deg,var(--gold),#a4821c); display:grid; place-items:center; margin:0 auto 16px; color:#0b1f3a; font-size:2.5rem; box-shadow:0 8px 24px rgba(201,162,39,.3);">
+        ${icon('user')}
+      </div>
+      <h3 style="font-size:1.4rem; margin-bottom:4px; color:var(--text); font-family:'Outfit',sans-serif;">xatmojo</h3>
+      <p style="color:var(--muted); font-size:.9rem; margin-bottom:24px;">${esc(t('dev_modal_sub'))}</p>
+
+      <div style="display:flex; flex-direction:column; gap:12px; text-align:left; max-width:320px; margin:0 auto;">
+        <a href="https://instagram.com/xatmojo" target="_blank" rel="noopener" class="contact-card" style="padding:12px 16px;">
+          <div class="cc-icon ig" style="font-size:1.1rem; width:36px; height:36px; border-radius:10px;">
+             ${icon('instagram')}
+          </div>
+          <div>
+            <small>Instagram</small>
+            <strong>@xatmojo</strong>
+          </div>
+        </a>
+
+        <a href="mailto:xatmojo@gmail.com" class="contact-card" style="padding:12px 16px;">
+          <div class="cc-icon mail" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">
+             ${icon('mail')}
+          </div>
+          <div>
+            <small>${esc(t('contact_email'))}</small>
+            <strong>xatmojo@gmail.com</strong>
+          </div>
+        </a>
+
+        <a href="https://wa.me/6289668262520" target="_blank" rel="noopener" class="contact-card" style="padding:12px 16px;">
+          <div class="cc-icon wa" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">
+             ${icon('wa','fill')}
+          </div>
+          <div>
+            <small>${esc(t('contact_wa'))}</small>
+            <strong>0896-6826-2520</strong>
+          </div>
+        </a>
+      </div>
+    </div>
+  `;
+
+  openModal({
+    title: t('dev_modal_title'),
+    bodyHTML: bodyHTML,
+    cancelLabel: t('dev_close')
   });
 }
 
@@ -2358,6 +2425,10 @@ document.addEventListener('click', (e) => {
     case 'toggle-sidebar':
       $('#sidebar').classList.toggle('open');
       $('#sidebarBackdrop').classList.toggle('show');
+      break;
+
+    case 'dev-info':
+      openDevModal();
       break;
 
     case 'toggle-lang':
