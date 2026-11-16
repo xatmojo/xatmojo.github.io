@@ -1,96 +1,88 @@
 <!DOCTYPE html>
-<html lang="id" data-color="navy" data-mode="light" data-theme="light">
+<html lang="id" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1f3a">
-<title>CV Pelaut — Seafarer Professional Portfolio</title>
+
+<!-- =========================================================
+     SEO META TAGS
+     ========================================================= -->
+<title>CV Pelaut Profesional — Seafarer Portfolio</title>
+<meta name="description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal (Sea Service Record), dan pengalaman kerja dengan mudah.">
+<meta name="keywords" content="CV Pelaut, Curriculum Vitae Pelaut, Seafarer CV, Marine CV, Sea Service Record, Sertifikat Pelaut, Oiler, ABK, Pelaut Indonesia, Professional Seafarer">
+<meta name="author" content="xatmojo">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://seafarer-cv.example.com/">
+
+<!-- Open Graph (Facebook, WhatsApp, LinkedIn) -->
+<meta property="og:type" content="profile">
+<meta property="og:url" content="https://seafarer-cv.example.com/">
+<meta property="og:title" content="CV Pelaut Profesional — Seafarer Portfolio">
+<meta property="og:description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal, dan pengalaman kerja dengan mudah.">
+<meta property="og:image" content="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=1200&h=630&auto=format&fit=crop">
+<meta property="og:locale" content="id_ID">
+<meta property="og:site_name" content="Seafarer CV">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CV Pelaut Profesional — Seafarer Portfolio">
+<meta name="twitter:description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal, dan pengalaman kerja dengan mudah.">
+<meta name="twitter:image" content="https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=1200&h=630&auto=format&fit=crop">
+<meta name="twitter:creator" content="@xatmojo">
+
+<!-- JSON-LD Structured Data (Schema.org Person) -->
+<script type="application/ld+json" id="json-ld-person">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Nama Lengkap Pelaut",
+  "jobTitle": "Oiler / Seafarer",
+  "description": "Curriculum Vitae (CV) interaktif dan profesional untuk pelaut.",
+  "nationality": "Indonesian",
+  "url": "https://seafarer-cv.example.com/",
+  "image": "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=400&auto=format&fit=crop",
+  "sameAs": [
+    "https://instagram.com/xatmojo"
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
-
-<!-- Theme bootstrap (no FOUC) -->
-<script>
-(function(){
-  try{
-    const raw = localStorage.getItem('seafarer_cv_ui_v1');
-    const ui = raw ? JSON.parse(raw) : {};
-    const color = ui.color || 'navy';
-    const mode  = ui.mode || (ui.theme === 'dark' ? 'dark' : 'light');
-    const map = { navy:'#0b1f3a', emerald:'#064e3b', royal:'#2e1065', crimson:'#450a0a',
-                  ocean:'#042f2e', sunset:'#431407', slate:'#0f172a', rose:'#4c0519' };
-    document.documentElement.setAttribute('data-color', color);
-    document.documentElement.setAttribute('data-mode',  mode);
-    document.documentElement.setAttribute('data-theme', mode);
-    const meta = document.querySelector('meta[name="theme-color"]');
-    if(meta && map[color]) meta.setAttribute('content', map[color]);
-  }catch(e){}
-})();
-</script>
-
 <style>
 /* =========================================================
-   1. DESIGN TOKENS & THEMES
+   1. DESIGN TOKENS
    ========================================================= */
 :root{
   --fs:15px;
+  --navy:#0b1f3a;
+  --navy-2:#123055;
+  --navy-3:#1b4066;
+  --gold:#c9a227;
+  --gold-2:#e6c85c;
+  --bg:#eef2f8;
+  --card:#ffffff;
+  --card-2:#f8fafc;
+  --text:#0f1c2e;
+  --muted:#64748b;
+  --border:#dde5ef;
+  --shadow:0 10px 30px rgba(11,31,58,.08);
+  --shadow-sm:0 2px 10px rgba(11,31,58,.06);
   --radius:18px;
   --radius-sm:12px;
   --green:#0f9d58;
   --amber:#d97706;
   --red:#dc2626;
 }
-
-/* --- Palettes --- */
-html{
-  --primary:#0b1f3a; --primary-2:#123055; --primary-3:#1b4066;
-  --accent:#c9a227;  --accent-2:#e6c85c;
-  /* Aliases (agar seluruh CSS lama tetap bekerja) */
-  --navy: var(--primary);
-  --navy-2: var(--primary-2);
-  --navy-3: var(--primary-3);
-  --gold: var(--accent);
-  --gold-2: var(--accent-2);
-}
-[data-color="navy"]{ --primary:#0b1f3a; --primary-2:#123055; --primary-3:#1b4066; --accent:#c9a227; --accent-2:#e6c85c; }
-[data-color="emerald"]{ --primary:#064e3b; --primary-2:#065f46; --primary-3:#047857; --accent:#059669; --accent-2:#34d399; }
-[data-color="royal"]{ --primary:#2e1065; --primary-2:#4c1d95; --primary-3:#6d28d9; --accent:#7c3aed; --accent-2:#a78bfa; }
-[data-color="crimson"]{ --primary:#450a0a; --primary-2:#7f1d1d; --primary-3:#991b1b; --accent:#dc2626; --accent-2:#f87171; }
-[data-color="ocean"]{ --primary:#042f2e; --primary-2:#134e4a; --primary-3:#0f766e; --accent:#0891b2; --accent-2:#22d3ee; }
-[data-color="sunset"]{ --primary:#431407; --primary-2:#7c2d12; --primary-3:#9a3412; --accent:#ea580c; --accent-2:#fb923c; }
-[data-color="slate"]{ --primary:#0f172a; --primary-2:#1e293b; --primary-3:#334155; --accent:#475569; --accent-2:#94a3b8; }
-[data-color="rose"]{ --primary:#4c0519; --primary-2:#831843; --primary-3:#9f1239; --accent:#e11d48; --accent-2:#fb7185; }
-
-/* --- Light / Dark mode (blended from palette) --- */
-[data-mode="light"]{
-  --bg:#eef2f8;
-  --bg: color-mix(in srgb, var(--primary) 4%, #f0f4f8);
-  --card:#ffffff;
-  --card-2:#f8fafc;
-  --card-2: color-mix(in srgb, var(--primary) 2%, #f8fafc);
-  --text:#0f1c2e;
-  --text: color-mix(in srgb, var(--primary) 90%, #000);
-  --muted:#64748b;
-  --muted: color-mix(in srgb, var(--primary) 35%, #64748b);
-  --border:#dde5ef;
-  --border: color-mix(in srgb, var(--primary) 10%, #dde5ef);
-  --shadow:0 10px 30px rgba(11,31,58,.08);
-  --shadow: 0 10px 30px color-mix(in srgb, var(--primary) 8%, transparent);
-  --shadow-sm:0 2px 10px rgba(11,31,58,.06);
-  --shadow-sm: 0 2px 10px color-mix(in srgb, var(--primary) 6%, transparent);
-}
-[data-mode="dark"]{
+[data-theme="dark"]{
   --bg:#070f19;
-  --bg: color-mix(in srgb, var(--primary) 55%, #000);
   --card:#0e1b2b;
-  --card: color-mix(in srgb, var(--primary) 60%, #000);
   --card-2:#122133;
-  --card-2: color-mix(in srgb, var(--primary) 65%, #000);
   --text:#e6eef8;
   --muted:#8ba0b8;
-  --muted: color-mix(in srgb, var(--primary) 30%, #8ba0b8);
   --border:#1e3350;
-  --border: color-mix(in srgb, var(--primary) 40%, #0a1524);
   --shadow:0 10px 30px rgba(0,0,0,.45);
   --shadow-sm:0 2px 10px rgba(0,0,0,.35);
 }
@@ -122,16 +114,14 @@ img{max-width:100%}
 #preloader{
   position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:16px;
-  background:linear-gradient(160deg,#0b1f3a,#0a1729);
-  background:linear-gradient(160deg, var(--primary), var(--primary-2));
-  color:#cbd8e8;
+  background:linear-gradient(160deg,#0b1f3a,#0a1729);color:#cbd8e8;
   transition:opacity .45s ease,visibility .45s;
 }
 #preloader.hide{opacity:0;visibility:hidden}
 .loader{
   width:46px;height:46px;border-radius:50%;
   border:3px solid rgba(201,162,39,.22);
-  border-top-color:var(--accent);
+  border-top-color:var(--gold);
   animation:spin .85s linear infinite;
 }
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -143,25 +133,25 @@ img{max-width:100%}
 .app{display:grid;grid-template-columns:272px 1fr;min-height:100vh}
 
 .sidebar{
-  background:linear-gradient(180deg, var(--primary) 0%, var(--primary-2) 100%);
+  background:linear-gradient(180deg,#0b1f3a 0%,#0a1729 100%);
   color:#cfdcec;position:sticky;top:0;height:100vh;
   display:flex;flex-direction:column;padding:22px 16px;gap:6px;
-  border-right:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  border-right:1px solid rgba(201,162,39,.16);
   z-index:120;
 }
 .brand{display:flex;align-items:center;gap:12px;padding:6px 8px 20px}
 .brand-mark{
   width:42px;height:42px;border-radius:13px;flex:none;
-  background:linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #000));
-  display:grid;place-items:center;color:var(--primary);font-size:1.3rem;
-  box-shadow:0 6px 16px color-mix(in srgb, var(--accent) 40%, transparent);
+  background:linear-gradient(140deg,var(--gold),#a4821c);
+  display:grid;place-items:center;color:#0b1f3a;font-size:1.3rem;
+  box-shadow:0 6px 16px rgba(201,162,39,.32);
 }
 .brand strong{display:block;font-family:'Outfit',sans-serif;font-size:1.02rem;color:#fff;letter-spacing:.02em}
 .brand small{display:block;font-size:.7rem;color:#8ba0b8;letter-spacing:.12em;text-transform:uppercase}
 
 .nav{display:flex;flex-direction:column;gap:3px;overflow-y:auto;flex:1;padding-right:2px}
 .nav::-webkit-scrollbar{width:5px}
-.nav::-webkit-scrollbar-thumb{background:color-mix(in srgb, var(--accent) 40%, transparent);border-radius:8px}
+.nav::-webkit-scrollbar-thumb{background:rgba(201,162,39,.35);border-radius:8px}
 .nav-link{
   display:flex;align-items:center;gap:11px;
   padding:10px 13px;border-radius:11px;text-decoration:none;
@@ -171,16 +161,15 @@ img{max-width:100%}
 .nav-link .icon{font-size:1.02rem;opacity:.85}
 .nav-link:hover{background:rgba(255,255,255,.06);color:#fff}
 .nav-link.active{
-  background:linear-gradient(90deg, color-mix(in srgb, var(--accent) 25%, transparent), transparent);
-  color:#fff;border-left-color:var(--accent);
+  background:linear-gradient(90deg,rgba(201,162,39,.2),rgba(201,162,39,.04));
+  color:#fff;border-left-color:var(--gold);
 }
-.nav-link.active .icon{color:var(--accent-2);opacity:1}
+.nav-link.active .icon{color:var(--gold-2);opacity:1}
 
 .sidebar-foot{border-top:1px solid rgba(255,255,255,.09);padding-top:14px;display:grid;gap:7px}
-.sidebar-foot .btn{width:100%;justify-content:flex-start;font-size:.82rem;background:transparent;color:#b6c6d9;border-color:rgba(255,255,255,.12)}
-.sidebar-foot .btn:hover{background:rgba(255,255,255,.07);color:#fff}
+.sidebar-foot .btn{width:100%;justify-content:flex-start;font-size:.82rem}
 
-/* ---------- Topbar ---------- */
+/* ---------- Main / Topbar ---------- */
 .main{min-width:0;display:flex;flex-direction:column}
 .topbar{
   position:sticky;top:0;z-index:100;
@@ -214,12 +203,12 @@ section{scroll-margin-top:82px}
 .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
 .btn:active{transform:translateY(0)}
 .btn .icon{font-size:1rem}
-.btn.primary{background:linear-gradient(135deg,var(--primary-2),var(--primary-3));color:#fff;border-color:transparent}
-.btn.gold{background:linear-gradient(135deg,var(--accent),color-mix(in srgb, var(--accent) 60%, #000));color:var(--primary);border-color:transparent}
+.btn.primary{background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;border-color:transparent}
+.btn.gold{background:linear-gradient(135deg,var(--gold),#a4821c);color:#12233a;border-color:transparent}
 .btn.danger{background:var(--red);color:#fff;border-color:transparent}
 .btn.ghost{background:transparent;color:var(--muted)}
 .btn.ghost:hover{background:rgba(0,0,0,.05);color:var(--text)}
-[data-mode="dark"] .btn.ghost:hover{background:rgba(255,255,255,.07)}
+[data-theme="dark"] .btn.ghost:hover{background:rgba(255,255,255,.07)}
 .btn.sm{padding:6px 11px;font-size:.76rem;border-radius:9px}
 .btn.sm .icon{font-size:.9rem}
 
@@ -231,12 +220,20 @@ section{scroll-margin-top:82px}
 .icon-btn:hover{background:var(--card-2);transform:translateY(-1px)}
 .icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
 
+/* Language toggle button — diletakkan SETELAH .icon-btn agar override bekerja */
 .lang-btn{
   display:inline-flex !important;
   width:auto !important;
-  height:38px;padding:0 11px;
-  align-items:center;justify-content:center;gap:6px;
-  font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  height:38px;
+  padding:0 11px;
+  align-items:center;
+  justify-content:center;
+  gap:6px;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  white-space:nowrap;
 }
 
 /* =========================================================
@@ -244,14 +241,14 @@ section{scroll-margin-top:82px}
    ========================================================= */
 .hero{
   position:relative;overflow:hidden;color:#fff;
-  background:linear-gradient(135deg, var(--primary) 0%, var(--primary-3) 55%, var(--primary) 100%);
+  background:linear-gradient(135deg,#0b1f3a 0%,#16406b 55%,#0b1f3a 100%);
   border-radius:22px;padding:34px;margin-bottom:20px;
   display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;
   box-shadow:var(--shadow);
 }
 .hero::before{
   content:'';position:absolute;right:-70px;top:-70px;width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent), transparent 68%);pointer-events:none;
+  background:radial-gradient(circle,rgba(201,162,39,.30),transparent 68%);pointer-events:none;
 }
 .hero::after{
   content:'';position:absolute;left:-90px;bottom:-110px;width:260px;height:260px;border-radius:50%;
@@ -260,15 +257,14 @@ section{scroll-margin-top:82px}
 .hero-photo-wrap{position:relative;z-index:1}
 .hero-photo{
   width:152px;height:152px;border-radius:50%;overflow:hidden;position:relative;
-  border:3px solid var(--accent);
-  box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 18%, transparent);
-  background:color-mix(in srgb, var(--primary-2) 80%, #000);display:grid;place-items:center;
+  border:3px solid var(--gold);box-shadow:0 0 0 7px rgba(201,162,39,.14);
+  background:#16324f;display:grid;place-items:center;
 }
 .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
-.hero-photo .photo-empty{font-size:3.2rem;color:color-mix(in srgb, var(--primary-3) 60%, #fff)}
+.hero-photo .photo-empty{font-size:3.2rem;color:#4c6f96}
 .photo-edit{
   position:absolute;right:-2px;bottom:-2px;width:38px;height:38px;border-radius:50%;
-  background:var(--accent);color:var(--primary);border:3px solid var(--primary);
+  background:var(--gold);color:#0b1f3a;border:3px solid #0b1f3a;
   display:grid;place-items:center;cursor:pointer;font-size:1rem;transition:.2s;
 }
 .photo-edit:hover{transform:scale(1.08)}
@@ -276,15 +272,18 @@ section{scroll-margin-top:82px}
 .hero-text{position:relative;z-index:1;min-width:0}
 .hero-eyebrow{
   font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--accent-2);font-weight:600;margin-bottom:6px;
+  color:var(--gold-2);font-weight:600;margin-bottom:6px;
 }
-.hero h1{font-size:clamp(1.5rem,3.4vw,2.35rem);color:#fff;letter-spacing:.01em;word-break:break-word}
+.hero h1{
+  font-size:clamp(1.5rem,3.4vw,2.35rem);color:#fff;letter-spacing:.01em;
+  word-break:break-word;
+}
 .hero-rank{
   display:inline-flex;align-items:center;gap:8px;margin-top:9px;
   font-size:.9rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
-  color:var(--accent-2);
+  color:var(--gold-2);
 }
-.hero-rank::before{content:'';width:26px;height:2px;background:var(--accent);border-radius:2px}
+.hero-rank::before{content:'';width:26px;height:2px;background:var(--gold);border-radius:2px}
 .hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .chip{
   display:inline-flex;align-items:center;gap:7px;
@@ -293,8 +292,8 @@ section{scroll-margin-top:82px}
   color:#dbe7f4;text-decoration:none;transition:.2s;max-width:100%;
 }
 .chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-a.chip:hover{background:color-mix(in srgb, var(--accent) 30%, transparent);border-color:color-mix(in srgb, var(--accent) 60%, transparent);color:#fff}
-.chip .icon{color:var(--accent-2)}
+a.chip:hover{background:rgba(201,162,39,.22);border-color:rgba(201,162,39,.5);color:#fff}
+.chip .icon{color:var(--gold-2)}
 
 /* =========================================================
    6. SECTIONS
@@ -307,10 +306,10 @@ a.chip:hover{background:color-mix(in srgb, var(--accent) 30%, transparent);borde
 .section-head{display:flex;align-items:center;gap:13px;margin-bottom:18px;flex-wrap:wrap}
 .section-icon{
   width:42px;height:42px;border-radius:13px;flex:none;display:grid;place-items:center;
-  background:linear-gradient(140deg, color-mix(in srgb, var(--primary) 12%, transparent), color-mix(in srgb, var(--accent) 22%, transparent));
-  color:var(--primary-3);font-size:1.15rem;
+  background:linear-gradient(140deg,rgba(11,31,58,.09),rgba(201,162,39,.16));
+  color:var(--navy-3);font-size:1.15rem;
 }
-[data-mode="dark"] .section-icon{background:color-mix(in srgb, var(--accent) 20%, transparent);color:var(--accent-2)}
+[data-theme="dark"] .section-icon{background:rgba(201,162,39,.14);color:var(--gold-2)}
 .section-title{min-width:0}
 .section-title h2{font-size:.98rem;letter-spacing:.09em;text-transform:uppercase}
 .section-title p{margin:2px 0 0;font-size:.78rem;color:var(--muted)}
@@ -323,9 +322,9 @@ a.chip:hover{background:color-mix(in srgb, var(--accent) 30%, transparent);borde
 }
 .info-item .ii-icon{
   width:34px;height:34px;border-radius:10px;flex:none;display:grid;place-items:center;
-  background:color-mix(in srgb, var(--accent) 18%, transparent);color:var(--accent);font-size:.95rem;
+  background:rgba(201,162,39,.14);color:#a4821c;font-size:.95rem;
 }
-[data-mode="dark"] .info-item .ii-icon{color:var(--accent-2)}
+[data-theme="dark"] .info-item .ii-icon{color:var(--gold-2)}
 .info-item .ii-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .info-item .ii-value{font-size:.9rem;font-weight:600;word-break:break-word}
 .info-item.full{grid-column:1/-1}
@@ -350,7 +349,7 @@ table.data th{
 table.data td{padding:11px 14px;border-top:1px solid var(--border);vertical-align:top;word-break:break-word}
 table.data tbody tr:first-child td{border-top:0}
 table.data tbody tr{transition:background .15s}
-table.data tbody tr:hover{background:color-mix(in srgb, var(--accent) 8%, transparent)}
+table.data tbody tr:hover{background:rgba(201,162,39,.06)}
 .cell-actions{display:flex;gap:6px;justify-content:flex-end}
 .cell-strong{font-weight:600}
 
@@ -361,9 +360,9 @@ table.data tbody tr:hover{background:color-mix(in srgb, var(--accent) 8%, transp
 .badge-green{background:rgba(15,157,88,.14);color:#0f9d58}
 .badge-amber{background:rgba(217,119,6,.16);color:#b45309}
 .badge-red{background:rgba(220,38,38,.14);color:#dc2626}
-[data-mode="dark"] .badge-green{color:#3ddc84}
-[data-mode="dark"] .badge-amber{color:#fbbf24}
-[data-mode="dark"] .badge-red{color:#f87171}
+[data-theme="dark"] .badge-green{color:#3ddc84}
+[data-theme="dark"] .badge-amber{color:#fbbf24}
+[data-theme="dark"] .badge-red{color:#f87171}
 .cd{display:block;font-size:.68rem;color:var(--muted);margin-top:4px}
 
 .toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
@@ -373,7 +372,7 @@ table.data tbody tr:hover{background:color-mix(in srgb, var(--accent) 8%, transp
   width:100%;padding:9px 12px 9px 36px;border-radius:11px;border:1px solid var(--border);
   background:var(--card-2);color:var(--text);font-size:.83rem;font-family:inherit;
 }
-.search-box input:focus{outline:2px solid color-mix(in srgb, var(--accent) 45%, transparent);outline-offset:0}
+.search-box input:focus{outline:2px solid rgba(201,162,39,.4);outline-offset:0}
 select.mini{
   padding:9px 12px;border-radius:11px;border:1px solid var(--border);
   background:var(--card-2);color:var(--text);font-size:.8rem;font-family:inherit;cursor:pointer;
@@ -385,15 +384,13 @@ select.mini{
 .timeline{position:relative;padding-left:26px}
 .timeline::before{
   content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;
-  background:linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 15%, transparent));
-  border-radius:2px;
+  background:linear-gradient(180deg,var(--gold),rgba(201,162,39,.12));border-radius:2px;
 }
 .tl-item{position:relative;margin-bottom:16px}
 .tl-item:last-child{margin-bottom:0}
 .tl-dot{
   position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;
-  background:var(--accent);border:3px solid var(--card);
-  box-shadow:0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent);
+  background:var(--gold);border:3px solid var(--card);box-shadow:0 0 0 2px rgba(201,162,39,.35);
 }
 .tl-card{
   background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius-sm);
@@ -401,12 +398,12 @@ select.mini{
 }
 .tl-head{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
 .tl-head h3{font-size:.98rem}
-.tl-company{font-size:.83rem;color:var(--accent);font-weight:600;margin:1px 0 0}
+.tl-company{font-size:.83rem;color:var(--gold);font-weight:600;margin:1px 0 0}
 .pill{
   margin-left:auto;padding:4px 11px;border-radius:999px;font-size:.7rem;font-weight:700;
-  background:color-mix(in srgb, var(--primary) 10%, transparent);color:var(--primary-3);white-space:nowrap;
+  background:rgba(11,31,58,.08);color:var(--navy-3);white-space:nowrap;
 }
-[data-mode="dark"] .pill{background:color-mix(in srgb, var(--accent) 20%, transparent);color:var(--accent-2)}
+[data-theme="dark"] .pill{background:rgba(201,162,39,.16);color:var(--gold-2)}
 .tl-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
 .tl-meta span{
   font-size:.72rem;padding:3px 9px;border-radius:7px;
@@ -416,7 +413,7 @@ select.mini{
 .tl-actions{display:flex;gap:6px;margin-top:12px;justify-content:flex-end}
 
 /* =========================================================
-   9. CONTACT CARDS
+   9. CONTACT CARDS (Termasuk untuk Developer Modal)
    ========================================================= */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px}
 .contact-card{
@@ -424,14 +421,14 @@ select.mini{
   background:var(--card-2);border:1px solid var(--border);text-decoration:none;
   color:var(--text);transition:.22s;
 }
-a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:color-mix(in srgb, var(--accent) 55%, var(--border))}
+a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:rgba(201,162,39,.5)}
 .cc-icon{
   width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;
-  background:linear-gradient(140deg, var(--primary-2), var(--primary-3));color:var(--accent-2);font-size:1.15rem;
+  background:linear-gradient(140deg,var(--navy-2),var(--navy-3));color:var(--gold-2);font-size:1.15rem;
 }
 .cc-icon.wa{background:linear-gradient(140deg,#128C7E,#25D366);color:#fff}
-.cc-icon.mail{background:linear-gradient(140deg, var(--primary-3), color-mix(in srgb, var(--primary-3) 60%, #6cb8f0));color:#fff}
-.cc-icon.ig{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);color:#fff}
+.cc-icon.mail{background:linear-gradient(140deg,#1b4066,#2a6ba8);color:#fff}
+.cc-icon.ig{background:linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);color:#fff}
 .contact-card small{display:block;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .contact-card strong{display:block;font-size:.87rem;word-break:break-word;font-weight:600}
 
@@ -485,62 +482,23 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);bord
   transition:.18s;
 }
 .field input:focus,.field select:focus,.field textarea:focus{
-  outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.18);
 }
 .field textarea{resize:vertical;min-height:78px;line-height:1.6}
 .field input[data-date-input]{letter-spacing:.03em;font-variant-numeric:tabular-nums}
 .confirm-msg{font-size:.92rem;line-height:1.75;margin:0}
 
-/* --- Theme Picker --- */
-.theme-grid{
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(140px,1fr));
-  gap:12px;
-}
-.theme-swatch{
-  display:flex; flex-direction:column; gap:8px;
-  padding:10px; border-radius:12px;
-  border:2px solid var(--border); background:var(--card-2);
-  cursor:pointer; transition:.2s; color:var(--text);
-  font-family:inherit; font-size:inherit; text-align:center;
-}
-.theme-swatch:hover{
-  transform:translateY(-2px); box-shadow:var(--shadow-sm);
-  border-color:color-mix(in srgb, var(--accent) 60%, var(--border));
-}
-.theme-swatch.active{
-  border-color:var(--accent);
-  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
-}
-.theme-preview{
-  height:58px; border-radius:9px; position:relative; overflow:hidden;
-  display:flex; align-items:flex-end; justify-content:flex-end;
-  gap:5px; padding:7px;
-}
-.theme-preview::before{
-  content:''; position:absolute; inset:0;
-  background:radial-gradient(circle at 15% 20%, rgba(255,255,255,.22), transparent 65%);
-}
-.theme-dot{
-  width:15px; height:15px; border-radius:50%;
-  border:2px solid rgba(255,255,255,.65);
-  position:relative; z-index:1;
-}
-.theme-name{ font-size:.78rem; font-weight:600; letter-spacing:.02em; }
-
-/* --- Photo Editor --- */
 .photo-editor{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:start}
 .photo-preview{
-  width:200px;height:240px;border-radius:16px;overflow:hidden;border:2px solid var(--accent);
+  width:200px;height:240px;border-radius:16px;overflow:hidden;border:2px solid var(--gold);
   background:var(--card-2);display:grid;place-items:center;
 }
-.photo-preview img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .1s}
-.photo-preview .photo-empty{font-size:3rem;color:var(--muted)}
+.photo-preview img{width:100%;height:100%;object-fit:cover;display:block}
 .photo-controls{display:flex;flex-direction:column;gap:13px}
 .upload-btn{
   display:inline-flex;align-items:center;justify-content:center;gap:8px;
   padding:11px;border-radius:11px;cursor:pointer;font-weight:700;font-size:.84rem;
-  background:linear-gradient(135deg,var(--primary-2),var(--primary-3));color:#fff;
+  background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;
 }
 input[type="range"]{
   width:100%;-webkit-appearance:none;height:6px;border-radius:6px;
@@ -548,10 +506,10 @@ input[type="range"]{
 }
 input[type="range"]::-webkit-slider-thumb{
   -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
-  background:var(--accent);cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);
+  background:var(--gold);cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);
 }
 input[type="range"]::-moz-range-thumb{
-  width:16px;height:16px;border-radius:50%;background:var(--accent);
+  width:16px;height:16px;border-radius:50%;background:var(--gold);
   cursor:pointer;border:2px solid #fff;
 }
 
@@ -565,15 +523,15 @@ input[type="range"]::-moz-range-thumb{
 }
 .toast{
   display:flex;align-items:center;gap:9px;padding:11px 18px;border-radius:12px;
-  background:color-mix(in srgb, var(--primary) 82%, #000);color:#fff;font-size:.83rem;font-weight:600;
+  background:#0f2b4c;color:#fff;font-size:.83rem;font-weight:600;
   box-shadow:0 12px 30px rgba(0,0,0,.3);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.3);
   transition:opacity .3s,transform .3s;
 }
 .toast .icon{font-size:1.05rem;color:#3ddc84}
 .toast.err{background:#7f1d1d}
 .toast.err .icon{color:#fca5a5}
-.toast.info{background:color-mix(in srgb, var(--primary-3) 85%, #000)}
-.toast.info .icon{color:var(--accent-2)}
+.toast.info{background:#1e3a5f}
+.toast.info .icon{color:var(--gold-2)}
 .toast.out{opacity:0;transform:translateY(12px)}
 @keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.95)}to{opacity:1;transform:none}}
 
@@ -583,10 +541,9 @@ input[type="range"]::-moz-range-thumb{
 .back-top{
   position:fixed;right:20px;bottom:20px;z-index:200;
   width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
-  background:linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #000));
-  color:var(--primary);
+  background:linear-gradient(140deg,var(--gold),#a4821c);color:#0b1f3a;
   display:grid;place-items:center;font-size:1.15rem;
-  box-shadow:0 10px 24px color-mix(in srgb, var(--accent) 45%, transparent);
+  box-shadow:0 10px 24px rgba(201,162,39,.4);
   opacity:0;visibility:hidden;transform:translateY(14px);transition:.3s;
 }
 .back-top.show{opacity:1;visibility:visible;transform:none}
@@ -597,7 +554,7 @@ input[type="range"]::-moz-range-thumb{
 .edit-only{display:none !important}
 body.edit-on .edit-only{display:inline-flex !important}
 body.edit-on .edit-only.block{display:flex !important}
-body.edit-on #editToggle{background:linear-gradient(135deg,var(--accent),color-mix(in srgb, var(--accent) 60%, #000));color:var(--primary);border-color:transparent}
+body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);color:#12233a;border-color:transparent}
 
 body:not(.edit-on) .cell-actions,
 body:not(.edit-on) .tl-actions{display:none !important}
@@ -635,25 +592,45 @@ body:not(.edit-on) .tl-actions{display:none !important}
 }
 
 @media (max-width:760px){
-  .topbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px}
+  .topbar{
+    display:flex;
+    flex-wrap:wrap;
+    align-items:center;
+    gap:8px;
+    padding:10px 12px;
+  }
   .topbar-title{display:none}
   .save-indicator{display:none}
   .topbar-actions{display:contents}
 
   #menuBtn{order:1}
   #devBtn{order:2;margin-left:auto;width:38px;height:38px}
-  #paletteBtn{order:3;width:38px;height:38px}
-  #langBtn{order:4;height:38px;padding:0 9px;font-size:.7rem}
-  #themeBtn{order:5;width:38px;height:38px}
+  #langBtn{order:3;height:38px;padding:0 9px;font-size:.7rem;}
+  #themeBtn{order:4;width:38px;height:38px}
 
-  .topbar::after{content:'';order:6;flex-basis:100%;height:0}
+  .topbar::after{
+    content:'';
+    order:5;
+    flex-basis:100%;
+    height:0;
+  }
 
-  #editToggle{order:7;flex:1 1 0;min-width:0}
-  .topbar-actions > [data-action="print"]{order:8;flex:1 1 0;min-width:0}
-  .topbar-actions > [data-action="reset"]{order:9;flex:1 1 0;min-width:0}
+  #editToggle{order:6;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="print"]{order:7;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="reset"]{order:8;flex:1 1 0;min-width:0}
 
-  .topbar-actions .btn{padding:9px 6px;font-size:.74rem;gap:5px;justify-content:center}
-  .topbar-actions .btn span{display:inline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .topbar-actions .btn{
+    padding:9px 6px;
+    font-size:.74rem;
+    gap:5px;
+    justify-content:center;
+  }
+  .topbar-actions .btn span{
+    display:inline;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
 
   .hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px;padding:26px 20px}
   .hero-rank{justify-content:center}
@@ -692,28 +669,21 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .topbar{padding:8px 10px;gap:6px}
   .topbar-actions .btn{padding:8px 5px;font-size:.7rem;gap:4px}
   .topbar-actions .btn .icon{font-size:.85rem}
-  #menuBtn,#themeBtn,#devBtn,#paletteBtn{width:34px;height:34px}
-  #langBtn{height:34px;padding:0 7px;font-size:.66rem}
+  #menuBtn,#themeBtn,#devBtn{width:34px;height:34px}
+  #langBtn{height:34px;padding:0 7px;font-size:.66rem;}
 }
 
 /* =========================================================
-   17. PRINT — theme aware
+   17. PRINT
    ========================================================= */
 @media print{
   @page{size:A4 portrait;margin:12mm 11mm 13mm}
 
-  html[data-color]{
-    --bg:#ffffff;
-    --card:#ffffff;
-    --card-2:#ffffff;
-    --text: var(--primary);
-    --muted:#4a5a6e;
-    --muted: color-mix(in srgb, var(--primary) 55%, #64748b);
-    --border:#b9c6d6;
-    --shadow:none;
-    --shadow-sm:none;
+  html[data-theme],:root{
+    --bg:#ffffff;--card:#ffffff;--card-2:#ffffff;--text:#0f1c2e;
+    --muted:#4a5a6e;--border:#b9c6d6;--shadow:none;--shadow-sm:none;
   }
-  html,body{background:#fff !important;color: var(--primary) !important;font-size:10pt !important}
+  html,body{background:#fff !important;color:#0f1c2e !important;font-size:10pt !important}
   body{line-height:1.45}
 
   .sidebar,.sidebar-backdrop,.topbar,.back-top,#toasts,#preloader,
@@ -738,7 +708,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
 
   .hero{
     display:grid !important;grid-template-columns:26mm 1fr;gap:6mm;align-items:center;
-    background: var(--primary) !important;color:#fff !important;
+    background:#0b1f3a !important;color:#fff !important;
     -webkit-print-color-adjust:exact;print-color-adjust:exact;
     border-radius:6px !important;padding:6mm !important;margin:0 0 4mm !important;
     box-shadow:none !important;page-break-inside:avoid;
@@ -747,8 +717,8 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .hero-photo{width:26mm !important;height:26mm !important;border-width:2px !important;box-shadow:none !important}
   .hero-photo .photo-empty{font-size:2rem}
   .hero h1{font-size:16pt !important;color:#fff !important}
-  .hero-rank{font-size:8.5pt !important;color: var(--accent-2) !important;margin-top:1mm !important}
-  .hero-eyebrow{font-size:6.5pt !important;margin-bottom:1mm !important;color: var(--accent-2) !important}
+  .hero-rank{font-size:8.5pt !important;color:#e6c85c !important;margin-top:1mm !important}
+  .hero-eyebrow{font-size:6.5pt !important;margin-bottom:1mm !important}
   .hero-chips{gap:2mm !important;margin-top:2.5mm !important}
   .chip{font-size:7.2pt !important;padding:1mm 2.4mm !important;background:rgba(255,255,255,.13) !important;border-color:rgba(255,255,255,.25) !important;color:#eaf1f9 !important}
   .photo-edit{display:none !important}
@@ -762,9 +732,9 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .section-head{margin-bottom:2.4mm !important;gap:2.5mm !important}
   .section-icon{
     width:7mm !important;height:7mm !important;border-radius:2mm !important;
-    font-size:9pt !important;background:#eef2f8 !important;color: var(--primary) !important;
+    font-size:9pt !important;background:#eef2f8 !important;color:#123055 !important;
   }
-  .section-title h2{font-size:9.5pt !important;letter-spacing:.06em !important;color: var(--primary) !important}
+  .section-title h2{font-size:9.5pt !important;letter-spacing:.06em !important;color:#0b1f3a !important}
   .section-title p{font-size:7pt !important;margin-top:0 !important}
 
   .info-grid{grid-template-columns:1fr 1fr !important;gap:2mm !important}
@@ -795,11 +765,11 @@ body:not(.edit-on) .tl-actions{display:none !important}
 
   .timeline{padding-left:5mm !important}
   .timeline::before{width:1px !important;left:1.2mm !important}
-  .tl-dot{left:-5mm !important;width:2.6mm !important;height:2.6mm !important;border-width:1px !important;background: var(--accent) !important}
+  .tl-dot{left:-5mm !important;width:2.6mm !important;height:2.6mm !important;border-width:1px !important}
   .tl-card{background:#fafcfe !important;border:1px solid #dfe6ee !important;padding:2.4mm 3mm !important;border-radius:2mm !important;page-break-inside:avoid}
   .tl-head h3{font-size:8.8pt !important}
-  .tl-company{font-size:8pt !important;color: var(--accent) !important}
-  .pill{font-size:6.6pt !important;padding:.6mm 2mm !important;background:#eef2f8 !important;color: var(--primary) !important;border:1px solid #cfdae7 !important}
+  .tl-company{font-size:8pt !important;color:#8a6d12 !important}
+  .pill{font-size:6.6pt !important;padding:.6mm 2mm !important;background:#eef2f8 !important;color:#123055 !important;border:1px solid #cfdae7 !important}
   .tl-meta span{font-size:6.6pt !important;padding:.5mm 1.6mm !important;background:#fff !important;border:1px solid #dfe6ee !important}
   .tl-desc{font-size:7.6pt !important;line-height:1.5 !important;margin-top:1.5mm !important}
   .tl-actions{display:none !important}
@@ -822,7 +792,6 @@ body:not(.edit-on) .tl-actions{display:none !important}
 </head>
 <body>
 
-<!-- SVG SPRITE -->
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
   <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
@@ -858,7 +827,6 @@ body:not(.edit-on) .tl-actions{display:none !important}
   <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
   <symbol id="i-instagram" viewBox="0 0 24 24"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></symbol>
   <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
-  <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
 </svg>
 
 <div id="preloader"><div class="loader"></div><span>Memuat CV Pelaut</span></div>
@@ -899,16 +867,14 @@ body:not(.edit-on) .tl-actions{display:none !important}
       <button class="icon-btn" data-action="toggle-sidebar" id="menuBtn" data-i18n-title="btn_menu_title" title="Menu">
         <svg class="icon"><use href="#i-menu"/></svg>
       </button>
-      <div class="topbar-title" data-i18n-key="topbar_title">Curriculum Vitae</div>
+      <div class="topbar-title">Curriculum Vitae</div>
       <div class="topbar-actions">
         <span class="save-indicator" id="saveInd"><svg class="icon"><use href="#i-check"/></svg> <span data-i18n-key="save_indicator">Tersimpan</span></span>
-
+        
         <button class="icon-btn" data-action="dev-info" id="devBtn" data-i18n-title="btn_dev_title" title="Info Developer">
           <svg class="icon"><use href="#i-help"/></svg>
         </button>
-        <button class="icon-btn" data-action="theme-palette" id="paletteBtn" data-i18n-title="btn_palette_title" title="Tema Warna">
-          <svg class="icon"><use href="#i-palette"/></svg>
-        </button>
+
         <button class="icon-btn lang-btn" data-action="toggle-lang" id="langBtn" data-i18n-title="btn_lang_title" title="Ganti bahasa">
           <svg class="icon"><use href="#i-globe"/></svg><span id="langLabel">ID</span>
         </button>
@@ -958,7 +924,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
 <script>
 "use strict";
 /* =========================================================================
-   CV PELAUT — SEAFARER PROFESSIONAL PORTFOLIO (ID / EN) + MULTI-THEME
+   CV PELAUT — SEAFARER PROFESSIONAL PORTFOLIO (ID / EN)
    ========================================================================= */
 
 /* ---------- 1. KONSTANTA ---------- */
@@ -970,22 +936,6 @@ const MONTHS_EN = ['January','February','March','April','May','June','July','Aug
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
-
-const THEMES = [
-  { id:'navy',    primary:'#0b1f3a', p2:'#123055', p3:'#1b4066', accent:'#c9a227', a2:'#e6c85c' },
-  { id:'emerald', primary:'#064e3b', p2:'#065f46', p3:'#047857', accent:'#059669', a2:'#34d399' },
-  { id:'royal',   primary:'#2e1065', p2:'#4c1d95', p3:'#6d28d9', accent:'#7c3aed', a2:'#a78bfa' },
-  { id:'crimson', primary:'#450a0a', p2:'#7f1d1d', p3:'#991b1b', accent:'#dc2626', a2:'#f87171' },
-  { id:'ocean',   primary:'#042f2e', p2:'#134e4a', p3:'#0f766e', accent:'#0891b2', a2:'#22d3ee' },
-  { id:'sunset',  primary:'#431407', p2:'#7c2d12', p3:'#9a3412', accent:'#ea580c', a2:'#fb923c' },
-  { id:'slate',   primary:'#0f172a', p2:'#1e293b', p3:'#334155', accent:'#475569', a2:'#94a3b8' },
-  { id:'rose',    primary:'#4c0519', p2:'#831843', p3:'#9f1239', accent:'#e11d48', a2:'#fb7185' }
-];
-const THEME_LABEL_KEY = {
-  navy:'theme_navy', emerald:'theme_emerald', royal:'theme_royal',
-  crimson:'theme_crimson', ocean:'theme_ocean', sunset:'theme_sunset',
-  slate:'theme_slate', rose:'theme_rose'
-};
 
 function esc(v){
   return String(v ?? '').replace(/[&<>"']/g, c => (
@@ -999,8 +949,9 @@ function icon(id, cls = ''){
   return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`;
 }
 
-/* ---------- 2. i18n ---------- */
+/* ---------- 2. i18n DICTIONARY ---------- */
 const I18N = {
+  /* Navigation */
   nav_home:['Profil Utama','Main Profile'],
   nav_personal:['Data Pribadi','Personal Data'],
   nav_summary:['Ringkasan Profesional','Professional Summary'],
@@ -1012,6 +963,7 @@ const I18N = {
   nav_work:['Pengalaman Kerja','Work Experience'],
   nav_contact:['Kontak','Contact'],
 
+  /* Topbar */
   topbar_title:['Curriculum Vitae','Curriculum Vitae'],
   btn_edit_mode:['Mode Edit','Edit Mode'],
   btn_preview_mode:['Mode Preview','Preview Mode'],
@@ -1023,13 +975,14 @@ const I18N = {
   btn_lang_title:['Ganti bahasa','Change language'],
   btn_menu_title:['Menu','Menu'],
   btn_dev_title:['Info Developer','Developer Info'],
-  btn_palette_title:['Tema Warna','Color Theme'],
   save_indicator:['Tersimpan','Saved'],
 
+  /* Sidebar */
   btn_backup:['Backup JSON','Backup JSON'],
   btn_import:['Import JSON','Import JSON'],
   btn_reset_data:['Reset Data','Reset Data'],
 
+  /* Hero */
   hero_eyebrow:['Curriculum Vitae · Seafarer','Curriculum Vitae · Seafarer'],
   hero_placeholder_name:['Nama Lengkap Pelaut','Seafarer Full Name'],
   hero_placeholder_rank:['Jabatan / Rank','Position / Rank'],
@@ -1037,6 +990,7 @@ const I18N = {
   btn_edit_profile:['Edit Data Pribadi','Edit Personal Data'],
   photo_edit_title:['Ubah foto formal','Change formal photo'],
 
+  /* Sections */
   sec_personal_title:['Personal Information','Personal Information'],
   sec_personal_sub:['Identitas pribadi pelaut','Seafarer personal identity'],
   sec_summary_title:['Professional Summary','Professional Summary'],
@@ -1056,6 +1010,7 @@ const I18N = {
   sec_contact_title:['Contact Information','Contact Information'],
   sec_contact_sub:['Hubungi pelaut','Contact the seafarer'],
 
+  /* Info grid */
   info_ttl:['Tempat, Tanggal Lahir','Place, Date of Birth'],
   info_gender:['Jenis Kelamin','Gender'],
   info_religion:['Agama','Religion'],
@@ -1064,6 +1019,7 @@ const I18N = {
   info_nationality:['Kewarganegaraan','Nationality'],
   info_address:['Alamat Lengkap','Full Address'],
 
+  /* Table headers */
   th_type:['Jenis','Type'],
   th_doc_name:['Nama Dokumen','Document Name'],
   th_number:['Nomor','Number'],
@@ -1083,6 +1039,7 @@ const I18N = {
   th_sign_off:['Sign Off','Sign Off'],
   th_sea_duration:['Masa Berlayar','Sea Time'],
 
+  /* Buttons */
   btn_add_doc:['Tambah Dokumen','Add Document'],
   btn_add:['Tambah','Add'],
   btn_add_vessel:['Tambah Kapal','Add Vessel'],
@@ -1090,12 +1047,14 @@ const I18N = {
   btn_edit:['Edit','Edit'],
   btn_delete:['Hapus','Delete'],
 
+  /* Status */
   status_active:['Aktif','Active'],
   status_soon:['Akan Kedaluwarsa','Expiring Soon'],
   status_expired:['Kedaluwarsa','Expired'],
   status_days_left:['{n} hari lagi','{n} days left'],
   status_days_ago:['lewat {n} hari','{n} days ago'],
 
+  /* Empty states */
   empty_summary:['Ringkasan profesional belum diisi. Aktifkan Mode Edit lalu klik "Edit" untuk menambahkan.','Professional summary is empty. Enable Edit Mode and click "Edit" to add.'],
   empty_documents:['Belum ada dokumen pelaut. Klik "Tambah Dokumen" pada Mode Edit.','No seafarer documents yet. Click "Add Document" in Edit Mode.'],
   empty_coc:['Belum ada sertifikat kompetensi. Klik "Tambah" pada Mode Edit.','No competency certificates yet. Click "Add" in Edit Mode.'],
@@ -1104,6 +1063,7 @@ const I18N = {
   empty_sea:['Belum ada riwayat kapal (Sea Service Record). Klik "Tambah Kapal".','No vessel history yet. Click "Add Vessel".'],
   empty_work:['Belum ada pengalaman kerja. Klik "Tambah Pengalaman".','No work experience yet. Click "Add Experience".'],
 
+  /* Search & sort */
   search_documents:['Cari dokumen, nomor, atau penerbit…','Search documents, numbers, or issuers…'],
   search_certs:['Cari sertifikat…','Search certificates…'],
   sort_default:['Urutan Default','Default Order'],
@@ -1115,19 +1075,23 @@ const I18N = {
   sort_work_desc:['Terbaru','Latest'],
   sort_work_asc:['Terlama','Oldest'],
 
+  /* Contact */
   contact_wa:['WhatsApp','WhatsApp'],
   contact_email:['Email','Email'],
   contact_address:['Alamat','Address'],
   contact_not_filled:['Belum diisi','Not filled'],
 
+  /* Sea total */
   sea_total:['Total masa berlayar tercatat:','Total sea time recorded:'],
   sea_months:['{n} bulan','{n} months'],
   sea_days:['({n} hari)','({n} days)'],
 
+  /* Alerts */
   alert_expired_title:['{n} sertifikat sudah kedaluwarsa','{n} certificates have expired'],
   alert_soon_title:['{n} sertifikat akan segera kedaluwarsa (≤ 90 hari)','{n} certificates expiring soon (≤ 90 days)'],
   alert_no_name:['Tanpa nama','Unnamed'],
 
+  /* Photo modal */
   photo_title:['Foto Formal','Formal Photo'],
   photo_choose:['Pilih Foto dari Perangkat','Choose Photo from Device'],
   photo_remove:['Hapus Foto','Remove Photo'],
@@ -1144,15 +1108,18 @@ const I18N = {
   photo_read_err:['Gagal membaca gambar','Failed to read image'],
   photo_file_err:['Gagal membaca file','Failed to read file'],
 
+  /* Developer Modal */
   dev_modal_title:['Info Developer','Developer Info'],
   dev_modal_sub:['Terhubung dengan pengembang aplikasi','Connect with the app developer'],
   dev_close:['Tutup','Close'],
 
+  /* Modal actions */
   btn_save:['Simpan','Save'],
   btn_cancel:['Batal','Cancel'],
   btn_yes_continue:['Ya, Lanjutkan','Yes, Continue'],
   modal_close:['Tutup','Close'],
 
+  /* Modal titles */
   modal_add_doc:['Tambah Dokumen','Add Document'],
   modal_edit_doc:['Edit Dokumen','Edit Document'],
   modal_add_cert:['Tambah Sertifikat','Add Certificate'],
@@ -1169,6 +1136,7 @@ const I18N = {
   modal_import_title:['Import Backup','Import Backup'],
   modal_import_msg:['Semua data saat ini akan diganti dengan data dari file backup. Lanjutkan?','All current data will be replaced with data from the backup file. Continue?'],
 
+  /* Toasts */
   toast_profile_updated:['Data pribadi diperbarui','Personal data updated'],
   toast_doc_added:['Dokumen ditambahkan','Document added'],
   toast_doc_updated:['Dokumen diperbarui','Document updated'],
@@ -1198,6 +1166,7 @@ const I18N = {
   toast_date_invalid:['Format {label} harus dd/mm/yyyy','{label} format must be dd/mm/yyyy'],
   toast_preparing:['Menyiapkan dokumen…','Preparing document…'],
 
+  /* Form labels */
   lbl_name:['Nama Lengkap','Full Name'],
   lbl_rank:['Jabatan / Rank','Position / Rank'],
   lbl_nationality:['Kewarganegaraan','Nationality'],
@@ -1234,6 +1203,7 @@ const I18N = {
   lbl_contract_duration:['Durasi Kontrak','Contract Duration'],
   lbl_description:['Deskripsi Pekerjaan','Job Description'],
 
+  /* Options */
   opt_choose:['— Pilih —','— Select —'],
   opt_male:['Laki-laki','Male'],
   opt_female:['Perempuan','Female'],
@@ -1256,6 +1226,7 @@ const I18N = {
   opt_doctype_diploma:['Ijazah','Diploma'],
   opt_doctype_other:['Dokumen Lainnya','Other Document'],
 
+  /* Placeholders */
   ph_rank_oiler:['Contoh: Oiler','Example: Oiler'],
   ph_doc_name:['Contoh: Buku Pelaut (Seaman Book)','Example: Seaman Book'],
   ph_flag:['Contoh: Panama','Example: Panama'],
@@ -1265,19 +1236,8 @@ const I18N = {
   ph_engine:['Contoh: MAN B&W 6S50MC-C','Example: MAN B&W 6S50MC-C'],
   ph_contract:['Contoh: 9 bulan','Example: 9 months'],
 
-  footer:['Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda','Seafarer Professional Portfolio · Data stored locally on your device'],
-
-  theme_picker_title:['Pilih Tema Warna','Choose Color Theme'],
-  theme_picker_sub:['Skema warna diterapkan pada tampilan aplikasi dan hasil cetak PDF.','Color scheme is applied to the app and printed PDF.'],
-  theme_applied:['Tema diterapkan','Theme applied'],
-  theme_navy:['Navy Gold','Navy Gold'],
-  theme_emerald:['Emerald','Emerald'],
-  theme_royal:['Royal Purple','Royal Purple'],
-  theme_crimson:['Crimson','Crimson'],
-  theme_ocean:['Ocean Teal','Ocean Teal'],
-  theme_sunset:['Sunset','Sunset'],
-  theme_slate:['Slate Mono','Slate Mono'],
-  theme_rose:['Rose Gold','Rose Gold']
+  /* Footer */
+  footer:['Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda','Seafarer Professional Portfolio · Data stored locally on your device']
 };
 
 function t(key){
@@ -1423,15 +1383,14 @@ function loadData(){
 }
 function loadUI(){
   const def = {
-    edit:false, mode:'light', color:'navy', lang:'id',
-    search:{ documents:'', coc:'', cop:'', other:'' },
-    sort:{ coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
+    edit: false, theme: 'light', lang: 'id',
+    search: { documents:'', coc:'', cop:'', other:'' },
+    sort:   { coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
   };
   try{
     const raw = localStorage.getItem(UI_KEY);
     if(!raw) return def;
     const s = JSON.parse(raw);
-    if(s.theme === 'light' || s.theme === 'dark'){ s.mode = s.theme; delete s.theme; }
     return Object.assign(def, s, {
       search: Object.assign(def.search, s.search || {}),
       sort:   Object.assign(def.sort,   s.sort   || {})
@@ -1529,11 +1488,12 @@ function confirmModal(title, message, onYes){
 function openDevModal(){
   const bodyHTML = `
     <div style="text-align:center; padding: 10px 0 20px;">
-      <div style="width:86px; height:86px; border-radius:50%; background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 60%,#000)); display:grid; place-items:center; margin:0 auto 16px; color:var(--primary); font-size:2.5rem; box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 35%,transparent);">
+      <div style="width:86px; height:86px; border-radius:50%; background:linear-gradient(135deg,var(--gold),#a4821c); display:grid; place-items:center; margin:0 auto 16px; color:#0b1f3a; font-size:2.5rem; box-shadow:0 8px 24px rgba(201,162,39,.3);">
         ${icon('user')}
       </div>
       <h3 style="font-size:1.4rem; margin-bottom:4px; color:var(--text); font-family:'Outfit',sans-serif;">xatmojo</h3>
       <p style="color:var(--muted); font-size:.9rem; margin-bottom:24px;">${esc(t('dev_modal_sub'))}</p>
+
       <div style="display:flex; flex-direction:column; gap:12px; text-align:left; max-width:320px; margin:0 auto;">
         <a href="https://instagram.com/xatmojo" target="_blank" rel="noopener" class="contact-card" style="padding:12px 16px;">
           <div class="cc-icon ig" style="font-size:1.1rem; width:36px; height:36px; border-radius:10px;">
@@ -1544,6 +1504,7 @@ function openDevModal(){
             <strong>@xatmojo</strong>
           </div>
         </a>
+
         <a href="mailto:xatmojo@gmail.com" class="contact-card" style="padding:12px 16px;">
           <div class="cc-icon mail" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">
              ${icon('mail')}
@@ -1553,6 +1514,7 @@ function openDevModal(){
             <strong>xatmojo@gmail.com</strong>
           </div>
         </a>
+
         <a href="https://wa.me/6289668262520" target="_blank" rel="noopener" class="contact-card" style="padding:12px 16px;">
           <div class="cc-icon wa" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">
              ${icon('wa','fill')}
@@ -1570,37 +1532,6 @@ function openDevModal(){
     title: t('dev_modal_title'),
     bodyHTML: bodyHTML,
     cancelLabel: t('dev_close')
-  });
-}
-
-/* ---------- 5c. THEME PICKER ---------- */
-function openThemePicker(){
-  const swatches = THEMES.map(th => {
-    const active = (UI.color || 'navy') === th.id;
-    return `<button type="button" class="theme-swatch ${active ? 'active' : ''}" data-theme-id="${th.id}">
-      <div class="theme-preview" style="background:linear-gradient(135deg, ${th.primary} 0%, ${th.p2} 55%, ${th.p3} 100%)">
-        <span class="theme-dot" style="background:${th.accent}"></span>
-        <span class="theme-dot" style="background:${th.a2}"></span>
-      </div>
-      <span class="theme-name">${esc(t(THEME_LABEL_KEY[th.id]))}</span>
-    </button>`;
-  }).join('');
-
-  openModal({
-    title: t('theme_picker_title'),
-    bodyHTML: `<p style="margin:0 0 16px;color:var(--muted);font-size:.86rem;line-height:1.65">${esc(t('theme_picker_sub'))}</p>
-               <div class="theme-grid">${swatches}</div>`,
-    cancelLabel: t('modal_close')
-  });
-
-  $$('.theme-swatch', $('#modalRoot')).forEach(btn => {
-    btn.onclick = () => {
-      UI.color = btn.dataset.themeId;
-      saveUI();
-      applyTheme();
-      closeModal();
-      toast(t('theme_applied') + ': ' + t(THEME_LABEL_KEY[UI.color]), 'info');
-    };
   });
 }
 
@@ -1755,6 +1686,8 @@ function renderHero(){
         <button class="btn sm gold edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit_profile'))}</button>
       </div>
     </div>`;
+
+  updateSEO();
 }
 
 /* ---------- 9. RENDER ALERTS ---------- */
@@ -1984,7 +1917,7 @@ function renderSeaService(){
   const footer = list.length && totalDays > 0
     ? `<div style="margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:600">
          ${icon('clock')} ${esc(t('sea_total'))}
-         <strong style="color:var(--accent)">${esc(t('sea_months').replace('{n}', Math.round(totalDays/30.44*10)/10))}</strong>
+         <strong style="color:var(--gold)">${esc(t('sea_months').replace('{n}', Math.round(totalDays/30.44*10)/10))}</strong>
          ${esc(t('sea_days').replace('{n}', totalDays))}
        </div>`
     : '';
@@ -2159,21 +2092,11 @@ function applyEditMode(){
   }
 }
 function applyTheme(){
-  const color = UI.color || 'navy';
-  const mode  = UI.mode  || 'light';
-  document.documentElement.setAttribute('data-color', color);
-  document.documentElement.setAttribute('data-mode',  mode);
-  document.documentElement.setAttribute('data-theme', mode);
-
+  document.documentElement.setAttribute('data-theme', UI.theme);
   const btn = $('#themeBtn');
-  if(btn) btn.innerHTML = icon(mode === 'dark' ? 'sun' : 'moon');
-
-  const paletteBtn = $('#paletteBtn');
-  if(paletteBtn) paletteBtn.style.color = mode === 'dark' ? 'var(--accent-2)' : '';
-
-  const th = THEMES.find(x => x.id === color) || THEMES[0];
+  if(btn) btn.innerHTML = icon(UI.theme === 'dark' ? 'sun' : 'moon');
   const meta = document.querySelector('meta[name=theme-color]');
-  if(meta) meta.setAttribute('content', th.primary);
+  if(meta) meta.setAttribute('content', UI.theme === 'dark' ? '#070f19' : '#0b1f3a');
 }
 function applyLang(){
   document.documentElement.lang = UI.lang;
@@ -2191,7 +2114,48 @@ function applyLang(){
   });
 }
 
-/* ---------- 19. FORM DEFINITIONS ---------- */
+/* ---------- 19. DYNAMIC SEO UPDATE ---------- */
+function updateSEO() {
+  const p = DATA.profile;
+  const name = p.name || 'Seafarer';
+  const rank = p.rank || 'Professional';
+  
+  const pageTitle = `${name} - ${rank} CV | Seafarer Portfolio`;
+  const pageDesc = `Curriculum Vitae (CV) of ${name}, a ${rank} with ${DATA.seaService.length} sea service records and ${DATA.certificates.length} certificates.`;
+  
+  document.title = pageTitle;
+  
+  const setMeta = (selector, content) => {
+    const el = document.querySelector(selector);
+    if(el) el.setAttribute('content', content);
+  };
+
+  setMeta('meta[name="description"]', pageDesc);
+  setMeta('meta[property="og:title"]', pageTitle);
+  setMeta('meta[property="og:description"]', pageDesc);
+  setMeta('meta[name="twitter:title"]', pageTitle);
+  setMeta('meta[name="twitter:description"]', pageDesc);
+  
+  const jsonLd = document.getElementById('json-ld-person');
+  if(jsonLd) {
+    const ldData = {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": name,
+      "jobTitle": rank,
+      "description": pageDesc,
+      "nationality": p.nationality || "Indonesian",
+      "image": p.photo || "https://images.unsplash.com/photo-1559136555-9303baea8ebd?q=80&w=400&auto=format&fit=crop",
+      "url": "https://seafarer-cv.example.com/"
+    };
+    if (p.email) ldData.email = p.email;
+    if (p.phone) ldData.telephone = p.phone;
+    
+    jsonLd.textContent = JSON.stringify(ldData, null, 2);
+  }
+}
+
+/* ---------- 20. FORM DEFINITIONS ---------- */
 const OPTS = {
   gender: [
     { v:'', l:'opt_choose' },
@@ -2229,23 +2193,23 @@ const OPTS = {
 const PROFILE_FIELDS = [
   { key:'name', labelKey:'lbl_name', type:'text', required:true, full:true },
   { key:'rank', labelKey:'lbl_rank', type:'text', phKey:'ph_rank_oiler' },
-  { key:'nationality', labelKey:'lbl_nationality', type:'text' },
+  { key:'nationality', labelKey:'lbl_nationality', type:'text', ph:'Indonesia' },
   { key:'birthPlace', labelKey:'lbl_birth_place', type:'text' },
   { key:'birthDate', labelKey:'lbl_birth_date', type:'date' },
   { key:'gender', labelKey:'lbl_gender', type:'select', options: OPTS.gender },
   { key:'religion', labelKey:'lbl_religion', type:'select', options: OPTS.religion },
-  { key:'height', labelKey:'lbl_height', type:'number', min:0, max:300 },
-  { key:'weight', labelKey:'lbl_weight', type:'number', min:0, max:500 },
+  { key:'height', labelKey:'lbl_height', type:'number', min:50, max:250 },
+  { key:'weight', labelKey:'lbl_weight', type:'number', min:20, max:250 },
   { key:'maritalStatus', labelKey:'lbl_marital', type:'select', options: OPTS.marital },
-  { key:'phone', labelKey:'lbl_phone', type:'tel' },
-  { key:'email', labelKey:'lbl_email', type:'email' },
-  { key:'address', labelKey:'lbl_address', type:'textarea', full:true },
+  { key:'phone', labelKey:'lbl_phone', type:'tel', ph:'08xxxxxxxxxx' },
+  { key:'email', labelKey:'lbl_email', type:'email', ph:'nama@email.com' },
+  { key:'address', labelKey:'lbl_address', type:'textarea', full:true, rows:2 },
   { key:'summary', labelKey:'lbl_summary', type:'textarea', full:true, rows:5 }
 ];
 
 const DOC_FIELDS = [
-  { key:'type', labelKey:'lbl_doc_type', type:'select', options: OPTS.doctype, full:true },
-  { key:'name', labelKey:'lbl_doc_name', type:'text', required:true, full:true },
+  { key:'type', labelKey:'lbl_doc_type', type:'select', options: OPTS.doctype },
+  { key:'name', labelKey:'lbl_doc_name', type:'text', required:true, phKey:'ph_doc_name' },
   { key:'number', labelKey:'lbl_doc_number', type:'text' },
   { key:'issuer', labelKey:'lbl_issuer', type:'text' },
   { key:'issueDate', labelKey:'lbl_issue_date', type:'date' },
@@ -2261,14 +2225,14 @@ const CERT_FIELDS = [
 ];
 
 const SEA_FIELDS = [
-  { key:'vesselName', labelKey:'lbl_vessel_name', type:'text', required:true, full:true },
+  { key:'vesselName', labelKey:'lbl_vessel_name', type:'text', required:true },
   { key:'flag', labelKey:'lbl_flag', type:'text', phKey:'ph_flag' },
   { key:'vesselType', labelKey:'lbl_vessel_type', type:'text', phKey:'ph_vessel_type' },
+  { key:'rank', labelKey:'lbl_rank_onboard', type:'text' },
   { key:'gt', labelKey:'lbl_gt', type:'text', phKey:'ph_gt' },
   { key:'dwt', labelKey:'lbl_dwt', type:'text', phKey:'ph_dwt' },
-  { key:'mainEngine', labelKey:'lbl_main_engine', type:'text', phKey:'ph_engine', full:true },
-  { key:'rank', labelKey:'lbl_rank_onboard', type:'text' },
-  { key:'signOn', labelKey:'lbl_sign_on', type:'date', required:true },
+  { key:'mainEngine', labelKey:'lbl_main_engine', type:'text', full:true, phKey:'ph_engine' },
+  { key:'signOn', labelKey:'lbl_sign_on', type:'date' },
   { key:'signOff', labelKey:'lbl_sign_off', type:'date' }
 ];
 
@@ -2276,139 +2240,149 @@ const WORK_FIELDS = [
   { key:'company', labelKey:'lbl_company', type:'text', required:true, full:true },
   { key:'rank', labelKey:'lbl_rank', type:'text' },
   { key:'vesselName', labelKey:'lbl_vessel_name', type:'text' },
-  { key:'vesselType', labelKey:'lbl_vessel_type', type:'text', phKey:'ph_vessel_type' },
-  { key:'contractDuration', labelKey:'lbl_contract_duration', type:'text', phKey:'ph_contract' },
+  { key:'vesselType', labelKey:'lbl_vessel_type', type:'text' },
   { key:'startDate', labelKey:'lbl_sign_on', type:'date' },
   { key:'endDate', labelKey:'lbl_sign_off', type:'date' },
-  { key:'description', labelKey:'lbl_description', type:'textarea', full:true }
+  { key:'contractDuration', labelKey:'lbl_contract_duration', type:'text', full:true, phKey:'ph_contract' },
+  { key:'description', labelKey:'lbl_description', type:'textarea', full:true, rows:4 }
 ];
 
-/* ---------- 20. MODAL HANDLERS ---------- */
-function openProfileModal(){
+/* ---------- 21. ACTION HANDLERS ---------- */
+function editProfile(){
   openFormModal(t('modal_edit_profile'), PROFILE_FIELDS, DATA.profile, (data) => {
-    Object.assign(DATA.profile, data);
+    DATA.profile = Object.assign(DATA.profile, data);
     save(); renderAll(); toast(t('toast_profile_updated'));
   });
 }
-function openDocModal(existing){
-  const isEdit = !!existing;
-  const values = existing || { type:'Buku Pelaut', name:'', number:'', issuer:'', issueDate:'', expiryDate:'' };
-  openFormModal(
-    isEdit ? t('modal_edit_doc') : t('modal_add_doc'),
-    DOC_FIELDS, values,
-    (data) => {
-      if(isEdit){ Object.assign(existing, data); toast(t('toast_doc_updated')); }
-      else{ DATA.documents.push(Object.assign({id:uid()}, data)); toast(t('toast_doc_added')); }
-      save(); renderAll();
-    }
-  );
+function addDocument(){
+  openFormModal(t('modal_add_doc'), DOC_FIELDS, {}, (data) => {
+    DATA.documents.push(Object.assign({ id: uid() }, data));
+    save(); renderAll(); toast(t('toast_doc_added'));
+  });
 }
-function openCertModal(existing, category){
-  const isEdit = !!existing;
-  const values = existing || { name:'', number:'', issuer:'', issueDate:'', expiryDate:'' };
-  openFormModal(
-    isEdit ? t('modal_edit_cert') : t('modal_add_cert'),
-    CERT_FIELDS, values,
-    (data) => {
-      if(isEdit){ Object.assign(existing, data); toast(t('toast_cert_updated')); }
-      else{ DATA.certificates.push(Object.assign({id:uid(), category: category || 'coc'}, data)); toast(t('toast_cert_added')); }
-      save(); renderAll();
-    }
-  );
-}
-function openSeaModal(existing){
-  const isEdit = !!existing;
-  const values = existing || { vesselName:'', flag:'', vesselType:'', gt:'', dwt:'', mainEngine:'', rank:'', signOn:'', signOff:'' };
-  openFormModal(
-    isEdit ? t('modal_edit_sea') : t('modal_add_sea'),
-    SEA_FIELDS, values,
-    (data) => {
-      if(isEdit){ Object.assign(existing, data); toast(t('toast_sea_updated')); }
-      else{ DATA.seaService.push(Object.assign({id:uid()}, data)); toast(t('toast_sea_added')); }
-      save(); renderAll();
-    }
-  );
-}
-function openWorkModal(existing){
-  const isEdit = !!existing;
-  const values = existing || { company:'', rank:'', vesselName:'', vesselType:'', contractDuration:'', startDate:'', endDate:'', description:'' };
-  openFormModal(
-    isEdit ? t('modal_edit_work') : t('modal_add_work'),
-    WORK_FIELDS, values,
-    (data) => {
-      if(isEdit){ Object.assign(existing, data); toast(t('toast_work_updated')); }
-      else{ DATA.workExperience.push(Object.assign({id:uid()}, data)); toast(t('toast_work_added')); }
-      save(); renderAll();
-    }
-  );
-}
-function deleteItem(arr, id, kind){
-  const item = arr.find(x => x.id === id);
+function editDocument(id){
+  const item = DATA.documents.find(x => x.id === id);
   if(!item) return;
-  const label = item.name || item.company || item.vesselName || 'data';
+  openFormModal(t('modal_edit_doc'), DOC_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast(t('toast_doc_updated'));
+  });
+}
+function addCert(cat){
+  openFormModal(t('modal_add_cert'), CERT_FIELDS, {}, (data) => {
+    DATA.certificates.push(Object.assign({ id: uid(), category: cat }, data));
+    save(); renderAll(); toast(t('toast_cert_added'));
+  });
+}
+function editCert(id){
+  const item = DATA.certificates.find(x => x.id === id);
+  if(!item) return;
+  openFormModal(t('modal_edit_cert'), CERT_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast(t('toast_cert_updated'));
+  });
+}
+function addSea(){
+  openFormModal(t('modal_add_sea'), SEA_FIELDS, {}, (data) => {
+    DATA.seaService.push(Object.assign({ id: uid() }, data));
+    save(); renderAll(); toast(t('toast_sea_added'));
+  });
+}
+function editSea(id){
+  const item = DATA.seaService.find(x => x.id === id);
+  if(!item) return;
+  openFormModal(t('modal_edit_sea'), SEA_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast(t('toast_sea_updated'));
+  });
+}
+function addWork(){
+  openFormModal(t('modal_add_work'), WORK_FIELDS, {}, (data) => {
+    DATA.workExperience.push(Object.assign({ id: uid() }, data));
+    save(); renderAll(); toast(t('toast_work_added'));
+  });
+}
+function editWork(id){
+  const item = DATA.workExperience.find(x => x.id === id);
+  if(!item) return;
+  openFormModal(t('modal_edit_work'), WORK_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast(t('toast_work_updated'));
+  });
+}
+function deleteItem(kind, id, label){
   confirmModal(t('modal_delete_title'), t('modal_delete_msg').replace('{x}', label), () => {
-    const idx = arr.findIndex(x => x.id === id);
-    if(idx > -1){
-      arr.splice(idx, 1);
-      save(); renderAll(); toast(t('toast_deleted'));
-    }
+    if(kind === 'doc')  DATA.documents      = DATA.documents.filter(x => x.id !== id);
+    if(kind === 'cert') DATA.certificates   = DATA.certificates.filter(x => x.id !== id);
+    if(kind === 'sea')  DATA.seaService     = DATA.seaService.filter(x => x.id !== id);
+    if(kind === 'work') DATA.workExperience = DATA.workExperience.filter(x => x.id !== id);
+    save();
+    renderAll();
+    toast(t('toast_deleted'), 'info');
   });
-}
-function resetAllData(){
-  confirmModal(t('modal_reset_title'), t('modal_reset_msg'), () => {
-    DATA = blankData();
-    save(); renderAll(); toast(t('toast_reset'));
-  });
-}
-function exportData(){
-  try{
-    const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `cv-pelaut-backup-${new Date().toISOString().slice(0,10)}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    setTimeout(() => URL.revokeObjectURL(url), 100);
-    toast(t('toast_backup_ok'));
-  }catch(e){ toast(t('toast_backup_err'), 'err'); }
 }
 
-/* ---------- 21. PHOTO EDITOR ---------- */
+/* ---------- 22. PHOTO EDITOR ---------- */
+function resizeImage(file, maxSize = 720){
+  return new Promise((resolve, reject) => {
+    if(!file.type.startsWith('image/')){ reject(new Error(t('photo_not_image'))); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        const ratio = Math.min(1, maxSize / Math.max(w, h));
+        w = Math.max(1, Math.round(w * ratio));
+        h = Math.max(1, Math.round(h * ratio));
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.88));
+      };
+      img.onerror = () => reject(new Error(t('photo_read_err')));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error(t('photo_file_err')));
+    reader.readAsDataURL(file);
+  });
+}
 function openPhotoModal(){
   const p = DATA.profile;
-  let workingPhoto = p.photo || '';
-  let workingZoom = p.photoZoom || 1;
-  let workingX = (p.photoX ?? 50);
-  let workingY = (p.photoY ?? 50);
-
-  const previewHTML = workingPhoto
-    ? `<img src="${workingPhoto}" style="object-position:${workingX}% ${workingY}%;transform:scale(${workingZoom})">`
-    : `<div class="photo-empty">${icon('user')}</div>`;
+  const temp = {
+    photo: p.photo || '',
+    zoom: p.photoZoom || 1,
+    x: p.photoX == null ? 50 : p.photoX,
+    y: p.photoY == null ? 50 : p.photoY
+  };
 
   const bodyHTML = `
     <div class="photo-editor">
-      <div class="photo-preview" id="photoPreview">${previewHTML}</div>
+      <div class="photo-preview">
+        <img id="pvImg" src="${temp.photo}" alt="Preview"
+             style="object-position:${temp.x}% ${temp.y}%;transform:scale(${temp.zoom});${temp.photo ? '' : 'display:none'}">
+      </div>
       <div class="photo-controls">
         <label class="upload-btn">
-          ${icon('upload')} ${esc(t('photo_choose'))}
-          <input type="file" accept="image/*" hidden id="photoFileInput">
+          ${icon('camera')} ${esc(t('photo_choose'))}
+          <input type="file" id="photoInput" accept="image/*" hidden>
         </label>
-        <button type="button" class="btn danger" id="photoRemoveBtn">${icon('trash')} ${esc(t('photo_remove'))}</button>
+        <button type="button" class="btn ghost" id="photoRemove">${icon('trash')} ${esc(t('photo_remove'))}</button>
         <div class="field">
           <label>${esc(t('photo_zoom'))}</label>
-          <input type="range" id="photoZoom" min="1" max="3" step="0.05" value="${workingZoom}">
+          <input type="range" id="pvZoom" min="1" max="3" step="0.05" value="${temp.zoom}">
         </div>
         <div class="field">
           <label>${esc(t('photo_x'))}</label>
-          <input type="range" id="photoX" min="0" max="100" value="${workingX}">
+          <input type="range" id="pvX" min="0" max="100" step="1" value="${temp.x}">
         </div>
         <div class="field">
           <label>${esc(t('photo_y'))}</label>
-          <input type="range" id="photoY" min="0" max="100" value="${workingY}">
+          <input type="range" id="pvY" min="0" max="100" step="1" value="${temp.y}">
         </div>
-        <p style="font-size:.76rem;color:var(--muted);margin:0">${esc(t('photo_hint'))}</p>
+        <small style="color:var(--muted);font-size:.74rem;line-height:1.5">${esc(t('photo_hint'))}</small>
       </div>
     </div>`;
 
@@ -2417,254 +2391,296 @@ function openPhotoModal(){
     bodyHTML,
     saveLabel: t('photo_use'),
     onSave: () => {
-      DATA.profile.photo = workingPhoto;
-      DATA.profile.photoZoom = workingZoom;
-      DATA.profile.photoX = workingX;
-      DATA.profile.photoY = workingY;
+      DATA.profile.photo    = temp.photo;
+      DATA.profile.photoZoom = temp.zoom;
+      DATA.profile.photoX   = temp.x;
+      DATA.profile.photoY   = temp.y;
       save(); renderHero(); toast(t('photo_updated'));
+      return true;
     }
   });
 
-  const $preview = $('#photoPreview');
-  const updatePreview = () => {
-    if(!workingPhoto){ $preview.innerHTML = `<div class="photo-empty">${icon('user')}</div>`; return; }
-    $preview.innerHTML = `<img src="${workingPhoto}" style="object-position:${workingX}% ${workingY}%;transform:scale(${workingZoom})">`;
+  const img = $('#pvImg');
+  const sync = () => {
+    if(temp.photo){
+      img.style.display = '';
+      img.src = temp.photo;
+      img.style.objectPosition = `${temp.x}% ${temp.y}%`;
+      img.style.transform = `scale(${temp.zoom})`;
+    } else {
+      img.style.display = 'none';
+    }
   };
 
-  $('#photoFileInput').onchange = (e) => {
+  $('#photoInput').onchange = async (e) => {
     const file = e.target.files && e.target.files[0];
     if(!file) return;
-    if(!file.type.startsWith('image/')){ toast(t('photo_not_image'), 'err'); return; }
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        const canvas = document.createElement('canvas');
-        const maxSize = 400;
-        let w = img.width, h = img.height;
-        if(w > h){ if(w > maxSize){ h = h * maxSize / w; w = maxSize; } }
-        else{ if(h > maxSize){ w = w * maxSize / h; h = maxSize; } }
-        canvas.width = w; canvas.height = h;
-        const ctx = canvas.getContext('2d');
-        ctx.drawImage(img, 0, 0, w, h);
-        workingPhoto = canvas.toDataURL('image/jpeg', 0.85);
-        updatePreview();
-      };
-      img.onerror = () => toast(t('photo_read_err'), 'err');
-      img.src = reader.result;
-    };
-    reader.onerror = () => toast(t('photo_file_err'), 'err');
-    reader.readAsDataURL(file);
+    try{
+      toast(t('photo_processing'), 'info');
+      const dataUrl = await resizeImage(file, 720);
+      temp.photo = dataUrl;
+      temp.zoom = 1; temp.x = 50; temp.y = 50;
+      $('#pvZoom').value = 1; $('#pvX').value = 50; $('#pvY').value = 50;
+      sync();
+      toast(t('photo_ready'));
+    }catch(err){
+      toast(err.message || t('photo_read_err'), 'err');
+    }
+    e.target.value = '';
   };
-
-  $('#photoRemoveBtn').onclick = () => {
-    workingPhoto = '';
-    updatePreview();
-    toast(t('photo_removed'), 'info');
-  };
-
-  $('#photoZoom').oninput = (e) => { workingZoom = parseFloat(e.target.value); updatePreview(); };
-  $('#photoX').oninput = (e) => { workingX = parseInt(e.target.value,10); updatePreview(); };
-  $('#photoY').oninput = (e) => { workingY = parseInt(e.target.value,10); updatePreview(); };
+  $('#photoRemove').onclick = () => { temp.photo = ''; sync(); toast(t('photo_removed'), 'info'); };
+  $('#pvZoom').oninput = (e) => { temp.zoom = parseFloat(e.target.value); sync(); };
+  $('#pvX').oninput    = (e) => { temp.x = parseInt(e.target.value, 10); sync(); };
+  $('#pvY').oninput    = (e) => { temp.y = parseInt(e.target.value, 10); sync(); };
 }
 
-/* ---------- 22. ACTION HANDLER ---------- */
-function handleAction(action, el){
-  const id = el.dataset.id;
+/* ---------- 23. IMPORT / EXPORT / RESET ---------- */
+function exportJSON(){
+  try{
+    const name = (DATA.profile.name || 'Seafarer').replace(/[^\w\-]+/g, '_');
+    const stamp = new Date().toISOString().slice(0, 10);
+    const blob = new Blob([JSON.stringify(DATA, null, 2)], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `CV-${name}-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    toast(t('toast_backup_ok'));
+  }catch(e){
+    toast(t('toast_backup_err'), 'err');
+  }
+}
+function importJSON(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try{
+      const parsed = JSON.parse(e.target.result);
+      if(!parsed || typeof parsed !== 'object' || !parsed.profile){
+        toast(t('toast_import_invalid'), 'err');
+        return;
+      }
+      confirmModal(t('modal_import_title'), t('modal_import_msg'), () => {
+        DATA = mergeData(parsed);
+        save();
+        renderAll();
+        toast(t('toast_import_ok'));
+      });
+    }catch(err){
+      toast(t('toast_import_err'), 'err');
+    }
+  };
+  reader.readAsText(file);
+}
+function resetData(){
+  confirmModal(t('modal_reset_title'), t('modal_reset_msg'), () => {
+    try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+    DATA = blankData();
+    UI.edit = true;
+    saveUI();
+    save();
+    renderAll();
+    toast(t('toast_reset'), 'info');
+  });
+}
+function doPrint(){
+  closeModal();
+  const wasEdit = document.body.classList.contains('edit-on');
+  document.body.classList.remove('edit-on');
+  toast(t('toast_preparing'), 'info');
+  setTimeout(() => {
+    window.print();
+    if(wasEdit) document.body.classList.add('edit-on');
+  }, 260);
+}
+
+/* ---------- 24. EVENT DELEGATION ---------- */
+document.addEventListener('click', (e) => {
+  const actionEl = e.target.closest('[data-action]');
+  if(!actionEl) return;
+  const action = actionEl.dataset.action;
+  const id = actionEl.dataset.id;
+  const cat = actionEl.dataset.cat;
+  const label = actionEl.dataset.label || '';
 
   switch(action){
     case 'toggle-sidebar':
       $('#sidebar').classList.toggle('open');
       $('#sidebarBackdrop').classList.toggle('show');
       break;
-    case 'toggle-theme':
-      UI.mode = (UI.mode === 'dark') ? 'light' : 'dark';
-      saveUI(); applyTheme();
-      toast(t(UI.mode === 'dark' ? 'toast_theme_dark' : 'toast_theme_light'), 'info');
-      break;
-    case 'theme-palette':
-      openThemePicker();
-      break;
-    case 'toggle-lang':
-      UI.lang = (UI.lang === 'en') ? 'id' : 'en';
-      saveUI(); applyLang(); renderAll();
-      toast(t(UI.lang === 'en' ? 'toast_lang_en' : 'toast_lang_id'), 'info');
-      break;
-    case 'toggle-edit':
-      UI.edit = !UI.edit;
-      saveUI(); applyEditMode();
-      toast(t(UI.edit ? 'toast_edit_on' : 'toast_preview_on'), 'info');
-      break;
-    case 'print':
-      toast(t('toast_preparing'), 'info');
-      setTimeout(() => window.print(), 200);
-      break;
-    case 'reset':
-      resetAllData();
-      break;
-    case 'export':
-      exportData();
-      break;
-    case 'import':
-      $('#importInput').click();
-      break;
+
     case 'dev-info':
       openDevModal();
       break;
-    case 'photo':
-      openPhotoModal();
-      break;
-    case 'edit-profile':
-      openProfileModal();
-      break;
-    case 'add-doc':
-      openDocModal(null);
-      break;
-    case 'edit-doc':
-      openDocModal(DATA.documents.find(d => d.id === id));
-      break;
-    case 'del-doc':
-      deleteItem(DATA.documents, id, 'doc');
-      break;
-    case 'add-cert':
-      openCertModal(null, el.dataset.cat);
-      break;
-    case 'edit-cert':
-      openCertModal(DATA.certificates.find(c => c.id === id));
-      break;
-    case 'del-cert':
-      deleteItem(DATA.certificates, id, 'cert');
-      break;
-    case 'add-sea':
-      openSeaModal(null);
-      break;
-    case 'edit-sea':
-      openSeaModal(DATA.seaService.find(s => s.id === id));
-      break;
-    case 'del-sea':
-      deleteItem(DATA.seaService, id, 'sea');
-      break;
-    case 'add-work':
-      openWorkModal(null);
-      break;
-    case 'edit-work':
-      openWorkModal(DATA.workExperience.find(w => w.id === id));
-      break;
-    case 'del-work':
-      deleteItem(DATA.workExperience, id, 'work');
-      break;
-    case 'back-top':
-      window.scrollTo({top:0, behavior:'smooth'});
-      break;
-  }
-}
 
-document.addEventListener('click', e => {
-  const btn = e.target.closest('[data-action]');
-  if(!btn) return;
-  // Jangan ganggu tombol tutup modal & save modal (ditangani sendiri)
-  const action = btn.dataset.action;
-  if(action === 'toggle-sidebar' && window.innerWidth > 1024) return;
-  handleAction(action, btn);
+    case 'toggle-lang':
+      UI.lang = UI.lang === 'en' ? 'id' : 'en';
+      saveUI();
+      applyLang();
+      renderAll();
+      toast(t(UI.lang === 'en' ? 'toast_lang_en' : 'toast_lang_id'), 'info');
+      break;
+
+    case 'toggle-theme':
+      UI.theme = UI.theme === 'dark' ? 'light' : 'dark';
+      saveUI(); applyTheme();
+      toast(t(UI.theme === 'dark' ? 'toast_theme_dark' : 'toast_theme_light'), 'info');
+      break;
+
+    case 'toggle-edit':
+      UI.edit = !UI.edit; saveUI(); applyEditMode();
+      toast(UI.edit ? t('toast_edit_on') : t('toast_preview_on'), 'info');
+      break;
+
+    case 'print': doPrint(); break;
+
+    case 'back-top':
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      break;
+
+    case 'export': exportJSON(); break;
+    case 'import': $('#importInput').click(); break;
+    case 'reset':  resetData(); break;
+
+    case 'photo':        openPhotoModal(); break;
+    case 'edit-profile': editProfile(); break;
+
+    case 'add-doc':  addDocument(); break;
+    case 'edit-doc': editDocument(id); break;
+    case 'del-doc':  deleteItem('doc', id, label); break;
+
+    case 'add-cert':  addCert(cat); break;
+    case 'edit-cert': editCert(id); break;
+    case 'del-cert':  deleteItem('cert', id, label); break;
+
+    case 'add-sea':  addSea(); break;
+    case 'edit-sea': editSea(id); break;
+    case 'del-sea':  deleteItem('sea', id, label); break;
+
+    case 'add-work':  addWork(); break;
+    case 'edit-work': editWork(id); break;
+    case 'del-work':  deleteItem('work', id, label); break;
+  }
 });
 
+document.addEventListener('input', (e) => {
+  const dateInp = e.target.closest('[data-date-input]');
+  if(dateInp){
+    let v = dateInp.value.replace(/[^\d]/g, '').slice(0, 8);
+    let out = v.slice(0, 2);
+    if(v.length > 2) out += '/' + v.slice(2, 4);
+    if(v.length > 4) out += '/' + v.slice(4, 8);
+    if(dateInp.value !== out) dateInp.value = out;
+    return;
+  }
+  const inp = e.target.closest('[data-search]');
+  if(!inp) return;
+  const key = inp.dataset.search;
+  UI.search[key] = inp.value;
+  saveUI();
+  const q = inp.value.trim().toLowerCase();
+  const section = document.getElementById(key === 'documents' ? 'documents' : key);
+  if(!section) return;
+  section.querySelectorAll('tbody tr').forEach(tr => {
+    const text = tr.dataset.text || '';
+    tr.style.display = (!q || text.includes(q)) ? '' : 'none';
+  });
+});
+
+document.addEventListener('paste', (e) => {
+  const inp = e.target.closest('[data-date-input]');
+  if(!inp) return;
+  const cb = e.clipboardData || window.clipboardData;
+  if(!cb) return;
+  const text = (cb.getData('text') || '').trim();
+  const iso = text.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if(iso){
+    e.preventDefault();
+    inp.value = `${iso[3]}/${iso[2]}/${iso[1]}`;
+  }
+});
+
+document.addEventListener('change', (e) => {
+  const sel = e.target.closest('[data-sort]');
+  if(!sel) return;
+  const key = sel.dataset.sort;
+  UI.sort[key] = sel.value;
+  saveUI();
+  if(key === 'sea')       renderSeaService();
+  else if(key === 'work') renderWork();
+  else                    renderCertSection(key);
+});
+
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.nav-link');
+  if(!link) return;
+  if(window.innerWidth <= 1024){
+    $('#sidebar').classList.remove('open');
+    $('#sidebarBackdrop').classList.remove('show');
+  }
+});
 $('#sidebarBackdrop').addEventListener('click', () => {
   $('#sidebar').classList.remove('open');
   $('#sidebarBackdrop').classList.remove('show');
 });
-
-/* ---------- 23. SEARCH & SORT ---------- */
-document.addEventListener('input', e => {
-  const searchInput = e.target.closest('[data-search]');
-  if(!searchInput) return;
-  const key = searchInput.dataset.search;
-  UI.search[key] = searchInput.value;
-  saveUI();
-  const section = searchInput.closest('section');
-  const q = searchInput.value.toLowerCase();
-  if(section){
-    $$('tbody tr', section).forEach(tr => {
-      const text = tr.dataset.text || '';
-      tr.style.display = (!q || text.includes(q)) ? '' : 'none';
-    });
-  }
-});
-
-document.addEventListener('change', e => {
-  const sortSel = e.target.closest('[data-sort]');
-  if(!sortSel) return;
-  const key = sortSel.dataset.sort;
-  UI.sort[key] = sortSel.value;
-  saveUI();
-  if(key === 'sea') renderSeaService();
-  else if(key === 'work') renderWork();
-  else renderCertSection(key);
-});
-
-/* ---------- 24. IMPORT ---------- */
-$('#importInput').addEventListener('change', e => {
-  const file = e.target.files && e.target.files[0];
-  if(!file) return;
-  const reader = new FileReader();
-  reader.onload = () => {
-    try{
-      const parsed = JSON.parse(reader.result);
-      if(!parsed || typeof parsed !== 'object') throw new Error('Invalid');
-      confirmModal(t('modal_import_title'), t('modal_import_msg'), () => {
-        DATA = mergeData(parsed);
-        save(); renderAll(); toast(t('toast_import_ok'));
-      });
-    }catch(err){ toast(t('toast_import_invalid'), 'err'); }
-  };
-  reader.onerror = () => toast(t('toast_import_err'), 'err');
-  reader.readAsText(file);
+$('#importInput').addEventListener('change', (e) => {
+  const f = e.target.files && e.target.files[0];
+  importJSON(f);
   e.target.value = '';
 });
 
-/* ---------- 25. NAV / SCROLL ---------- */
-const SECTIONS = ['home','personal','summary','documents','coc','cop','other','sea','work','contact'];
-
-function updateActiveNav(){
-  const y = window.scrollY + 130;
-  let active = 'home';
-  SECTIONS.forEach(id => {
-    const el = document.getElementById(id);
-    if(el && el.offsetTop <= y) active = id;
+/* ---------- 25. SCROLL NAV ---------- */
+const NAV_IDS = ['home','personal','summary','documents','coc','cop','other','sea','work','contact'];
+let scrollTick = false;
+function onScroll(){
+  if(scrollTick) return;
+  scrollTick = true;
+  requestAnimationFrame(() => {
+    const pos = window.scrollY + 120;
+    let current = NAV_IDS[0];
+    NAV_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && el.offsetTop <= pos) current = id;
+    });
+    $$('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.nav === current));
+    const bt = $('#backTop');
+    if(window.scrollY > 380) bt.classList.add('show');
+    else bt.classList.remove('show');
+    scrollTick = false;
   });
-  $$('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.nav === active));
 }
-
-window.addEventListener('scroll', () => {
-  updateActiveNav();
-  $('#backTop').classList.toggle('show', window.scrollY > 400);
-}, {passive:true});
-
-$$('.nav-link').forEach(a => {
-  a.addEventListener('click', () => {
-    $('#sidebar').classList.remove('open');
-    $('#sidebarBackdrop').classList.remove('show');
-  });
-});
+window.addEventListener('scroll', onScroll, { passive:true });
 
 /* ---------- 26. INIT ---------- */
-function init(){
+(function init(){
   $('#year').textContent = new Date().getFullYear();
   applyLang();
   applyTheme();
   renderAll();
-  updateActiveNav();
+  onScroll();
 
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const pl = $('#preloader');
+      if(pl) pl.classList.add('hide');
+    }, 320);
+  });
   setTimeout(() => {
-    const pre = $('#preloader');
-    if(pre){ pre.classList.add('hide'); setTimeout(() => pre.remove(), 500); }
-  }, 280);
-}
+    const pl = $('#preloader');
+    if(pl) pl.classList.add('hide');
+  }, 1600);
 
-if(document.readyState === 'loading'){
-  document.addEventListener('DOMContentLoaded', init);
-} else {
-  init();
-}
+  document.addEventListener('keydown', (e) => {
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e'){
+      e.preventDefault();
+      UI.edit = !UI.edit; saveUI(); applyEditMode();
+      toast(UI.edit ? t('toast_edit_on') : t('toast_preview_on'), 'info');
+    }
+  });
+})();
 </script>
 </body>
 </html>
