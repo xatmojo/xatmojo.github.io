@@ -89,7 +89,6 @@ img{max-width:100%}
    ========================================================= */
 .app{display:grid;grid-template-columns:272px 1fr;min-height:100vh}
 
-/* ---------- Sidebar ---------- */
 .sidebar{
   background:linear-gradient(180deg,#0b1f3a 0%,#0a1729 100%);
   color:#cfdcec;position:sticky;top:0;height:100vh;
@@ -145,6 +144,19 @@ img{max-width:100%}
 }
 .save-indicator.show{opacity:1}
 
+/* Language toggle button */
+.lang-btn{
+  width:auto;
+  padding:0 11px;
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:.72rem;
+  font-weight:700;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+}
+
 /* ---------- Content ---------- */
 .content{padding:22px;max-width:1180px;width:100%;margin:0 auto;flex:1}
 section{scroll-margin-top:82px}
@@ -179,7 +191,7 @@ section{scroll-margin-top:82px}
 .icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
 
 /* =========================================================
-   5. HERO / PROFESSIONAL HEADER
+   5. HERO
    ========================================================= */
 .hero{
   position:relative;overflow:hidden;color:#fff;
@@ -238,7 +250,7 @@ a.chip:hover{background:rgba(201,162,39,.22);border-color:rgba(201,162,39,.5);co
 .chip .icon{color:var(--gold-2)}
 
 /* =========================================================
-   6. SECTIONS & CARDS
+   6. SECTIONS
    ========================================================= */
 .section{
   background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
@@ -257,7 +269,6 @@ a.chip:hover{background:rgba(201,162,39,.22);border-color:rgba(201,162,39,.5);co
 .section-title p{margin:2px 0 0;font-size:.78rem;color:var(--muted)}
 .section-tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
 
-/* ---------- Info grid ---------- */
 .info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
 .info-item{
   display:flex;gap:11px;padding:13px 14px;border-radius:var(--radius-sm);
@@ -272,7 +283,6 @@ a.chip:hover{background:rgba(201,162,39,.22);border-color:rgba(201,162,39,.5);co
 .info-item .ii-value{font-size:.9rem;font-weight:600;word-break:break-word}
 .info-item.full{grid-column:1/-1}
 
-/* ---------- Summary ---------- */
 .summary-text{font-size:.95rem;line-height:1.85;color:var(--text);white-space:pre-wrap}
 .empty{
   padding:34px 18px;text-align:center;color:var(--muted);font-size:.87rem;
@@ -297,7 +307,6 @@ table.data tbody tr:hover{background:rgba(201,162,39,.06)}
 .cell-actions{display:flex;gap:6px;justify-content:flex-end}
 .cell-strong{font-weight:600}
 
-/* ---------- Badges ---------- */
 .badge{
   display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;
   font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap;
@@ -305,13 +314,11 @@ table.data tbody tr:hover{background:rgba(201,162,39,.06)}
 .badge-green{background:rgba(15,157,88,.14);color:#0f9d58}
 .badge-amber{background:rgba(217,119,6,.16);color:#b45309}
 .badge-red{background:rgba(220,38,38,.14);color:#dc2626}
-.badge-gray{background:rgba(100,116,139,.16);color:var(--muted)}
 [data-theme="dark"] .badge-green{color:#3ddc84}
 [data-theme="dark"] .badge-amber{color:#fbbf24}
 [data-theme="dark"] .badge-red{color:#f87171}
 .cd{display:block;font-size:.68rem;color:var(--muted);margin-top:4px}
 
-/* ---------- Toolbar ---------- */
 .toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
 .search-box{position:relative;flex:1;min-width:190px}
 .search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem}
@@ -434,7 +441,6 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);bord
 .field input[data-date-input]{letter-spacing:.03em;font-variant-numeric:tabular-nums}
 .confirm-msg{font-size:.92rem;line-height:1.75;margin:0}
 
-/* Photo editor */
 .photo-editor{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:start}
 .photo-preview{
   width:200px;height:240px;border-radius:16px;overflow:hidden;border:2px solid var(--gold);
@@ -503,18 +509,11 @@ body.edit-on .edit-only{display:inline-flex !important}
 body.edit-on .edit-only.block{display:flex !important}
 body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);color:#12233a;border-color:transparent}
 
-/* Preview mode: header "Aksi" tetap tampil,
-   tombol edit/hapus per-baris (tabel & timeline) disembunyikan */
 body:not(.edit-on) .cell-actions,
-body:not(.edit-on) .tl-actions{
-  display: none !important;
-}
+body:not(.edit-on) .tl-actions{display:none !important}
 
 @media (max-width:760px){
-  /* Mobile preview: baris Aksi kosong disembunyikan agar tidak menyisakan label kosong */
-  body:not(.edit-on) td[data-label="Aksi"]{
-    display: none !important;
-  }
+  body:not(.edit-on) td.col-action{display:none !important}
 }
 
 /* =========================================================
@@ -547,31 +546,36 @@ body:not(.edit-on) .tl-actions{
 
 @media (max-width:760px){
   .topbar{
-    display:grid;
-    grid-template-columns:repeat(3, 1fr);
-    grid-template-areas:
-      "menu . theme"
-      "edit print reset";
+    display:flex;
+    flex-wrap:wrap;
     align-items:center;
-    column-gap:8px;
-    row-gap:8px;
+    gap:8px;
     padding:10px 12px;
   }
   .topbar-title{display:none}
   .save-indicator{display:none}
   .topbar-actions{display:contents}
-  #menuBtn{grid-area:menu;justify-self:start;width:38px;height:38px}
-  #themeBtn{grid-area:theme;justify-self:end;width:38px;height:38px}
-  #editToggle{grid-area:edit}
-  .topbar-actions > [data-action="print"]{grid-area:print}
-  .topbar-actions > [data-action="reset"]{grid-area:reset}
+
+  #menuBtn{order:1}
+  #langBtn{order:2;margin-left:auto}
+  #themeBtn{order:3}
+
+  .topbar::after{
+    content:'';
+    order:4;
+    flex-basis:100%;
+    height:0;
+  }
+
+  #editToggle{order:5;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="print"]{order:6;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="reset"]{order:7;flex:1 1 0;min-width:0}
+
   .topbar-actions .btn{
-    width:100%;
-    padding:9px 8px;
-    font-size:.76rem;
-    gap:6px;
+    padding:9px 6px;
+    font-size:.74rem;
+    gap:5px;
     justify-content:center;
-    min-width:0;
   }
   .topbar-actions .btn span{
     display:inline;
@@ -579,6 +583,8 @@ body:not(.edit-on) .tl-actions{
     overflow:hidden;
     text-overflow:ellipsis;
   }
+  #menuBtn,#themeBtn{width:38px;height:38px}
+  .lang-btn{height:38px}
 
   .hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px;padding:26px 20px}
   .hero-rank{justify-content:center}
@@ -614,10 +620,11 @@ body:not(.edit-on) .tl-actions{
 }
 
 @media (max-width:420px){
-  .topbar{padding:8px 10px;column-gap:6px;row-gap:6px}
-  .topbar-actions .btn{padding:8px 6px;font-size:.72rem;gap:5px}
-  .topbar-actions .btn .icon{font-size:.88rem}
-  #themeBtn,#menuBtn{width:34px;height:34px}
+  .topbar{padding:8px 10px;gap:6px}
+  .topbar-actions .btn{padding:8px 5px;font-size:.7rem;gap:4px}
+  .topbar-actions .btn .icon{font-size:.85rem}
+  #menuBtn,#themeBtn{width:34px;height:34px}
+  .lang-btn{height:34px;padding:0 8px;font-size:.68rem}
 }
 
 /* =========================================================
@@ -646,8 +653,8 @@ body:not(.edit-on) .tl-actions{
   .contact-card.is-placeholder{display:none !important}
 
   table.data th.th-actions{display:none !important}
-  table.data td.cell-actions,
-  table.data td[data-label="Aksi"]{display:none !important}
+  table.data td.col-action,
+  table.data td.cell-actions{display:none !important}
 
   .app{display:block !important}
   .main{display:block !important}
@@ -764,7 +771,6 @@ body:not(.edit-on) .tl-actions{
   <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
   <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
   <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></symbol>
-  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
   <symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
   <symbol id="i-id-card" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M4.5 18a4.5 4.5 0 0 1 9 0"/><line x1="16" y1="10" x2="19" y2="10"/><line x1="16" y1="14" x2="19" y2="14"/></symbol>
   <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
@@ -788,45 +794,48 @@ body:not(.edit-on) .tl-actions{
     </div>
 
     <nav class="nav" id="nav">
-      <a href="#home" class="nav-link active" data-nav="home"><svg class="icon"><use href="#i-user"/></svg> Profil Utama</a>
-      <a href="#personal" class="nav-link" data-nav="personal"><svg class="icon"><use href="#i-id-card"/></svg> Data Pribadi</a>
-      <a href="#summary" class="nav-link" data-nav="summary"><svg class="icon"><use href="#i-file"/></svg> Ringkasan Profesional</a>
-      <a href="#documents" class="nav-link" data-nav="documents"><svg class="icon"><use href="#i-layers"/></svg> Dokumen Pelaut</a>
-      <a href="#coc" class="nav-link" data-nav="coc"><svg class="icon"><use href="#i-award"/></svg> Sertifikat Kompetensi</a>
-      <a href="#cop" class="nav-link" data-nav="cop"><svg class="icon"><use href="#i-shield"/></svg> Sertifikat Keterampilan</a>
-      <a href="#other" class="nav-link" data-nav="other"><svg class="icon"><use href="#i-award"/></svg> Sertifikat Lainnya</a>
-      <a href="#sea" class="nav-link" data-nav="sea"><svg class="icon"><use href="#i-anchor"/></svg> Sea Service Record</a>
-      <a href="#work" class="nav-link" data-nav="work"><svg class="icon"><use href="#i-briefcase"/></svg> Pengalaman Kerja</a>
-      <a href="#contact" class="nav-link" data-nav="contact"><svg class="icon"><use href="#i-phone"/></svg> Kontak</a>
+      <a href="#home" class="nav-link active" data-nav="home"><svg class="icon"><use href="#i-user"/></svg> <span data-i18n-key="nav_home">Profil Utama</span></a>
+      <a href="#personal" class="nav-link" data-nav="personal"><svg class="icon"><use href="#i-id-card"/></svg> <span data-i18n-key="nav_personal">Data Pribadi</span></a>
+      <a href="#summary" class="nav-link" data-nav="summary"><svg class="icon"><use href="#i-file"/></svg> <span data-i18n-key="nav_summary">Ringkasan Profesional</span></a>
+      <a href="#documents" class="nav-link" data-nav="documents"><svg class="icon"><use href="#i-layers"/></svg> <span data-i18n-key="nav_documents">Dokumen Pelaut</span></a>
+      <a href="#coc" class="nav-link" data-nav="coc"><svg class="icon"><use href="#i-award"/></svg> <span data-i18n-key="nav_coc">Sertifikat Kompetensi</span></a>
+      <a href="#cop" class="nav-link" data-nav="cop"><svg class="icon"><use href="#i-shield"/></svg> <span data-i18n-key="nav_cop">Sertifikat Keterampilan</span></a>
+      <a href="#other" class="nav-link" data-nav="other"><svg class="icon"><use href="#i-award"/></svg> <span data-i18n-key="nav_other">Sertifikat Lainnya</span></a>
+      <a href="#sea" class="nav-link" data-nav="sea"><svg class="icon"><use href="#i-anchor"/></svg> <span data-i18n-key="nav_sea">Sea Service Record</span></a>
+      <a href="#work" class="nav-link" data-nav="work"><svg class="icon"><use href="#i-briefcase"/></svg> <span data-i18n-key="nav_work">Pengalaman Kerja</span></a>
+      <a href="#contact" class="nav-link" data-nav="contact"><svg class="icon"><use href="#i-phone"/></svg> <span data-i18n-key="nav_contact">Kontak</span></a>
     </nav>
 
     <div class="sidebar-foot">
-      <button class="btn ghost sm" data-action="export"><svg class="icon"><use href="#i-download"/></svg> Backup JSON</button>
-      <button class="btn ghost sm" data-action="import"><svg class="icon"><use href="#i-upload"/></svg> Import JSON</button>
-      <button class="btn ghost sm" data-action="reset"><svg class="icon"><use href="#i-refresh"/></svg> Reset Data</button>
+      <button class="btn ghost sm" data-action="export"><svg class="icon"><use href="#i-download"/></svg> <span data-i18n-key="btn_backup">Backup JSON</span></button>
+      <button class="btn ghost sm" data-action="import"><svg class="icon"><use href="#i-upload"/></svg> <span data-i18n-key="btn_import">Import JSON</span></button>
+      <button class="btn ghost sm" data-action="reset"><svg class="icon"><use href="#i-refresh"/></svg> <span data-i18n-key="btn_reset_data">Reset Data</span></button>
     </div>
   </aside>
   <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
 
   <div class="main">
     <header class="topbar">
-      <button class="icon-btn" data-action="toggle-sidebar" title="Menu" id="menuBtn">
+      <button class="icon-btn" data-action="toggle-sidebar" id="menuBtn" data-i18n-title="btn_menu_title" title="Menu">
         <svg class="icon"><use href="#i-menu"/></svg>
       </button>
       <div class="topbar-title">Curriculum Vitae</div>
       <div class="topbar-actions">
-        <span class="save-indicator" id="saveInd"><svg class="icon"><use href="#i-check"/></svg> Tersimpan</span>
-        <button class="icon-btn" data-action="toggle-theme" id="themeBtn" title="Mode Gelap / Terang">
+        <span class="save-indicator" id="saveInd"><svg class="icon"><use href="#i-check"/></svg> <span data-i18n-key="save_indicator">Tersimpan</span></span>
+        <button class="icon-btn lang-btn" data-action="toggle-lang" id="langBtn" data-i18n-title="btn_lang_title" title="Ganti bahasa">
+          <svg class="icon"><use href="#i-globe"/></svg><span id="langLabel">ID</span>
+        </button>
+        <button class="icon-btn" data-action="toggle-theme" id="themeBtn" data-i18n-title="btn_theme_title" title="Mode Gelap / Terang">
           <svg class="icon"><use href="#i-moon"/></svg>
         </button>
         <button class="btn" data-action="toggle-edit" id="editToggle">
           <svg class="icon"><use href="#i-edit"/></svg> <span>Mode Edit</span>
         </button>
-        <button class="btn primary" data-action="print" title="Cetak / Simpan PDF">
-          <svg class="icon"><use href="#i-print"/></svg> <span>Cetak / PDF</span>
+        <button class="btn primary" data-action="print" data-i18n-title="btn_print_title" title="Cetak / Simpan PDF">
+          <svg class="icon"><use href="#i-print"/></svg> <span data-i18n-key="btn_print">Cetak / PDF</span>
         </button>
-        <button class="btn danger" data-action="reset" title="Reset semua data">
-          <svg class="icon"><use href="#i-refresh"/></svg> <span>Reset</span>
+        <button class="btn danger" data-action="reset" data-i18n-title="btn_reset_title" title="Reset semua data">
+          <svg class="icon"><use href="#i-refresh"/></svg> <span data-i18n-key="btn_reset">Reset</span>
         </button>
       </div>
     </header>
@@ -846,7 +855,7 @@ body:not(.edit-on) .tl-actions{
     </main>
 
     <footer class="app-foot">
-      Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda · &copy; <span id="year"></span>
+      <span data-i18n-key="footer">Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda</span> · &copy; <span id="year"></span>
     </footer>
   </div>
 </div>
@@ -862,17 +871,15 @@ body:not(.edit-on) .tl-actions{
 <script>
 "use strict";
 /* =========================================================================
-   CV PELAUT — SEAFARER PROFESSIONAL PORTFOLIO
+   CV PELAUT — SEAFARER PROFESSIONAL PORTFOLIO (ID / EN)
    ========================================================================= */
 
-/* ------------------------------------------------------------------
-   1. KONSTANTA & UTILITAS
-   ------------------------------------------------------------------ */
+/* ---------- 1. KONSTANTA ---------- */
 const STORE_KEY = 'seafarer_cv_data_v1';
 const UI_KEY    = 'seafarer_cv_ui_v1';
 const DAY       = 86400000;
-const MONTHS    = ['Januari','Februari','Maret','April','Mei','Juni',
-                   'Juli','Agustus','September','Oktober','November','Desember'];
+const MONTHS_ID = ['Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'];
+const MONTHS_EN = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
@@ -885,8 +892,319 @@ function esc(v){
 function uid(){
   return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
 }
+function icon(id, cls = ''){
+  return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`;
+}
 
-/* ---- Tanggal: konversi ISO <-> dd/mm/yyyy untuk form ---- */
+/* ---------- 2. i18n DICTIONARY ----------
+   Format: key: ['Teks Indonesia', 'English Text']
+   -------------------------------------------------------- */
+const I18N = {
+  /* Navigation */
+  nav_home:['Profil Utama','Main Profile'],
+  nav_personal:['Data Pribadi','Personal Data'],
+  nav_summary:['Ringkasan Profesional','Professional Summary'],
+  nav_documents:['Dokumen Pelaut','Seafarer Documents'],
+  nav_coc:['Sertifikat Kompetensi','Certificate of Competency'],
+  nav_cop:['Sertifikat Keterampilan','Certificate of Proficiency'],
+  nav_other:['Sertifikat Lainnya','Other Certificates'],
+  nav_sea:['Sea Service Record','Sea Service Record'],
+  nav_work:['Pengalaman Kerja','Work Experience'],
+  nav_contact:['Kontak','Contact'],
+
+  /* Topbar */
+  topbar_title:['Curriculum Vitae','Curriculum Vitae'],
+  btn_edit_mode:['Mode Edit','Edit Mode'],
+  btn_preview_mode:['Mode Preview','Preview Mode'],
+  btn_print:['Cetak / PDF','Print / PDF'],
+  btn_reset:['Reset','Reset'],
+  btn_print_title:['Cetak / Simpan PDF','Print / Save PDF'],
+  btn_reset_title:['Reset semua data','Reset all data'],
+  btn_theme_title:['Mode Gelap / Terang','Dark / Light Mode'],
+  btn_lang_title:['Ganti bahasa','Change language'],
+  btn_menu_title:['Menu','Menu'],
+  save_indicator:['Tersimpan','Saved'],
+
+  /* Sidebar */
+  btn_backup:['Backup JSON','Backup JSON'],
+  btn_import:['Import JSON','Import JSON'],
+  btn_reset_data:['Reset Data','Reset Data'],
+
+  /* Hero */
+  hero_eyebrow:['Curriculum Vitae · Seafarer','Curriculum Vitae · Seafarer'],
+  hero_placeholder_name:['Nama Lengkap Pelaut','Seafarer Full Name'],
+  hero_placeholder_rank:['Jabatan / Rank','Position / Rank'],
+  hero_fill_contact:['Lengkapi data kontak Anda','Complete your contact information'],
+  btn_edit_profile:['Edit Data Pribadi','Edit Personal Data'],
+  photo_edit_title:['Ubah foto formal','Change formal photo'],
+
+  /* Sections */
+  sec_personal_title:['Personal Information','Personal Information'],
+  sec_personal_sub:['Identitas pribadi pelaut','Seafarer personal identity'],
+  sec_summary_title:['Professional Summary','Professional Summary'],
+  sec_summary_sub:['Ringkasan profil profesional','Professional profile summary'],
+  sec_documents_title:['Documents','Documents'],
+  sec_documents_sub:['Buku Pelaut · MCU · Dokumen lainnya','Seaman Book · MCU · Other documents'],
+  sec_coc_title:['Certificate of Competency','Certificate of Competency'],
+  sec_coc_sub:['Sertifikat kompetensi (COC)','Competency certificates (COC)'],
+  sec_cop_title:['Certificate of Proficiency','Certificate of Proficiency'],
+  sec_cop_sub:['Sertifikat keterampilan (COP)','Proficiency certificates (COP)'],
+  sec_other_title:['Sertifikat Lainnya','Other Certificates'],
+  sec_other_sub:['Sertifikat pendukung & lainnya','Supporting & other certificates'],
+  sec_sea_title:['Sea Service Record','Sea Service Record'],
+  sec_sea_sub:['Riwayat kapal & masa berlayar','Vessel history & sea time'],
+  sec_work_title:['Work Experience','Work Experience'],
+  sec_work_sub:['Pengalaman kerja di perusahaan pelayaran','Work experience at shipping companies'],
+  sec_contact_title:['Contact Information','Contact Information'],
+  sec_contact_sub:['Hubungi pelaut','Contact the seafarer'],
+
+  /* Info grid */
+  info_ttl:['Tempat, Tanggal Lahir','Place, Date of Birth'],
+  info_gender:['Jenis Kelamin','Gender'],
+  info_religion:['Agama','Religion'],
+  info_bw:['Tinggi / Berat Badan','Height / Weight'],
+  info_marital:['Status Pernikahan','Marital Status'],
+  info_nationality:['Kewarganegaraan','Nationality'],
+  info_address:['Alamat Lengkap','Full Address'],
+
+  /* Table headers */
+  th_type:['Jenis','Type'],
+  th_doc_name:['Nama Dokumen','Document Name'],
+  th_number:['Nomor','Number'],
+  th_issuer:['Penerbit','Issuer'],
+  th_issued:['Diterbitkan','Issued'],
+  th_expiry:['Kedaluwarsa','Expires'],
+  th_status:['Status','Status'],
+  th_action:['Aksi','Action'],
+  th_cert_name:['Nama Sertifikat','Certificate Name'],
+  th_vessel:['Nama Kapal','Vessel Name'],
+  th_flag:['Bendera','Flag'],
+  th_vessel_type:['Jenis','Type'],
+  th_gt_dwt:['GT / DWT','GT / DWT'],
+  th_engine:['Mesin Utama','Main Engine'],
+  th_rank:['Jabatan','Rank'],
+  th_sign_on:['Sign On','Sign On'],
+  th_sign_off:['Sign Off','Sign Off'],
+  th_sea_duration:['Masa Berlayar','Sea Time'],
+
+  /* Buttons */
+  btn_add_doc:['Tambah Dokumen','Add Document'],
+  btn_add:['Tambah','Add'],
+  btn_add_vessel:['Tambah Kapal','Add Vessel'],
+  btn_add_work:['Tambah Pengalaman','Add Experience'],
+  btn_edit:['Edit','Edit'],
+  btn_delete:['Hapus','Delete'],
+
+  /* Status */
+  status_active:['Aktif','Active'],
+  status_soon:['Akan Kedaluwarsa','Expiring Soon'],
+  status_expired:['Kedaluwarsa','Expired'],
+  status_days_left:['{n} hari lagi','{n} days left'],
+  status_days_ago:['lewat {n} hari','{n} days ago'],
+
+  /* Empty states */
+  empty_summary:['Ringkasan profesional belum diisi. Aktifkan Mode Edit lalu klik "Edit" untuk menambahkan.','Professional summary is empty. Enable Edit Mode and click "Edit" to add.'],
+  empty_documents:['Belum ada dokumen pelaut. Klik "Tambah Dokumen" pada Mode Edit.','No seafarer documents yet. Click "Add Document" in Edit Mode.'],
+  empty_coc:['Belum ada sertifikat kompetensi. Klik "Tambah" pada Mode Edit.','No competency certificates yet. Click "Add" in Edit Mode.'],
+  empty_cop:['Belum ada sertifikat keterampilan. Klik "Tambah" pada Mode Edit.','No proficiency certificates yet. Click "Add" in Edit Mode.'],
+  empty_other:['Belum ada sertifikat lainnya. Klik "Tambah" pada Mode Edit.','No other certificates yet. Click "Add" in Edit Mode.'],
+  empty_sea:['Belum ada riwayat kapal (Sea Service Record). Klik "Tambah Kapal".','No vessel history yet. Click "Add Vessel".'],
+  empty_work:['Belum ada pengalaman kerja. Klik "Tambah Pengalaman".','No work experience yet. Click "Add Experience".'],
+
+  /* Search & sort */
+  search_documents:['Cari dokumen, nomor, atau penerbit…','Search documents, numbers, or issuers…'],
+  search_certs:['Cari sertifikat…','Search certificates…'],
+  sort_default:['Urutan Default','Default Order'],
+  sort_expiry:['Kedaluwarsa Terdekat','Nearest Expiry'],
+  sort_issued:['Terbaru Diterbitkan','Latest Issued'],
+  sort_name:['Nama (A–Z)','Name (A–Z)'],
+  sort_sea_desc:['Sign On Terbaru','Latest Sign On'],
+  sort_sea_asc:['Sign On Terlama','Oldest Sign On'],
+  sort_work_desc:['Terbaru','Latest'],
+  sort_work_asc:['Terlama','Oldest'],
+
+  /* Contact */
+  contact_wa:['WhatsApp','WhatsApp'],
+  contact_email:['Email','Email'],
+  contact_address:['Alamat','Address'],
+  contact_not_filled:['Belum diisi','Not filled'],
+
+  /* Sea total */
+  sea_total:['Total masa berlayar tercatat:','Total sea time recorded:'],
+  sea_months:['{n} bulan','{n} months'],
+  sea_days:['({n} hari)','({n} days)'],
+
+  /* Alerts */
+  alert_expired_title:['{n} sertifikat sudah kedaluwarsa','{n} certificates have expired'],
+  alert_soon_title:['{n} sertifikat akan segera kedaluwarsa (≤ 90 hari)','{n} certificates expiring soon (≤ 90 days)'],
+  alert_no_name:['Tanpa nama','Unnamed'],
+
+  /* Photo modal */
+  photo_title:['Foto Formal','Formal Photo'],
+  photo_choose:['Pilih Foto dari Perangkat','Choose Photo from Device'],
+  photo_remove:['Hapus Foto','Remove Photo'],
+  photo_zoom:['Zoom','Zoom'],
+  photo_x:['Posisi Horizontal','Horizontal Position'],
+  photo_y:['Posisi Vertikal','Vertical Position'],
+  photo_hint:['Gunakan foto formal dengan latar polos. Foto otomatis dikompres agar hemat penyimpanan.','Use a formal photo with plain background. Photos are compressed automatically.'],
+  photo_use:['Gunakan Foto','Use Photo'],
+  photo_processing:['Memproses foto…','Processing photo…'],
+  photo_ready:['Foto siap digunakan','Photo ready to use'],
+  photo_removed:['Foto dihapus dari pratinjau','Photo removed from preview'],
+  photo_updated:['Foto berhasil diperbarui','Photo updated successfully'],
+  photo_not_image:['Bukan file gambar','Not an image file'],
+  photo_read_err:['Gagal membaca gambar','Failed to read image'],
+  photo_file_err:['Gagal membaca file','Failed to read file'],
+
+  /* Modal actions */
+  btn_save:['Simpan','Save'],
+  btn_cancel:['Batal','Cancel'],
+  btn_yes_continue:['Ya, Lanjutkan','Yes, Continue'],
+  modal_close:['Tutup','Close'],
+
+  /* Modal titles */
+  modal_add_doc:['Tambah Dokumen','Add Document'],
+  modal_edit_doc:['Edit Dokumen','Edit Document'],
+  modal_add_cert:['Tambah Sertifikat','Add Certificate'],
+  modal_edit_cert:['Edit Sertifikat','Edit Certificate'],
+  modal_add_sea:['Tambah Riwayat Kapal','Add Vessel History'],
+  modal_edit_sea:['Edit Riwayat Kapal','Edit Vessel History'],
+  modal_add_work:['Tambah Pengalaman Kerja','Add Work Experience'],
+  modal_edit_work:['Edit Pengalaman Kerja','Edit Work Experience'],
+  modal_edit_profile:['Edit Data Pribadi','Edit Personal Data'],
+  modal_delete_title:['Hapus Data','Delete Data'],
+  modal_delete_msg:['Hapus "{x}"? Tindakan ini tidak dapat dibatalkan.','Delete "{x}"? This action cannot be undone.'],
+  modal_reset_title:['Reset Seluruh Data','Reset All Data'],
+  modal_reset_msg:['Semua data CV (profil, foto, dokumen, sertifikat, riwayat kapal, pengalaman kerja) akan dihapus permanen dari perangkat ini. Lanjutkan?','All CV data (profile, photo, documents, certificates, vessel history, work experience) will be permanently deleted from this device. Continue?'],
+  modal_import_title:['Import Backup','Import Backup'],
+  modal_import_msg:['Semua data saat ini akan diganti dengan data dari file backup. Lanjutkan?','All current data will be replaced with data from the backup file. Continue?'],
+
+  /* Toasts */
+  toast_profile_updated:['Data pribadi diperbarui','Personal data updated'],
+  toast_doc_added:['Dokumen ditambahkan','Document added'],
+  toast_doc_updated:['Dokumen diperbarui','Document updated'],
+  toast_cert_added:['Sertifikat ditambahkan','Certificate added'],
+  toast_cert_updated:['Sertifikat diperbarui','Certificate updated'],
+  toast_sea_added:['Riwayat kapal ditambahkan','Vessel history added'],
+  toast_sea_updated:['Riwayat kapal diperbarui','Vessel history updated'],
+  toast_work_added:['Pengalaman kerja ditambahkan','Work experience added'],
+  toast_work_updated:['Pengalaman kerja diperbarui','Work experience updated'],
+  toast_deleted:['Data berhasil dihapus','Data deleted successfully'],
+  toast_reset:['Seluruh data telah direset','All data has been reset'],
+  toast_backup_ok:['Backup JSON berhasil diunduh','Backup JSON downloaded'],
+  toast_backup_err:['Gagal membuat backup','Failed to create backup'],
+  toast_import_ok:['Backup berhasil diimport','Backup imported successfully'],
+  toast_import_invalid:['File JSON tidak valid','Invalid JSON file'],
+  toast_import_err:['File JSON tidak dapat dibaca','Cannot read JSON file'],
+  toast_save_err:['Gagal menyimpan — penyimpanan perangkat penuh. Hapus foto atau gunakan foto lebih kecil.','Failed to save — device storage is full. Remove photo or use a smaller one.'],
+  toast_theme_dark:['Mode gelap aktif','Dark mode active'],
+  toast_theme_light:['Mode terang aktif','Light mode active'],
+  toast_edit_on:['Mode Edit aktif — data dapat diubah','Edit Mode active — data can be modified'],
+  toast_preview_on:['Mode Preview aktif','Preview Mode active'],
+  toast_lang_id:['Bahasa: Indonesia','Language: Indonesian'],
+  toast_lang_en:['Bahasa: English','Language: English'],
+  toast_required:['{label} wajib diisi','{label} is required'],
+  toast_email_invalid:['Format email tidak valid','Invalid email format'],
+  toast_phone_invalid:['Format nomor telepon tidak valid','Invalid phone number format'],
+  toast_date_invalid:['Format {label} harus dd/mm/yyyy','{label} format must be dd/mm/yyyy'],
+  toast_preparing:['Menyiapkan dokumen…','Preparing document…'],
+
+  /* Form labels */
+  lbl_name:['Nama Lengkap','Full Name'],
+  lbl_rank:['Jabatan / Rank','Position / Rank'],
+  lbl_nationality:['Kewarganegaraan','Nationality'],
+  lbl_birth_place:['Tempat Lahir','Place of Birth'],
+  lbl_birth_date:['Tanggal Lahir','Date of Birth'],
+  lbl_gender:['Jenis Kelamin','Gender'],
+  lbl_religion:['Agama','Religion'],
+  lbl_height:['Tinggi Badan (cm)','Height (cm)'],
+  lbl_weight:['Berat Badan (kg)','Weight (kg)'],
+  lbl_marital:['Status Pernikahan','Marital Status'],
+  lbl_phone:['Nomor Telepon / WhatsApp','Phone / WhatsApp Number'],
+  lbl_email:['Email','Email'],
+  lbl_address:['Alamat Lengkap','Full Address'],
+  lbl_summary:['Ringkasan Profesional','Professional Summary'],
+  lbl_doc_type:['Jenis Dokumen','Document Type'],
+  lbl_doc_name:['Nama Dokumen','Document Name'],
+  lbl_doc_number:['Nomor Dokumen','Document Number'],
+  lbl_issuer:['Instansi Penerbit','Issuing Institution'],
+  lbl_issue_date:['Tanggal Diterbitkan','Date Issued'],
+  lbl_expiry_date:['Tanggal Kedaluwarsa','Expiry Date'],
+  lbl_cert_name:['Nama Sertifikat','Certificate Name'],
+  lbl_cert_number:['Nomor Sertifikat','Certificate Number'],
+  lbl_publisher:['Penerbit','Publisher'],
+  lbl_vessel_name:['Nama Kapal','Vessel Name'],
+  lbl_flag:['Bendera Kapal','Vessel Flag'],
+  lbl_vessel_type:['Jenis Kapal','Vessel Type'],
+  lbl_rank_onboard:['Jabatan di Kapal','Rank on Board'],
+  lbl_gt:['GT','GT'],
+  lbl_dwt:['DWT','DWT'],
+  lbl_main_engine:['Mesin Utama','Main Engine'],
+  lbl_sign_on:['Tanggal Sign On','Sign On Date'],
+  lbl_sign_off:['Tanggal Sign Off','Sign Off Date'],
+  lbl_company:['Nama Perusahaan Pelayaran','Shipping Company Name'],
+  lbl_contract_duration:['Durasi Kontrak','Contract Duration'],
+  lbl_description:['Deskripsi Pekerjaan','Job Description'],
+
+  /* Options */
+  opt_choose:['— Pilih —','— Select —'],
+  opt_male:['Laki-laki','Male'],
+  opt_female:['Perempuan','Female'],
+  opt_islam:['Islam','Islam'],
+  opt_christian:['Kristen','Christian'],
+  opt_catholic:['Katolik','Catholic'],
+  opt_hindu:['Hindu','Hindu'],
+  opt_buddhist:['Buddha','Buddhist'],
+  opt_confucian:['Konghucu','Confucian'],
+  opt_other:['Lainnya','Other'],
+  opt_single:['Belum Menikah','Single'],
+  opt_married:['Menikah','Married'],
+  opt_divorced:['Cerai Hidup','Divorced'],
+  opt_widowed:['Cerai Mati','Widowed'],
+  opt_doctype_seaman:['Buku Pelaut','Seaman Book'],
+  opt_doctype_mcu:['MCU','MCU'],
+  opt_doctype_medical:['Sertifikat Medis','Medical Certificate'],
+  opt_doctype_passport:['Paspor','Passport'],
+  opt_doctype_family:['Kartu Keluarga','Family Card'],
+  opt_doctype_diploma:['Ijazah','Diploma'],
+  opt_doctype_other:['Dokumen Lainnya','Other Document'],
+
+  /* Placeholders */
+  ph_rank_oiler:['Contoh: Oiler','Example: Oiler'],
+  ph_doc_name:['Contoh: Buku Pelaut (Seaman Book)','Example: Seaman Book'],
+  ph_flag:['Contoh: Panama','Example: Panama'],
+  ph_vessel_type:['Contoh: Bulk Carrier','Example: Bulk Carrier'],
+  ph_gt:['Contoh: 4.999','Example: 4,999'],
+  ph_dwt:['Contoh: 12.500','Example: 12,500'],
+  ph_engine:['Contoh: MAN B&W 6S50MC-C','Example: MAN B&W 6S50MC-C'],
+  ph_contract:['Contoh: 9 bulan','Example: 9 months'],
+
+  /* Footer */
+  footer:['Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda','Seafarer Professional Portfolio · Data stored locally on your device']
+};
+
+function t(key){
+  const pair = I18N[key];
+  if(!pair) return key;
+  return pair[UI.lang === 'en' ? 1 : 0];
+}
+
+/* Nilai enum (dropdown) -> terjemahan untuk ditampilkan. Data tetap disimpan dalam Bahasa Indonesia. */
+const VAL_EN = {
+  'Laki-laki':'Male', 'Perempuan':'Female',
+  'Islam':'Islam', 'Kristen':'Christian', 'Katolik':'Catholic',
+  'Hindu':'Hindu', 'Buddha':'Buddhist', 'Konghucu':'Confucian', 'Lainnya':'Other',
+  'Belum Menikah':'Single', 'Menikah':'Married', 'Cerai Hidup':'Divorced', 'Cerai Mati':'Widowed',
+  'Buku Pelaut':'Seaman Book', 'MCU':'MCU', 'Sertifikat Medis':'Medical Certificate',
+  'Paspor':'Passport', 'Kartu Keluarga':'Family Card', 'Ijazah':'Diploma', 'Dokumen Lainnya':'Other Document'
+};
+function trValue(v){
+  if(!v) return v;
+  if(UI.lang !== 'en') return v;
+  return VAL_EN[v] || v;
+}
+
+/* ---------- 3. TANGGAL ---------- */
 function isoToDMY(iso){
   if(!iso) return '';
   const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -894,21 +1212,20 @@ function isoToDMY(iso){
 }
 function dmyToISO(dmy){
   if(!dmy) return '';
-  const s = String(dmy).trim();
-  const m = s.match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
+  const m = String(dmy).trim().match(/^(\d{1,2})[\/\-\.](\d{1,2})[\/\-\.](\d{4})$/);
   if(!m) return null;
-  const d = parseInt(m[1], 10), mo = parseInt(m[2], 10), y = parseInt(m[3], 10);
-  if(mo < 1 || mo > 12 || d < 1 || d > 31) return null;
-  const dt = new Date(y, mo - 1, d);
-  if(dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+  const d = parseInt(m[1],10), mo = parseInt(m[2],10), y = parseInt(m[3],10);
+  if(mo<1||mo>12||d<1||d>31) return null;
+  const dt = new Date(y, mo-1, d);
+  if(dt.getFullYear()!==y||dt.getMonth()!==mo-1||dt.getDate()!==d) return null;
   return `${y}-${String(mo).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
 }
-
 function fmtDate(v){
   if(!v) return '—';
   const d = new Date(String(v).length === 10 ? v + 'T00:00:00' : v);
   if(isNaN(d.getTime())) return '—';
-  return `${String(d.getDate()).padStart(2,'0')} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+  const M = UI.lang === 'en' ? MONTHS_EN : MONTHS_ID;
+  return `${String(d.getDate()).padStart(2,'0')} ${M[d.getMonth()]} ${d.getFullYear()}`;
 }
 function daysLeft(exp){
   if(!exp) return null;
@@ -920,14 +1237,16 @@ function daysLeft(exp){
 function certStatus(c){
   const d = daysLeft(c.expiryDate);
   if(d === null) return null;
-  if(d < 0)   return { key:'expired', label:'Kedaluwarsa',      cls:'badge-red',   days:d };
-  if(d <= 90) return { key:'soon',    label:'Akan Kedaluwarsa', cls:'badge-amber', days:d };
-  return           { key:'active',  label:'Aktif',            cls:'badge-green', days:d };
+  if(d < 0)   return { key:'expired', label:t('status_expired'), cls:'badge-red',   days:d };
+  if(d <= 90) return { key:'soon',    label:t('status_soon'),    cls:'badge-amber', days:d };
+  return           { key:'active',  label:t('status_active'),  cls:'badge-green', days:d };
 }
 function statusCell(item){
   const s = certStatus(item);
   if(!s) return DASH;
-  const extra = s.days < 0 ? `lewat ${Math.abs(s.days)} hari` : `${s.days} hari lagi`;
+  const extra = s.days < 0
+    ? t('status_days_ago').replace('{n}', Math.abs(s.days))
+    : t('status_days_left').replace('{n}', s.days);
   return `<span class="badge ${s.cls}">${s.label}</span><small class="cd">${extra}</small>`;
 }
 function durationDays(a, b){
@@ -941,18 +1260,15 @@ function durationLabel(a, b){
   const d = durationDays(a, b);
   if(d === null) return '—';
   const m = Math.round(d / 30.44 * 10) / 10;
+  if(UI.lang === 'en') return `${m} months · ${d} days`;
   return `${m} bulan · ${d} hari`;
 }
 function waNumber(phone){
   if(!phone) return '';
-  let n = String(phone).replace(/[^\d+]/g, '');
-  n = n.replace(/^\+/, '');
+  let n = String(phone).replace(/[^\d+]/g, '').replace(/^\+/, '');
   if(n.startsWith('0')) n = '62' + n.slice(1);
   if(n.startsWith('620')) n = '62' + n.slice(3);
   return n;
-}
-function icon(id, cls = ''){
-  return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`;
 }
 
 const DASH = '<span class="v-empty">—</span>';
@@ -970,9 +1286,7 @@ function tvDur(a, b){
   return d === null ? DASH : esc(durationLabel(a, b));
 }
 
-/* ------------------------------------------------------------------
-   2. STATE
-   ------------------------------------------------------------------ */
+/* ---------- 4. STATE ---------- */
 function blankData(){
   return {
     profile:{
@@ -1007,13 +1321,13 @@ function loadData(){
     if(!raw) return blankData();
     return mergeData(JSON.parse(raw));
   }catch(e){
-    console.warn('Gagal memuat data:', e);
+    console.warn('Load error:', e);
     return blankData();
   }
 }
 function loadUI(){
   const def = {
-    edit: false, theme: 'light',
+    edit: false, theme: 'light', lang: 'id',
     search: { documents:'', coc:'', cop:'', other:'' },
     sort:   { coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
   };
@@ -1032,16 +1346,14 @@ let DATA = loadData();
 let UI   = loadUI();
 if(!localStorage.getItem(STORE_KEY)) UI.edit = true;
 
-function saveUI(){
-  try{ localStorage.setItem(UI_KEY, JSON.stringify(UI)); }catch(e){}
-}
+function saveUI(){ try{ localStorage.setItem(UI_KEY, JSON.stringify(UI)); }catch(e){} }
 function save(){
   try{
     localStorage.setItem(STORE_KEY, JSON.stringify(DATA));
     flashSaved();
   }catch(err){
     console.error(err);
-    toast('Gagal menyimpan — penyimpanan perangkat penuh. Hapus foto atau gunakan foto lebih kecil.', 'err');
+    toast(t('toast_save_err'), 'err');
   }
 }
 let saveTimer = null;
@@ -1053,9 +1365,7 @@ function flashSaved(){
   saveTimer = setTimeout(() => el.classList.remove('show'), 1900);
 }
 
-/* ------------------------------------------------------------------
-   3. TOAST & MODAL
-   ------------------------------------------------------------------ */
+/* ---------- 5. TOAST & MODAL ---------- */
 function toast(msg, type = 'ok'){
   const box = $('#toasts');
   const el  = document.createElement('div');
@@ -1063,25 +1373,22 @@ function toast(msg, type = 'ok'){
   const ico = type === 'err' ? 'alert' : type === 'info' ? 'clock' : 'check';
   el.innerHTML = icon(ico) + '<span>' + esc(msg) + '</span>';
   box.appendChild(el);
-  setTimeout(() => {
-    el.classList.add('out');
-    setTimeout(() => el.remove(), 320);
-  }, 2900);
+  setTimeout(() => { el.classList.add('out'); setTimeout(() => el.remove(), 320); }, 2900);
 }
 
 let modalSaveHandler = null;
-function openModal({ title, bodyHTML, saveLabel = 'Simpan', onSave = null, danger = false }){
+function openModal({ title, bodyHTML, saveLabel = 'Save', onSave = null, danger = false }){
   const root = $('#modalRoot');
   root.innerHTML = `
     <div class="modal-backdrop" data-close></div>
     <div class="modal" role="dialog" aria-modal="true">
       <div class="modal-head">
         <h3>${esc(title)}</h3>
-        <button class="icon-btn sm" data-close title="Tutup">${icon('x')}</button>
+        <button class="icon-btn sm" data-close title="${esc(t('modal_close'))}">${icon('x')}</button>
       </div>
       <div class="modal-body">${bodyHTML}</div>
       <div class="modal-foot">
-        <button class="btn ghost" data-close>Batal</button>
+        <button class="btn ghost" data-close>${esc(t('btn_cancel'))}</button>
         ${onSave ? `<button class="btn ${danger ? 'danger' : 'primary'}" id="modalSave">${icon('save')}${esc(saveLabel)}</button>` : ''}
       </div>
     </div>`;
@@ -1115,26 +1422,28 @@ function confirmModal(title, message, onYes){
   openModal({
     title,
     bodyHTML: `<p class="confirm-msg">${esc(message)}</p>`,
-    saveLabel: 'Ya, Lanjutkan',
+    saveLabel: t('btn_yes_continue'),
     danger: true,
     onSave: () => { onYes(); }
   });
 }
 
-/* ------------------------------------------------------------------
-   4. FORM BUILDER
-   ------------------------------------------------------------------ */
+/* ---------- 6. FORM BUILDER ---------- */
 function fieldHTML(f, value){
   const id = 'fld_' + f.key;
   const v  = value == null ? '' : value;
+  const label = t(f.labelKey);
+  const ph = f.phKey ? t(f.phKey) : (f.ph || '');
   let input;
 
   if(f.type === 'textarea'){
-    input = `<textarea id="${id}" name="${esc(f.key)}" rows="${f.rows || 3}" placeholder="${esc(f.ph || '')}">${esc(v)}</textarea>`;
+    input = `<textarea id="${id}" name="${esc(f.key)}" rows="${f.rows || 3}" placeholder="${esc(ph)}">${esc(v)}</textarea>`;
   } else if(f.type === 'select'){
-    const opts = (f.options || []).map(o =>
-      `<option value="${esc(o)}"${String(o) === String(v) ? ' selected' : ''}>${esc(o || '— Pilih —')}</option>`
-    ).join('');
+    const opts = (f.options || []).map(o => {
+      const val = o.v !== undefined ? o.v : o;
+      const lbl = o.l ? t(o.l) : o;
+      return `<option value="${esc(val)}"${String(val) === String(v) ? ' selected' : ''}>${esc(lbl)}</option>`;
+    }).join('');
     input = `<select id="${id}" name="${esc(f.key)}">${opts}</select>`;
   } else if(f.type === 'date'){
     input = `<input id="${id}" name="${esc(f.key)}" type="text" inputmode="numeric"
@@ -1142,12 +1451,12 @@ function fieldHTML(f, value){
              ${f.required ? 'required' : ''} autocomplete="off" data-date-input="1">`;
   } else {
     input = `<input id="${id}" name="${esc(f.key)}" type="${f.type || 'text'}" value="${esc(v)}"
-             placeholder="${esc(f.ph || '')}"${f.min ? ` min="${esc(f.min)}"` : ''}
+             placeholder="${esc(ph)}"${f.min ? ` min="${esc(f.min)}"` : ''}
              ${f.max ? ` max="${esc(f.max)}"` : ''}${f.step ? ` step="${esc(f.step)}"` : ''}
              ${f.required ? ' required' : ''} autocomplete="off">`;
   }
   return `<div class="field ${f.full ? 'full' : ''}">
-            <label for="${id}">${esc(f.label)}${f.required ? '<span class="req">*</span>' : ''}</label>
+            <label for="${id}">${esc(label)}${f.required ? '<span class="req">*</span>' : ''}</label>
             ${input}
           </div>`;
 }
@@ -1160,7 +1469,7 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
   openModal({
     title,
     bodyHTML: html,
-    saveLabel: opts.saveLabel || 'Simpan',
+    saveLabel: opts.saveLabel || t('btn_save'),
     onSave: () => {
       const form = $('#modalForm');
       if(!form) return false;
@@ -1169,11 +1478,12 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
       for(const f of fields){
         const elm = form.elements[f.key];
         const raw = elm ? String(elm.value).trim() : '';
+        const label = t(f.labelKey);
 
         if(f.type === 'date'){
           if(!raw){
             if(f.required){
-              toast(`${f.label} wajib diisi`, 'err');
+              toast(t('toast_required').replace('{label}', label), 'err');
               if(elm) elm.focus();
               return false;
             }
@@ -1182,7 +1492,7 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
           }
           const iso = dmyToISO(raw);
           if(iso === null){
-            toast(`Format ${f.label} harus dd/mm/yyyy`, 'err');
+            toast(t('toast_date_invalid').replace('{label}', label), 'err');
             if(elm) elm.focus();
             return false;
           }
@@ -1193,17 +1503,17 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
         data[f.key] = raw;
 
         if(f.required && !raw){
-          toast(`${f.label} wajib diisi`, 'err');
+          toast(t('toast_required').replace('{label}', label), 'err');
           if(elm) elm.focus();
           return false;
         }
         if(f.type === 'email' && raw && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw)){
-          toast('Format email tidak valid', 'err');
+          toast(t('toast_email_invalid'), 'err');
           if(elm) elm.focus();
           return false;
         }
         if(f.type === 'tel' && raw && !/^[0-9+\-\s()]{7,20}$/.test(raw)){
-          toast('Format nomor telepon tidak valid', 'err');
+          toast(t('toast_phone_invalid'), 'err');
           if(elm) elm.focus();
           return false;
         }
@@ -1214,9 +1524,7 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
   });
 }
 
-/* ------------------------------------------------------------------
-   5. RENDER — HELPER
-   ------------------------------------------------------------------ */
+/* ---------- 7. RENDER HELPERS ---------- */
 function sectionHead(iconId, title, subtitle, toolsHTML){
   return `<div class="section-head">
       <div class="section-icon">${icon(iconId)}</div>
@@ -1235,21 +1543,18 @@ function addBtn(action, label, extra = ''){
 function emptyBox(msg){
   return `<div class="empty">${icon('file')}${esc(msg)}</div>`;
 }
-/* Tombol aksi baris: dibungkus .cell-actions (disembunyikan di preview oleh CSS) */
 function editRowBtns(kind, id, label){
   return `<div class="cell-actions">
-      <button class="icon-btn sm" data-action="edit-${kind}" data-id="${id}" title="Edit">${icon('edit')}</button>
-      <button class="icon-btn sm" data-action="del-${kind}" data-id="${id}" data-label="${esc(label)}" title="Hapus">${icon('trash')}</button>
+      <button class="icon-btn sm" data-action="edit-${kind}" data-id="${id}" title="${esc(t('btn_edit'))}">${icon('edit')}</button>
+      <button class="icon-btn sm" data-action="del-${kind}" data-id="${id}" data-label="${esc(label)}" title="${esc(t('btn_delete'))}">${icon('trash')}</button>
     </div>`;
 }
 
-/* ------------------------------------------------------------------
-   6. RENDER — HERO
-   ------------------------------------------------------------------ */
+/* ---------- 8. RENDER HERO ---------- */
 function renderHero(){
   const p = DATA.profile;
   const photoHTML = p.photo
-    ? `<img src="${p.photo}" alt="Foto ${esc(p.name || 'Pelaut')}"
+    ? `<img src="${p.photo}" alt="${esc(p.name || 'Photo')}"
             style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
     : `<div class="photo-empty">${icon('user')}</div>`;
 
@@ -1258,27 +1563,25 @@ function renderHero(){
   if(p.email) chips.push(`<a class="chip" href="mailto:${esc(p.email)}">${icon('mail')}<span>${esc(p.email)}</span></a>`);
   if(p.address) chips.push(`<span class="chip">${icon('map-pin')}<span>${esc(p.address)}</span></span>`);
   if(p.nationality) chips.push(`<span class="chip">${icon('globe')}<span>${esc(p.nationality)}</span></span>`);
-  if(!chips.length) chips.push(`<span class="chip">${icon('id-card')}<span>Lengkapi data kontak Anda</span></span>`);
+  if(!chips.length) chips.push(`<span class="chip">${icon('id-card')}<span>${esc(t('hero_fill_contact'))}</span></span>`);
 
   $('#home').innerHTML = `
     <div class="hero-photo-wrap">
       <div class="hero-photo">${photoHTML}</div>
-      <button class="photo-edit no-print" data-action="photo" title="Ubah foto formal">${icon('camera')}</button>
+      <button class="photo-edit no-print" data-action="photo" title="${esc(t('photo_edit_title'))}">${icon('camera')}</button>
     </div>
     <div class="hero-text">
-      <div class="hero-eyebrow">Curriculum Vitae · Seafarer</div>
-      <h1>${esc(p.name || 'Nama Lengkap Pelaut')}</h1>
-      <div class="hero-rank">${esc(p.rank || 'Jabatan / Rank')}</div>
+      <div class="hero-eyebrow">${esc(t('hero_eyebrow'))}</div>
+      <h1>${esc(p.name || t('hero_placeholder_name'))}</h1>
+      <div class="hero-rank">${esc(p.rank || t('hero_placeholder_rank'))}</div>
       <div class="hero-chips">${chips.join('')}</div>
       <div class="hero-actions no-print" style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
-        <button class="btn sm gold edit-only" data-action="edit-profile">${icon('edit')} Edit Data Pribadi</button>
+        <button class="btn sm gold edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit_profile'))}</button>
       </div>
     </div>`;
 }
 
-/* ------------------------------------------------------------------
-   7. RENDER — ALERT SERTIFIKAT
-   ------------------------------------------------------------------ */
+/* ---------- 9. RENDER ALERTS ---------- */
 function renderAlerts(){
   const zone = $('#alertZone');
   const soon = [], expired = [];
@@ -1295,8 +1598,8 @@ function renderAlerts(){
     html += `<div class="alert-banner danger no-print">
       ${icon('alert')}
       <div>
-        <strong>${expired.length} sertifikat sudah kedaluwarsa</strong>
-        <ul>${expired.map(c => `<li>${esc(c.name || 'Tanpa nama')} — ${fmtDate(c.expiryDate)}</li>`).join('')}</ul>
+        <strong>${esc(t('alert_expired_title').replace('{n}', expired.length))}</strong>
+        <ul>${expired.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${fmtDate(c.expiryDate)}</li>`).join('')}</ul>
       </div>
     </div>`;
   }
@@ -1304,17 +1607,15 @@ function renderAlerts(){
     html += `<div class="alert-banner no-print">
       ${icon('clock')}
       <div>
-        <strong>${soon.length} sertifikat akan segera kedaluwarsa (≤ 90 hari)</strong>
-        <ul>${soon.map(c => `<li>${esc(c.name || 'Tanpa nama')} — ${daysLeft(c.expiryDate)} hari lagi (${fmtDate(c.expiryDate)})</li>`).join('')}</ul>
+        <strong>${esc(t('alert_soon_title').replace('{n}', soon.length))}</strong>
+        <ul>${soon.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${t('status_days_left').replace('{n}', daysLeft(c.expiryDate))} (${fmtDate(c.expiryDate)})</li>`).join('')}</ul>
       </div>
     </div>`;
   }
   zone.innerHTML = html;
 }
 
-/* ------------------------------------------------------------------
-   8. RENDER — DATA PRIBADI
-   ------------------------------------------------------------------ */
+/* ---------- 10. RENDER PERSONAL ---------- */
 function renderPersonal(){
   const p = DATA.profile;
   const ttl = (p.birthPlace || p.birthDate)
@@ -1325,19 +1626,19 @@ function renderPersonal(){
     : '—';
 
   const items = [
-    { icon:'id-card', label:'Tempat, Tanggal Lahir', value: ttl, empty: !p.birthPlace && !p.birthDate },
-    { icon:'user',    label:'Jenis Kelamin',         value: p.gender || '—', empty: !p.gender },
-    { icon:'shield',  label:'Agama',                 value: p.religion || '—', empty: !p.religion },
-    { icon:'user',    label:'Tinggi / Berat Badan',  value: bw, empty: !p.height && !p.weight },
-    { icon:'user',    label:'Status Pernikahan',     value: p.maritalStatus || '—', empty: !p.maritalStatus },
-    { icon:'globe',   label:'Kewarganegaraan',       value: p.nationality || '—', empty: !p.nationality }
+    { icon:'id-card', labelKey:'info_ttl', value: ttl, empty: !p.birthPlace && !p.birthDate },
+    { icon:'user',    labelKey:'info_gender', value: trValue(p.gender) || '—', empty: !p.gender },
+    { icon:'shield',  labelKey:'info_religion', value: trValue(p.religion) || '—', empty: !p.religion },
+    { icon:'user',    labelKey:'info_bw', value: bw, empty: !p.height && !p.weight },
+    { icon:'user',    labelKey:'info_marital', value: trValue(p.maritalStatus) || '—', empty: !p.maritalStatus },
+    { icon:'globe',   labelKey:'info_nationality', value: p.nationality || '—', empty: !p.nationality }
   ];
 
   const grid = items.map(i => `
     <div class="info-item${i.empty ? ' item-empty' : ''}">
       <div class="ii-icon">${icon(i.icon)}</div>
       <div>
-        <div class="ii-label">${esc(i.label)}</div>
+        <div class="ii-label">${esc(t(i.labelKey))}</div>
         <div class="ii-value">${esc(i.value)}</div>
       </div>
     </div>`).join('');
@@ -1346,33 +1647,29 @@ function renderPersonal(){
     <div class="info-item full${!p.address ? ' item-empty' : ''}">
       <div class="ii-icon">${icon('map-pin')}</div>
       <div>
-        <div class="ii-label">Alamat Lengkap</div>
+        <div class="ii-label">${esc(t('info_address'))}</div>
         <div class="ii-value">${esc(p.address || '—')}</div>
       </div>
     </div>`;
 
   $('#personal').innerHTML =
-    sectionHead('id-card', 'Personal Information', 'Identitas pribadi pelaut',
-      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} Edit</button>`) +
+    sectionHead('id-card', t('sec_personal_title'), t('sec_personal_sub'),
+      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit'))}</button>`) +
     `<div class="info-grid">${grid}${address}</div>`;
 }
 
-/* ------------------------------------------------------------------
-   9. RENDER — RINGKASAN
-   ------------------------------------------------------------------ */
+/* ---------- 11. RENDER SUMMARY ---------- */
 function renderSummary(){
   const p = DATA.profile;
   $('#summary').innerHTML =
-    sectionHead('file', 'Professional Summary', 'Ringkasan profil profesional',
-      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} Edit</button>`) +
+    sectionHead('file', t('sec_summary_title'), t('sec_summary_sub'),
+      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit'))}</button>`) +
     (p.summary
       ? `<div class="summary-text">${esc(p.summary)}</div>`
-      : emptyBox('Ringkasan profesional belum diisi. Aktifkan Mode Edit lalu klik "Edit" untuk menambahkan.'));
+      : emptyBox(t('empty_summary')));
 }
 
-/* ------------------------------------------------------------------
-   10. RENDER — DOKUMEN
-   ------------------------------------------------------------------ */
+/* ---------- 12. RENDER DOCUMENTS ---------- */
 function renderDocuments(){
   const list = DATA.documents;
   const q = (UI.search.documents || '').toLowerCase();
@@ -1381,14 +1678,14 @@ function renderDocuments(){
     const text = `${d.type} ${d.name} ${d.number} ${d.issuer}`.toLowerCase();
     const hide = q && !text.includes(q) ? ' style="display:none"' : '';
     return `<tr data-text="${esc(text)}"${hide}>
-      <td data-label="Jenis">${tv(d.type)}</td>
-      <td data-label="Nama Dokumen" class="cell-strong">${tv(d.name)}</td>
-      <td data-label="Nomor">${tv(d.number)}</td>
-      <td data-label="Penerbit">${tv(d.issuer)}</td>
-      <td data-label="Diterbitkan">${tvDate(d.issueDate)}</td>
-      <td data-label="Kedaluwarsa">${tvDate(d.expiryDate)}</td>
-      <td data-label="Status">${statusCell(d)}</td>
-      <td data-label="Aksi">${editRowBtns('doc', d.id, d.name || d.type || 'dokumen')}</td>
+      <td data-label="${esc(t('th_type'))}">${tv(trValue(d.type))}</td>
+      <td data-label="${esc(t('th_doc_name'))}" class="cell-strong">${tv(d.name)}</td>
+      <td data-label="${esc(t('th_number'))}">${tv(d.number)}</td>
+      <td data-label="${esc(t('th_issuer'))}">${tv(d.issuer)}</td>
+      <td data-label="${esc(t('th_issued'))}">${tvDate(d.issueDate)}</td>
+      <td data-label="${esc(t('th_expiry'))}">${tvDate(d.expiryDate)}</td>
+      <td data-label="${esc(t('th_status'))}">${statusCell(d)}</td>
+      <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('doc', d.id, d.name || d.type || 'document')}</td>
     </tr>`;
   }).join('');
 
@@ -1396,32 +1693,31 @@ function renderDocuments(){
     ? `<div class="toolbar no-print">
          <div class="search-box">
            ${icon('search')}
-           <input type="text" data-search="documents" placeholder="Cari dokumen, nomor, atau penerbit…" value="${esc(UI.search.documents)}">
+           <input type="text" data-search="documents" placeholder="${esc(t('search_documents'))}" value="${esc(UI.search.documents)}">
          </div>
        </div>
        <div class="table-wrap">
          <table class="data">
            <thead><tr>
-             <th>Jenis</th><th>Nama Dokumen</th><th>Nomor</th><th>Penerbit</th>
-             <th>Diterbitkan</th><th>Kedaluwarsa</th><th>Status</th><th class="th-actions">Aksi</th>
+             <th>${esc(t('th_type'))}</th><th>${esc(t('th_doc_name'))}</th><th>${esc(t('th_number'))}</th>
+             <th>${esc(t('th_issuer'))}</th><th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
+             <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
            </tr></thead>
            <tbody>${rows}</tbody>
          </table>
        </div>`
-    : emptyBox('Belum ada dokumen pelaut. Klik "Tambah Dokumen" pada Mode Edit.');
+    : emptyBox(t('empty_documents'));
 
   $('#documents').innerHTML =
-    sectionHead('layers', 'Documents', 'Buku Pelaut · MCU · Dokumen lainnya',
-      addBtn('add-doc', 'Tambah Dokumen')) + body;
+    sectionHead('layers', t('sec_documents_title'), t('sec_documents_sub'),
+      addBtn('add-doc', t('btn_add_doc'))) + body;
 }
 
-/* ------------------------------------------------------------------
-   11. RENDER — SERTIFIKAT (3 kategori)
-   ------------------------------------------------------------------ */
+/* ---------- 13. RENDER CERTIFICATES ---------- */
 const CERT_META = {
-  coc:   { id:'coc',   icon:'award',  title:'Certificate of Competency',  sub:'Sertifikat kompetensi (COC)' },
-  cop:   { id:'cop',   icon:'shield', title:'Certificate of Proficiency', sub:'Sertifikat keterampilan (COP)' },
-  other: { id:'other', icon:'award',  title:'Sertifikat Lainnya',         sub:'Sertifikat pendukung & lainnya' }
+  coc:   { id:'coc',   icon:'award',  titleKey:'sec_coc_title',   subKey:'sec_coc_sub',   emptyKey:'empty_coc' },
+  cop:   { id:'cop',   icon:'shield', titleKey:'sec_cop_title',   subKey:'sec_cop_sub',   emptyKey:'empty_cop' },
+  other: { id:'other', icon:'award',  titleKey:'sec_other_title', subKey:'sec_other_sub', emptyKey:'empty_other' }
 };
 
 function getCerts(cat){
@@ -1442,13 +1738,13 @@ function renderCertSection(cat){
     const text = `${c.name} ${c.number} ${c.issuer}`.toLowerCase();
     const hide = q && !text.includes(q) ? ' style="display:none"' : '';
     return `<tr data-text="${esc(text)}"${hide}>
-      <td data-label="Nama Sertifikat" class="cell-strong">${tv(c.name)}</td>
-      <td data-label="Nomor">${tv(c.number)}</td>
-      <td data-label="Penerbit">${tv(c.issuer)}</td>
-      <td data-label="Diterbitkan">${tvDate(c.issueDate)}</td>
-      <td data-label="Kedaluwarsa">${tvDate(c.expiryDate)}</td>
-      <td data-label="Status">${statusCell(c)}</td>
-      <td data-label="Aksi">${editRowBtns('cert', c.id, c.name || 'sertifikat')}</td>
+      <td data-label="${esc(t('th_cert_name'))}" class="cell-strong">${tv(c.name)}</td>
+      <td data-label="${esc(t('th_number'))}">${tv(c.number)}</td>
+      <td data-label="${esc(t('th_issuer'))}">${tv(c.issuer)}</td>
+      <td data-label="${esc(t('th_issued'))}">${tvDate(c.issueDate)}</td>
+      <td data-label="${esc(t('th_expiry'))}">${tvDate(c.expiryDate)}</td>
+      <td data-label="${esc(t('th_status'))}">${statusCell(c)}</td>
+      <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('cert', c.id, c.name || 'certificate')}</td>
     </tr>`;
   }).join('');
 
@@ -1456,34 +1752,33 @@ function renderCertSection(cat){
     ? `<div class="toolbar no-print">
          <div class="search-box">
            ${icon('search')}
-           <input type="text" data-search="${cat}" placeholder="Cari sertifikat…" value="${esc(UI.search[cat] || '')}">
+           <input type="text" data-search="${cat}" placeholder="${esc(t('search_certs'))}" value="${esc(UI.search[cat] || '')}">
          </div>
          <select class="mini" data-sort="${cat}">
-           <option value="default"${UI.sort[cat]==='default'?' selected':''}>Urutan Default</option>
-           <option value="expiry"${UI.sort[cat]==='expiry'?' selected':''}>Kedaluwarsa Terdekat</option>
-           <option value="issued"${UI.sort[cat]==='issued'?' selected':''}>Terbaru Diterbitkan</option>
-           <option value="name"${UI.sort[cat]==='name'?' selected':''}>Nama (A–Z)</option>
+           <option value="default"${UI.sort[cat]==='default'?' selected':''}>${esc(t('sort_default'))}</option>
+           <option value="expiry"${UI.sort[cat]==='expiry'?' selected':''}>${esc(t('sort_expiry'))}</option>
+           <option value="issued"${UI.sort[cat]==='issued'?' selected':''}>${esc(t('sort_issued'))}</option>
+           <option value="name"${UI.sort[cat]==='name'?' selected':''}>${esc(t('sort_name'))}</option>
          </select>
        </div>
        <div class="table-wrap">
          <table class="data">
            <thead><tr>
-             <th>Nama Sertifikat</th><th>Nomor</th><th>Penerbit</th>
-             <th>Diterbitkan</th><th>Kedaluwarsa</th><th>Status</th><th class="th-actions">Aksi</th>
+             <th>${esc(t('th_cert_name'))}</th><th>${esc(t('th_number'))}</th><th>${esc(t('th_issuer'))}</th>
+             <th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
+             <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
            </tr></thead>
            <tbody>${rows}</tbody>
          </table>
        </div>`
-    : emptyBox(`Belum ada ${meta.sub.toLowerCase()}. Klik "Tambah" pada Mode Edit.`);
+    : emptyBox(t(meta.emptyKey));
 
   $('#' + cat).innerHTML =
-    sectionHead(meta.icon, meta.title, meta.sub,
-      addBtn('add-cert', 'Tambah', `data-cat="${cat}"`)) + body;
+    sectionHead(meta.icon, t(meta.titleKey), t(meta.subKey),
+      addBtn('add-cert', t('btn_add'), `data-cat="${cat}"`)) + body;
 }
 
-/* ------------------------------------------------------------------
-   12. RENDER — SEA SERVICE
-   ------------------------------------------------------------------ */
+/* ---------- 14. RENDER SEA SERVICE ---------- */
 function renderSeaService(){
   let list = [...DATA.seaService];
   const s = UI.sort.sea || 'desc';
@@ -1497,52 +1792,53 @@ function renderSeaService(){
   const rows = list.map(x => {
     const gtdwt = [x.gt ? x.gt + ' GT' : '', x.dwt ? x.dwt + ' DWT' : ''].filter(Boolean).join(' / ');
     return `<tr>
-      <td data-label="Nama Kapal" class="cell-strong">${tv(x.vesselName)}</td>
-      <td data-label="Bendera">${tv(x.flag)}</td>
-      <td data-label="Jenis Kapal">${tv(x.vesselType)}</td>
-      <td data-label="GT / DWT">${tv(gtdwt)}</td>
-      <td data-label="Mesin Utama">${tv(x.mainEngine)}</td>
-      <td data-label="Jabatan">${tv(x.rank)}</td>
-      <td data-label="Sign On">${tvDate(x.signOn)}</td>
-      <td data-label="Sign Off">${tvDate(x.signOff)}</td>
-      <td data-label="Masa Berlayar">${tvDur(x.signOn, x.signOff)}</td>
-      <td data-label="Aksi">${editRowBtns('sea', x.id, x.vesselName || 'kapal')}</td>
+      <td data-label="${esc(t('th_vessel'))}" class="cell-strong">${tv(x.vesselName)}</td>
+      <td data-label="${esc(t('th_flag'))}">${tv(x.flag)}</td>
+      <td data-label="${esc(t('th_vessel_type'))}">${tv(x.vesselType)}</td>
+      <td data-label="${esc(t('th_gt_dwt'))}">${tv(gtdwt)}</td>
+      <td data-label="${esc(t('th_engine'))}">${tv(x.mainEngine)}</td>
+      <td data-label="${esc(t('th_rank'))}">${tv(x.rank)}</td>
+      <td data-label="${esc(t('th_sign_on'))}">${tvDate(x.signOn)}</td>
+      <td data-label="${esc(t('th_sign_off'))}">${tvDate(x.signOff)}</td>
+      <td data-label="${esc(t('th_sea_duration'))}">${tvDur(x.signOn, x.signOff)}</td>
+      <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('sea', x.id, x.vesselName || 'vessel')}</td>
     </tr>`;
   }).join('');
 
   const footer = list.length && totalDays > 0
     ? `<div style="margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:600">
-         ${icon('clock')} Total masa berlayar tercatat: <strong style="color:var(--gold)">${Math.round(totalDays/30.44*10)/10} bulan</strong> (${totalDays} hari)
+         ${icon('clock')} ${esc(t('sea_total'))}
+         <strong style="color:var(--gold)">${esc(t('sea_months').replace('{n}', Math.round(totalDays/30.44*10)/10))}</strong>
+         ${esc(t('sea_days').replace('{n}', totalDays))}
        </div>`
     : '';
 
   const body = list.length
     ? `<div class="toolbar no-print">
          <select class="mini" data-sort="sea">
-           <option value="desc"${s==='desc'?' selected':''}>Sign On Terbaru</option>
-           <option value="asc"${s==='asc'?' selected':''}>Sign On Terlama</option>
+           <option value="desc"${s==='desc'?' selected':''}>${esc(t('sort_sea_desc'))}</option>
+           <option value="asc"${s==='asc'?' selected':''}>${esc(t('sort_sea_asc'))}</option>
          </select>
        </div>
        <div class="table-wrap">
          <table class="data">
            <thead><tr>
-             <th>Nama Kapal</th><th>Bendera</th><th>Jenis</th><th>GT / DWT</th>
-             <th>Mesin Utama</th><th>Jabatan</th><th>Sign On</th><th>Sign Off</th>
-             <th>Masa Berlayar</th><th class="th-actions">Aksi</th>
+             <th>${esc(t('th_vessel'))}</th><th>${esc(t('th_flag'))}</th><th>${esc(t('th_vessel_type'))}</th>
+             <th>${esc(t('th_gt_dwt'))}</th><th>${esc(t('th_engine'))}</th><th>${esc(t('th_rank'))}</th>
+             <th>${esc(t('th_sign_on'))}</th><th>${esc(t('th_sign_off'))}</th>
+             <th>${esc(t('th_sea_duration'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
            </tr></thead>
            <tbody>${rows}</tbody>
          </table>
        </div>${footer}`
-    : emptyBox('Belum ada riwayat kapal (Sea Service Record). Klik "Tambah Kapal".');
+    : emptyBox(t('empty_sea'));
 
   $('#sea').innerHTML =
-    sectionHead('anchor', 'Sea Service Record', 'Riwayat kapal & masa berlayar',
-      addBtn('add-sea', 'Tambah Kapal')) + body;
+    sectionHead('anchor', t('sec_sea_title'), t('sec_sea_sub'),
+      addBtn('add-sea', t('btn_add_vessel'))) + body;
 }
 
-/* ------------------------------------------------------------------
-   13. RENDER — PENGALAMAN KERJA
-   ------------------------------------------------------------------ */
+/* ---------- 15. RENDER WORK ---------- */
 function renderWork(){
   let list = [...DATA.workExperience];
   const s = UI.sort.work || 'desc';
@@ -1552,12 +1848,12 @@ function renderWork(){
 
   const items = list.map(w => {
     const period = (w.startDate || w.endDate)
-      ? `${w.startDate ? fmtDate(w.startDate) : '—'} – ${w.endDate ? fmtDate(w.endDate) : 'Sekarang'}`
+      ? `${w.startDate ? fmtDate(w.startDate) : '—'} – ${w.endDate ? fmtDate(w.endDate) : (UI.lang === 'en' ? 'Present' : 'Sekarang')}`
       : '';
     const meta = [
-      w.vesselName ? `Kapal: ${w.vesselName}` : '',
-      w.vesselType ? `Jenis: ${w.vesselType}` : '',
-      w.contractDuration ? `Kontrak: ${w.contractDuration}` : ''
+      w.vesselName ? `${t('th_vessel')}: ${w.vesselName}` : '',
+      w.vesselType ? `${t('th_vessel_type')}: ${w.vesselType}` : '',
+      w.contractDuration ? `${t('lbl_contract_duration')}: ${w.contractDuration}` : ''
     ].filter(Boolean);
 
     return `<div class="tl-item">
@@ -1573,8 +1869,8 @@ function renderWork(){
         ${meta.length ? `<div class="tl-meta">${meta.map(m => `<span>${esc(m)}</span>`).join('')}</div>` : ''}
         ${w.description ? `<p class="tl-desc">${esc(w.description)}</p>` : ''}
         <div class="tl-actions">
-          <button class="icon-btn sm" data-action="edit-work" data-id="${w.id}" title="Edit">${icon('edit')}</button>
-          <button class="icon-btn sm" data-action="del-work" data-id="${w.id}" data-label="${esc(w.company || 'pengalaman')}" title="Hapus">${icon('trash')}</button>
+          <button class="icon-btn sm" data-action="edit-work" data-id="${w.id}" title="${esc(t('btn_edit'))}">${icon('edit')}</button>
+          <button class="icon-btn sm" data-action="del-work" data-id="${w.id}" data-label="${esc(w.company || 'experience')}" title="${esc(t('btn_delete'))}">${icon('trash')}</button>
         </div>
       </div>
     </div>`;
@@ -1583,21 +1879,19 @@ function renderWork(){
   const body = list.length
     ? `<div class="toolbar no-print">
          <select class="mini" data-sort="work">
-           <option value="desc"${s==='desc'?' selected':''}>Terbaru</option>
-           <option value="asc"${s==='asc'?' selected':''}>Terlama</option>
+           <option value="desc"${s==='desc'?' selected':''}>${esc(t('sort_work_desc'))}</option>
+           <option value="asc"${s==='asc'?' selected':''}>${esc(t('sort_work_asc'))}</option>
          </select>
        </div>
        <div class="timeline">${items}</div>`
-    : emptyBox('Belum ada pengalaman kerja. Klik "Tambah Pengalaman".');
+    : emptyBox(t('empty_work'));
 
   $('#work').innerHTML =
-    sectionHead('briefcase', 'Work Experience', 'Pengalaman kerja di perusahaan pelayaran',
-      addBtn('add-work', 'Tambah Pengalaman')) + body;
+    sectionHead('briefcase', t('sec_work_title'), t('sec_work_sub'),
+      addBtn('add-work', t('btn_add_work'))) + body;
 }
 
-/* ------------------------------------------------------------------
-   14. RENDER — KONTAK
-   ------------------------------------------------------------------ */
+/* ---------- 16. RENDER CONTACT ---------- */
 function renderContact(){
   const p = DATA.profile;
   const wa = waNumber(p.phone);
@@ -1606,46 +1900,44 @@ function renderContact(){
   if(p.phone){
     cards.push(`<a class="contact-card" href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener">
       <div class="cc-icon wa">${icon('wa','fill')}</div>
-      <div><small>WhatsApp</small><strong>${esc(p.phone)}</strong></div>
+      <div><small>${esc(t('contact_wa'))}</small><strong>${esc(p.phone)}</strong></div>
     </a>`);
   } else {
     cards.push(`<div class="contact-card is-placeholder">
       <div class="cc-icon wa">${icon('wa','fill')}</div>
-      <div><small>WhatsApp</small><strong style="color:var(--muted)">Belum diisi</strong></div></div>`);
+      <div><small>${esc(t('contact_wa'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
   }
 
   if(p.email){
     cards.push(`<a class="contact-card" href="mailto:${esc(p.email)}">
       <div class="cc-icon mail">${icon('mail')}</div>
-      <div><small>Email</small><strong>${esc(p.email)}</strong></div>
+      <div><small>${esc(t('contact_email'))}</small><strong>${esc(p.email)}</strong></div>
     </a>`);
   } else {
     cards.push(`<div class="contact-card is-placeholder">
       <div class="cc-icon mail">${icon('mail')}</div>
-      <div><small>Email</small><strong style="color:var(--muted)">Belum diisi</strong></div></div>`);
+      <div><small>${esc(t('contact_email'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
   }
 
   if(p.address){
     cards.push(`<div class="contact-card">
       <div class="cc-icon">${icon('map-pin')}</div>
-      <div><small>Alamat</small><strong>${esc(p.address)}</strong></div>
+      <div><small>${esc(t('contact_address'))}</small><strong>${esc(p.address)}</strong></div>
     </div>`);
   } else {
     cards.push(`<div class="contact-card is-placeholder">
       <div class="cc-icon">${icon('map-pin')}</div>
-      <div><small>Alamat</small><strong style="color:var(--muted)">Belum diisi</strong></div>
+      <div><small>${esc(t('contact_address'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div>
     </div>`);
   }
 
   $('#contact').innerHTML =
-    sectionHead('phone', 'Contact Information', 'Hubungi pelaut',
-      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} Edit</button>`) +
+    sectionHead('phone', t('sec_contact_title'), t('sec_contact_sub'),
+      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit'))}</button>`) +
     `<div class="contact-grid">${cards.join('')}</div>`;
 }
 
-/* ------------------------------------------------------------------
-   15. RENDER ALL + EMPTY STATE
-   ------------------------------------------------------------------ */
+/* ---------- 17. EMPTY STATES ---------- */
 function updateEmptyStates(){
   const p = DATA.profile;
   $('#summary').classList.toggle('is-empty', !p.summary);
@@ -1664,6 +1956,7 @@ function updateEmptyStates(){
   $('#contact').classList.toggle('is-empty', contactEmpty);
 }
 
+/* ---------- 18. RENDER ALL / LANG / THEME ---------- */
 function renderAll(){
   renderHero();
   renderAlerts();
@@ -1685,8 +1978,8 @@ function applyEditMode(){
   const btn = $('#editToggle');
   if(btn){
     btn.innerHTML = UI.edit
-      ? icon('eye') + ' <span>Mode Preview</span>'
-      : icon('edit') + ' <span>Mode Edit</span>';
+      ? icon('eye') + ' <span>' + esc(t('btn_preview_mode')) + '</span>'
+      : icon('edit') + ' <span>' + esc(t('btn_edit_mode')) + '</span>';
   }
 }
 function applyTheme(){
@@ -1696,153 +1989,195 @@ function applyTheme(){
   const meta = document.querySelector('meta[name=theme-color]');
   if(meta) meta.setAttribute('content', UI.theme === 'dark' ? '#070f19' : '#0b1f3a');
 }
+function applyLang(){
+  document.documentElement.lang = UI.lang;
+  document.body.classList.toggle('lang-en', UI.lang === 'en');
 
-/* ==================================================================
-   16. FORM DEFINITIONS
-   ================================================================== */
-const PROFILE_FIELDS = [
-  { key:'name',          label:'Nama Lengkap',           type:'text',  required:true, full:true },
-  { key:'rank',          label:'Jabatan / Rank',         type:'text',  ph:'Contoh: Oiler' },
-  { key:'nationality',   label:'Kewarganegaraan',        type:'text',  ph:'Indonesia' },
-  { key:'birthPlace',    label:'Tempat Lahir',           type:'text' },
-  { key:'birthDate',     label:'Tanggal Lahir',          type:'date' },
-  { key:'gender',        label:'Jenis Kelamin',          type:'select', options:['','Laki-laki','Perempuan'] },
-  { key:'religion',      label:'Agama',                  type:'select', options:['','Islam','Kristen','Katolik','Hindu','Buddha','Konghucu','Lainnya'] },
-  { key:'height',        label:'Tinggi Badan (cm)',      type:'number', min:50, max:250 },
-  { key:'weight',        label:'Berat Badan (kg)',       type:'number', min:20, max:250 },
-  { key:'maritalStatus', label:'Status Pernikahan',      type:'select', options:['','Belum Menikah','Menikah','Cerai Hidup','Cerai Mati'] },
-  { key:'phone',         label:'Nomor Telepon / WhatsApp', type:'tel', ph:'08xxxxxxxxxx' },
-  { key:'email',         label:'Email',                  type:'email', ph:'nama@email.com' },
-  { key:'address',       label:'Alamat Lengkap',         type:'textarea', full:true, rows:2 },
-  { key:'summary',       label:'Ringkasan Profesional',  type:'textarea', full:true, rows:5 }
-];
+  const lbl = $('#langLabel');
+  if(lbl) lbl.textContent = UI.lang === 'en' ? 'EN' : 'ID';
 
-const DOC_FIELDS = [
-  { key:'type',       label:'Jenis Dokumen', type:'select', options:['Buku Pelaut','MCU','Sertifikat Medis','Paspor','Kartu Keluarga','Ijazah','Dokumen Lainnya'] },
-  { key:'name',       label:'Nama Dokumen',  type:'text', required:true, ph:'Contoh: Buku Pelaut (Seaman Book)' },
-  { key:'number',     label:'Nomor Dokumen', type:'text' },
-  { key:'issuer',     label:'Instansi Penerbit', type:'text' },
-  { key:'issueDate',  label:'Tanggal Diterbitkan', type:'date', required:true },
-  { key:'expiryDate', label:'Tanggal Kedaluwarsa', type:'date' }
-];
-
-const CERT_FIELDS = [
-  { key:'name',       label:'Nama Sertifikat', type:'text', required:true, full:true },
-  { key:'number',     label:'Nomor Sertifikat', type:'text' },
-  { key:'issuer',     label:'Penerbit', type:'text' },
-  { key:'issueDate',  label:'Tanggal Diterbitkan', type:'date', required:true },
-  { key:'expiryDate', label:'Tanggal Kedaluwarsa', type:'date' }
-];
-
-const SEA_FIELDS = [
-  { key:'vesselName', label:'Nama Kapal',   type:'text', required:true },
-  { key:'flag',       label:'Bendera Kapal', type:'text', ph:'Contoh: Panama' },
-  { key:'vesselType', label:'Jenis Kapal',  type:'text', ph:'Contoh: Bulk Carrier' },
-  { key:'rank',       label:'Jabatan di Kapal', type:'text' },
-  { key:'gt',         label:'GT',           type:'text', ph:'Contoh: 4.999' },
-  { key:'dwt',        label:'DWT',          type:'text', ph:'Contoh: 12.500' },
-  { key:'mainEngine', label:'Mesin Utama',  type:'text', full:true, ph:'Contoh: MAN B&W 6S50MC-C' },
-  { key:'signOn',     label:'Tanggal Sign On',  type:'date' },
-  { key:'signOff',    label:'Tanggal Sign Off', type:'date' }
-];
-
-const WORK_FIELDS = [
-  { key:'company',    label:'Nama Perusahaan Pelayaran', type:'text', required:true, full:true },
-  { key:'rank',       label:'Jabatan',        type:'text' },
-  { key:'vesselName', label:'Nama Kapal',     type:'text' },
-  { key:'vesselType', label:'Jenis Kapal',    type:'text' },
-  { key:'startDate',  label:'Periode Mulai',  type:'date' },
-  { key:'endDate',    label:'Periode Selesai', type:'date' },
-  { key:'contractDuration', label:'Durasi Kontrak', type:'text', full:true, ph:'Contoh: 9 bulan' },
-  { key:'description', label:'Deskripsi Pekerjaan', type:'textarea', full:true, rows:4 }
-];
-
-/* ==================================================================
-   17. ACTION HANDLERS
-   ================================================================== */
-function editProfile(){
-  openFormModal('Edit Data Pribadi', PROFILE_FIELDS, DATA.profile, (data) => {
-    DATA.profile = Object.assign(DATA.profile, data);
-    save(); renderAll(); toast('Data pribadi diperbarui');
+  // Update statis ber-atribut data-i18n-key
+  $$('[data-i18n-key]').forEach(el => {
+    const key = el.dataset.i18nKey;
+    if(key) el.textContent = t(key);
+  });
+  // Title tooltip
+  $$('[data-i18n-title]').forEach(el => {
+    el.title = t(el.dataset.i18nTitle);
   });
 }
 
+/* ---------- 19. FORM DEFINITIONS ---------- */
+const OPTS = {
+  gender: [
+    { v:'', l:'opt_choose' },
+    { v:'Laki-laki', l:'opt_male' },
+    { v:'Perempuan', l:'opt_female' }
+  ],
+  religion: [
+    { v:'', l:'opt_choose' },
+    { v:'Islam', l:'opt_islam' },
+    { v:'Kristen', l:'opt_christian' },
+    { v:'Katolik', l:'opt_catholic' },
+    { v:'Hindu', l:'opt_hindu' },
+    { v:'Buddha', l:'opt_buddhist' },
+    { v:'Konghucu', l:'opt_confucian' },
+    { v:'Lainnya', l:'opt_other' }
+  ],
+  marital: [
+    { v:'', l:'opt_choose' },
+    { v:'Belum Menikah', l:'opt_single' },
+    { v:'Menikah', l:'opt_married' },
+    { v:'Cerai Hidup', l:'opt_divorced' },
+    { v:'Cerai Mati', l:'opt_widowed' }
+  ],
+  doctype: [
+    { v:'Buku Pelaut', l:'opt_doctype_seaman' },
+    { v:'MCU', l:'opt_doctype_mcu' },
+    { v:'Sertifikat Medis', l:'opt_doctype_medical' },
+    { v:'Paspor', l:'opt_doctype_passport' },
+    { v:'Kartu Keluarga', l:'opt_doctype_family' },
+    { v:'Ijazah', l:'opt_doctype_diploma' },
+    { v:'Dokumen Lainnya', l:'opt_doctype_other' }
+  ]
+};
+
+const PROFILE_FIELDS = [
+  { key:'name', labelKey:'lbl_name', type:'text', required:true, full:true },
+  { key:'rank', labelKey:'lbl_rank', type:'text', phKey:'ph_rank_oiler' },
+  { key:'nationality', labelKey:'lbl_nationality', type:'text', ph:'Indonesia' },
+  { key:'birthPlace', labelKey:'lbl_birth_place', type:'text' },
+  { key:'birthDate', labelKey:'lbl_birth_date', type:'date' },
+  { key:'gender', labelKey:'lbl_gender', type:'select', options: OPTS.gender },
+  { key:'religion', labelKey:'lbl_religion', type:'select', options: OPTS.religion },
+  { key:'height', labelKey:'lbl_height', type:'number', min:50, max:250 },
+  { key:'weight', labelKey:'lbl_weight', type:'number', min:20, max:250 },
+  { key:'maritalStatus', labelKey:'lbl_marital', type:'select', options: OPTS.marital },
+  { key:'phone', labelKey:'lbl_phone', type:'tel', ph:'08xxxxxxxxxx' },
+  { key:'email', labelKey:'lbl_email', type:'email', ph:'nama@email.com' },
+  { key:'address', labelKey:'lbl_address', type:'textarea', full:true, rows:2 },
+  { key:'summary', labelKey:'lbl_summary', type:'textarea', full:true, rows:5 }
+];
+
+const DOC_FIELDS = [
+  { key:'type', labelKey:'lbl_doc_type', type:'select', options: OPTS.doctype },
+  { key:'name', labelKey:'lbl_doc_name', type:'text', required:true, phKey:'ph_doc_name' },
+  { key:'number', labelKey:'lbl_doc_number', type:'text' },
+  { key:'issuer', labelKey:'lbl_issuer', type:'text' },
+  { key:'issueDate', labelKey:'lbl_issue_date', type:'date', required:true },
+  { key:'expiryDate', labelKey:'lbl_expiry_date', type:'date' }
+];
+
+const CERT_FIELDS = [
+  { key:'name', labelKey:'lbl_cert_name', type:'text', required:true, full:true },
+  { key:'number', labelKey:'lbl_cert_number', type:'text' },
+  { key:'issuer', labelKey:'lbl_publisher', type:'text' },
+  { key:'issueDate', labelKey:'lbl_issue_date', type:'date', required:true },
+  { key:'expiryDate', labelKey:'lbl_expiry_date', type:'date' }
+];
+
+const SEA_FIELDS = [
+  { key:'vesselName', labelKey:'lbl_vessel_name', type:'text', required:true },
+  { key:'flag', labelKey:'lbl_flag', type:'text', phKey:'ph_flag' },
+  { key:'vesselType', labelKey:'lbl_vessel_type', type:'text', phKey:'ph_vessel_type' },
+  { key:'rank', labelKey:'lbl_rank_onboard', type:'text' },
+  { key:'gt', labelKey:'lbl_gt', type:'text', phKey:'ph_gt' },
+  { key:'dwt', labelKey:'lbl_dwt', type:'text', phKey:'ph_dwt' },
+  { key:'mainEngine', labelKey:'lbl_main_engine', type:'text', full:true, phKey:'ph_engine' },
+  { key:'signOn', labelKey:'lbl_sign_on', type:'date' },
+  { key:'signOff', labelKey:'lbl_sign_off', type:'date' }
+];
+
+const WORK_FIELDS = [
+  { key:'company', labelKey:'lbl_company', type:'text', required:true, full:true },
+  { key:'rank', labelKey:'lbl_rank', type:'text' },
+  { key:'vesselName', labelKey:'lbl_vessel_name', type:'text' },
+  { key:'vesselType', labelKey:'lbl_vessel_type', type:'text' },
+  { key:'startDate', labelKey:'lbl_sign_on', type:'date' },
+  { key:'endDate', labelKey:'lbl_sign_off', type:'date' },
+  { key:'contractDuration', labelKey:'lbl_contract_duration', type:'text', full:true, phKey:'ph_contract' },
+  { key:'description', labelKey:'lbl_description', type:'textarea', full:true, rows:4 }
+];
+
+/* ---------- 20. ACTION HANDLERS ---------- */
+function editProfile(){
+  openFormModal(t('modal_edit_profile'), PROFILE_FIELDS, DATA.profile, (data) => {
+    DATA.profile = Object.assign(DATA.profile, data);
+    save(); renderAll(); toast(t('toast_profile_updated'));
+  });
+}
 function addDocument(){
-  openFormModal('Tambah Dokumen', DOC_FIELDS, {}, (data) => {
+  openFormModal(t('modal_add_doc'), DOC_FIELDS, {}, (data) => {
     DATA.documents.push(Object.assign({ id: uid() }, data));
-    save(); renderAll(); toast('Dokumen ditambahkan');
+    save(); renderAll(); toast(t('toast_doc_added'));
   });
 }
 function editDocument(id){
   const item = DATA.documents.find(x => x.id === id);
   if(!item) return;
-  openFormModal('Edit Dokumen', DOC_FIELDS, item, (data) => {
+  openFormModal(t('modal_edit_doc'), DOC_FIELDS, item, (data) => {
     Object.assign(item, data);
-    save(); renderAll(); toast('Dokumen diperbarui');
+    save(); renderAll(); toast(t('toast_doc_updated'));
   });
 }
-
 function addCert(cat){
-  openFormModal('Tambah Sertifikat', CERT_FIELDS, {}, (data) => {
+  openFormModal(t('modal_add_cert'), CERT_FIELDS, {}, (data) => {
     DATA.certificates.push(Object.assign({ id: uid(), category: cat }, data));
-    save(); renderAll(); toast('Sertifikat ditambahkan');
+    save(); renderAll(); toast(t('toast_cert_added'));
   });
 }
 function editCert(id){
   const item = DATA.certificates.find(x => x.id === id);
   if(!item) return;
-  openFormModal('Edit Sertifikat', CERT_FIELDS, item, (data) => {
+  openFormModal(t('modal_edit_cert'), CERT_FIELDS, item, (data) => {
     Object.assign(item, data);
-    save(); renderAll(); toast('Sertifikat diperbarui');
+    save(); renderAll(); toast(t('toast_cert_updated'));
   });
 }
-
 function addSea(){
-  openFormModal('Tambah Riwayat Kapal', SEA_FIELDS, {}, (data) => {
+  openFormModal(t('modal_add_sea'), SEA_FIELDS, {}, (data) => {
     DATA.seaService.push(Object.assign({ id: uid() }, data));
-    save(); renderAll(); toast('Riwayat kapal ditambahkan');
+    save(); renderAll(); toast(t('toast_sea_added'));
   });
 }
 function editSea(id){
   const item = DATA.seaService.find(x => x.id === id);
   if(!item) return;
-  openFormModal('Edit Riwayat Kapal', SEA_FIELDS, item, (data) => {
+  openFormModal(t('modal_edit_sea'), SEA_FIELDS, item, (data) => {
     Object.assign(item, data);
-    save(); renderAll(); toast('Riwayat kapal diperbarui');
+    save(); renderAll(); toast(t('toast_sea_updated'));
   });
 }
-
 function addWork(){
-  openFormModal('Tambah Pengalaman Kerja', WORK_FIELDS, {}, (data) => {
+  openFormModal(t('modal_add_work'), WORK_FIELDS, {}, (data) => {
     DATA.workExperience.push(Object.assign({ id: uid() }, data));
-    save(); renderAll(); toast('Pengalaman kerja ditambahkan');
+    save(); renderAll(); toast(t('toast_work_added'));
   });
 }
 function editWork(id){
   const item = DATA.workExperience.find(x => x.id === id);
   if(!item) return;
-  openFormModal('Edit Pengalaman Kerja', WORK_FIELDS, item, (data) => {
+  openFormModal(t('modal_edit_work'), WORK_FIELDS, item, (data) => {
     Object.assign(item, data);
-    save(); renderAll(); toast('Pengalaman kerja diperbarui');
+    save(); renderAll(); toast(t('toast_work_updated'));
   });
 }
-
 function deleteItem(kind, id, label){
-  confirmModal('Hapus Data', `Hapus "${label}"? Tindakan ini tidak dapat dibatalkan.`, () => {
+  confirmModal(t('modal_delete_title'), t('modal_delete_msg').replace('{x}', label), () => {
     if(kind === 'doc')  DATA.documents      = DATA.documents.filter(x => x.id !== id);
     if(kind === 'cert') DATA.certificates   = DATA.certificates.filter(x => x.id !== id);
     if(kind === 'sea')  DATA.seaService     = DATA.seaService.filter(x => x.id !== id);
     if(kind === 'work') DATA.workExperience = DATA.workExperience.filter(x => x.id !== id);
     save();
     renderAll();
-    toast('Data berhasil dihapus', 'info');
+    toast(t('toast_deleted'), 'info');
   });
 }
 
-/* ---------------- Photo editor ---------------- */
+/* ---------- 21. PHOTO EDITOR ---------- */
 function resizeImage(file, maxSize = 720){
   return new Promise((resolve, reject) => {
-    if(!file.type.startsWith('image/')){ reject(new Error('Bukan file gambar')); return; }
+    if(!file.type.startsWith('image/')){ reject(new Error(t('photo_not_image'))); return; }
     const reader = new FileReader();
     reader.onload = (e) => {
       const img = new Image();
@@ -1859,14 +2194,13 @@ function resizeImage(file, maxSize = 720){
         ctx.drawImage(img, 0, 0, w, h);
         resolve(canvas.toDataURL('image/jpeg', 0.88));
       };
-      img.onerror = () => reject(new Error('Gagal membaca gambar'));
+      img.onerror = () => reject(new Error(t('photo_read_err')));
       img.src = e.target.result;
     };
-    reader.onerror = () => reject(new Error('Gagal membaca file'));
+    reader.onerror = () => reject(new Error(t('photo_file_err')));
     reader.readAsDataURL(file);
   });
 }
-
 function openPhotoModal(){
   const p = DATA.profile;
   const temp = {
@@ -1878,44 +2212,42 @@ function openPhotoModal(){
 
   const bodyHTML = `
     <div class="photo-editor">
-      <div class="photo-preview" id="pvBox">
+      <div class="photo-preview">
         <img id="pvImg" src="${temp.photo}" alt="Preview"
              style="object-position:${temp.x}% ${temp.y}%;transform:scale(${temp.zoom});${temp.photo ? '' : 'display:none'}">
       </div>
       <div class="photo-controls">
         <label class="upload-btn">
-          ${icon('camera')} Pilih Foto dari Perangkat
+          ${icon('camera')} ${esc(t('photo_choose'))}
           <input type="file" id="photoInput" accept="image/*" hidden>
         </label>
-        <button type="button" class="btn ghost" id="photoRemove">${icon('trash')} Hapus Foto</button>
+        <button type="button" class="btn ghost" id="photoRemove">${icon('trash')} ${esc(t('photo_remove'))}</button>
         <div class="field">
-          <label>Zoom</label>
+          <label>${esc(t('photo_zoom'))}</label>
           <input type="range" id="pvZoom" min="1" max="3" step="0.05" value="${temp.zoom}">
         </div>
         <div class="field">
-          <label>Posisi Horizontal</label>
+          <label>${esc(t('photo_x'))}</label>
           <input type="range" id="pvX" min="0" max="100" step="1" value="${temp.x}">
         </div>
         <div class="field">
-          <label>Posisi Vertikal</label>
+          <label>${esc(t('photo_y'))}</label>
           <input type="range" id="pvY" min="0" max="100" step="1" value="${temp.y}">
         </div>
-        <small style="color:var(--muted);font-size:.74rem;line-height:1.5">
-          Gunakan foto formal dengan latar polos. Foto otomatis dikompres agar hemat penyimpanan.
-        </small>
+        <small style="color:var(--muted);font-size:.74rem;line-height:1.5">${esc(t('photo_hint'))}</small>
       </div>
     </div>`;
 
   openModal({
-    title: 'Foto Formal',
+    title: t('photo_title'),
     bodyHTML,
-    saveLabel: 'Gunakan Foto',
+    saveLabel: t('photo_use'),
     onSave: () => {
       DATA.profile.photo    = temp.photo;
       DATA.profile.photoZoom = temp.zoom;
       DATA.profile.photoX   = temp.x;
       DATA.profile.photoY   = temp.y;
-      save(); renderHero(); toast('Foto berhasil diperbarui');
+      save(); renderHero(); toast(t('photo_updated'));
       return true;
     }
   });
@@ -1936,25 +2268,25 @@ function openPhotoModal(){
     const file = e.target.files && e.target.files[0];
     if(!file) return;
     try{
-      toast('Memproses foto…', 'info');
+      toast(t('photo_processing'), 'info');
       const dataUrl = await resizeImage(file, 720);
       temp.photo = dataUrl;
       temp.zoom = 1; temp.x = 50; temp.y = 50;
       $('#pvZoom').value = 1; $('#pvX').value = 50; $('#pvY').value = 50;
       sync();
-      toast('Foto siap digunakan');
+      toast(t('photo_ready'));
     }catch(err){
-      toast(err.message || 'Gagal memuat foto', 'err');
+      toast(err.message || t('photo_read_err'), 'err');
     }
     e.target.value = '';
   };
-  $('#photoRemove').onclick = () => { temp.photo = ''; sync(); toast('Foto dihapus dari pratinjau', 'info'); };
+  $('#photoRemove').onclick = () => { temp.photo = ''; sync(); toast(t('photo_removed'), 'info'); };
   $('#pvZoom').oninput = (e) => { temp.zoom = parseFloat(e.target.value); sync(); };
   $('#pvX').oninput    = (e) => { temp.x = parseInt(e.target.value, 10); sync(); };
   $('#pvY').oninput    = (e) => { temp.y = parseInt(e.target.value, 10); sync(); };
 }
 
-/* ---------------- Import / Export / Reset ---------------- */
+/* ---------- 22. IMPORT / EXPORT / RESET ---------- */
 function exportJSON(){
   try{
     const name = (DATA.profile.name || 'Seafarer').replace(/[^\w\-]+/g, '_');
@@ -1968,12 +2300,11 @@ function exportJSON(){
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(url), 1500);
-    toast('Backup JSON berhasil diunduh');
+    toast(t('toast_backup_ok'));
   }catch(e){
-    toast('Gagal membuat backup', 'err');
+    toast(t('toast_backup_err'), 'err');
   }
 }
-
 function importJSON(file){
   if(!file) return;
   const reader = new FileReader();
@@ -1981,48 +2312,44 @@ function importJSON(file){
     try{
       const parsed = JSON.parse(e.target.result);
       if(!parsed || typeof parsed !== 'object' || !parsed.profile){
-        toast('File JSON tidak valid', 'err');
+        toast(t('toast_import_invalid'), 'err');
         return;
       }
-      confirmModal('Import Backup', 'Semua data saat ini akan diganti dengan data dari file backup. Lanjutkan?', () => {
+      confirmModal(t('modal_import_title'), t('modal_import_msg'), () => {
         DATA = mergeData(parsed);
         save();
         renderAll();
-        toast('Backup berhasil diimport');
+        toast(t('toast_import_ok'));
       });
     }catch(err){
-      toast('File JSON tidak dapat dibaca', 'err');
+      toast(t('toast_import_err'), 'err');
     }
   };
   reader.readAsText(file);
 }
-
 function resetData(){
-  confirmModal('Reset Seluruh Data', 'Semua data CV (profil, foto, dokumen, sertifikat, riwayat kapal, pengalaman kerja) akan dihapus permanen dari perangkat ini. Lanjutkan?', () => {
+  confirmModal(t('modal_reset_title'), t('modal_reset_msg'), () => {
     try{ localStorage.removeItem(STORE_KEY); }catch(e){}
     DATA = blankData();
     UI.edit = true;
     saveUI();
     save();
     renderAll();
-    toast('Seluruh data telah direset', 'info');
+    toast(t('toast_reset'), 'info');
   });
 }
-
 function doPrint(){
   closeModal();
   const wasEdit = document.body.classList.contains('edit-on');
   document.body.classList.remove('edit-on');
-  toast('Menyiapkan dokumen…', 'info');
+  toast(t('toast_preparing'), 'info');
   setTimeout(() => {
     window.print();
     if(wasEdit) document.body.classList.add('edit-on');
   }, 260);
 }
 
-/* ==================================================================
-   18. EVENT DELEGATION
-   ================================================================== */
+/* ---------- 23. EVENT DELEGATION ---------- */
 document.addEventListener('click', (e) => {
   const actionEl = e.target.closest('[data-action]');
   if(!actionEl) return;
@@ -2037,15 +2364,23 @@ document.addEventListener('click', (e) => {
       $('#sidebarBackdrop').classList.toggle('show');
       break;
 
+    case 'toggle-lang':
+      UI.lang = UI.lang === 'en' ? 'id' : 'en';
+      saveUI();
+      applyLang();
+      renderAll();
+      toast(t(UI.lang === 'en' ? 'toast_lang_en' : 'toast_lang_id'), 'info');
+      break;
+
     case 'toggle-theme':
       UI.theme = UI.theme === 'dark' ? 'light' : 'dark';
       saveUI(); applyTheme();
-      toast(UI.theme === 'dark' ? 'Mode gelap aktif' : 'Mode terang aktif', 'info');
+      toast(t(UI.theme === 'dark' ? 'toast_theme_dark' : 'toast_theme_light'), 'info');
       break;
 
     case 'toggle-edit':
       UI.edit = !UI.edit; saveUI(); applyEditMode();
-      toast(UI.edit ? 'Mode Edit aktif — data dapat diubah' : 'Mode Preview aktif', 'info');
+      toast(UI.edit ? t('toast_edit_on') : t('toast_preview_on'), 'info');
       break;
 
     case 'print': doPrint(); break;
@@ -2079,7 +2414,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-/* Input: date auto-format + search */
 document.addEventListener('input', (e) => {
   const dateInp = e.target.closest('[data-date-input]');
   if(dateInp){
@@ -2090,7 +2424,6 @@ document.addEventListener('input', (e) => {
     if(dateInp.value !== out) dateInp.value = out;
     return;
   }
-
   const inp = e.target.closest('[data-search]');
   if(!inp) return;
   const key = inp.dataset.search;
@@ -2105,7 +2438,6 @@ document.addEventListener('input', (e) => {
   });
 });
 
-/* Paste: konversi ISO yyyy-mm-dd ke dd/mm/yyyy */
 document.addEventListener('paste', (e) => {
   const inp = e.target.closest('[data-date-input]');
   if(!inp) return;
@@ -2119,7 +2451,6 @@ document.addEventListener('paste', (e) => {
   }
 });
 
-/* Sort */
 document.addEventListener('change', (e) => {
   const sel = e.target.closest('[data-sort]');
   if(!sel) return;
@@ -2131,7 +2462,6 @@ document.addEventListener('change', (e) => {
   else                    renderCertSection(key);
 });
 
-/* Nav link -> tutup sidebar di mobile */
 document.addEventListener('click', (e) => {
   const link = e.target.closest('.nav-link');
   if(!link) return;
@@ -2144,20 +2474,15 @@ $('#sidebarBackdrop').addEventListener('click', () => {
   $('#sidebar').classList.remove('open');
   $('#sidebarBackdrop').classList.remove('show');
 });
-
-/* Import file input */
 $('#importInput').addEventListener('change', (e) => {
   const f = e.target.files && e.target.files[0];
   importJSON(f);
   e.target.value = '';
 });
 
-/* ==================================================================
-   19. SCROLL: NAV AKTIF + BACK TO TOP
-   ================================================================== */
+/* ---------- 24. SCROLL NAV ---------- */
 const NAV_IDS = ['home','personal','summary','documents','coc','cop','other','sea','work','contact'];
 let scrollTick = false;
-
 function onScroll(){
   if(scrollTick) return;
   scrollTick = true;
@@ -2169,22 +2494,18 @@ function onScroll(){
       if(el && el.offsetTop <= pos) current = id;
     });
     $$('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.nav === current));
-
     const bt = $('#backTop');
     if(window.scrollY > 380) bt.classList.add('show');
     else bt.classList.remove('show');
-
     scrollTick = false;
   });
 }
 window.addEventListener('scroll', onScroll, { passive:true });
 
-/* ==================================================================
-   20. INIT
-   ================================================================== */
+/* ---------- 25. INIT ---------- */
 (function init(){
   $('#year').textContent = new Date().getFullYear();
-
+  applyLang();
   applyTheme();
   renderAll();
   onScroll();
@@ -2204,7 +2525,7 @@ window.addEventListener('scroll', onScroll, { passive:true });
     if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e'){
       e.preventDefault();
       UI.edit = !UI.edit; saveUI(); applyEditMode();
-      toast(UI.edit ? 'Mode Edit aktif' : 'Mode Preview aktif', 'info');
+      toast(UI.edit ? t('toast_edit_on') : t('toast_preview_on'), 'info');
     }
   });
 })();
