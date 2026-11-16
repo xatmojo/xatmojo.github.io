@@ -66,24 +66,7 @@
   "inLanguage":["id","en"],
   "isAccessibleForFree":true,
   "offers":{"@type":"Offer","price":"0","priceCurrency":"IDR","availability":"https://schema.org/InStock"},
-  "featureList":[
-    "CV Maker / CV Builder",
-    "Data Pribadi",
-    "Sertifikat COC & COP",
-    "Sea Service Record",
-    "Pengalaman Kerja",
-    "Cetak / Simpan PDF",
-    "Multi-bahasa ID/EN",
-    "Multi-tema dengan mode gelap",
-    "Penyimpanan lokal (offline)"
-  ],
-  "author":{
-    "@type":"Person",
-    "name":"xatmojo",
-    "email":"xatmojo@gmail.com",
-    "url":"https://instagram.com/xatmojo",
-    "sameAs":["https://instagram.com/xatmojo","https://wa.me/6289668262520"]
-  },
+  "author":{"@type":"Person","name":"xatmojo","email":"xatmojo@gmail.com","url":"https://instagram.com/xatmojo","sameAs":["https://instagram.com/xatmojo","https://wa.me/6289668262520"]},
   "creator":{"@type":"Person","name":"xatmojo"}
 }
 </script>
@@ -219,7 +202,6 @@ img{max-width:100%}
 
 .app{display:grid;grid-template-columns:272px 1fr;min-height:100vh}
 
-/* ── SIDEBAR (tanpa brand) ─────────────────────────────── */
 .sidebar{
   background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
   color:#cfdcec;position:sticky;top:0;height:100vh;
@@ -246,7 +228,6 @@ img{max-width:100%}
 
 .main{min-width:0;display:flex;flex-direction:column;min-height:100vh}
 
-/* ── TOPBAR — hanya pojok kanan atas ───────────────────── */
 .topbar{
   position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;
   padding:11px 22px;background:var(--card);border-bottom:1px solid var(--border);
@@ -257,6 +238,17 @@ img{max-width:100%}
 .save-indicator{font-size:.72rem;font-weight:600;color:var(--green);
   display:flex;align-items:center;gap:5px;opacity:0;transition:.3s;letter-spacing:.04em}
 .save-indicator.show{opacity:1}
+
+/* Print-brand: hidden on screen, visible only in print (top-right corner) */
+.print-brand{
+  display:none;
+  font-family:'Inter',sans-serif;
+  font-size:7.5pt;
+  font-weight:500;
+  letter-spacing:.02em;
+  color:var(--muted);
+  white-space:nowrap;
+}
 
 .content{padding:22px;max-width:1180px;width:100%;margin:0 auto;flex:1}
 section{scroll-margin-top:82px}
@@ -591,6 +583,9 @@ body:not(.edit-on) .tl-actions{display:none !important}
   #langBtn{height:34px;padding:0 7px;font-size:.66rem}
 }
 
+/* =========================================================
+   PRINT — Topbar minimal (hanya branding pojok kanan atas)
+   ========================================================= */
 @media print{
   @page{size:A4 portrait;margin:12mm 11mm 13mm}
   html,body{
@@ -598,7 +593,9 @@ body:not(.edit-on) .tl-actions{display:none !important}
     -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;
   }
   body{line-height:1.45}
-  .sidebar,.sidebar-backdrop,.topbar,.back-top,#toasts,#preloader,
+
+  /* ── HIDE everything that shouldn't print ── */
+  .sidebar,.sidebar-backdrop,.back-top,#toasts,#preloader,
   .no-print,#modalRoot{display:none !important}
   body .edit-only,
   body.edit-on .edit-only{display:none !important}
@@ -610,9 +607,41 @@ body:not(.edit-on) .tl-actions{display:none !important}
   table.data th.th-actions{display:none !important}
   table.data td.col-action,
   table.data td.cell-actions{display:none !important}
+
+  /* ── TOPBAR: keep only the top-right branding strip ── */
+  .topbar{
+    display:flex !important;
+    position:static !important;
+    justify-content:flex-end !important;
+    align-items:center !important;
+    padding:0 0 2.5mm 0 !important;
+    margin:0 0 3mm 0 !important;
+    background:transparent !important;
+    border:none !important;
+    border-bottom:.4pt solid var(--border) !important;
+    box-shadow:none !important;
+    backdrop-filter:none !important;
+    gap:0 !important;
+  }
+  .topbar-actions{
+    display:none !important;
+  }
+  .print-brand{
+    display:block !important;
+    font-size:7.5pt !important;
+    font-weight:500 !important;
+    letter-spacing:.02em !important;
+    color:var(--muted) !important;
+    font-family:'Inter',system-ui,sans-serif !important;
+    margin-left:auto !important;
+    padding:0 !important;
+  }
+
+  /* ── Content reset ── */
   .app{display:block !important}
   .main{display:block !important}
   .content{padding:0 !important;max-width:none !important;margin:0 !important}
+
   .hero{
     display:grid !important;grid-template-columns:26mm 1fr;gap:6mm;align-items:center;
     background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 55%,var(--navy) 100%) !important;
@@ -633,6 +662,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
     background:rgba(255,255,255,.13) !important;border-color:rgba(255,255,255,.25) !important;color:#eaf1f9 !important}
   .chip .icon{color:var(--gold-2) !important}
   .photo-edit{display:none !important}
+
   .section{border:1px solid var(--border) !important;border-radius:4px !important;
     padding:3.4mm 4mm !important;margin:0 0 3mm !important;box-shadow:none !important;
     background:var(--card) !important;break-inside:avoid;page-break-inside:avoid;
@@ -809,6 +839,8 @@ body:not(.edit-on) .tl-actions{display:none !important}
           <svg class="icon"><use href="#i-refresh"/></svg> <span data-i18n-key="btn_reset">Reset</span>
         </button>
       </div>
+      <!-- Print-only branding pojok kanan atas -->
+      <span class="print-brand">xatmojo.github.io/cv-maker</span>
     </header>
 
     <main class="content" id="content">
@@ -837,9 +869,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
 
 <script>
 "use strict";
-/* =========================================================================
-   CV MAKER — xatmojo.github.io/cv-maker
-   ========================================================================= */
+/* CV MAKER — xatmojo.github.io/cv-maker */
 
 const STORE_KEY = 'seafarer_cv_data_v1';
 const UI_KEY    = 'seafarer_cv_ui_v1';
@@ -869,7 +899,6 @@ const I18N = {
   nav_sea:['Sea Service Record','Sea Service Record'],
   nav_work:['Pengalaman Kerja','Work Experience'],
   nav_contact:['Kontak','Contact'],
-
   btn_edit_mode:['Mode Edit','Edit Mode'],
   btn_preview_mode:['Mode Preview','Preview Mode'],
   btn_print:['Cetak / PDF','Print / PDF'],
@@ -881,18 +910,15 @@ const I18N = {
   btn_menu_title:['Menu','Menu'],
   btn_dev_title:['Info Developer','Developer Info'],
   save_indicator:['Tersimpan','Saved'],
-
   btn_backup:['Backup JSON','Backup JSON'],
   btn_import:['Import JSON','Import JSON'],
   btn_reset_data:['Reset Data','Reset Data'],
-
   hero_eyebrow:['Curriculum Vitae · Seafarer','Curriculum Vitae · Seafarer'],
   hero_placeholder_name:['Nama Lengkap Pelaut','Seafarer Full Name'],
   hero_placeholder_rank:['Jabatan / Rank','Position / Rank'],
   hero_fill_contact:['Lengkapi data kontak Anda','Complete your contact information'],
   btn_edit_profile:['Edit Data Pribadi','Edit Personal Data'],
   photo_edit_title:['Ubah foto formal','Change formal photo'],
-
   sec_personal_title:['Personal Information','Personal Information'],
   sec_personal_sub:['Identitas pribadi pelaut','Seafarer personal identity'],
   sec_summary_title:['Professional Summary','Professional Summary'],
@@ -911,7 +937,6 @@ const I18N = {
   sec_work_sub:['Pengalaman kerja di perusahaan pelayaran','Work experience at shipping companies'],
   sec_contact_title:['Contact Information','Contact Information'],
   sec_contact_sub:['Hubungi pelaut','Contact the seafarer'],
-
   info_ttl:['Tempat, Tanggal Lahir','Place, Date of Birth'],
   info_gender:['Jenis Kelamin','Gender'],
   info_religion:['Agama','Religion'],
@@ -919,7 +944,6 @@ const I18N = {
   info_marital:['Status Pernikahan','Marital Status'],
   info_nationality:['Kewarganegaraan','Nationality'],
   info_address:['Alamat Lengkap','Full Address'],
-
   th_type:['Jenis','Type'],
   th_doc_name:['Nama Dokumen','Document Name'],
   th_number:['Nomor','Number'],
@@ -938,20 +962,17 @@ const I18N = {
   th_sign_on:['Sign On','Sign On'],
   th_sign_off:['Sign Off','Sign Off'],
   th_sea_duration:['Masa Berlayar','Sea Time'],
-
   btn_add_doc:['Tambah Dokumen','Add Document'],
   btn_add:['Tambah','Add'],
   btn_add_vessel:['Tambah Kapal','Add Vessel'],
   btn_add_work:['Tambah Pengalaman','Add Experience'],
   btn_edit:['Edit','Edit'],
   btn_delete:['Hapus','Delete'],
-
   status_active:['Aktif','Active'],
   status_soon:['Akan Kedaluwarsa','Expiring Soon'],
   status_expired:['Kedaluwarsa','Expired'],
   status_days_left:['{n} hari lagi','{n} days left'],
   status_days_ago:['lewat {n} hari','{n} days ago'],
-
   empty_summary:['Ringkasan profesional belum diisi. Aktifkan Mode Edit lalu klik "Edit" untuk menambahkan.','Professional summary is empty. Enable Edit Mode and click "Edit" to add.'],
   empty_documents:['Belum ada dokumen pelaut. Klik "Tambah Dokumen" pada Mode Edit.','No seafarer documents yet. Click "Add Document" in Edit Mode.'],
   empty_coc:['Belum ada sertifikat kompetensi. Klik "Tambah" pada Mode Edit.','No competency certificates yet. Click "Add" in Edit Mode.'],
@@ -959,7 +980,6 @@ const I18N = {
   empty_other:['Belum ada sertifikat lainnya. Klik "Tambah" pada Mode Edit.','No other certificates yet. Click "Add" in Edit Mode.'],
   empty_sea:['Belum ada riwayat kapal (Sea Service Record). Klik "Tambah Kapal".','No vessel history yet. Click "Add Vessel".'],
   empty_work:['Belum ada pengalaman kerja. Klik "Tambah Pengalaman".','No work experience yet. Click "Add Experience".'],
-
   search_documents:['Cari dokumen, nomor, atau penerbit…','Search documents, numbers, or issuers…'],
   search_certs:['Cari sertifikat…','Search certificates…'],
   sort_default:['Urutan Default','Default Order'],
@@ -970,20 +990,16 @@ const I18N = {
   sort_sea_asc:['Sign On Terlama','Oldest Sign On'],
   sort_work_desc:['Terbaru','Latest'],
   sort_work_asc:['Terlama','Oldest'],
-
   contact_wa:['WhatsApp','WhatsApp'],
   contact_email:['Email','Email'],
   contact_address:['Alamat','Address'],
   contact_not_filled:['Belum diisi','Not filled'],
-
   sea_total:['Total masa berlayar tercatat:','Total sea time recorded:'],
   sea_months:['{n} bulan','{n} months'],
   sea_days:['({n} hari)','({n} days)'],
-
   alert_expired_title:['{n} sertifikat sudah kedaluwarsa','{n} certificates have expired'],
   alert_soon_title:['{n} sertifikat akan segera kedaluwarsa (≤ 90 hari)','{n} certificates expiring soon (≤ 90 days)'],
   alert_no_name:['Tanpa nama','Unnamed'],
-
   photo_title:['Foto Formal','Formal Photo'],
   photo_choose:['Pilih Foto dari Perangkat','Choose Photo from Device'],
   photo_remove:['Hapus Foto','Remove Photo'],
@@ -999,16 +1015,13 @@ const I18N = {
   photo_not_image:['Bukan file gambar','Not an image file'],
   photo_read_err:['Gagal membaca gambar','Failed to read image'],
   photo_file_err:['Gagal membaca file','Failed to read file'],
-
   dev_modal_title:['Info Developer','Developer Info'],
   dev_modal_sub:['Terhubung dengan pengembang aplikasi','Connect with the app developer'],
   dev_close:['Tutup','Close'],
-
   btn_save:['Simpan','Save'],
   btn_cancel:['Batal','Cancel'],
   btn_yes_continue:['Ya, Lanjutkan','Yes, Continue'],
   modal_close:['Tutup','Close'],
-
   modal_add_doc:['Tambah Dokumen','Add Document'],
   modal_edit_doc:['Edit Dokumen','Edit Document'],
   modal_add_cert:['Tambah Sertifikat','Add Certificate'],
@@ -1021,10 +1034,9 @@ const I18N = {
   modal_delete_title:['Hapus Data','Delete Data'],
   modal_delete_msg:['Hapus "{x}"? Tindakan ini tidak dapat dibatalkan.','Delete "{x}"? This action cannot be undone.'],
   modal_reset_title:['Reset Seluruh Data','Reset All Data'],
-  modal_reset_msg:['Semua data CV (profil, foto, dokumen, sertifikat, riwayat kapal, pengalaman kerja) akan dihapus permanen dari perangkat ini. Lanjutkan?','All CV data (profile, photo, documents, certificates, vessel history, work experience) will be permanently deleted from this device. Continue?'],
+  modal_reset_msg:['Semua data CV akan dihapus permanen dari perangkat ini. Lanjutkan?','All CV data will be permanently deleted from this device. Continue?'],
   modal_import_title:['Import Backup','Import Backup'],
   modal_import_msg:['Semua data saat ini akan diganti dengan data dari file backup. Lanjutkan?','All current data will be replaced with data from the backup file. Continue?'],
-
   toast_profile_updated:['Data pribadi diperbarui','Personal data updated'],
   toast_doc_added:['Dokumen ditambahkan','Document added'],
   toast_doc_updated:['Dokumen diperbarui','Document updated'],
@@ -1041,7 +1053,7 @@ const I18N = {
   toast_import_ok:['Backup berhasil diimport','Backup imported successfully'],
   toast_import_invalid:['File JSON tidak valid','Invalid JSON file'],
   toast_import_err:['File JSON tidak dapat dibaca','Cannot read JSON file'],
-  toast_save_err:['Gagal menyimpan — penyimpanan perangkat penuh. Hapus foto atau gunakan foto lebih kecil.','Failed to save — device storage is full. Remove photo or use a smaller one.'],
+  toast_save_err:['Gagal menyimpan — penyimpanan perangkat penuh.','Failed to save — device storage is full.'],
   toast_theme_changed:['Tema: {name}','Theme: {name}'],
   toast_edit_on:['Mode Edit aktif — data dapat diubah','Edit Mode active — data can be modified'],
   toast_preview_on:['Mode Preview aktif','Preview Mode active'],
@@ -1052,7 +1064,6 @@ const I18N = {
   toast_phone_invalid:['Format nomor telepon tidak valid','Invalid phone number format'],
   toast_date_invalid:['Format {label} harus dd/mm/yyyy','{label} format must be dd/mm/yyyy'],
   toast_preparing:['Menyiapkan dokumen…','Preparing document…'],
-
   lbl_name:['Nama Lengkap','Full Name'],
   lbl_rank:['Jabatan / Rank','Position / Rank'],
   lbl_nationality:['Kewarganegaraan','Nationality'],
@@ -1088,7 +1099,6 @@ const I18N = {
   lbl_company:['Nama Perusahaan Pelayaran','Shipping Company Name'],
   lbl_contract_duration:['Durasi Kontrak','Contract Duration'],
   lbl_description:['Deskripsi Pekerjaan','Job Description'],
-
   opt_choose:['— Pilih —','— Select —'],
   opt_male:['Laki-laki','Male'],
   opt_female:['Perempuan','Female'],
@@ -1110,7 +1120,6 @@ const I18N = {
   opt_doctype_family:['Kartu Keluarga','Family Card'],
   opt_doctype_diploma:['Ijazah','Diploma'],
   opt_doctype_other:['Dokumen Lainnya','Other Document'],
-
   ph_rank_oiler:['Contoh: Oiler','Example: Oiler'],
   ph_doc_name:['Contoh: Buku Pelaut (Seaman Book)','Example: Seaman Book'],
   ph_flag:['Contoh: Panama','Example: Panama'],
@@ -1209,20 +1218,14 @@ function tvDur(a, b){ const d = durationDays(a, b); return d === null ? DASH : e
 
 function blankData(){
   return {
-    profile:{
-      name:'', rank:'Oiler',
-      photo:'', photoZoom:1, photoX:50, photoY:50,
-      birthPlace:'', birthDate:'', gender:'', religion:'',
-      height:'', weight:'', maritalStatus:'', nationality:'Indonesia',
-      address:'', phone:'', email:'', summary:''
-    },
+    profile:{ name:'', rank:'Oiler', photo:'', photoZoom:1, photoX:50, photoY:50,
+      birthPlace:'', birthDate:'', gender:'', religion:'', height:'', weight:'',
+      maritalStatus:'', nationality:'Indonesia', address:'', phone:'', email:'', summary:'' },
     documents:[
       { id: uid(), type:'Buku Pelaut', name:'Buku Pelaut (Seaman Book)', number:'', issuer:'', issueDate:'', expiryDate:'' },
       { id: uid(), type:'MCU',         name:'Medical Check-Up (MCU)',     number:'', issuer:'', issueDate:'', expiryDate:'' }
     ],
-    certificates:[],
-    seaService:[],
-    workExperience:[]
+    certificates:[], seaService:[], workExperience:[]
   };
 }
 function mergeData(saved){
@@ -1243,11 +1246,9 @@ function loadData(){
   }catch(e){ console.warn('Load error:', e); return blankData(); }
 }
 function loadUI(){
-  const def = {
-    edit:false, theme:'navy', lang:'id',
+  const def = { edit:false, theme:'navy', lang:'id',
     search:{ documents:'', coc:'', cop:'', other:'' },
-    sort:{ coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
-  };
+    sort:{ coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' } };
   try{
     const raw = localStorage.getItem(UI_KEY);
     if(!raw) return def;
@@ -1329,17 +1330,14 @@ function closeModal(){
   document.body.style.overflow = '';
 }
 function confirmModal(title, message, onYes){
-  openModal({
-    title, bodyHTML: `<p class="confirm-msg">${esc(message)}</p>`,
-    saveLabel: t('btn_yes_continue'), danger: true,
-    onSave: () => { onYes(); }
-  });
+  openModal({ title, bodyHTML: `<p class="confirm-msg">${esc(message)}</p>`,
+    saveLabel: t('btn_yes_continue'), danger: true, onSave: () => { onYes(); } });
 }
 
 function openDevModal(){
   const bodyHTML = `
     <div style="text-align:center; padding: 10px 0 20px;">
-      <div style="width:86px; height:86px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); display:grid; place-items:center; margin:0 auto 16px; color:var(--navy); font-size:2.5rem; box-shadow:0 8px 24px rgba(var(--gold-rgb),.3);">
+      <div style="width:86px; height:86px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); display:grid; place-items:center; margin:0 auto 16px; color:var(--navy); font-size:2.5rem;">
         ${icon('user')}
       </div>
       <h3 style="font-size:1.4rem; margin-bottom:4px; color:var(--text); font-family:'Outfit',sans-serif;">xatmojo</h3>
@@ -1365,7 +1363,6 @@ function openDevModal(){
 const THEMES_LIGHT = ['navy','ocean','emerald','crimson','violet','graphite'];
 const THEMES_DARK  = ['midnight','deep-ocean','dark-emerald','dark-crimson'];
 const THEMES_ALL   = [...THEMES_LIGHT, ...THEMES_DARK];
-
 function isDarkTheme(theme){ return THEMES_DARK.includes(theme); }
 
 function openThemePicker(){
@@ -1381,33 +1378,25 @@ function openThemePicker(){
     { id:'dark-emerald',  name:'Dark Emerald',   desc:'Gelap hijau',       colors:['#062d20','#ca8a04'] },
     { id:'dark-crimson',  name:'Dark Crimson',   desc:'Gelap merah',       colors:['#2a0808','#eab308'] }
   ];
-
   const cards = list.map(th => {
     const active = UI.theme === th.id;
     return `<button type="button" class="theme-card${active?' active':''}" data-theme-pick="${th.id}" data-theme-name="${esc(th.name)}">
       <div class="theme-swatch" style="background:linear-gradient(135deg,${th.colors[0]},${th.colors[1]})"></div>
-      <div class="theme-info">
-        <strong>${esc(th.name)}</strong>
-        <small>${esc(th.desc)}</small>
-      </div>
+      <div class="theme-info"><strong>${esc(th.name)}</strong><small>${esc(th.desc)}</small></div>
       ${active ? '<span class="theme-check">✓</span>' : ''}
     </button>`;
   }).join('');
-
   openModal({
     title: (UI.lang === 'en' ? 'Choose Theme' : 'Pilih Tema') + ' · ' + THEMES_ALL.length + (UI.lang === 'en' ? ' themes' : ' tema'),
     bodyHTML: `<div class="theme-picker">${cards}</div>`,
     cancelLabel: UI.lang === 'en' ? 'Close' : 'Tutup',
     onSave: null
   });
-
   setTimeout(() => {
     $$('[data-theme-pick]').forEach(btn => {
       btn.onclick = () => {
         UI.theme = btn.dataset.themePick;
-        saveUI();
-        applyTheme();
-        closeModal();
+        saveUI(); applyTheme(); closeModal();
         toast(t('toast_theme_changed').replace('{name}', btn.dataset.themeName), 'info');
       };
     });
@@ -1420,7 +1409,6 @@ function fieldHTML(f, value){
   const label = t(f.labelKey);
   const ph = f.phKey ? t(f.phKey) : (f.ph || '');
   let input;
-
   if(f.type === 'textarea'){
     input = `<textarea id="${id}" name="${esc(f.key)}" rows="${f.rows || 3}" placeholder="${esc(ph)}">${esc(v)}</textarea>`;
   } else if(f.type === 'select'){
@@ -1451,8 +1439,7 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
       ${fields.map(f => fieldHTML(f, values[f.key])).join('')}
     </form>`;
   openModal({
-    title, bodyHTML: html,
-    saveLabel: opts.saveLabel || t('btn_save'),
+    title, bodyHTML: html, saveLabel: opts.saveLabel || t('btn_save'),
     onSave: () => {
       const form = $('#modalForm');
       if(!form) return false;
@@ -1461,44 +1448,19 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
         const elm = form.elements[f.key];
         const raw = elm ? String(elm.value).trim() : '';
         const label = t(f.labelKey);
-
         if(f.type === 'date'){
           if(!raw){
-            if(f.required){
-              toast(t('toast_required').replace('{label}', label), 'err');
-              if(elm) elm.focus();
-              return false;
-            }
-            data[f.key] = '';
-            continue;
+            if(f.required){ toast(t('toast_required').replace('{label}', label), 'err'); if(elm) elm.focus(); return false; }
+            data[f.key] = ''; continue;
           }
           const iso = dmyToISO(raw);
-          if(iso === null){
-            toast(t('toast_date_invalid').replace('{label}', label), 'err');
-            if(elm) elm.focus();
-            return false;
-          }
-          data[f.key] = iso;
-          continue;
+          if(iso === null){ toast(t('toast_date_invalid').replace('{label}', label), 'err'); if(elm) elm.focus(); return false; }
+          data[f.key] = iso; continue;
         }
-
         data[f.key] = raw;
-
-        if(f.required && !raw){
-          toast(t('toast_required').replace('{label}', label), 'err');
-          if(elm) elm.focus();
-          return false;
-        }
-        if(f.type === 'email' && raw && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw)){
-          toast(t('toast_email_invalid'), 'err');
-          if(elm) elm.focus();
-          return false;
-        }
-        if(f.type === 'tel' && raw && !/^[0-9+\-\s()]{7,20}$/.test(raw)){
-          toast(t('toast_phone_invalid'), 'err');
-          if(elm) elm.focus();
-          return false;
-        }
+        if(f.required && !raw){ toast(t('toast_required').replace('{label}', label), 'err'); if(elm) elm.focus(); return false; }
+        if(f.type === 'email' && raw && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw)){ toast(t('toast_email_invalid'), 'err'); if(elm) elm.focus(); return false; }
+        if(f.type === 'tel' && raw && !/^[0-9+\-\s()]{7,20}$/.test(raw)){ toast(t('toast_phone_invalid'), 'err'); if(elm) elm.focus(); return false; }
       }
       onSubmit(data);
       return true;
@@ -1509,10 +1471,7 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
 function sectionHead(iconId, title, subtitle, toolsHTML){
   return `<div class="section-head">
       <div class="section-icon">${icon(iconId)}</div>
-      <div class="section-title">
-        <h2>${esc(title)}</h2>
-        ${subtitle ? `<p>${esc(subtitle)}</p>` : ''}
-      </div>
+      <div class="section-title"><h2>${esc(title)}</h2>${subtitle ? `<p>${esc(subtitle)}</p>` : ''}</div>
       <div class="section-tools no-print">${toolsHTML || ''}</div>
     </div>`;
 }
@@ -1530,8 +1489,7 @@ function editRowBtns(kind, id, label){
 function renderHero(){
   const p = DATA.profile;
   const photoHTML = p.photo
-    ? `<img src="${p.photo}" alt="${esc(p.name || 'Photo')}"
-            style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
+    ? `<img src="${p.photo}" alt="${esc(p.name || 'Photo')}" style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
     : `<div class="photo-empty">${icon('user')}</div>`;
   const chips = [];
   if(p.phone) chips.push(`<a class="chip" href="tel:${esc(p.phone)}">${icon('phone')}<span>${esc(p.phone)}</span></a>`);
@@ -1539,7 +1497,6 @@ function renderHero(){
   if(p.address) chips.push(`<span class="chip">${icon('map-pin')}<span>${esc(p.address)}</span></span>`);
   if(p.nationality) chips.push(`<span class="chip">${icon('globe')}<span>${esc(p.nationality)}</span></span>`);
   if(!chips.length) chips.push(`<span class="chip">${icon('id-card')}<span>${esc(t('hero_fill_contact'))}</span></span>`);
-
   $('#home').innerHTML = `
     <div class="hero-photo-wrap">
       <div class="hero-photo">${photoHTML}</div>
@@ -1566,25 +1523,16 @@ function renderAlerts(){
     else if(s.key === 'soon') soon.push(c);
   });
   if(!soon.length && !expired.length){ zone.innerHTML = ''; return; }
-
   let html = '';
   if(expired.length){
-    html += `<div class="alert-banner danger no-print">
-      ${icon('alert')}
-      <div>
-        <strong>${esc(t('alert_expired_title').replace('{n}', expired.length))}</strong>
-        <ul>${expired.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${fmtDate(c.expiryDate)}</li>`).join('')}</ul>
-      </div>
-    </div>`;
+    html += `<div class="alert-banner danger no-print">${icon('alert')}
+      <div><strong>${esc(t('alert_expired_title').replace('{n}', expired.length))}</strong>
+      <ul>${expired.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${fmtDate(c.expiryDate)}</li>`).join('')}</ul></div></div>`;
   }
   if(soon.length){
-    html += `<div class="alert-banner no-print">
-      ${icon('clock')}
-      <div>
-        <strong>${esc(t('alert_soon_title').replace('{n}', soon.length))}</strong>
-        <ul>${soon.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${t('status_days_left').replace('{n}', daysLeft(c.expiryDate))} (${fmtDate(c.expiryDate)})</li>`).join('')}</ul>
-      </div>
-    </div>`;
+    html += `<div class="alert-banner no-print">${icon('clock')}
+      <div><strong>${esc(t('alert_soon_title').replace('{n}', soon.length))}</strong>
+      <ul>${soon.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${t('status_days_left').replace('{n}', daysLeft(c.expiryDate))} (${fmtDate(c.expiryDate)})</li>`).join('')}</ul></div></div>`;
   }
   zone.innerHTML = html;
 }
@@ -1604,18 +1552,11 @@ function renderPersonal(){
   const grid = items.map(i => `
     <div class="info-item${i.empty ? ' item-empty' : ''}">
       <div class="ii-icon">${icon(i.icon)}</div>
-      <div>
-        <div class="ii-label">${esc(t(i.labelKey))}</div>
-        <div class="ii-value">${esc(i.value)}</div>
-      </div>
+      <div><div class="ii-label">${esc(t(i.labelKey))}</div><div class="ii-value">${esc(i.value)}</div></div>
     </div>`).join('');
-  const address = `
-    <div class="info-item full${!p.address ? ' item-empty' : ''}">
+  const address = `<div class="info-item full${!p.address ? ' item-empty' : ''}">
       <div class="ii-icon">${icon('map-pin')}</div>
-      <div>
-        <div class="ii-label">${esc(t('info_address'))}</div>
-        <div class="ii-value">${esc(p.address || '—')}</div>
-      </div>
+      <div><div class="ii-label">${esc(t('info_address'))}</div><div class="ii-value">${esc(p.address || '—')}</div></div>
     </div>`;
   $('#personal').innerHTML =
     sectionHead('id-card', t('sec_personal_title'), t('sec_personal_sub'),
@@ -1648,20 +1589,14 @@ function renderDocuments(){
       <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('doc', d.id, d.name || d.type || 'document')}</td>
     </tr>`;
   }).join('');
-
   const body = list.length
-    ? `<div class="toolbar no-print">
-         <div class="search-box">${icon('search')}<input type="text" data-search="documents" placeholder="${esc(t('search_documents'))}" value="${esc(UI.search.documents)}"></div>
-       </div>
-       <div class="table-wrap"><table class="data">
-         <thead><tr>
-           <th>${esc(t('th_type'))}</th><th>${esc(t('th_doc_name'))}</th><th>${esc(t('th_number'))}</th>
-           <th>${esc(t('th_issuer'))}</th><th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
-           <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
-         </tr></thead><tbody>${rows}</tbody>
-       </table></div>`
+    ? `<div class="toolbar no-print"><div class="search-box">${icon('search')}<input type="text" data-search="documents" placeholder="${esc(t('search_documents'))}" value="${esc(UI.search.documents)}"></div></div>
+       <div class="table-wrap"><table class="data"><thead><tr>
+         <th>${esc(t('th_type'))}</th><th>${esc(t('th_doc_name'))}</th><th>${esc(t('th_number'))}</th>
+         <th>${esc(t('th_issuer'))}</th><th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
+         <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
+       </tr></thead><tbody>${rows}</tbody></table></div>`
     : emptyBox(t('empty_documents'));
-
   $('#documents').innerHTML =
     sectionHead('layers', t('sec_documents_title'), t('sec_documents_sub'), addBtn('add-doc', t('btn_add_doc'))) + body;
 }
@@ -1671,7 +1606,6 @@ const CERT_META = {
   cop:   { id:'cop',   icon:'shield', titleKey:'sec_cop_title',   subKey:'sec_cop_sub',   emptyKey:'empty_cop' },
   other: { id:'other', icon:'award',  titleKey:'sec_other_title', subKey:'sec_other_sub', emptyKey:'empty_other' }
 };
-
 function getCerts(cat){
   let list = DATA.certificates.filter(c => c.category === cat);
   const s = UI.sort[cat] || 'default';
@@ -1680,12 +1614,10 @@ function getCerts(cat){
   else if(s === 'issued') list.sort((a,b) => (b.issueDate || '').localeCompare(a.issueDate || ''));
   return list;
 }
-
 function renderCertSection(cat){
   const meta = CERT_META[cat];
   const list = getCerts(cat);
   const q = (UI.search[cat] || '').toLowerCase();
-
   const rows = list.map(c => {
     const text = `${c.name} ${c.number} ${c.issuer}`.toLowerCase();
     const hide = q && !text.includes(q) ? ' style="display:none"' : '';
@@ -1699,26 +1631,20 @@ function renderCertSection(cat){
       <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('cert', c.id, c.name || 'certificate')}</td>
     </tr>`;
   }).join('');
-
   const body = list.length
-    ? `<div class="toolbar no-print">
-         <div class="search-box">${icon('search')}<input type="text" data-search="${cat}" placeholder="${esc(t('search_certs'))}" value="${esc(UI.search[cat] || '')}"></div>
+    ? `<div class="toolbar no-print"><div class="search-box">${icon('search')}<input type="text" data-search="${cat}" placeholder="${esc(t('search_certs'))}" value="${esc(UI.search[cat] || '')}"></div>
          <select class="mini" data-sort="${cat}">
            <option value="default"${UI.sort[cat]==='default'?' selected':''}>${esc(t('sort_default'))}</option>
            <option value="expiry"${UI.sort[cat]==='expiry'?' selected':''}>${esc(t('sort_expiry'))}</option>
            <option value="issued"${UI.sort[cat]==='issued'?' selected':''}>${esc(t('sort_issued'))}</option>
            <option value="name"${UI.sort[cat]==='name'?' selected':''}>${esc(t('sort_name'))}</option>
-         </select>
-       </div>
-       <div class="table-wrap"><table class="data">
-         <thead><tr>
-           <th>${esc(t('th_cert_name'))}</th><th>${esc(t('th_number'))}</th><th>${esc(t('th_issuer'))}</th>
-           <th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
-           <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
-         </tr></thead><tbody>${rows}</tbody>
-       </table></div>`
+         </select></div>
+       <div class="table-wrap"><table class="data"><thead><tr>
+         <th>${esc(t('th_cert_name'))}</th><th>${esc(t('th_number'))}</th><th>${esc(t('th_issuer'))}</th>
+         <th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
+         <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
+       </tr></thead><tbody>${rows}</tbody></table></div>`
     : emptyBox(t(meta.emptyKey));
-
   $('#' + cat).innerHTML =
     sectionHead(meta.icon, t(meta.titleKey), t(meta.subKey),
       addBtn('add-cert', t('btn_add'), `data-cat="${cat}"`)) + body;
@@ -1727,12 +1653,9 @@ function renderCertSection(cat){
 function renderSeaService(){
   let list = [...DATA.seaService];
   const s = UI.sort.sea || 'desc';
-  list.sort((a,b) => s === 'asc'
-    ? (a.signOn || '').localeCompare(b.signOn || '')
-    : (b.signOn || '').localeCompare(a.signOn || ''));
+  list.sort((a,b) => s === 'asc' ? (a.signOn || '').localeCompare(b.signOn || '') : (b.signOn || '').localeCompare(a.signOn || ''));
   let totalDays = 0;
   list.forEach(x => { const d = durationDays(x.signOn, x.signOff); if(d) totalDays += d; });
-
   const rows = list.map(x => {
     const gtdwt = [x.gt ? x.gt + ' GT' : '', x.dwt ? x.dwt + ' DWT' : ''].filter(Boolean).join(' / ');
     return `<tr>
@@ -1748,31 +1671,22 @@ function renderSeaService(){
       <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('sea', x.id, x.vesselName || 'vessel')}</td>
     </tr>`;
   }).join('');
-
   const footer = list.length && totalDays > 0
-    ? `<div style="margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:600">
-         ${icon('clock')} ${esc(t('sea_total'))}
+    ? `<div style="margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:600">${icon('clock')} ${esc(t('sea_total'))}
          <strong style="color:var(--gold)">${esc(t('sea_months').replace('{n}', Math.round(totalDays/30.44*10)/10))}</strong>
-         ${esc(t('sea_days').replace('{n}', totalDays))}
-       </div>` : '';
-
+         ${esc(t('sea_days').replace('{n}', totalDays))}</div>` : '';
   const body = list.length
-    ? `<div class="toolbar no-print">
-         <select class="mini" data-sort="sea">
+    ? `<div class="toolbar no-print"><select class="mini" data-sort="sea">
            <option value="desc"${s==='desc'?' selected':''}>${esc(t('sort_sea_desc'))}</option>
            <option value="asc"${s==='asc'?' selected':''}>${esc(t('sort_sea_asc'))}</option>
-         </select>
-       </div>
-       <div class="table-wrap"><table class="data">
-         <thead><tr>
-           <th>${esc(t('th_vessel'))}</th><th>${esc(t('th_flag'))}</th><th>${esc(t('th_vessel_type'))}</th>
-           <th>${esc(t('th_gt_dwt'))}</th><th>${esc(t('th_engine'))}</th><th>${esc(t('th_rank'))}</th>
-           <th>${esc(t('th_sign_on'))}</th><th>${esc(t('th_sign_off'))}</th>
-           <th>${esc(t('th_sea_duration'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
-         </tr></thead><tbody>${rows}</tbody>
-       </table></div>${footer}`
+         </select></div>
+       <div class="table-wrap"><table class="data"><thead><tr>
+         <th>${esc(t('th_vessel'))}</th><th>${esc(t('th_flag'))}</th><th>${esc(t('th_vessel_type'))}</th>
+         <th>${esc(t('th_gt_dwt'))}</th><th>${esc(t('th_engine'))}</th><th>${esc(t('th_rank'))}</th>
+         <th>${esc(t('th_sign_on'))}</th><th>${esc(t('th_sign_off'))}</th>
+         <th>${esc(t('th_sea_duration'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
+       </tr></thead><tbody>${rows}</tbody></table></div>${footer}`
     : emptyBox(t('empty_sea'));
-
   $('#sea').innerHTML =
     sectionHead('anchor', t('sec_sea_title'), t('sec_sea_sub'), addBtn('add-sea', t('btn_add_vessel'))) + body;
 }
@@ -1780,10 +1694,7 @@ function renderSeaService(){
 function renderWork(){
   let list = [...DATA.workExperience];
   const s = UI.sort.work || 'desc';
-  list.sort((a,b) => s === 'asc'
-    ? (a.startDate || '').localeCompare(b.startDate || '')
-    : (b.startDate || '').localeCompare(a.startDate || ''));
-
+  list.sort((a,b) => s === 'asc' ? (a.startDate || '').localeCompare(b.startDate || '') : (b.startDate || '').localeCompare(a.startDate || ''));
   const items = list.map(w => {
     const period = (w.startDate || w.endDate)
       ? `${w.startDate ? fmtDate(w.startDate) : '—'} – ${w.endDate ? fmtDate(w.endDate) : (UI.lang === 'en' ? 'Present' : 'Sekarang')}`
@@ -1793,15 +1704,11 @@ function renderWork(){
       w.vesselType ? `${t('th_vessel_type')}: ${w.vesselType}` : '',
       w.contractDuration ? `${t('lbl_contract_duration')}: ${w.contractDuration}` : ''
     ].filter(Boolean);
-
     return `<div class="tl-item">
       <div class="tl-dot"></div>
       <div class="tl-card">
         <div class="tl-head">
-          <div>
-            ${w.rank ? `<h3>${esc(w.rank)}</h3>` : ''}
-            <p class="tl-company">${tv(w.company)}</p>
-          </div>
+          <div>${w.rank ? `<h3>${esc(w.rank)}</h3>` : ''}<p class="tl-company">${tv(w.company)}</p></div>
           ${period ? `<span class="pill">${esc(period)}</span>` : ''}
         </div>
         ${meta.length ? `<div class="tl-meta">${meta.map(m => `<span>${esc(m)}</span>`).join('')}</div>` : ''}
@@ -1813,17 +1720,13 @@ function renderWork(){
       </div>
     </div>`;
   }).join('');
-
   const body = list.length
-    ? `<div class="toolbar no-print">
-         <select class="mini" data-sort="work">
+    ? `<div class="toolbar no-print"><select class="mini" data-sort="work">
            <option value="desc"${s==='desc'?' selected':''}>${esc(t('sort_work_desc'))}</option>
            <option value="asc"${s==='asc'?' selected':''}>${esc(t('sort_work_asc'))}</option>
-         </select>
-       </div>
+         </select></div>
        <div class="timeline">${items}</div>`
     : emptyBox(t('empty_work'));
-
   $('#work').innerHTML =
     sectionHead('briefcase', t('sec_work_title'), t('sec_work_sub'), addBtn('add-work', t('btn_add_work'))) + body;
 }
@@ -1835,33 +1738,25 @@ function renderContact(){
   if(p.phone){
     cards.push(`<a class="contact-card" href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener">
       <div class="cc-icon wa">${icon('wa','fill')}</div>
-      <div><small>${esc(t('contact_wa'))}</small><strong>${esc(p.phone)}</strong></div>
-    </a>`);
+      <div><small>${esc(t('contact_wa'))}</small><strong>${esc(p.phone)}</strong></div></a>`);
   } else {
-    cards.push(`<div class="contact-card is-placeholder">
-      <div class="cc-icon wa">${icon('wa','fill')}</div>
+    cards.push(`<div class="contact-card is-placeholder"><div class="cc-icon wa">${icon('wa','fill')}</div>
       <div><small>${esc(t('contact_wa'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
   }
   if(p.email){
     cards.push(`<a class="contact-card" href="mailto:${esc(p.email)}">
       <div class="cc-icon mail">${icon('mail')}</div>
-      <div><small>${esc(t('contact_email'))}</small><strong>${esc(p.email)}</strong></div>
-    </a>`);
+      <div><small>${esc(t('contact_email'))}</small><strong>${esc(p.email)}</strong></div></a>`);
   } else {
-    cards.push(`<div class="contact-card is-placeholder">
-      <div class="cc-icon mail">${icon('mail')}</div>
+    cards.push(`<div class="contact-card is-placeholder"><div class="cc-icon mail">${icon('mail')}</div>
       <div><small>${esc(t('contact_email'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
   }
   if(p.address){
-    cards.push(`<div class="contact-card">
-      <div class="cc-icon">${icon('map-pin')}</div>
-      <div><small>${esc(t('contact_address'))}</small><strong>${esc(p.address)}</strong></div>
-    </div>`);
+    cards.push(`<div class="contact-card"><div class="cc-icon">${icon('map-pin')}</div>
+      <div><small>${esc(t('contact_address'))}</small><strong>${esc(p.address)}</strong></div></div>`);
   } else {
-    cards.push(`<div class="contact-card is-placeholder">
-      <div class="cc-icon">${icon('map-pin')}</div>
-      <div><small>${esc(t('contact_address'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div>
-    </div>`);
+    cards.push(`<div class="contact-card is-placeholder"><div class="cc-icon">${icon('map-pin')}</div>
+      <div><small>${esc(t('contact_address'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
   }
   $('#contact').innerHTML =
     sectionHead('phone', t('sec_contact_title'), t('sec_contact_sub'),
@@ -1886,20 +1781,10 @@ function updateEmptyStates(){
 }
 
 function renderAll(){
-  renderHero();
-  renderAlerts();
-  renderPersonal();
-  renderSummary();
-  renderDocuments();
-  renderCertSection('coc');
-  renderCertSection('cop');
-  renderCertSection('other');
-  renderSeaService();
-  renderWork();
-  renderContact();
-  updateEmptyStates();
-  applyEditMode();
-  applyTheme();
+  renderHero(); renderAlerts(); renderPersonal(); renderSummary(); renderDocuments();
+  renderCertSection('coc'); renderCertSection('cop'); renderCertSection('other');
+  renderSeaService(); renderWork(); renderContact();
+  updateEmptyStates(); applyEditMode(); applyTheme();
 }
 function applyEditMode(){
   document.body.classList.toggle('edit-on', !!UI.edit);
@@ -1914,21 +1799,16 @@ function applyTheme(){
   if(UI.theme === 'light') UI.theme = 'navy';
   if(UI.theme === 'dark')  UI.theme = 'midnight';
   if(!THEMES_ALL.includes(UI.theme)) UI.theme = 'navy';
-
   const dark = isDarkTheme(UI.theme);
   document.documentElement.setAttribute('data-theme', UI.theme);
   document.documentElement.setAttribute('data-dark', dark ? 'true' : 'false');
-
   const btn = $('#themeBtn');
   if(btn) btn.innerHTML = icon('palette');
-
   const meta = document.querySelector('meta[name=theme-color]');
   if(meta){
-    const colors = {
-      navy:'#0b1f3a', ocean:'#0c2d48', emerald:'#064e3b', crimson:'#450a0a',
+    const colors = { navy:'#0b1f3a', ocean:'#0c2d48', emerald:'#064e3b', crimson:'#450a0a',
       violet:'#2e1065', graphite:'#1f2937', midnight:'#070f19',
-      'deep-ocean':'#03151f', 'dark-emerald':'#03140e', 'dark-crimson':'#1a0404'
-    };
+      'deep-ocean':'#03151f', 'dark-emerald':'#03140e', 'dark-crimson':'#1a0404' };
     meta.setAttribute('content', colors[UI.theme] || '#0b1f3a');
   }
 }
@@ -1937,30 +1817,21 @@ function applyLang(){
   document.body.classList.toggle('lang-en', UI.lang === 'en');
   const lbl = $('#langLabel');
   if(lbl) lbl.textContent = UI.lang === 'en' ? 'EN' : 'ID';
-  $$('[data-i18n-key]').forEach(el => {
-    const key = el.dataset.i18nKey;
-    if(key) el.textContent = t(key);
-  });
+  $$('[data-i18n-key]').forEach(el => { const key = el.dataset.i18nKey; if(key) el.textContent = t(key); });
   $$('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
 }
 
 const OPTS = {
   gender: [{ v:'', l:'opt_choose' },{ v:'Laki-laki', l:'opt_male' },{ v:'Perempuan', l:'opt_female' }],
-  religion: [
-    { v:'', l:'opt_choose' },{ v:'Islam', l:'opt_islam' },{ v:'Kristen', l:'opt_christian' },
+  religion: [{ v:'', l:'opt_choose' },{ v:'Islam', l:'opt_islam' },{ v:'Kristen', l:'opt_christian' },
     { v:'Katolik', l:'opt_catholic' },{ v:'Hindu', l:'opt_hindu' },{ v:'Buddha', l:'opt_buddhist' },
-    { v:'Konghucu', l:'opt_confucian' },{ v:'Lainnya', l:'opt_other' }
-  ],
-  marital: [
-    { v:'', l:'opt_choose' },{ v:'Belum Menikah', l:'opt_single' },{ v:'Menikah', l:'opt_married' },
-    { v:'Cerai Hidup', l:'opt_divorced' },{ v:'Cerai Mati', l:'opt_widowed' }
-  ],
-  doctype: [
-    { v:'Buku Pelaut', l:'opt_doctype_seaman' },{ v:'MCU', l:'opt_doctype_mcu' },
+    { v:'Konghucu', l:'opt_confucian' },{ v:'Lainnya', l:'opt_other' }],
+  marital: [{ v:'', l:'opt_choose' },{ v:'Belum Menikah', l:'opt_single' },{ v:'Menikah', l:'opt_married' },
+    { v:'Cerai Hidup', l:'opt_divorced' },{ v:'Cerai Mati', l:'opt_widowed' }],
+  doctype: [{ v:'Buku Pelaut', l:'opt_doctype_seaman' },{ v:'MCU', l:'opt_doctype_mcu' },
     { v:'Sertifikat Medis', l:'opt_doctype_medical' },{ v:'Paspor', l:'opt_doctype_passport' },
     { v:'Kartu Keluarga', l:'opt_doctype_family' },{ v:'Ijazah', l:'opt_doctype_diploma' },
-    { v:'Dokumen Lainnya', l:'opt_doctype_other' }
-  ]
+    { v:'Dokumen Lainnya', l:'opt_doctype_other' }]
 };
 
 const PROFILE_FIELDS = [
@@ -1979,7 +1850,6 @@ const PROFILE_FIELDS = [
   { key:'address', labelKey:'lbl_address', type:'textarea', full:true, rows:3 },
   { key:'summary', labelKey:'lbl_summary', type:'textarea', full:true, rows:5 }
 ];
-
 const DOC_FIELDS = [
   { key:'type', labelKey:'lbl_doc_type', type:'select', options: OPTS.doctype, required:true },
   { key:'name', labelKey:'lbl_doc_name', type:'text', required:true, phKey:'ph_doc_name' },
@@ -1988,7 +1858,6 @@ const DOC_FIELDS = [
   { key:'issueDate', labelKey:'lbl_issue_date', type:'date' },
   { key:'expiryDate', labelKey:'lbl_expiry_date', type:'date' }
 ];
-
 const CERT_FIELDS = [
   { key:'name', labelKey:'lbl_cert_name', type:'text', required:true, full:true },
   { key:'number', labelKey:'lbl_cert_number', type:'text' },
@@ -1996,7 +1865,6 @@ const CERT_FIELDS = [
   { key:'issueDate', labelKey:'lbl_issue_date', type:'date' },
   { key:'expiryDate', labelKey:'lbl_expiry_date', type:'date' }
 ];
-
 const SEA_FIELDS = [
   { key:'vesselName', labelKey:'lbl_vessel_name', type:'text', required:true },
   { key:'flag', labelKey:'lbl_flag', type:'text', phKey:'ph_flag' },
@@ -2008,7 +1876,6 @@ const SEA_FIELDS = [
   { key:'signOn', labelKey:'lbl_sign_on', type:'date' },
   { key:'signOff', labelKey:'lbl_sign_off', type:'date' }
 ];
-
 const WORK_FIELDS = [
   { key:'company', labelKey:'lbl_company', type:'text', required:true, full:true },
   { key:'rank', labelKey:'lbl_rank', type:'text' },
@@ -2020,77 +1887,28 @@ const WORK_FIELDS = [
   { key:'description', labelKey:'lbl_description', type:'textarea', full:true, rows:4 }
 ];
 
-function editProfile(){
-  openFormModal(t('modal_edit_profile'), PROFILE_FIELDS, DATA.profile, (data) => {
-    Object.assign(DATA.profile, data);
-    save(); renderAll();
-    toast(t('toast_profile_updated'));
-  });
-}
-function addDoc(){
-  openFormModal(t('modal_add_doc'), DOC_FIELDS, {}, (data) => {
-    DATA.documents.push(Object.assign({ id: uid() }, data));
-    save(); renderAll();
-    toast(t('toast_doc_added'));
-  });
-}
-function editDoc(id){
-  const item = DATA.documents.find(x => x.id === id);
-  if(!item) return;
+function editProfile(){ openFormModal(t('modal_edit_profile'), PROFILE_FIELDS, DATA.profile, (data) => {
+  Object.assign(DATA.profile, data); save(); renderAll(); toast(t('toast_profile_updated')); }); }
+function addDoc(){ openFormModal(t('modal_add_doc'), DOC_FIELDS, {}, (data) => {
+  DATA.documents.push(Object.assign({ id: uid() }, data)); save(); renderAll(); toast(t('toast_doc_added')); }); }
+function editDoc(id){ const item = DATA.documents.find(x => x.id === id); if(!item) return;
   openFormModal(t('modal_edit_doc'), DOC_FIELDS, item, (data) => {
-    Object.assign(item, data);
-    save(); renderAll();
-    toast(t('toast_doc_updated'));
-  });
-}
-function addCert(cat){
-  openFormModal(t('modal_add_cert'), CERT_FIELDS, {}, (data) => {
-    DATA.certificates.push(Object.assign({ id: uid(), category: cat }, data));
-    save(); renderAll();
-    toast(t('toast_cert_added'));
-  });
-}
-function editCert(id){
-  const item = DATA.certificates.find(x => x.id === id);
-  if(!item) return;
+    Object.assign(item, data); save(); renderAll(); toast(t('toast_doc_updated')); }); }
+function addCert(cat){ openFormModal(t('modal_add_cert'), CERT_FIELDS, {}, (data) => {
+  DATA.certificates.push(Object.assign({ id: uid(), category: cat }, data)); save(); renderAll(); toast(t('toast_cert_added')); }); }
+function editCert(id){ const item = DATA.certificates.find(x => x.id === id); if(!item) return;
   openFormModal(t('modal_edit_cert'), CERT_FIELDS, item, (data) => {
-    Object.assign(item, data);
-    save(); renderAll();
-    toast(t('toast_cert_updated'));
-  });
-}
-function addSea(){
-  openFormModal(t('modal_add_sea'), SEA_FIELDS, {}, (data) => {
-    DATA.seaService.push(Object.assign({ id: uid() }, data));
-    save(); renderAll();
-    toast(t('toast_sea_added'));
-  });
-}
-function editSea(id){
-  const item = DATA.seaService.find(x => x.id === id);
-  if(!item) return;
+    Object.assign(item, data); save(); renderAll(); toast(t('toast_cert_updated')); }); }
+function addSea(){ openFormModal(t('modal_add_sea'), SEA_FIELDS, {}, (data) => {
+  DATA.seaService.push(Object.assign({ id: uid() }, data)); save(); renderAll(); toast(t('toast_sea_added')); }); }
+function editSea(id){ const item = DATA.seaService.find(x => x.id === id); if(!item) return;
   openFormModal(t('modal_edit_sea'), SEA_FIELDS, item, (data) => {
-    Object.assign(item, data);
-    save(); renderAll();
-    toast(t('toast_sea_updated'));
-  });
-}
-function addWork(){
-  openFormModal(t('modal_add_work'), WORK_FIELDS, {}, (data) => {
-    DATA.workExperience.push(Object.assign({ id: uid() }, data));
-    save(); renderAll();
-    toast(t('toast_work_added'));
-  });
-}
-function editWork(id){
-  const item = DATA.workExperience.find(x => x.id === id);
-  if(!item) return;
+    Object.assign(item, data); save(); renderAll(); toast(t('toast_sea_updated')); }); }
+function addWork(){ openFormModal(t('modal_add_work'), WORK_FIELDS, {}, (data) => {
+  DATA.workExperience.push(Object.assign({ id: uid() }, data)); save(); renderAll(); toast(t('toast_work_added')); }); }
+function editWork(id){ const item = DATA.workExperience.find(x => x.id === id); if(!item) return;
   openFormModal(t('modal_edit_work'), WORK_FIELDS, item, (data) => {
-    Object.assign(item, data);
-    save(); renderAll();
-    toast(t('toast_work_updated'));
-  });
-}
+    Object.assign(item, data); save(); renderAll(); toast(t('toast_work_updated')); }); }
 function deleteItem(type, id, label){
   const msg = t('modal_delete_msg').replace('{x}', label || 'item');
   confirmModal(t('modal_delete_title'), msg, () => {
@@ -2098,8 +1916,7 @@ function deleteItem(type, id, label){
     if(type === 'cert')  DATA.certificates   = DATA.certificates.filter(x => x.id !== id);
     if(type === 'sea')   DATA.seaService     = DATA.seaService.filter(x => x.id !== id);
     if(type === 'work')  DATA.workExperience = DATA.workExperience.filter(x => x.id !== id);
-    save(); renderAll();
-    toast(t('toast_deleted'));
+    save(); renderAll(); toast(t('toast_deleted'));
   });
 }
 
@@ -2108,7 +1925,6 @@ function openPhotoModal(){
   const preview = p.photo
     ? `<img id="photoPrevImg" src="${p.photo}" alt="preview" style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
     : `<div id="photoPrevImg" style="display:grid;place-items:center;width:100%;height:100%;color:var(--muted);font-size:2.5rem;">${icon('user')}</div>`;
-
   const body = `
     <div class="photo-editor">
       <div class="photo-preview" id="photoPreviewBox">${preview}</div>
@@ -2116,60 +1932,38 @@ function openPhotoModal(){
         <label class="upload-btn" for="photoFileInput">${icon('upload')} ${esc(t('photo_choose'))}</label>
         <input type="file" id="photoFileInput" accept="image/*" hidden>
         <button class="btn ghost" type="button" id="photoRemoveBtn">${icon('trash')} ${esc(t('photo_remove'))}</button>
-        <div>
-          <label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_zoom'))}</label>
-          <input type="range" id="photoZoom" min="1" max="2.5" step="0.05" value="${p.photoZoom}">
-        </div>
-        <div>
-          <label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_x'))}</label>
-          <input type="range" id="photoX" min="0" max="100" step="1" value="${p.photoX}">
-        </div>
-        <div>
-          <label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_y'))}</label>
-          <input type="range" id="photoY" min="0" max="100" step="1" value="${p.photoY}">
-        </div>
+        <div><label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_zoom'))}</label>
+          <input type="range" id="photoZoom" min="1" max="2.5" step="0.05" value="${p.photoZoom}"></div>
+        <div><label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_x'))}</label>
+          <input type="range" id="photoX" min="0" max="100" step="1" value="${p.photoX}"></div>
+        <div><label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_y'))}</label>
+          <input type="range" id="photoY" min="0" max="100" step="1" value="${p.photoY}"></div>
         <p style="font-size:.75rem;color:var(--muted);line-height:1.5;margin:0;">${esc(t('photo_hint'))}</p>
       </div>
     </div>`;
-
-  openModal({
-    title: t('photo_title'),
-    bodyHTML: body,
-    saveLabel: t('photo_use'),
+  openModal({ title: t('photo_title'), bodyHTML: body, saveLabel: t('photo_use'),
     onSave: () => {
       const img = $('#photoPreviewBox img');
-      if(img){
-        DATA.profile.photo = img.src;
+      if(img){ DATA.profile.photo = img.src;
         DATA.profile.photoZoom = parseFloat($('#photoZoom').value) || 1;
         DATA.profile.photoX = parseInt($('#photoX').value, 10) || 50;
         DATA.profile.photoY = parseInt($('#photoY').value, 10) || 50;
-      } else {
-        DATA.profile.photo = '';
-      }
-      save(); renderAll();
-      toast(t('photo_updated'));
-      return true;
+      } else { DATA.profile.photo = ''; }
+      save(); renderAll(); toast(t('photo_updated')); return true;
     }
   });
-
   setTimeout(() => {
     const fileIn = $('#photoFileInput');
     const prevBox = $('#photoPreviewBox');
-    const zoom = $('#photoZoom');
-    const px = $('#photoX');
-    const py = $('#photoY');
-
+    const zoom = $('#photoZoom'), px = $('#photoX'), py = $('#photoY');
     function updateTransform(){
-      const img = prevBox.querySelector('img');
-      if(!img) return;
+      const img = prevBox.querySelector('img'); if(!img) return;
       img.style.transform = `scale(${zoom.value})`;
       img.style.objectPosition = `${px.value}% ${py.value}%`;
     }
-
     if(fileIn){
       fileIn.onchange = (e) => {
-        const file = e.target.files[0];
-        if(!file) return;
+        const file = e.target.files[0]; if(!file) return;
         if(!file.type.startsWith('image/')){ toast(t('photo_not_image'), 'err'); return; }
         const reader = new FileReader();
         reader.onload = (ev) => {
@@ -2177,12 +1971,10 @@ function openPhotoModal(){
           srcImg.onload = () => {
             const maxDim = 400;
             const ratio = Math.min(maxDim/srcImg.width, maxDim/srcImg.height, 1);
-            const w = Math.round(srcImg.width * ratio);
-            const h = Math.round(srcImg.height * ratio);
+            const w = Math.round(srcImg.width * ratio), h = Math.round(srcImg.height * ratio);
             const canvas = document.createElement('canvas');
             canvas.width = w; canvas.height = h;
-            const ctx = canvas.getContext('2d');
-            ctx.drawImage(srcImg, 0, 0, w, h);
+            canvas.getContext('2d').drawImage(srcImg, 0, 0, w, h);
             const compressed = canvas.toDataURL('image/jpeg', 0.85);
             prevBox.innerHTML = `<img src="${compressed}" alt="preview" style="width:100%;height:100%;object-fit:cover;display:block;">`;
             updateTransform();
@@ -2211,36 +2003,23 @@ function exportJSON(){
     const blob = new Blob([JSON.stringify(DATA, null, 2)], { type:'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url;
-    a.download = `cv-backup-${new Date().toISOString().slice(0,10)}.json`;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-    URL.revokeObjectURL(url);
+    a.href = url; a.download = `cv-backup-${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
     toast(t('toast_backup_ok'));
-  }catch(e){
-    console.error(e);
-    toast(t('toast_backup_err'), 'err');
-  }
+  }catch(e){ console.error(e); toast(t('toast_backup_err'), 'err'); }
 }
 function triggerImport(){
-  const inp = $('#importInput');
-  inp.value = '';
+  const inp = $('#importInput'); inp.value = '';
   inp.onchange = (e) => {
-    const file = e.target.files[0];
-    if(!file) return;
+    const file = e.target.files[0]; if(!file) return;
     const reader = new FileReader();
     reader.onload = (ev) => {
       try{
         const parsed = JSON.parse(ev.target.result);
         confirmModal(t('modal_import_title'), t('modal_import_msg'), () => {
-          DATA = mergeData(parsed);
-          save(); renderAll();
-          toast(t('toast_import_ok'));
+          DATA = mergeData(parsed); save(); renderAll(); toast(t('toast_import_ok'));
         });
-      }catch(err){
-        toast(t('toast_import_invalid'), 'err');
-      }
+      }catch(err){ toast(t('toast_import_invalid'), 'err'); }
     };
     reader.onerror = () => toast(t('toast_import_err'), 'err');
     reader.readAsText(file);
@@ -2249,9 +2028,7 @@ function triggerImport(){
 }
 function resetAll(){
   confirmModal(t('modal_reset_title'), t('modal_reset_msg'), () => {
-    DATA = blankData();
-    save(); renderAll();
-    toast(t('toast_reset'));
+    DATA = blankData(); save(); renderAll(); toast(t('toast_reset'));
   });
 }
 
@@ -2262,82 +2039,34 @@ function doAction(action, el){
       $('#sidebarBackdrop').classList.toggle('show');
       break;
     case 'toggle-theme':
-    case 'theme-picker':
-      openThemePicker();
-      break;
+    case 'theme-picker': openThemePicker(); break;
     case 'toggle-lang':
       UI.lang = UI.lang === 'en' ? 'id' : 'en';
-      saveUI();
-      applyLang();
-      renderAll();
-      toast(UI.lang === 'en' ? t('toast_lang_en') : t('toast_lang_id'), 'info');
-      break;
+      saveUI(); applyLang(); renderAll();
+      toast(UI.lang === 'en' ? t('toast_lang_en') : t('toast_lang_id'), 'info'); break;
     case 'toggle-edit':
-      UI.edit = !UI.edit;
-      saveUI();
-      applyEditMode();
-      toast(UI.edit ? t('toast_edit_on') : t('toast_preview_on'), 'info');
-      break;
-    case 'print':
-      window.print();
-      break;
-    case 'reset':
-      resetAll();
-      break;
-    case 'export':
-      exportJSON();
-      break;
-    case 'import':
-      triggerImport();
-      break;
-    case 'back-top':
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-      break;
-    case 'dev-info':
-      openDevModal();
-      break;
-    case 'photo':
-      openPhotoModal();
-      break;
-    case 'edit-profile':
-      editProfile();
-      break;
-    case 'add-doc':
-      addDoc();
-      break;
-    case 'add-cert':
-      addCert(el.dataset.cat || 'coc');
-      break;
-    case 'add-sea':
-      addSea();
-      break;
-    case 'add-work':
-      addWork();
-      break;
-    case 'edit-doc':
-      editDoc(el.dataset.id);
-      break;
-    case 'edit-cert':
-      editCert(el.dataset.id);
-      break;
-    case 'edit-sea':
-      editSea(el.dataset.id);
-      break;
-    case 'edit-work':
-      editWork(el.dataset.id);
-      break;
-    case 'del-doc':
-      deleteItem('doc', el.dataset.id, el.dataset.label);
-      break;
-    case 'del-cert':
-      deleteItem('cert', el.dataset.id, el.dataset.label);
-      break;
-    case 'del-sea':
-      deleteItem('sea', el.dataset.id, el.dataset.label);
-      break;
-    case 'del-work':
-      deleteItem('work', el.dataset.id, el.dataset.label);
-      break;
+      UI.edit = !UI.edit; saveUI(); applyEditMode();
+      toast(UI.edit ? t('toast_edit_on') : t('toast_preview_on'), 'info'); break;
+    case 'print': window.print(); break;
+    case 'reset': resetAll(); break;
+    case 'export': exportJSON(); break;
+    case 'import': triggerImport(); break;
+    case 'back-top': window.scrollTo({ top: 0, behavior: 'smooth' }); break;
+    case 'dev-info': openDevModal(); break;
+    case 'photo': openPhotoModal(); break;
+    case 'edit-profile': editProfile(); break;
+    case 'add-doc': addDoc(); break;
+    case 'add-cert': addCert(el.dataset.cat || 'coc'); break;
+    case 'add-sea': addSea(); break;
+    case 'add-work': addWork(); break;
+    case 'edit-doc': editDoc(el.dataset.id); break;
+    case 'edit-cert': editCert(el.dataset.id); break;
+    case 'edit-sea': editSea(el.dataset.id); break;
+    case 'edit-work': editWork(el.dataset.id); break;
+    case 'del-doc': deleteItem('doc', el.dataset.id, el.dataset.label); break;
+    case 'del-cert': deleteItem('cert', el.dataset.id, el.dataset.label); break;
+    case 'del-sea': deleteItem('sea', el.dataset.id, el.dataset.label); break;
+    case 'del-work': deleteItem('work', el.dataset.id, el.dataset.label); break;
   }
 }
 
@@ -2345,13 +2074,11 @@ document.addEventListener('click', (e) => {
   const btn = e.target.closest('[data-action]');
   if(btn){ doAction(btn.dataset.action, btn); }
 });
-
 document.addEventListener('input', (e) => {
   const search = e.target.closest('[data-search]');
   if(search){
     const cat = search.dataset.search;
-    UI.search[cat] = search.value;
-    saveUI();
+    UI.search[cat] = search.value; saveUI();
     const section = search.closest('.section');
     const q = search.value.toLowerCase();
     if(section){
@@ -2362,24 +2089,20 @@ document.addEventListener('input', (e) => {
     }
   }
 });
-
 document.addEventListener('change', (e) => {
   const sort = e.target.closest('[data-sort]');
   if(sort){
     const cat = sort.dataset.sort;
-    UI.sort[cat] = sort.value;
-    saveUI();
+    UI.sort[cat] = sort.value; saveUI();
     if(cat === 'sea')  renderSeaService();
     else if(cat === 'work') renderWork();
     else renderCertSection(cat);
   }
 });
-
 $('#sidebarBackdrop').addEventListener('click', () => {
   $('#sidebar').classList.remove('open');
   $('#sidebarBackdrop').classList.remove('show');
 });
-
 window.addEventListener('scroll', () => {
   const top = $('#backTop');
   if(window.scrollY > 300) top.classList.add('show');
@@ -2391,21 +2114,16 @@ window.addEventListener('scroll', () => {
     const rect = sec.getBoundingClientRect();
     if(rect.top <= 120 && rect.bottom > 120) current = sec.id;
   });
-  if(current){
-    navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === current));
-  }
+  if(current) navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === current));
 });
-
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape'){
     $('#sidebar').classList.remove('open');
     $('#sidebarBackdrop').classList.remove('show');
   }
 });
-
 function init(){
-  applyLang();
-  renderAll();
+  applyLang(); renderAll();
   setTimeout(() => $('#preloader').classList.add('hide'), 500);
 }
 init();
