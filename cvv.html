@@ -1,94 +1,36 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="navy" data-dark="false">
+<html lang="id" data-color="navy" data-mode="light" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0b1f3a">
-
-<!-- ═══════════ SEO: PRIMARY META ═══════════ -->
-<title>CV Maker · https://xatmojo.github.io/cv-maker</title>
-<meta name="description" content="CV Maker — aplikasi pembuat CV profesional dengan data pribadi, sertifikat, riwayat kerja, dan sea service record. Data tersimpan lokal, bisa dicetak ke PDF.">
-<meta name="keywords" content="CV Maker, CV Pelaut, Seafarer CV, Curriculum Vitae, Marine CV, Maritime CV, COC, COP, Sea Service Record">
-<meta name="author" content="xatmojo">
-<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
-<meta name="googlebot" content="index, follow">
-<meta name="language" content="Indonesian">
-<meta name="geo.region" content="ID">
-<meta name="geo.placename" content="Indonesia">
-<link rel="canonical" href="https://xatmojo.github.io/cv-maker/">
-
-<!-- ═══════════ SEO: OPEN GRAPH ═══════════ -->
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="CV Maker">
-<meta property="og:title" content="CV Maker">
-<meta property="og:description" content="Aplikasi pembuat CV profesional. Data tersimpan lokal, bisa dicetak ke PDF, multi-tema, multi-bahasa.">
-<meta property="og:url" content="https://xatmojo.github.io/cv-maker/">
-<meta property="og:locale" content="id_ID">
-<meta property="og:locale:alternate" content="en_US">
-
-<!-- ═══════════ SEO: TWITTER ═══════════ -->
-<meta name="twitter:card" content="summary">
-<meta name="twitter:site" content="@xatmojo">
-<meta name="twitter:creator" content="@xatmojo">
-<meta name="twitter:title" content="CV Maker">
-<meta name="twitter:description" content="Aplikasi pembuat CV profesional. Bisa dicetak ke PDF, multi-tema, multi-bahasa.">
-
-<!-- ═══════════ PWA / MOBILE ═══════════ -->
-<meta name="application-name" content="CV Maker">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="CV Maker">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="format-detection" content="telephone=no">
-<meta name="msapplication-TileColor" content="#0b1f3a">
-
-<!-- ═══════════ FAVICON ═══════════ -->
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b1f3a'/%3E%3Cpath d='M12 5a2 2 0 100 4 2 2 0 000-4zm0 5.5c-.6 0-1 .4-1 1v4.3c-1.2-.5-2-1.5-2.3-2.7h-1c.2 2.3 2 4.4 4.3 4.4s4.1-2.1 4.3-4.4h-1c-.3 1.2-1.1 2.2-2.3 2.7v-4.3c0-.6-.4-1-1-1z' fill='%23c9a227'/%3E%3C/svg%3E">
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Crect width='24' height='24' rx='6' fill='%230b1f3a'/%3E%3Cpath d='M12 5a2 2 0 100 4 2 2 0 000-4zm0 5.5c-.6 0-1 .4-1 1v4.3c-1.2-.5-2-1.5-2.3-2.7h-1c.2 2.3 2 4.4 4.3 4.4s4.1-2.1 4.3-4.4h-1c-.3 1.2-1.1 2.2-2.3 2.7v-4.3c0-.6-.4-1-1-1z' fill='%23c9a227'/%3E%3C/svg%3E">
-
-<!-- ═══════════ FONTS ═══════════ -->
+<title>CV Pelaut — Seafarer Professional Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
 
-<!-- ═══════════ JSON-LD ═══════════ -->
-<script type="application/ld+json">
-{
-  "@context":"https://schema.org",
-  "@type":"WebApplication",
-  "name":"CV Maker",
-  "alternateName":["CV Pelaut","Seafarer CV"],
-  "url":"https://xatmojo.github.io/cv-maker/",
-  "description":"Aplikasi pembuat CV profesional dengan data pribadi, sertifikat, riwayat kerja, dan sea service record. Data tersimpan lokal, bisa dicetak ke PDF.",
-  "applicationCategory":"BusinessApplication",
-  "operatingSystem":"Any",
-  "browserRequirements":"Requires JavaScript. Requires HTML5.",
-  "inLanguage":["id","en"],
-  "isAccessibleForFree":true,
-  "offers":{"@type":"Offer","price":"0","priceCurrency":"IDR","availability":"https://schema.org/InStock"},
-  "author":{"@type":"Person","name":"xatmojo","email":"xatmojo@gmail.com","url":"https://instagram.com/xatmojo","sameAs":["https://instagram.com/xatmojo","https://wa.me/6289668262520"]},
-  "creator":{"@type":"Person","name":"xatmojo"}
-}
-</script>
-
-<!-- ═══════════ EARLY THEME APPLY ═══════════ -->
+<!-- Theme bootstrap (no FOUC) -->
 <script>
 (function(){
   try{
-    var ui = JSON.parse(localStorage.getItem('seafarer_cv_ui_v1') || '{}');
-    var theme = ui.theme || 'navy';
-    if(theme === 'light') theme = 'navy';
-    if(theme === 'dark')  theme = 'midnight';
-    var darkThemes = ['midnight','deep-ocean','dark-emerald','dark-crimson'];
-    document.documentElement.setAttribute('data-theme', theme);
-    document.documentElement.setAttribute('data-dark', darkThemes.indexOf(theme) >= 0 ? 'true' : 'false');
+    const raw = localStorage.getItem('seafarer_cv_ui_v1');
+    const ui = raw ? JSON.parse(raw) : {};
+    const color = ui.color || 'navy';
+    const mode  = ui.mode || (ui.theme === 'dark' ? 'dark' : 'light');
+    const map = { navy:'#0b1f3a', emerald:'#064e3b', royal:'#2e1065', crimson:'#450a0a',
+                  ocean:'#042f2e', sunset:'#431407', slate:'#0f172a', rose:'#4c0519' };
+    document.documentElement.setAttribute('data-color', color);
+    document.documentElement.setAttribute('data-mode',  mode);
+    document.documentElement.setAttribute('data-theme', mode);
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if(meta && map[color]) meta.setAttribute('content', map[color]);
   }catch(e){}
 })();
 </script>
 
 <style>
 /* =========================================================
-   DESIGN TOKENS — Multi-Theme System
+   1. DESIGN TOKENS & THEMES
    ========================================================= */
 :root{
   --fs:15px;
@@ -97,162 +39,172 @@
   --green:#0f9d58;
   --amber:#d97706;
   --red:#dc2626;
-  --navy:#0b1f3a; --navy-2:#123055; --navy-3:#1b4066; --navy-rgb:11,31,58;
-  --gold:#c9a227; --gold-2:#e6c85c; --gold-dark:#a4821c; --gold-rgb:201,162,39;
-  --bg:#eef2f8; --card:#ffffff; --card-2:#f8fafc;
-  --text:#0f1c2e; --muted:#64748b; --border:#dde5ef;
+}
+
+/* --- Palettes --- */
+html{
+  --primary:#0b1f3a; --primary-2:#123055; --primary-3:#1b4066;
+  --accent:#c9a227;  --accent-2:#e6c85c;
+  /* Aliases (agar seluruh CSS lama tetap bekerja) */
+  --navy: var(--primary);
+  --navy-2: var(--primary-2);
+  --navy-3: var(--primary-3);
+  --gold: var(--accent);
+  --gold-2: var(--accent-2);
+}
+[data-color="navy"]{ --primary:#0b1f3a; --primary-2:#123055; --primary-3:#1b4066; --accent:#c9a227; --accent-2:#e6c85c; }
+[data-color="emerald"]{ --primary:#064e3b; --primary-2:#065f46; --primary-3:#047857; --accent:#059669; --accent-2:#34d399; }
+[data-color="royal"]{ --primary:#2e1065; --primary-2:#4c1d95; --primary-3:#6d28d9; --accent:#7c3aed; --accent-2:#a78bfa; }
+[data-color="crimson"]{ --primary:#450a0a; --primary-2:#7f1d1d; --primary-3:#991b1b; --accent:#dc2626; --accent-2:#f87171; }
+[data-color="ocean"]{ --primary:#042f2e; --primary-2:#134e4a; --primary-3:#0f766e; --accent:#0891b2; --accent-2:#22d3ee; }
+[data-color="sunset"]{ --primary:#431407; --primary-2:#7c2d12; --primary-3:#9a3412; --accent:#ea580c; --accent-2:#fb923c; }
+[data-color="slate"]{ --primary:#0f172a; --primary-2:#1e293b; --primary-3:#334155; --accent:#475569; --accent-2:#94a3b8; }
+[data-color="rose"]{ --primary:#4c0519; --primary-2:#831843; --primary-3:#9f1239; --accent:#e11d48; --accent-2:#fb7185; }
+
+/* --- Light / Dark mode (blended from palette) --- */
+[data-mode="light"]{
+  --bg:#eef2f8;
+  --bg: color-mix(in srgb, var(--primary) 4%, #f0f4f8);
+  --card:#ffffff;
+  --card-2:#f8fafc;
+  --card-2: color-mix(in srgb, var(--primary) 2%, #f8fafc);
+  --text:#0f1c2e;
+  --text: color-mix(in srgb, var(--primary) 90%, #000);
+  --muted:#64748b;
+  --muted: color-mix(in srgb, var(--primary) 35%, #64748b);
+  --border:#dde5ef;
+  --border: color-mix(in srgb, var(--primary) 10%, #dde5ef);
   --shadow:0 10px 30px rgba(11,31,58,.08);
+  --shadow: 0 10px 30px color-mix(in srgb, var(--primary) 8%, transparent);
   --shadow-sm:0 2px 10px rgba(11,31,58,.06);
+  --shadow-sm: 0 2px 10px color-mix(in srgb, var(--primary) 6%, transparent);
 }
-
-[data-theme="ocean"]{
-  --navy:#0c2d48; --navy-2:#155e8a; --navy-3:#1d7faf; --navy-rgb:12,45,72;
-  --gold:#0891b2; --gold-2:#22d3ee; --gold-dark:#0e7490; --gold-rgb:8,145,178;
-  --bg:#eef8fc; --card:#ffffff; --card-2:#f0f9ff;
-  --text:#0c2d48; --muted:#64748b; --border:#c7e3f0;
-  --shadow:0 10px 30px rgba(12,45,72,.08); --shadow-sm:0 2px 10px rgba(12,45,72,.06);
+[data-mode="dark"]{
+  --bg:#070f19;
+  --bg: color-mix(in srgb, var(--primary) 55%, #000);
+  --card:#0e1b2b;
+  --card: color-mix(in srgb, var(--primary) 60%, #000);
+  --card-2:#122133;
+  --card-2: color-mix(in srgb, var(--primary) 65%, #000);
+  --text:#e6eef8;
+  --muted:#8ba0b8;
+  --muted: color-mix(in srgb, var(--primary) 30%, #8ba0b8);
+  --border:#1e3350;
+  --border: color-mix(in srgb, var(--primary) 40%, #0a1524);
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --shadow-sm:0 2px 10px rgba(0,0,0,.35);
 }
-[data-theme="emerald"]{
-  --navy:#064e3b; --navy-2:#065f46; --navy-3:#047857; --navy-rgb:6,78,59;
-  --gold:#ca8a04; --gold-2:#eab308; --gold-dark:#a16207; --gold-rgb:202,138,4;
-  --bg:#ecfdf5; --card:#ffffff; --card-2:#f0fdf4;
-  --text:#064e3b; --muted:#64748b; --border:#c7ead9;
-  --shadow:0 10px 30px rgba(6,78,59,.08); --shadow-sm:0 2px 10px rgba(6,78,59,.06);
-}
-[data-theme="crimson"]{
-  --navy:#450a0a; --navy-2:#7f1d1d; --navy-3:#b91c1c; --navy-rgb:69,10,10;
-  --gold:#ca8a04; --gold-2:#facc15; --gold-dark:#a16207; --gold-rgb:202,138,4;
-  --bg:#fef2f2; --card:#ffffff; --card-2:#fef7f7;
-  --text:#450a0a; --muted:#64748b; --border:#f0caca;
-  --shadow:0 10px 30px rgba(69,10,10,.08); --shadow-sm:0 2px 10px rgba(69,10,10,.06);
-}
-[data-theme="violet"]{
-  --navy:#2e1065; --navy-2:#4c1d95; --navy-3:#6d28d9; --navy-rgb:46,16,101;
-  --gold:#d97706; --gold-2:#fbbf24; --gold-dark:#b45309; --gold-rgb:217,119,6;
-  --bg:#f5f3ff; --card:#ffffff; --card-2:#faf5ff;
-  --text:#2e1065; --muted:#64748b; --border:#ddd6fe;
-  --shadow:0 10px 30px rgba(46,16,101,.08); --shadow-sm:0 2px 10px rgba(46,16,101,.06);
-}
-[data-theme="graphite"]{
-  --navy:#1f2937; --navy-2:#374151; --navy-3:#4b5563; --navy-rgb:31,41,55;
-  --gold:#ca8a04; --gold-2:#eab308; --gold-dark:#a16207; --gold-rgb:202,138,4;
-  --bg:#f3f4f6; --card:#ffffff; --card-2:#f9fafb;
-  --text:#111827; --muted:#6b7280; --border:#e5e7eb;
-  --shadow:0 10px 30px rgba(31,41,55,.08); --shadow-sm:0 2px 10px rgba(31,41,55,.06);
-}
-
-[data-theme="midnight"]{
-  --navy:#0b1f3a; --navy-2:#123055; --navy-3:#1b4066; --navy-rgb:11,31,58;
-  --gold:#c9a227; --gold-2:#e6c85c; --gold-dark:#a4821c; --gold-rgb:201,162,39;
-  --bg:#070f19; --card:#0e1b2b; --card-2:#122133;
-  --text:#e6eef8; --muted:#8ba0b8; --border:#1e3350;
-  --shadow:0 10px 30px rgba(0,0,0,.45); --shadow-sm:0 2px 10px rgba(0,0,0,.35);
-}
-[data-theme="deep-ocean"]{
-  --navy:#0c2d48; --navy-2:#155e8a; --navy-3:#1d7faf; --navy-rgb:12,45,72;
-  --gold:#06b6d4; --gold-2:#67e8f9; --gold-dark:#0e7490; --gold-rgb:6,182,212;
-  --bg:#03151f; --card:#062736; --card-2:#0a3445;
-  --text:#e0f2fe; --muted:#7dd3fc; --border:#0c4a6e;
-  --shadow:0 10px 30px rgba(0,0,0,.5); --shadow-sm:0 2px 10px rgba(0,0,0,.4);
-}
-[data-theme="dark-emerald"]{
-  --navy:#064e3b; --navy-2:#065f46; --navy-3:#047857; --navy-rgb:6,78,59;
-  --gold:#ca8a04; --gold-2:#facc15; --gold-dark:#a16207; --gold-rgb:202,138,4;
-  --bg:#03140e; --card:#062d20; --card-2:#0a3d2c;
-  --text:#d1fae5; --muted:#6ee7b7; --border:#065f46;
-  --shadow:0 10px 30px rgba(0,0,0,.45); --shadow-sm:0 2px 10px rgba(0,0,0,.35);
-}
-[data-theme="dark-crimson"]{
-  --navy:#450a0a; --navy-2:#7f1d1d; --navy-3:#b91c1c; --navy-rgb:69,10,10;
-  --gold:#eab308; --gold-2:#facc15; --gold-dark:#ca8a04; --gold-rgb:234,179,8;
-  --bg:#1a0404; --card:#2a0808; --card-2:#3a0d0d;
-  --text:#fee2e2; --muted:#fca5a5; --border:#7f1d1d;
-  --shadow:0 10px 30px rgba(0,0,0,.5); --shadow-sm:0 2px 10px rgba(0,0,0,.4);
-}
-
-[data-dark="true"]{ color-scheme:dark; }
 
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{
-  margin:0;font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
-  background:var(--bg);color:var(--text);font-size:var(--fs);line-height:1.6;
-  -webkit-font-smoothing:antialiased;transition:background .3s,color .3s;
+  margin:0;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:var(--fs);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s,color .3s;
 }
 h1,h2,h3,h4{font-family:'Outfit','Inter',sans-serif;margin:0;line-height:1.25;font-weight:600}
 button{font-family:inherit;font-size:inherit}
 a{color:inherit}
 img{max-width:100%}
+
 .icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;
   stroke-linecap:round;stroke-linejoin:round;flex:none;display:inline-block;vertical-align:-0.14em}
 .icon.fill{fill:currentColor;stroke:none}
 
+/* =========================================================
+   2. PRELOADER
+   ========================================================= */
 #preloader{
   position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;
   align-items:center;justify-content:center;gap:16px;
-  background:linear-gradient(160deg,var(--navy),var(--navy-2));color:#cbd8e8;
+  background:linear-gradient(160deg,#0b1f3a,#0a1729);
+  background:linear-gradient(160deg, var(--primary), var(--primary-2));
+  color:#cbd8e8;
   transition:opacity .45s ease,visibility .45s;
 }
 #preloader.hide{opacity:0;visibility:hidden}
-.loader{width:46px;height:46px;border-radius:50%;
-  border:3px solid rgba(var(--gold-rgb),.22);border-top-color:var(--gold);
-  animation:spin .85s linear infinite}
+.loader{
+  width:46px;height:46px;border-radius:50%;
+  border:3px solid rgba(201,162,39,.22);
+  border-top-color:var(--accent);
+  animation:spin .85s linear infinite;
+}
 @keyframes spin{to{transform:rotate(360deg)}}
 #preloader span{font-size:.85rem;letter-spacing:.18em;text-transform:uppercase}
 
+/* =========================================================
+   3. APP SHELL
+   ========================================================= */
 .app{display:grid;grid-template-columns:272px 1fr;min-height:100vh}
 
 .sidebar{
-  background:linear-gradient(180deg,var(--navy) 0%,var(--navy-2) 100%);
+  background:linear-gradient(180deg, var(--primary) 0%, var(--primary-2) 100%);
   color:#cfdcec;position:sticky;top:0;height:100vh;
   display:flex;flex-direction:column;padding:22px 16px;gap:6px;
-  border-right:1px solid rgba(var(--gold-rgb),.16);z-index:120;
+  border-right:1px solid color-mix(in srgb, var(--accent) 30%, transparent);
+  z-index:120;
 }
-.nav{display:flex;flex-direction:column;gap:3px;overflow-y:auto;flex:1;padding-right:2px;padding-top:6px}
+.brand{display:flex;align-items:center;gap:12px;padding:6px 8px 20px}
+.brand-mark{
+  width:42px;height:42px;border-radius:13px;flex:none;
+  background:linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #000));
+  display:grid;place-items:center;color:var(--primary);font-size:1.3rem;
+  box-shadow:0 6px 16px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.brand strong{display:block;font-family:'Outfit',sans-serif;font-size:1.02rem;color:#fff;letter-spacing:.02em}
+.brand small{display:block;font-size:.7rem;color:#8ba0b8;letter-spacing:.12em;text-transform:uppercase}
+
+.nav{display:flex;flex-direction:column;gap:3px;overflow-y:auto;flex:1;padding-right:2px}
 .nav::-webkit-scrollbar{width:5px}
-.nav::-webkit-scrollbar-thumb{background:rgba(var(--gold-rgb),.35);border-radius:8px}
+.nav::-webkit-scrollbar-thumb{background:color-mix(in srgb, var(--accent) 40%, transparent);border-radius:8px}
 .nav-link{
-  display:flex;align-items:center;gap:11px;padding:10px 13px;border-radius:11px;
-  text-decoration:none;font-size:.865rem;font-weight:500;color:#b6c6d9;
+  display:flex;align-items:center;gap:11px;
+  padding:10px 13px;border-radius:11px;text-decoration:none;
+  font-size:.865rem;font-weight:500;color:#b6c6d9;
   border-left:3px solid transparent;transition:.22s;
 }
 .nav-link .icon{font-size:1.02rem;opacity:.85}
 .nav-link:hover{background:rgba(255,255,255,.06);color:#fff}
 .nav-link.active{
-  background:linear-gradient(90deg,rgba(var(--gold-rgb),.2),rgba(var(--gold-rgb),.04));
-  color:#fff;border-left-color:var(--gold);
+  background:linear-gradient(90deg, color-mix(in srgb, var(--accent) 25%, transparent), transparent);
+  color:#fff;border-left-color:var(--accent);
 }
-.nav-link.active .icon{color:var(--gold-2);opacity:1}
+.nav-link.active .icon{color:var(--accent-2);opacity:1}
+
 .sidebar-foot{border-top:1px solid rgba(255,255,255,.09);padding-top:14px;display:grid;gap:7px}
-.sidebar-foot .btn{width:100%;justify-content:flex-start;font-size:.82rem}
+.sidebar-foot .btn{width:100%;justify-content:flex-start;font-size:.82rem;background:transparent;color:#b6c6d9;border-color:rgba(255,255,255,.12)}
+.sidebar-foot .btn:hover{background:rgba(255,255,255,.07);color:#fff}
 
-.main{min-width:0;display:flex;flex-direction:column;min-height:100vh}
-
+/* ---------- Topbar ---------- */
+.main{min-width:0;display:flex;flex-direction:column}
 .topbar{
-  position:sticky;top:0;z-index:100;display:flex;align-items:center;gap:12px;
-  padding:11px 22px;background:var(--card);border-bottom:1px solid var(--border);
-  box-shadow:var(--shadow-sm);backdrop-filter:blur(8px);
-  justify-content:flex-end;
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:12px;
+  padding:11px 22px;background:var(--card);
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  backdrop-filter:blur(8px);
 }
-.topbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.save-indicator{font-size:.72rem;font-weight:600;color:var(--green);
-  display:flex;align-items:center;gap:5px;opacity:0;transition:.3s;letter-spacing:.04em}
+.topbar-title{font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.topbar-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.save-indicator{
+  font-size:.72rem;font-weight:600;color:var(--green);
+  display:flex;align-items:center;gap:5px;opacity:0;transition:.3s;letter-spacing:.04em;
+}
 .save-indicator.show{opacity:1}
 
-/* Print-brand: hidden on screen, visible only in print (top-right corner) */
-.print-brand{
-  display:none;
-  font-family:'Inter',sans-serif;
-  font-size:7.5pt;
-  font-weight:500;
-  letter-spacing:.02em;
-  color:var(--muted);
-  white-space:nowrap;
-}
-
+/* ---------- Content ---------- */
 .content{padding:22px;max-width:1180px;width:100%;margin:0 auto;flex:1}
 section{scroll-margin-top:82px}
 
+/* =========================================================
+   4. BUTTONS
+   ========================================================= */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
   padding:9px 15px;border-radius:11px;border:1px solid var(--border);
@@ -262,14 +214,15 @@ section{scroll-margin-top:82px}
 .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
 .btn:active{transform:translateY(0)}
 .btn .icon{font-size:1rem}
-.btn.primary{background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;border-color:transparent}
-.btn.gold{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy);border-color:transparent}
+.btn.primary{background:linear-gradient(135deg,var(--primary-2),var(--primary-3));color:#fff;border-color:transparent}
+.btn.gold{background:linear-gradient(135deg,var(--accent),color-mix(in srgb, var(--accent) 60%, #000));color:var(--primary);border-color:transparent}
 .btn.danger{background:var(--red);color:#fff;border-color:transparent}
 .btn.ghost{background:transparent;color:var(--muted)}
 .btn.ghost:hover{background:rgba(0,0,0,.05);color:var(--text)}
-[data-dark="true"] .btn.ghost:hover{background:rgba(255,255,255,.07)}
+[data-mode="dark"] .btn.ghost:hover{background:rgba(255,255,255,.07)}
 .btn.sm{padding:6px 11px;font-size:.76rem;border-radius:9px}
 .btn.sm .icon{font-size:.9rem}
+
 .icon-btn{
   display:inline-grid;place-items:center;width:38px;height:38px;
   border-radius:11px;border:1px solid var(--border);background:var(--card);
@@ -277,55 +230,75 @@ section{scroll-margin-top:82px}
 }
 .icon-btn:hover{background:var(--card-2);transform:translateY(-1px)}
 .icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
+
 .lang-btn{
-  display:inline-flex !important;width:auto !important;height:38px;padding:0 11px;
-  align-items:center;justify-content:center;gap:6px;font-size:.72rem;
-  font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
+  display:inline-flex !important;
+  width:auto !important;
+  height:38px;padding:0 11px;
+  align-items:center;justify-content:center;gap:6px;
+  font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;white-space:nowrap;
 }
 
+/* =========================================================
+   5. HERO
+   ========================================================= */
 .hero{
   position:relative;overflow:hidden;color:#fff;
-  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 55%,var(--navy) 100%);
+  background:linear-gradient(135deg, var(--primary) 0%, var(--primary-3) 55%, var(--primary) 100%);
   border-radius:22px;padding:34px;margin-bottom:20px;
   display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;
   box-shadow:var(--shadow);
 }
-.hero::before{content:'';position:absolute;right:-70px;top:-70px;width:300px;height:300px;border-radius:50%;
-  background:radial-gradient(circle,rgba(var(--gold-rgb),.30),transparent 68%);pointer-events:none}
-.hero::after{content:'';position:absolute;left:-90px;bottom:-110px;width:260px;height:260px;border-radius:50%;
-  background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);pointer-events:none}
+.hero::before{
+  content:'';position:absolute;right:-70px;top:-70px;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle, color-mix(in srgb, var(--accent) 35%, transparent), transparent 68%);pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;left:-90px;bottom:-110px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);pointer-events:none;
+}
 .hero-photo-wrap{position:relative;z-index:1}
 .hero-photo{
   width:152px;height:152px;border-radius:50%;overflow:hidden;position:relative;
-  border:3px solid var(--gold);box-shadow:0 0 0 7px rgba(var(--gold-rgb),.14);
-  background:var(--navy-2);display:grid;place-items:center;
+  border:3px solid var(--accent);
+  box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 18%, transparent);
+  background:color-mix(in srgb, var(--primary-2) 80%, #000);display:grid;place-items:center;
 }
 .hero-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
-.hero-photo .photo-empty{font-size:3.2rem;color:#4c6f96}
+.hero-photo .photo-empty{font-size:3.2rem;color:color-mix(in srgb, var(--primary-3) 60%, #fff)}
 .photo-edit{
   position:absolute;right:-2px;bottom:-2px;width:38px;height:38px;border-radius:50%;
-  background:var(--gold);color:var(--navy);border:3px solid var(--navy);
+  background:var(--accent);color:var(--primary);border:3px solid var(--primary);
   display:grid;place-items:center;cursor:pointer;font-size:1rem;transition:.2s;
 }
 .photo-edit:hover{transform:scale(1.08)}
+
 .hero-text{position:relative;z-index:1;min-width:0}
-.hero-eyebrow{font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;
-  color:var(--gold-2);font-weight:600;margin-bottom:6px}
+.hero-eyebrow{
+  font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--accent-2);font-weight:600;margin-bottom:6px;
+}
 .hero h1{font-size:clamp(1.5rem,3.4vw,2.35rem);color:#fff;letter-spacing:.01em;word-break:break-word}
-.hero-rank{display:inline-flex;align-items:center;gap:8px;margin-top:9px;
-  font-size:.9rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--gold-2)}
-.hero-rank::before{content:'';width:26px;height:2px;background:var(--gold);border-radius:2px}
+.hero-rank{
+  display:inline-flex;align-items:center;gap:8px;margin-top:9px;
+  font-size:.9rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent-2);
+}
+.hero-rank::before{content:'';width:26px;height:2px;background:var(--accent);border-radius:2px}
 .hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
 .chip{
-  display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border-radius:999px;
-  font-size:.775rem;font-weight:500;background:rgba(255,255,255,.10);
-  border:1px solid rgba(255,255,255,.16);color:#dbe7f4;text-decoration:none;
-  transition:.2s;max-width:100%;
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 12px;border-radius:999px;font-size:.775rem;font-weight:500;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);
+  color:#dbe7f4;text-decoration:none;transition:.2s;max-width:100%;
 }
 .chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-a.chip:hover{background:rgba(var(--gold-rgb),.22);border-color:rgba(var(--gold-rgb),.5);color:#fff}
-.chip .icon{color:var(--gold-2)}
+a.chip:hover{background:color-mix(in srgb, var(--accent) 30%, transparent);border-color:color-mix(in srgb, var(--accent) 60%, transparent);color:#fff}
+.chip .icon{color:var(--accent-2)}
 
+/* =========================================================
+   6. SECTIONS
+   ========================================================= */
 .section{
   background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
   padding:24px;margin-bottom:20px;box-shadow:var(--shadow-sm);
@@ -334,10 +307,10 @@ a.chip:hover{background:rgba(var(--gold-rgb),.22);border-color:rgba(var(--gold-r
 .section-head{display:flex;align-items:center;gap:13px;margin-bottom:18px;flex-wrap:wrap}
 .section-icon{
   width:42px;height:42px;border-radius:13px;flex:none;display:grid;place-items:center;
-  background:linear-gradient(140deg,rgba(var(--navy-rgb),.09),rgba(var(--gold-rgb),.16));
-  color:var(--navy-3);font-size:1.15rem;
+  background:linear-gradient(140deg, color-mix(in srgb, var(--primary) 12%, transparent), color-mix(in srgb, var(--accent) 22%, transparent));
+  color:var(--primary-3);font-size:1.15rem;
 }
-[data-dark="true"] .section-icon{background:rgba(var(--gold-rgb),.14);color:var(--gold-2)}
+[data-mode="dark"] .section-icon{background:color-mix(in srgb, var(--accent) 20%, transparent);color:var(--accent-2)}
 .section-title{min-width:0}
 .section-title h2{font-size:.98rem;letter-spacing:.09em;text-transform:uppercase}
 .section-title p{margin:2px 0 0;font-size:.78rem;color:var(--muted)}
@@ -350,9 +323,9 @@ a.chip:hover{background:rgba(var(--gold-rgb),.22);border-color:rgba(var(--gold-r
 }
 .info-item .ii-icon{
   width:34px;height:34px;border-radius:10px;flex:none;display:grid;place-items:center;
-  background:rgba(var(--gold-rgb),.14);color:var(--gold-dark);font-size:.95rem;
+  background:color-mix(in srgb, var(--accent) 18%, transparent);color:var(--accent);font-size:.95rem;
 }
-[data-dark="true"] .info-item .ii-icon{color:var(--gold-2)}
+[data-mode="dark"] .info-item .ii-icon{color:var(--accent-2)}
 .info-item .ii-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
 .info-item .ii-value{font-size:.9rem;font-weight:600;word-break:break-word}
 .info-item.full{grid-column:1/-1}
@@ -364,6 +337,9 @@ a.chip:hover{background:rgba(var(--gold-rgb),.22);border-color:rgba(var(--gold-r
 }
 .empty .icon{font-size:1.9rem;display:block;margin:0 auto 10px;opacity:.45}
 
+/* =========================================================
+   7. TABLES
+   ========================================================= */
 .table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm);-webkit-overflow-scrolling:touch}
 table.data{width:100%;border-collapse:collapse;font-size:.86rem;min-width:760px}
 table.data th{
@@ -374,84 +350,130 @@ table.data th{
 table.data td{padding:11px 14px;border-top:1px solid var(--border);vertical-align:top;word-break:break-word}
 table.data tbody tr:first-child td{border-top:0}
 table.data tbody tr{transition:background .15s}
-table.data tbody tr:hover{background:rgba(var(--gold-rgb),.06)}
+table.data tbody tr:hover{background:color-mix(in srgb, var(--accent) 8%, transparent)}
 .cell-actions{display:flex;gap:6px;justify-content:flex-end}
 .cell-strong{font-weight:600}
 
-.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;
-  font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap}
+.badge{
+  display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;
+  font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap;
+}
 .badge-green{background:rgba(15,157,88,.14);color:#0f9d58}
 .badge-amber{background:rgba(217,119,6,.16);color:#b45309}
 .badge-red{background:rgba(220,38,38,.14);color:#dc2626}
-[data-dark="true"] .badge-green{color:#3ddc84}
-[data-dark="true"] .badge-amber{color:#fbbf24}
-[data-dark="true"] .badge-red{color:#f87171}
+[data-mode="dark"] .badge-green{color:#3ddc84}
+[data-mode="dark"] .badge-amber{color:#fbbf24}
+[data-mode="dark"] .badge-red{color:#f87171}
 .cd{display:block;font-size:.68rem;color:var(--muted);margin-top:4px}
 
 .toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
 .search-box{position:relative;flex:1;min-width:190px}
 .search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem}
-.search-box input{width:100%;padding:9px 12px 9px 36px;border-radius:11px;border:1px solid var(--border);
-  background:var(--card-2);color:var(--text);font-size:.83rem;font-family:inherit}
-.search-box input:focus{outline:2px solid rgba(var(--gold-rgb),.4);outline-offset:0}
-select.mini{padding:9px 12px;border-radius:11px;border:1px solid var(--border);
-  background:var(--card-2);color:var(--text);font-size:.8rem;font-family:inherit;cursor:pointer}
+.search-box input{
+  width:100%;padding:9px 12px 9px 36px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card-2);color:var(--text);font-size:.83rem;font-family:inherit;
+}
+.search-box input:focus{outline:2px solid color-mix(in srgb, var(--accent) 45%, transparent);outline-offset:0}
+select.mini{
+  padding:9px 12px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card-2);color:var(--text);font-size:.8rem;font-family:inherit;cursor:pointer;
+}
 
+/* =========================================================
+   8. TIMELINE
+   ========================================================= */
 .timeline{position:relative;padding-left:26px}
-.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;
-  background:linear-gradient(180deg,var(--gold),rgba(var(--gold-rgb),.12));border-radius:2px}
+.timeline::before{
+  content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg, var(--accent), color-mix(in srgb, var(--accent) 15%, transparent));
+  border-radius:2px;
+}
 .tl-item{position:relative;margin-bottom:16px}
 .tl-item:last-child{margin-bottom:0}
-.tl-dot{position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;
-  background:var(--gold);border:3px solid var(--card);box-shadow:0 0 0 2px rgba(var(--gold-rgb),.35)}
-.tl-card{background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius-sm);padding:16px 18px}
+.tl-dot{
+  position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;
+  background:var(--accent);border:3px solid var(--card);
+  box-shadow:0 0 0 2px color-mix(in srgb, var(--accent) 40%, transparent);
+}
+.tl-card{
+  background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px 18px;
+}
 .tl-head{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
 .tl-head h3{font-size:.98rem}
-.tl-company{font-size:.83rem;color:var(--gold);font-weight:600;margin:1px 0 0}
-.pill{margin-left:auto;padding:4px 11px;border-radius:999px;font-size:.7rem;font-weight:700;
-  background:rgba(var(--navy-rgb),.08);color:var(--navy-3);white-space:nowrap}
-[data-dark="true"] .pill{background:rgba(var(--gold-rgb),.16);color:var(--gold-2)}
+.tl-company{font-size:.83rem;color:var(--accent);font-weight:600;margin:1px 0 0}
+.pill{
+  margin-left:auto;padding:4px 11px;border-radius:999px;font-size:.7rem;font-weight:700;
+  background:color-mix(in srgb, var(--primary) 10%, transparent);color:var(--primary-3);white-space:nowrap;
+}
+[data-mode="dark"] .pill{background:color-mix(in srgb, var(--accent) 20%, transparent);color:var(--accent-2)}
 .tl-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
-.tl-meta span{font-size:.72rem;padding:3px 9px;border-radius:7px;
-  background:var(--card);border:1px solid var(--border);color:var(--muted)}
+.tl-meta span{
+  font-size:.72rem;padding:3px 9px;border-radius:7px;
+  background:var(--card);border:1px solid var(--border);color:var(--muted);
+}
 .tl-desc{margin:11px 0 0;font-size:.85rem;color:var(--muted);white-space:pre-wrap;line-height:1.7}
 .tl-actions{display:flex;gap:6px;margin-top:12px;justify-content:flex-end}
 
+/* =========================================================
+   9. CONTACT CARDS
+   ========================================================= */
 .contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px}
-.contact-card{display:flex;align-items:center;gap:13px;padding:16px;border-radius:var(--radius-sm);
-  background:var(--card-2);border:1px solid var(--border);text-decoration:none;color:var(--text);transition:.22s}
-a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:rgba(var(--gold-rgb),.5)}
-.cc-icon{width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;
-  background:linear-gradient(140deg,var(--navy-2),var(--navy-3));color:var(--gold-2);font-size:1.15rem}
+.contact-card{
+  display:flex;align-items:center;gap:13px;padding:16px;border-radius:var(--radius-sm);
+  background:var(--card-2);border:1px solid var(--border);text-decoration:none;
+  color:var(--text);transition:.22s;
+}
+a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:color-mix(in srgb, var(--accent) 55%, var(--border))}
+.cc-icon{
+  width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;
+  background:linear-gradient(140deg, var(--primary-2), var(--primary-3));color:var(--accent-2);font-size:1.15rem;
+}
 .cc-icon.wa{background:linear-gradient(140deg,#128C7E,#25D366);color:#fff}
-.cc-icon.mail{background:linear-gradient(140deg,#1b4066,#2a6ba8);color:#fff}
+.cc-icon.mail{background:linear-gradient(140deg, var(--primary-3), color-mix(in srgb, var(--primary-3) 60%, #6cb8f0));color:#fff}
 .cc-icon.ig{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%);color:#fff}
 .contact-card small{display:block;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .contact-card strong{display:block;font-size:.87rem;word-break:break-word;font-weight:600}
 
-.alert-banner{display:flex;gap:13px;align-items:flex-start;padding:15px 18px;border-radius:var(--radius-sm);
-  background:rgba(217,119,6,.10);border:1px solid rgba(217,119,6,.35);margin-bottom:20px;font-size:.84rem}
+/* =========================================================
+   10. ALERT
+   ========================================================= */
+.alert-banner{
+  display:flex;gap:13px;align-items:flex-start;padding:15px 18px;border-radius:var(--radius-sm);
+  background:rgba(217,119,6,.10);border:1px solid rgba(217,119,6,.35);
+  margin-bottom:20px;font-size:.84rem;
+}
 .alert-banner.danger{background:rgba(220,38,38,.09);border-color:rgba(220,38,38,.35)}
 .alert-banner .icon{font-size:1.3rem;color:var(--amber);flex:none;margin-top:1px}
 .alert-banner.danger .icon{color:var(--red)}
 .alert-banner strong{display:block;margin-bottom:3px}
 .alert-banner ul{margin:5px 0 0;padding-left:18px}
 
+/* =========================================================
+   11. MODAL
+   ========================================================= */
 #modalRoot{position:fixed;inset:0;z-index:500;display:none}
 #modalRoot.open{display:block}
 .modal-backdrop{position:absolute;inset:0;background:rgba(7,15,25,.62);backdrop-filter:blur(3px);animation:fadeIn .22s}
 @keyframes fadeIn{from{opacity:0}to{opacity:1}}
-.modal{position:relative;z-index:1;width:min(680px,calc(100% - 28px));max-height:88vh;
-  margin:6vh auto;display:flex;flex-direction:column;background:var(--card);
-  border-radius:20px;border:1px solid var(--border);box-shadow:0 30px 70px rgba(0,0,0,.4);
-  animation:popIn .26s cubic-bezier(.2,.9,.3,1.2);overflow:hidden}
+.modal{
+  position:relative;z-index:1;width:min(680px,calc(100% - 28px));max-height:88vh;
+  margin:6vh auto;display:flex;flex-direction:column;
+  background:var(--card);border-radius:20px;border:1px solid var(--border);
+  box-shadow:0 30px 70px rgba(0,0,0,.4);animation:popIn .26s cubic-bezier(.2,.9,.3,1.2);
+  overflow:hidden;
+}
 @keyframes popIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
-.modal-head{display:flex;align-items:center;gap:12px;padding:17px 20px;
-  border-bottom:1px solid var(--border);background:var(--card-2);flex:none}
+.modal-head{
+  display:flex;align-items:center;gap:12px;padding:17px 20px;
+  border-bottom:1px solid var(--border);background:var(--card-2);flex:none;
+}
 .modal-head h3{font-size:1rem;flex:1}
 .modal-body{padding:20px;overflow-y:auto;flex:1}
-.modal-foot{display:flex;gap:9px;justify-content:flex-end;padding:14px 20px;
-  border-top:1px solid var(--border);background:var(--card-2);flex:none}
+.modal-foot{
+  display:flex;gap:9px;justify-content:flex-end;padding:14px 20px;
+  border-top:1px solid var(--border);background:var(--card-2);flex:none;
+}
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
 .field{display:flex;flex-direction:column;gap:6px;min-width:0}
 .field.full{grid-column:1/-1}
@@ -459,98 +481,180 @@ a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);bord
 .field label .req{color:var(--red);margin-left:2px}
 .field input,.field select,.field textarea{
   width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--border);
-  background:var(--card-2);color:var(--text);font-family:inherit;font-size:.87rem;transition:.18s}
+  background:var(--card-2);color:var(--text);font-family:inherit;font-size:.87rem;
+  transition:.18s;
+}
 .field input:focus,.field select:focus,.field textarea:focus{
-  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--gold-rgb),.18)}
+  outline:none;border-color:var(--accent);box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent);
+}
 .field textarea{resize:vertical;min-height:78px;line-height:1.6}
+.field input[data-date-input]{letter-spacing:.03em;font-variant-numeric:tabular-nums}
 .confirm-msg{font-size:.92rem;line-height:1.75;margin:0}
 
+/* --- Theme Picker --- */
+.theme-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(140px,1fr));
+  gap:12px;
+}
+.theme-swatch{
+  display:flex; flex-direction:column; gap:8px;
+  padding:10px; border-radius:12px;
+  border:2px solid var(--border); background:var(--card-2);
+  cursor:pointer; transition:.2s; color:var(--text);
+  font-family:inherit; font-size:inherit; text-align:center;
+}
+.theme-swatch:hover{
+  transform:translateY(-2px); box-shadow:var(--shadow-sm);
+  border-color:color-mix(in srgb, var(--accent) 60%, var(--border));
+}
+.theme-swatch.active{
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px color-mix(in srgb, var(--accent) 25%, transparent);
+}
+.theme-preview{
+  height:58px; border-radius:9px; position:relative; overflow:hidden;
+  display:flex; align-items:flex-end; justify-content:flex-end;
+  gap:5px; padding:7px;
+}
+.theme-preview::before{
+  content:''; position:absolute; inset:0;
+  background:radial-gradient(circle at 15% 20%, rgba(255,255,255,.22), transparent 65%);
+}
+.theme-dot{
+  width:15px; height:15px; border-radius:50%;
+  border:2px solid rgba(255,255,255,.65);
+  position:relative; z-index:1;
+}
+.theme-name{ font-size:.78rem; font-weight:600; letter-spacing:.02em; }
+
+/* --- Photo Editor --- */
 .photo-editor{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:start}
-.photo-preview{width:200px;height:240px;border-radius:16px;overflow:hidden;border:2px solid var(--gold);
-  background:var(--card-2);display:grid;place-items:center}
-.photo-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-preview{
+  width:200px;height:240px;border-radius:16px;overflow:hidden;border:2px solid var(--accent);
+  background:var(--card-2);display:grid;place-items:center;
+}
+.photo-preview img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .1s}
+.photo-preview .photo-empty{font-size:3rem;color:var(--muted)}
 .photo-controls{display:flex;flex-direction:column;gap:13px}
-.upload-btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;
+.upload-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
   padding:11px;border-radius:11px;cursor:pointer;font-weight:700;font-size:.84rem;
-  background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff}
-input[type="range"]{width:100%;-webkit-appearance:none;height:6px;border-radius:6px;
-  background:var(--border);outline:none}
-input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;
-  background:var(--gold);cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3)}
-input[type="range"]::-moz-range-thumb{width:16px;height:16px;border-radius:50%;background:var(--gold);
-  cursor:pointer;border:2px solid #fff}
+  background:linear-gradient(135deg,var(--primary-2),var(--primary-3));color:#fff;
+}
+input[type="range"]{
+  width:100%;-webkit-appearance:none;height:6px;border-radius:6px;
+  background:var(--border);outline:none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:var(--accent);cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+input[type="range"]::-moz-range-thumb{
+  width:16px;height:16px;border-radius:50%;background:var(--accent);
+  cursor:pointer;border:2px solid #fff;
+}
 
-.theme-picker{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px}
-.theme-card{display:flex;flex-direction:column;gap:10px;padding:12px;border:2px solid var(--border);
-  border-radius:14px;background:var(--card);cursor:pointer;transition:.2s;
-  position:relative;text-align:left;font-family:inherit;color:var(--text)}
-.theme-card:hover{transform:translateY(-2px);border-color:var(--gold);box-shadow:var(--shadow-sm)}
-.theme-card.active{border-color:var(--gold);box-shadow:0 0 0 3px rgba(var(--gold-rgb),.2)}
-.theme-swatch{height:52px;border-radius:9px;border:1px solid rgba(0,0,0,.08)}
-.theme-info strong{display:block;font-size:.85rem}
-.theme-info small{display:block;font-size:.72rem;color:var(--muted)}
-.theme-check{position:absolute;top:8px;right:8px;width:22px;height:22px;border-radius:50%;
-  background:var(--gold);color:var(--navy);display:grid;place-items:center;font-size:.75rem;font-weight:900}
-
-#toasts{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:900;
+/* =========================================================
+   12. TOAST
+   ========================================================= */
+#toasts{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:900;
   display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none;
-  width:max-content;max-width:calc(100% - 30px)}
-.toast{display:flex;align-items:center;gap:9px;padding:11px 18px;border-radius:12px;
-  background:#0f2b4c;color:#fff;font-size:.83rem;font-weight:600;
+  width:max-content;max-width:calc(100% - 30px);
+}
+.toast{
+  display:flex;align-items:center;gap:9px;padding:11px 18px;border-radius:12px;
+  background:color-mix(in srgb, var(--primary) 82%, #000);color:#fff;font-size:.83rem;font-weight:600;
   box-shadow:0 12px 30px rgba(0,0,0,.3);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.3);
-  transition:opacity .3s,transform .3s}
+  transition:opacity .3s,transform .3s;
+}
 .toast .icon{font-size:1.05rem;color:#3ddc84}
 .toast.err{background:#7f1d1d}
 .toast.err .icon{color:#fca5a5}
-.toast.info{background:#1e3a5f}
-.toast.info .icon{color:var(--gold-2)}
+.toast.info{background:color-mix(in srgb, var(--primary-3) 85%, #000)}
+.toast.info .icon{color:var(--accent-2)}
 .toast.out{opacity:0;transform:translateY(12px)}
 @keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.95)}to{opacity:1;transform:none}}
 
-.back-top{position:fixed;right:20px;bottom:20px;z-index:200;width:46px;height:46px;
-  border-radius:50%;border:none;cursor:pointer;
-  background:linear-gradient(140deg,var(--gold),var(--gold-dark));color:var(--navy);
+/* =========================================================
+   13. BACK TO TOP
+   ========================================================= */
+.back-top{
+  position:fixed;right:20px;bottom:20px;z-index:200;
+  width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(140deg, var(--accent), color-mix(in srgb, var(--accent) 60%, #000));
+  color:var(--primary);
   display:grid;place-items:center;font-size:1.15rem;
-  box-shadow:0 10px 24px rgba(var(--gold-rgb),.4);
-  opacity:0;visibility:hidden;transform:translateY(14px);transition:.3s}
+  box-shadow:0 10px 24px color-mix(in srgb, var(--accent) 45%, transparent);
+  opacity:0;visibility:hidden;transform:translateY(14px);transition:.3s;
+}
 .back-top.show{opacity:1;visibility:visible;transform:none}
 
+/* =========================================================
+   14. EDIT MODE VISIBILITY
+   ========================================================= */
 .edit-only{display:none !important}
 body.edit-on .edit-only{display:inline-flex !important}
 body.edit-on .edit-only.block{display:flex !important}
-body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),var(--gold-dark));color:var(--navy);border-color:transparent}
+body.edit-on #editToggle{background:linear-gradient(135deg,var(--accent),color-mix(in srgb, var(--accent) 60%, #000));color:var(--primary);border-color:transparent}
+
 body:not(.edit-on) .cell-actions,
 body:not(.edit-on) .tl-actions{display:none !important}
+
 @media (max-width:760px){
   body:not(.edit-on) td.col-action{display:none !important}
 }
 
+/* =========================================================
+   15. APP FOOTER
+   ========================================================= */
+.app-foot{
+  text-align:center;padding:22px;font-size:.75rem;color:var(--muted);
+  border-top:1px solid var(--border);letter-spacing:.04em;
+}
+
+/* =========================================================
+   16. RESPONSIVE
+   ========================================================= */
 @media (max-width:1024px){
   .app{grid-template-columns:1fr}
-  .sidebar{position:fixed;left:0;top:0;bottom:0;width:280px;
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;width:280px;
     transform:translateX(-100%);transition:transform .3s cubic-bezier(.3,.9,.4,1);
-    box-shadow:0 0 50px rgba(0,0,0,.4);height:100vh}
+    box-shadow:0 0 50px rgba(0,0,0,.4);height:100vh;
+  }
   .sidebar.open{transform:none}
-  .sidebar-backdrop{position:fixed;inset:0;background:rgba(7,15,25,.55);z-index:110;
-    opacity:0;visibility:hidden;transition:.3s}
+  .sidebar-backdrop{
+    position:fixed;inset:0;background:rgba(7,15,25,.55);z-index:110;
+    opacity:0;visibility:hidden;transition:.3s;
+  }
   .sidebar-backdrop.show{opacity:1;visibility:visible}
   .content{padding:16px}
   .hero{padding:26px}
 }
+
 @media (max-width:760px){
   .topbar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;padding:10px 12px}
+  .topbar-title{display:none}
   .save-indicator{display:none}
   .topbar-actions{display:contents}
+
   #menuBtn{order:1}
   #devBtn{order:2;margin-left:auto;width:38px;height:38px}
-  #langBtn{order:3;height:38px;padding:0 9px;font-size:.7rem}
-  #themeBtn{order:4;width:38px;height:38px}
-  .topbar::after{content:'';order:5;flex-basis:100%;height:0}
-  #editToggle{order:6;flex:1 1 0;min-width:0}
-  .topbar-actions > [data-action="print"]{order:7;flex:1 1 0;min-width:0}
-  .topbar-actions > [data-action="reset"]{order:8;flex:1 1 0;min-width:0}
+  #paletteBtn{order:3;width:38px;height:38px}
+  #langBtn{order:4;height:38px;padding:0 9px;font-size:.7rem}
+  #themeBtn{order:5;width:38px;height:38px}
+
+  .topbar::after{content:'';order:6;flex-basis:100%;height:0}
+
+  #editToggle{order:7;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="print"]{order:8;flex:1 1 0;min-width:0}
+  .topbar-actions > [data-action="reset"]{order:9;flex:1 1 0;min-width:0}
+
   .topbar-actions .btn{padding:9px 6px;font-size:.74rem;gap:5px;justify-content:center}
   .topbar-actions .btn span{display:inline;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
   .hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px;padding:26px 20px}
   .hero-rank{justify-content:center}
   .hero-chips{justify-content:center}
@@ -561,189 +665,156 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .photo-preview{width:170px;height:200px}
   .section-tools{margin-left:0;width:100%}
   .section-head{gap:10px}
+
   table.data{min-width:0}
   table.data thead{display:none}
-  table.data tr{display:block;border:1px solid var(--border);border-radius:12px;
-    margin-bottom:10px;padding:4px;background:var(--card)}
+  table.data tr{
+    display:block;border:1px solid var(--border);border-radius:12px;
+    margin-bottom:10px;padding:4px;background:var(--card);
+  }
   table.data tbody tr:first-child td{border-top:0}
-  table.data td{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;
-    border:0;padding:8px 10px;border-bottom:1px dashed var(--border);text-align:right}
+  table.data td{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:14px;
+    border:0;padding:8px 10px;border-bottom:1px dashed var(--border);text-align:right;
+  }
   table.data td:last-child{border-bottom:0}
-  table.data td::before{content:attr(data-label);font-weight:700;color:var(--muted);
-    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;flex:none;text-align:left;padding-top:2px}
+  table.data td::before{
+    content:attr(data-label);font-weight:700;color:var(--muted);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;flex:none;text-align:left;
+    padding-top:2px;
+  }
   table.data td.cell-actions{justify-content:flex-end}
   .timeline{padding-left:20px}
   .tl-dot{left:-19px}
 }
+
 @media (max-width:420px){
   .topbar{padding:8px 10px;gap:6px}
   .topbar-actions .btn{padding:8px 5px;font-size:.7rem;gap:4px}
   .topbar-actions .btn .icon{font-size:.85rem}
-  #menuBtn,#themeBtn,#devBtn{width:34px;height:34px}
+  #menuBtn,#themeBtn,#devBtn,#paletteBtn{width:34px;height:34px}
   #langBtn{height:34px;padding:0 7px;font-size:.66rem}
 }
 
 /* =========================================================
-   PRINT — Topbar minimal (hanya branding pojok kanan atas)
+   17. PRINT — theme aware
    ========================================================= */
 @media print{
   @page{size:A4 portrait;margin:12mm 11mm 13mm}
-  html,body{
-    background:var(--bg) !important;color:var(--text) !important;font-size:10pt !important;
-    -webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;
+
+  html[data-color]{
+    --bg:#ffffff;
+    --card:#ffffff;
+    --card-2:#ffffff;
+    --text: var(--primary);
+    --muted:#4a5a6e;
+    --muted: color-mix(in srgb, var(--primary) 55%, #64748b);
+    --border:#b9c6d6;
+    --shadow:none;
+    --shadow-sm:none;
   }
+  html,body{background:#fff !important;color: var(--primary) !important;font-size:10pt !important}
   body{line-height:1.45}
 
-  /* ── HIDE everything that shouldn't print ── */
-  .sidebar,.sidebar-backdrop,.back-top,#toasts,#preloader,
+  .sidebar,.sidebar-backdrop,.topbar,.back-top,#toasts,#preloader,
   .no-print,#modalRoot{display:none !important}
+
   body .edit-only,
   body.edit-on .edit-only{display:none !important}
+
   .empty{display:none !important}
   section.is-empty{display:none !important}
   .v-empty{display:none !important}
   .info-item.item-empty{display:none !important}
   .contact-card.is-placeholder{display:none !important}
+
   table.data th.th-actions{display:none !important}
   table.data td.col-action,
   table.data td.cell-actions{display:none !important}
 
-  /* ── TOPBAR: keep only the top-right branding strip ── */
-  .topbar{
-    display:flex !important;
-    position:static !important;
-    justify-content:flex-end !important;
-    align-items:center !important;
-    padding:0 0 2.5mm 0 !important;
-    margin:0 0 3mm 0 !important;
-    background:transparent !important;
-    border:none !important;
-    border-bottom:.4pt solid var(--border) !important;
-    box-shadow:none !important;
-    backdrop-filter:none !important;
-    gap:0 !important;
-  }
-  .topbar-actions{
-    display:none !important;
-  }
-  .print-brand{
-    display:block !important;
-    font-size:7.5pt !important;
-    font-weight:500 !important;
-    letter-spacing:.02em !important;
-    color:var(--muted) !important;
-    font-family:'Inter',system-ui,sans-serif !important;
-    margin-left:auto !important;
-    padding:0 !important;
-  }
-
-  /* ── Content reset ── */
   .app{display:block !important}
   .main{display:block !important}
   .content{padding:0 !important;max-width:none !important;margin:0 !important}
 
   .hero{
     display:grid !important;grid-template-columns:26mm 1fr;gap:6mm;align-items:center;
-    background:linear-gradient(135deg,var(--navy) 0%,var(--navy-3) 55%,var(--navy) 100%) !important;
-    color:#fff !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    background: var(--primary) !important;color:#fff !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
     border-radius:6px !important;padding:6mm !important;margin:0 0 4mm !important;
     box-shadow:none !important;page-break-inside:avoid;
   }
   .hero::before,.hero::after{display:none !important}
-  .hero-photo{width:26mm !important;height:26mm !important;border-width:2px !important;
-    border-color:var(--gold) !important;box-shadow:none !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .hero-photo .photo-empty{font-size:2rem;color:rgba(255,255,255,.4)}
+  .hero-photo{width:26mm !important;height:26mm !important;border-width:2px !important;box-shadow:none !important}
+  .hero-photo .photo-empty{font-size:2rem}
   .hero h1{font-size:16pt !important;color:#fff !important}
-  .hero-rank{font-size:8.5pt !important;color:var(--gold-2) !important;margin-top:1mm !important}
-  .hero-eyebrow{font-size:6.5pt !important;margin-bottom:1mm !important;color:var(--gold-2) !important}
+  .hero-rank{font-size:8.5pt !important;color: var(--accent-2) !important;margin-top:1mm !important}
+  .hero-eyebrow{font-size:6.5pt !important;margin-bottom:1mm !important;color: var(--accent-2) !important}
   .hero-chips{gap:2mm !important;margin-top:2.5mm !important}
-  .chip{font-size:7.2pt !important;padding:1mm 2.4mm !important;
-    background:rgba(255,255,255,.13) !important;border-color:rgba(255,255,255,.25) !important;color:#eaf1f9 !important}
-  .chip .icon{color:var(--gold-2) !important}
+  .chip{font-size:7.2pt !important;padding:1mm 2.4mm !important;background:rgba(255,255,255,.13) !important;border-color:rgba(255,255,255,.25) !important;color:#eaf1f9 !important}
   .photo-edit{display:none !important}
 
-  .section{border:1px solid var(--border) !important;border-radius:4px !important;
-    padding:3.4mm 4mm !important;margin:0 0 3mm !important;box-shadow:none !important;
-    background:var(--card) !important;break-inside:avoid;page-break-inside:avoid;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .section{
+    border:1px solid #c3cede !important;border-radius:4px !important;
+    padding:3.4mm 4mm !important;margin:0 0 3mm !important;
+    box-shadow:none !important;background:#fff !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
   .section-head{margin-bottom:2.4mm !important;gap:2.5mm !important}
-  .section-icon{width:7mm !important;height:7mm !important;border-radius:2mm !important;font-size:9pt !important;
-    background:linear-gradient(140deg,rgba(var(--navy-rgb),.09),rgba(var(--gold-rgb),.16)) !important;
-    color:var(--navy-3) !important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
-  [data-dark="true"] .section-icon{background:rgba(var(--gold-rgb),.18) !important;color:var(--gold-2) !important}
-  .section-title h2{font-size:9.5pt !important;letter-spacing:.06em !important;color:var(--text) !important}
-  .section-title p{font-size:7pt !important;margin-top:0 !important;color:var(--muted) !important}
+  .section-icon{
+    width:7mm !important;height:7mm !important;border-radius:2mm !important;
+    font-size:9pt !important;background:#eef2f8 !important;color: var(--primary) !important;
+  }
+  .section-title h2{font-size:9.5pt !important;letter-spacing:.06em !important;color: var(--primary) !important}
+  .section-title p{font-size:7pt !important;margin-top:0 !important}
+
   .info-grid{grid-template-columns:1fr 1fr !important;gap:2mm !important}
-  .info-item{padding:2mm 2.6mm !important;border:1px solid var(--border) !important;
-    background:var(--card-2) !important;border-radius:2mm !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .info-item .ii-icon{display:grid !important;width:6mm !important;height:6mm !important;
-    background:rgba(var(--gold-rgb),.14) !important;color:var(--gold-dark) !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .info-item .ii-icon .icon{font-size:7pt !important}
-  .info-item .ii-label{font-size:6.5pt !important;color:var(--muted) !important}
-  .info-item .ii-value{font-size:8.3pt !important;color:var(--text) !important}
-  .summary-text{font-size:8.8pt !important;line-height:1.6 !important;color:var(--text) !important}
-  .table-wrap{overflow:visible !important;border:1px solid var(--border) !important;border-radius:3px !important}
+  .info-item{padding:2mm 2.6mm !important;border:1px solid #dfe6ee !important;background:#fafcfe !important;border-radius:2mm !important}
+  .info-item .ii-icon{display:none !important}
+  .info-item .ii-label{font-size:6.5pt !important}
+  .info-item .ii-value{font-size:8.3pt !important}
+  .summary-text{font-size:8.8pt !important;line-height:1.6 !important}
+
+  .table-wrap{overflow:visible !important;border:1px solid #c3cede !important;border-radius:3px !important}
   table.data{min-width:0 !important;width:100% !important;font-size:7.6pt !important}
   table.data thead{display:table-header-group !important}
   table.data tr{display:table-row !important;border:0 !important;margin:0 !important;padding:0 !important;background:transparent !important}
-  table.data th{display:table-cell !important;padding:1.6mm 2mm !important;font-size:6.6pt !important;
-    background:var(--card-2) !important;color:var(--muted) !important;
-    border-bottom:1px solid var(--border) !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  table.data td{display:table-cell !important;padding:1.6mm 2mm !important;
-    border-bottom:1px solid var(--border) !important;border-top:0 !important;
-    text-align:left !important;color:var(--text) !important}
+  table.data th{
+    display:table-cell !important;padding:1.6mm 2mm !important;font-size:6.6pt !important;
+    background:#eef2f8 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    border-bottom:1px solid #b9c6d6 !important;color:#33455c !important;
+  }
+  table.data td{
+    display:table-cell !important;padding:1.6mm 2mm !important;
+    border-bottom:1px solid #dde5ef !important;border-top:0 !important;text-align:left !important;
+  }
   table.data td::before{display:none !important}
   table.data tbody tr{page-break-inside:avoid}
-  .badge{font-size:6.4pt !important;padding:.6mm 1.8mm !important;
-    border:1px solid currentColor !important;background:transparent !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .badge-green{color:#0f9d58 !important;background:rgba(15,157,88,.14) !important}
-  .badge-amber{color:#b45309 !important;background:rgba(217,119,6,.16) !important}
-  .badge-red{color:#dc2626 !important;background:rgba(220,38,38,.14) !important}
-  [data-dark="true"] .badge-green{color:#3ddc84 !important}
-  [data-dark="true"] .badge-amber{color:#fbbf24 !important}
-  [data-dark="true"] .badge-red{color:#f87171 !important}
-  .cd{font-size:6pt !important;margin-top:.4mm !important;color:var(--muted) !important}
+
+  .badge{font-size:6.4pt !important;padding:.6mm 1.8mm !important;border:1px solid currentColor !important;background:transparent !important}
+  .cd{font-size:6pt !important;margin-top:.4mm !important}
+
   .timeline{padding-left:5mm !important}
-  .timeline::before{width:1px !important;left:1.2mm !important;
-    background:linear-gradient(180deg,var(--gold),rgba(var(--gold-rgb),.12)) !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .tl-dot{left:-5mm !important;width:2.6mm !important;height:2.6mm !important;border-width:1px !important;
-    background:var(--gold) !important;border-color:var(--card) !important;
-    box-shadow:0 0 0 2px rgba(var(--gold-rgb),.35) !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .tl-card{background:var(--card-2) !important;border:1px solid var(--border) !important;
-    padding:2.4mm 3mm !important;border-radius:2mm !important;page-break-inside:avoid;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .tl-head h3{font-size:8.8pt !important;color:var(--text) !important}
-  .tl-company{font-size:8pt !important;color:var(--gold) !important}
-  .pill{font-size:6.6pt !important;padding:.6mm 2mm !important;
-    background:rgba(var(--navy-rgb),.08) !important;color:var(--navy-3) !important;
-    border:1px solid var(--border) !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  [data-dark="true"] .pill{background:rgba(var(--gold-rgb),.16) !important;color:var(--gold-2) !important}
-  .tl-meta span{font-size:6.6pt !important;padding:.5mm 1.6mm !important;
-    background:var(--card) !important;border:1px solid var(--border) !important;color:var(--muted) !important}
-  .tl-desc{font-size:7.6pt !important;line-height:1.5 !important;margin-top:1.5mm !important;color:var(--muted) !important}
+  .timeline::before{width:1px !important;left:1.2mm !important}
+  .tl-dot{left:-5mm !important;width:2.6mm !important;height:2.6mm !important;border-width:1px !important;background: var(--accent) !important}
+  .tl-card{background:#fafcfe !important;border:1px solid #dfe6ee !important;padding:2.4mm 3mm !important;border-radius:2mm !important;page-break-inside:avoid}
+  .tl-head h3{font-size:8.8pt !important}
+  .tl-company{font-size:8pt !important;color: var(--accent) !important}
+  .pill{font-size:6.6pt !important;padding:.6mm 2mm !important;background:#eef2f8 !important;color: var(--primary) !important;border:1px solid #cfdae7 !important}
+  .tl-meta span{font-size:6.6pt !important;padding:.5mm 1.6mm !important;background:#fff !important;border:1px solid #dfe6ee !important}
+  .tl-desc{font-size:7.6pt !important;line-height:1.5 !important;margin-top:1.5mm !important}
   .tl-actions{display:none !important}
   .tl-item{margin-bottom:2.5mm !important}
+
   .contact-grid{grid-template-columns:1fr 1fr !important;gap:2mm !important}
-  .contact-card{padding:2.4mm 3mm !important;background:var(--card-2) !important;
-    border:1px solid var(--border) !important;border-radius:2mm !important;
-    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .contact-card{padding:2.4mm 3mm !important;background:#fafcfe !important;border:1px solid #dfe6ee !important;border-radius:2mm !important}
   .cc-icon{width:8mm !important;height:8mm !important;border-radius:2mm !important;font-size:9pt !important;
     -webkit-print-color-adjust:exact;print-color-adjust:exact}
-  .cc-icon.wa{background:linear-gradient(140deg,#128C7E,#25D366) !important;color:#fff !important}
-  .cc-icon.mail{background:linear-gradient(140deg,#1b4066,#2a6ba8) !important;color:#fff !important}
-  .cc-icon.ig{background:linear-gradient(45deg,#f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%) !important;color:#fff !important}
-  .contact-card small{font-size:6.2pt !important;color:var(--muted) !important}
-  .contact-card strong{font-size:8pt !important;color:var(--text) !important}
+  .contact-card small{font-size:6.2pt !important}
+  .contact-card strong{font-size:8pt !important}
+
   .alert-banner{display:none !important}
   .toolbar{display:none !important}
+  .app-foot{display:none !important}
   .timeline,.section:last-child{margin-bottom:0 !important}
   a{text-decoration:none !important;color:inherit !important}
 }
@@ -751,6 +822,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
 </head>
 <body>
 
+<!-- SVG SPRITE -->
 <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
   <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
   <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
@@ -789,10 +861,18 @@ body:not(.edit-on) .tl-actions{display:none !important}
   <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
 </svg>
 
-<div id="preloader"><div class="loader"></div><span>Memuat</span></div>
+<div id="preloader"><div class="loader"></div><span>Memuat CV Pelaut</span></div>
 
 <div class="app">
   <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><svg class="icon"><use href="#i-anchor"/></svg></div>
+      <div>
+        <strong>Seafarer CV</strong>
+        <small>Professional Portfolio</small>
+      </div>
+    </div>
+
     <nav class="nav" id="nav">
       <a href="#home" class="nav-link active" data-nav="home"><svg class="icon"><use href="#i-user"/></svg> <span data-i18n-key="nav_home">Profil Utama</span></a>
       <a href="#personal" class="nav-link" data-nav="personal"><svg class="icon"><use href="#i-id-card"/></svg> <span data-i18n-key="nav_personal">Data Pribadi</span></a>
@@ -805,6 +885,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
       <a href="#work" class="nav-link" data-nav="work"><svg class="icon"><use href="#i-briefcase"/></svg> <span data-i18n-key="nav_work">Pengalaman Kerja</span></a>
       <a href="#contact" class="nav-link" data-nav="contact"><svg class="icon"><use href="#i-phone"/></svg> <span data-i18n-key="nav_contact">Kontak</span></a>
     </nav>
+
     <div class="sidebar-foot">
       <button class="btn ghost sm" data-action="export"><svg class="icon"><use href="#i-download"/></svg> <span data-i18n-key="btn_backup">Backup JSON</span></button>
       <button class="btn ghost sm" data-action="import"><svg class="icon"><use href="#i-upload"/></svg> <span data-i18n-key="btn_import">Import JSON</span></button>
@@ -815,19 +896,24 @@ body:not(.edit-on) .tl-actions{display:none !important}
 
   <div class="main">
     <header class="topbar">
+      <button class="icon-btn" data-action="toggle-sidebar" id="menuBtn" data-i18n-title="btn_menu_title" title="Menu">
+        <svg class="icon"><use href="#i-menu"/></svg>
+      </button>
+      <div class="topbar-title" data-i18n-key="topbar_title">Curriculum Vitae</div>
       <div class="topbar-actions">
-        <button class="icon-btn" data-action="toggle-sidebar" id="menuBtn" data-i18n-title="btn_menu_title" title="Menu">
-          <svg class="icon"><use href="#i-menu"/></svg>
-        </button>
         <span class="save-indicator" id="saveInd"><svg class="icon"><use href="#i-check"/></svg> <span data-i18n-key="save_indicator">Tersimpan</span></span>
+
         <button class="icon-btn" data-action="dev-info" id="devBtn" data-i18n-title="btn_dev_title" title="Info Developer">
           <svg class="icon"><use href="#i-help"/></svg>
+        </button>
+        <button class="icon-btn" data-action="theme-palette" id="paletteBtn" data-i18n-title="btn_palette_title" title="Tema Warna">
+          <svg class="icon"><use href="#i-palette"/></svg>
         </button>
         <button class="icon-btn lang-btn" data-action="toggle-lang" id="langBtn" data-i18n-title="btn_lang_title" title="Ganti bahasa">
           <svg class="icon"><use href="#i-globe"/></svg><span id="langLabel">ID</span>
         </button>
-        <button class="icon-btn" data-action="theme-picker" id="themeBtn" data-i18n-title="btn_theme_title" title="Pilih Tema">
-          <svg class="icon"><use href="#i-palette"/></svg>
+        <button class="icon-btn" data-action="toggle-theme" id="themeBtn" data-i18n-title="btn_theme_title" title="Mode Gelap / Terang">
+          <svg class="icon"><use href="#i-moon"/></svg>
         </button>
         <button class="btn" data-action="toggle-edit" id="editToggle">
           <svg class="icon"><use href="#i-edit"/></svg> <span>Mode Edit</span>
@@ -839,8 +925,6 @@ body:not(.edit-on) .tl-actions{display:none !important}
           <svg class="icon"><use href="#i-refresh"/></svg> <span data-i18n-key="btn_reset">Reset</span>
         </button>
       </div>
-      <!-- Print-only branding pojok kanan atas -->
-      <span class="print-brand">xatmojo.github.io/cv-maker</span>
     </header>
 
     <main class="content" id="content">
@@ -856,6 +940,10 @@ body:not(.edit-on) .tl-actions{display:none !important}
       <section class="section" id="work"></section>
       <section class="section" id="contact"></section>
     </main>
+
+    <footer class="app-foot">
+      <span data-i18n-key="footer">Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda</span> · &copy; <span id="year"></span>
+    </footer>
   </div>
 </div>
 
@@ -869,8 +957,11 @@ body:not(.edit-on) .tl-actions{display:none !important}
 
 <script>
 "use strict";
-/* CV MAKER — xatmojo.github.io/cv-maker */
+/* =========================================================================
+   CV PELAUT — SEAFARER PROFESSIONAL PORTFOLIO (ID / EN) + MULTI-THEME
+   ========================================================================= */
 
+/* ---------- 1. KONSTANTA ---------- */
 const STORE_KEY = 'seafarer_cv_data_v1';
 const UI_KEY    = 'seafarer_cv_ui_v1';
 const DAY       = 86400000;
@@ -880,14 +971,35 @@ const MONTHS_EN = ['January','February','March','April','May','June','July','Aug
 const $  = (s, r = document) => r.querySelector(s);
 const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
 
+const THEMES = [
+  { id:'navy',    primary:'#0b1f3a', p2:'#123055', p3:'#1b4066', accent:'#c9a227', a2:'#e6c85c' },
+  { id:'emerald', primary:'#064e3b', p2:'#065f46', p3:'#047857', accent:'#059669', a2:'#34d399' },
+  { id:'royal',   primary:'#2e1065', p2:'#4c1d95', p3:'#6d28d9', accent:'#7c3aed', a2:'#a78bfa' },
+  { id:'crimson', primary:'#450a0a', p2:'#7f1d1d', p3:'#991b1b', accent:'#dc2626', a2:'#f87171' },
+  { id:'ocean',   primary:'#042f2e', p2:'#134e4a', p3:'#0f766e', accent:'#0891b2', a2:'#22d3ee' },
+  { id:'sunset',  primary:'#431407', p2:'#7c2d12', p3:'#9a3412', accent:'#ea580c', a2:'#fb923c' },
+  { id:'slate',   primary:'#0f172a', p2:'#1e293b', p3:'#334155', accent:'#475569', a2:'#94a3b8' },
+  { id:'rose',    primary:'#4c0519', p2:'#831843', p3:'#9f1239', accent:'#e11d48', a2:'#fb7185' }
+];
+const THEME_LABEL_KEY = {
+  navy:'theme_navy', emerald:'theme_emerald', royal:'theme_royal',
+  crimson:'theme_crimson', ocean:'theme_ocean', sunset:'theme_sunset',
+  slate:'theme_slate', rose:'theme_rose'
+};
+
 function esc(v){
   return String(v ?? '').replace(/[&<>"']/g, c => (
     {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
   ));
 }
-function uid(){ return Date.now().toString(36) + Math.random().toString(36).slice(2, 7); }
-function icon(id, cls = ''){ return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`; }
+function uid(){
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+function icon(id, cls = ''){
+  return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`;
+}
 
+/* ---------- 2. i18n ---------- */
 const I18N = {
   nav_home:['Profil Utama','Main Profile'],
   nav_personal:['Data Pribadi','Personal Data'],
@@ -899,26 +1011,32 @@ const I18N = {
   nav_sea:['Sea Service Record','Sea Service Record'],
   nav_work:['Pengalaman Kerja','Work Experience'],
   nav_contact:['Kontak','Contact'],
+
+  topbar_title:['Curriculum Vitae','Curriculum Vitae'],
   btn_edit_mode:['Mode Edit','Edit Mode'],
   btn_preview_mode:['Mode Preview','Preview Mode'],
   btn_print:['Cetak / PDF','Print / PDF'],
   btn_reset:['Reset','Reset'],
   btn_print_title:['Cetak / Simpan PDF','Print / Save PDF'],
   btn_reset_title:['Reset semua data','Reset all data'],
-  btn_theme_title:['Pilih Tema','Choose Theme'],
+  btn_theme_title:['Mode Gelap / Terang','Dark / Light Mode'],
   btn_lang_title:['Ganti bahasa','Change language'],
   btn_menu_title:['Menu','Menu'],
   btn_dev_title:['Info Developer','Developer Info'],
+  btn_palette_title:['Tema Warna','Color Theme'],
   save_indicator:['Tersimpan','Saved'],
+
   btn_backup:['Backup JSON','Backup JSON'],
   btn_import:['Import JSON','Import JSON'],
   btn_reset_data:['Reset Data','Reset Data'],
+
   hero_eyebrow:['Curriculum Vitae · Seafarer','Curriculum Vitae · Seafarer'],
   hero_placeholder_name:['Nama Lengkap Pelaut','Seafarer Full Name'],
   hero_placeholder_rank:['Jabatan / Rank','Position / Rank'],
   hero_fill_contact:['Lengkapi data kontak Anda','Complete your contact information'],
   btn_edit_profile:['Edit Data Pribadi','Edit Personal Data'],
   photo_edit_title:['Ubah foto formal','Change formal photo'],
+
   sec_personal_title:['Personal Information','Personal Information'],
   sec_personal_sub:['Identitas pribadi pelaut','Seafarer personal identity'],
   sec_summary_title:['Professional Summary','Professional Summary'],
@@ -937,6 +1055,7 @@ const I18N = {
   sec_work_sub:['Pengalaman kerja di perusahaan pelayaran','Work experience at shipping companies'],
   sec_contact_title:['Contact Information','Contact Information'],
   sec_contact_sub:['Hubungi pelaut','Contact the seafarer'],
+
   info_ttl:['Tempat, Tanggal Lahir','Place, Date of Birth'],
   info_gender:['Jenis Kelamin','Gender'],
   info_religion:['Agama','Religion'],
@@ -944,6 +1063,7 @@ const I18N = {
   info_marital:['Status Pernikahan','Marital Status'],
   info_nationality:['Kewarganegaraan','Nationality'],
   info_address:['Alamat Lengkap','Full Address'],
+
   th_type:['Jenis','Type'],
   th_doc_name:['Nama Dokumen','Document Name'],
   th_number:['Nomor','Number'],
@@ -962,17 +1082,20 @@ const I18N = {
   th_sign_on:['Sign On','Sign On'],
   th_sign_off:['Sign Off','Sign Off'],
   th_sea_duration:['Masa Berlayar','Sea Time'],
+
   btn_add_doc:['Tambah Dokumen','Add Document'],
   btn_add:['Tambah','Add'],
   btn_add_vessel:['Tambah Kapal','Add Vessel'],
   btn_add_work:['Tambah Pengalaman','Add Experience'],
   btn_edit:['Edit','Edit'],
   btn_delete:['Hapus','Delete'],
+
   status_active:['Aktif','Active'],
   status_soon:['Akan Kedaluwarsa','Expiring Soon'],
   status_expired:['Kedaluwarsa','Expired'],
   status_days_left:['{n} hari lagi','{n} days left'],
   status_days_ago:['lewat {n} hari','{n} days ago'],
+
   empty_summary:['Ringkasan profesional belum diisi. Aktifkan Mode Edit lalu klik "Edit" untuk menambahkan.','Professional summary is empty. Enable Edit Mode and click "Edit" to add.'],
   empty_documents:['Belum ada dokumen pelaut. Klik "Tambah Dokumen" pada Mode Edit.','No seafarer documents yet. Click "Add Document" in Edit Mode.'],
   empty_coc:['Belum ada sertifikat kompetensi. Klik "Tambah" pada Mode Edit.','No competency certificates yet. Click "Add" in Edit Mode.'],
@@ -980,6 +1103,7 @@ const I18N = {
   empty_other:['Belum ada sertifikat lainnya. Klik "Tambah" pada Mode Edit.','No other certificates yet. Click "Add" in Edit Mode.'],
   empty_sea:['Belum ada riwayat kapal (Sea Service Record). Klik "Tambah Kapal".','No vessel history yet. Click "Add Vessel".'],
   empty_work:['Belum ada pengalaman kerja. Klik "Tambah Pengalaman".','No work experience yet. Click "Add Experience".'],
+
   search_documents:['Cari dokumen, nomor, atau penerbit…','Search documents, numbers, or issuers…'],
   search_certs:['Cari sertifikat…','Search certificates…'],
   sort_default:['Urutan Default','Default Order'],
@@ -990,16 +1114,20 @@ const I18N = {
   sort_sea_asc:['Sign On Terlama','Oldest Sign On'],
   sort_work_desc:['Terbaru','Latest'],
   sort_work_asc:['Terlama','Oldest'],
+
   contact_wa:['WhatsApp','WhatsApp'],
   contact_email:['Email','Email'],
   contact_address:['Alamat','Address'],
   contact_not_filled:['Belum diisi','Not filled'],
+
   sea_total:['Total masa berlayar tercatat:','Total sea time recorded:'],
   sea_months:['{n} bulan','{n} months'],
   sea_days:['({n} hari)','({n} days)'],
+
   alert_expired_title:['{n} sertifikat sudah kedaluwarsa','{n} certificates have expired'],
   alert_soon_title:['{n} sertifikat akan segera kedaluwarsa (≤ 90 hari)','{n} certificates expiring soon (≤ 90 days)'],
   alert_no_name:['Tanpa nama','Unnamed'],
+
   photo_title:['Foto Formal','Formal Photo'],
   photo_choose:['Pilih Foto dari Perangkat','Choose Photo from Device'],
   photo_remove:['Hapus Foto','Remove Photo'],
@@ -1015,13 +1143,16 @@ const I18N = {
   photo_not_image:['Bukan file gambar','Not an image file'],
   photo_read_err:['Gagal membaca gambar','Failed to read image'],
   photo_file_err:['Gagal membaca file','Failed to read file'],
+
   dev_modal_title:['Info Developer','Developer Info'],
   dev_modal_sub:['Terhubung dengan pengembang aplikasi','Connect with the app developer'],
   dev_close:['Tutup','Close'],
+
   btn_save:['Simpan','Save'],
   btn_cancel:['Batal','Cancel'],
   btn_yes_continue:['Ya, Lanjutkan','Yes, Continue'],
   modal_close:['Tutup','Close'],
+
   modal_add_doc:['Tambah Dokumen','Add Document'],
   modal_edit_doc:['Edit Dokumen','Edit Document'],
   modal_add_cert:['Tambah Sertifikat','Add Certificate'],
@@ -1034,9 +1165,10 @@ const I18N = {
   modal_delete_title:['Hapus Data','Delete Data'],
   modal_delete_msg:['Hapus "{x}"? Tindakan ini tidak dapat dibatalkan.','Delete "{x}"? This action cannot be undone.'],
   modal_reset_title:['Reset Seluruh Data','Reset All Data'],
-  modal_reset_msg:['Semua data CV akan dihapus permanen dari perangkat ini. Lanjutkan?','All CV data will be permanently deleted from this device. Continue?'],
+  modal_reset_msg:['Semua data CV (profil, foto, dokumen, sertifikat, riwayat kapal, pengalaman kerja) akan dihapus permanen dari perangkat ini. Lanjutkan?','All CV data (profile, photo, documents, certificates, vessel history, work experience) will be permanently deleted from this device. Continue?'],
   modal_import_title:['Import Backup','Import Backup'],
   modal_import_msg:['Semua data saat ini akan diganti dengan data dari file backup. Lanjutkan?','All current data will be replaced with data from the backup file. Continue?'],
+
   toast_profile_updated:['Data pribadi diperbarui','Personal data updated'],
   toast_doc_added:['Dokumen ditambahkan','Document added'],
   toast_doc_updated:['Dokumen diperbarui','Document updated'],
@@ -1053,8 +1185,9 @@ const I18N = {
   toast_import_ok:['Backup berhasil diimport','Backup imported successfully'],
   toast_import_invalid:['File JSON tidak valid','Invalid JSON file'],
   toast_import_err:['File JSON tidak dapat dibaca','Cannot read JSON file'],
-  toast_save_err:['Gagal menyimpan — penyimpanan perangkat penuh.','Failed to save — device storage is full.'],
-  toast_theme_changed:['Tema: {name}','Theme: {name}'],
+  toast_save_err:['Gagal menyimpan — penyimpanan perangkat penuh. Hapus foto atau gunakan foto lebih kecil.','Failed to save — device storage is full. Remove photo or use a smaller one.'],
+  toast_theme_dark:['Mode gelap aktif','Dark mode active'],
+  toast_theme_light:['Mode terang aktif','Light mode active'],
   toast_edit_on:['Mode Edit aktif — data dapat diubah','Edit Mode active — data can be modified'],
   toast_preview_on:['Mode Preview aktif','Preview Mode active'],
   toast_lang_id:['Bahasa: Indonesia','Language: Indonesian'],
@@ -1064,6 +1197,7 @@ const I18N = {
   toast_phone_invalid:['Format nomor telepon tidak valid','Invalid phone number format'],
   toast_date_invalid:['Format {label} harus dd/mm/yyyy','{label} format must be dd/mm/yyyy'],
   toast_preparing:['Menyiapkan dokumen…','Preparing document…'],
+
   lbl_name:['Nama Lengkap','Full Name'],
   lbl_rank:['Jabatan / Rank','Position / Rank'],
   lbl_nationality:['Kewarganegaraan','Nationality'],
@@ -1099,6 +1233,7 @@ const I18N = {
   lbl_company:['Nama Perusahaan Pelayaran','Shipping Company Name'],
   lbl_contract_duration:['Durasi Kontrak','Contract Duration'],
   lbl_description:['Deskripsi Pekerjaan','Job Description'],
+
   opt_choose:['— Pilih —','— Select —'],
   opt_male:['Laki-laki','Male'],
   opt_female:['Perempuan','Female'],
@@ -1120,6 +1255,7 @@ const I18N = {
   opt_doctype_family:['Kartu Keluarga','Family Card'],
   opt_doctype_diploma:['Ijazah','Diploma'],
   opt_doctype_other:['Dokumen Lainnya','Other Document'],
+
   ph_rank_oiler:['Contoh: Oiler','Example: Oiler'],
   ph_doc_name:['Contoh: Buku Pelaut (Seaman Book)','Example: Seaman Book'],
   ph_flag:['Contoh: Panama','Example: Panama'],
@@ -1127,7 +1263,21 @@ const I18N = {
   ph_gt:['Contoh: 4.999','Example: 4,999'],
   ph_dwt:['Contoh: 12.500','Example: 12,500'],
   ph_engine:['Contoh: MAN B&W 6S50MC-C','Example: MAN B&W 6S50MC-C'],
-  ph_contract:['Contoh: 9 bulan','Example: 9 months']
+  ph_contract:['Contoh: 9 bulan','Example: 9 months'],
+
+  footer:['Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda','Seafarer Professional Portfolio · Data stored locally on your device'],
+
+  theme_picker_title:['Pilih Tema Warna','Choose Color Theme'],
+  theme_picker_sub:['Skema warna diterapkan pada tampilan aplikasi dan hasil cetak PDF.','Color scheme is applied to the app and printed PDF.'],
+  theme_applied:['Tema diterapkan','Theme applied'],
+  theme_navy:['Navy Gold','Navy Gold'],
+  theme_emerald:['Emerald','Emerald'],
+  theme_royal:['Royal Purple','Royal Purple'],
+  theme_crimson:['Crimson','Crimson'],
+  theme_ocean:['Ocean Teal','Ocean Teal'],
+  theme_sunset:['Sunset','Sunset'],
+  theme_slate:['Slate Mono','Slate Mono'],
+  theme_rose:['Rose Gold','Rose Gold']
 };
 
 function t(key){
@@ -1137,14 +1287,20 @@ function t(key){
 }
 
 const VAL_EN = {
-  'Laki-laki':'Male','Perempuan':'Female','Islam':'Islam','Kristen':'Christian','Katolik':'Catholic',
-  'Hindu':'Hindu','Buddha':'Buddhist','Konghucu':'Confucian','Lainnya':'Other',
-  'Belum Menikah':'Single','Menikah':'Married','Cerai Hidup':'Divorced','Cerai Mati':'Widowed',
-  'Buku Pelaut':'Seaman Book','MCU':'MCU','Sertifikat Medis':'Medical Certificate',
-  'Paspor':'Passport','Kartu Keluarga':'Family Card','Ijazah':'Diploma','Dokumen Lainnya':'Other Document'
+  'Laki-laki':'Male', 'Perempuan':'Female',
+  'Islam':'Islam', 'Kristen':'Christian', 'Katolik':'Catholic',
+  'Hindu':'Hindu', 'Buddha':'Buddhist', 'Konghucu':'Confucian', 'Lainnya':'Other',
+  'Belum Menikah':'Single', 'Menikah':'Married', 'Cerai Hidup':'Divorced', 'Cerai Mati':'Widowed',
+  'Buku Pelaut':'Seaman Book', 'MCU':'MCU', 'Sertifikat Medis':'Medical Certificate',
+  'Paspor':'Passport', 'Kartu Keluarga':'Family Card', 'Ijazah':'Diploma', 'Dokumen Lainnya':'Other Document'
 };
-function trValue(v){ if(!v) return v; if(UI.lang !== 'en') return v; return VAL_EN[v] || v; }
+function trValue(v){
+  if(!v) return v;
+  if(UI.lang !== 'en') return v;
+  return VAL_EN[v] || v;
+}
 
+/* ---------- 3. TANGGAL ---------- */
 function isoToDMY(iso){
   if(!iso) return '';
   const m = String(iso).match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -1212,20 +1368,37 @@ function waNumber(phone){
 }
 
 const DASH = '<span class="v-empty">—</span>';
-function tv(v){ const s = String(v ?? '').trim(); return (!s || s === '—') ? DASH : esc(s); }
-function tvDate(v){ if(!v) return DASH; const f = fmtDate(v); return f === '—' ? DASH : esc(f); }
-function tvDur(a, b){ const d = durationDays(a, b); return d === null ? DASH : esc(durationLabel(a, b)); }
+function tv(v){
+  const s = String(v ?? '').trim();
+  return (!s || s === '—') ? DASH : esc(s);
+}
+function tvDate(v){
+  if(!v) return DASH;
+  const f = fmtDate(v);
+  return f === '—' ? DASH : esc(f);
+}
+function tvDur(a, b){
+  const d = durationDays(a, b);
+  return d === null ? DASH : esc(durationLabel(a, b));
+}
 
+/* ---------- 4. STATE ---------- */
 function blankData(){
   return {
-    profile:{ name:'', rank:'Oiler', photo:'', photoZoom:1, photoX:50, photoY:50,
-      birthPlace:'', birthDate:'', gender:'', religion:'', height:'', weight:'',
-      maritalStatus:'', nationality:'Indonesia', address:'', phone:'', email:'', summary:'' },
+    profile:{
+      name:'', rank:'Oiler',
+      photo:'', photoZoom:1, photoX:50, photoY:50,
+      birthPlace:'', birthDate:'', gender:'', religion:'',
+      height:'', weight:'', maritalStatus:'', nationality:'Indonesia',
+      address:'', phone:'', email:'', summary:''
+    },
     documents:[
       { id: uid(), type:'Buku Pelaut', name:'Buku Pelaut (Seaman Book)', number:'', issuer:'', issueDate:'', expiryDate:'' },
       { id: uid(), type:'MCU',         name:'Medical Check-Up (MCU)',     number:'', issuer:'', issueDate:'', expiryDate:'' }
     ],
-    certificates:[], seaService:[], workExperience:[]
+    certificates:[],
+    seaService:[],
+    workExperience:[]
   };
 }
 function mergeData(saved){
@@ -1243,16 +1416,22 @@ function loadData(){
     const raw = localStorage.getItem(STORE_KEY);
     if(!raw) return blankData();
     return mergeData(JSON.parse(raw));
-  }catch(e){ console.warn('Load error:', e); return blankData(); }
+  }catch(e){
+    console.warn('Load error:', e);
+    return blankData();
+  }
 }
 function loadUI(){
-  const def = { edit:false, theme:'navy', lang:'id',
+  const def = {
+    edit:false, mode:'light', color:'navy', lang:'id',
     search:{ documents:'', coc:'', cop:'', other:'' },
-    sort:{ coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' } };
+    sort:{ coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
+  };
   try{
     const raw = localStorage.getItem(UI_KEY);
     if(!raw) return def;
     const s = JSON.parse(raw);
+    if(s.theme === 'light' || s.theme === 'dark'){ s.mode = s.theme; delete s.theme; }
     return Object.assign(def, s, {
       search: Object.assign(def.search, s.search || {}),
       sort:   Object.assign(def.sort,   s.sort   || {})
@@ -1266,17 +1445,24 @@ if(!localStorage.getItem(STORE_KEY)) UI.edit = true;
 
 function saveUI(){ try{ localStorage.setItem(UI_KEY, JSON.stringify(UI)); }catch(e){} }
 function save(){
-  try{ localStorage.setItem(STORE_KEY, JSON.stringify(DATA)); flashSaved(); }
-  catch(err){ console.error(err); toast(t('toast_save_err'), 'err'); }
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify(DATA));
+    flashSaved();
+  }catch(err){
+    console.error(err);
+    toast(t('toast_save_err'), 'err');
+  }
 }
 let saveTimer = null;
 function flashSaved(){
-  const el = $('#saveInd'); if(!el) return;
+  const el = $('#saveInd');
+  if(!el) return;
   el.classList.add('show');
   clearTimeout(saveTimer);
   saveTimer = setTimeout(() => el.classList.remove('show'), 1900);
 }
 
+/* ---------- 5. TOAST & MODAL ---------- */
 function toast(msg, type = 'ok'){
   const box = $('#toasts');
   const el  = document.createElement('div');
@@ -1330,85 +1516,102 @@ function closeModal(){
   document.body.style.overflow = '';
 }
 function confirmModal(title, message, onYes){
-  openModal({ title, bodyHTML: `<p class="confirm-msg">${esc(message)}</p>`,
-    saveLabel: t('btn_yes_continue'), danger: true, onSave: () => { onYes(); } });
+  openModal({
+    title,
+    bodyHTML: `<p class="confirm-msg">${esc(message)}</p>`,
+    saveLabel: t('btn_yes_continue'),
+    danger: true,
+    onSave: () => { onYes(); }
+  });
 }
 
+/* ---------- 5b. DEVELOPER MODAL ---------- */
 function openDevModal(){
   const bodyHTML = `
     <div style="text-align:center; padding: 10px 0 20px;">
-      <div style="width:86px; height:86px; border-radius:50%; background:linear-gradient(135deg,var(--gold),var(--gold-dark)); display:grid; place-items:center; margin:0 auto 16px; color:var(--navy); font-size:2.5rem;">
+      <div style="width:86px; height:86px; border-radius:50%; background:linear-gradient(135deg,var(--accent),color-mix(in srgb,var(--accent) 60%,#000)); display:grid; place-items:center; margin:0 auto 16px; color:var(--primary); font-size:2.5rem; box-shadow:0 8px 24px color-mix(in srgb,var(--accent) 35%,transparent);">
         ${icon('user')}
       </div>
       <h3 style="font-size:1.4rem; margin-bottom:4px; color:var(--text); font-family:'Outfit',sans-serif;">xatmojo</h3>
       <p style="color:var(--muted); font-size:.9rem; margin-bottom:24px;">${esc(t('dev_modal_sub'))}</p>
       <div style="display:flex; flex-direction:column; gap:12px; text-align:left; max-width:320px; margin:0 auto;">
         <a href="https://instagram.com/xatmojo" target="_blank" rel="noopener" class="contact-card" style="padding:12px 16px;">
-          <div class="cc-icon ig" style="font-size:1.1rem; width:36px; height:36px; border-radius:10px;">${icon('instagram')}</div>
-          <div><small>Instagram</small><strong>@xatmojo</strong></div>
+          <div class="cc-icon ig" style="font-size:1.1rem; width:36px; height:36px; border-radius:10px;">
+             ${icon('instagram')}
+          </div>
+          <div>
+            <small>Instagram</small>
+            <strong>@xatmojo</strong>
+          </div>
         </a>
         <a href="mailto:xatmojo@gmail.com" class="contact-card" style="padding:12px 16px;">
-          <div class="cc-icon mail" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">${icon('mail')}</div>
-          <div><small>${esc(t('contact_email'))}</small><strong>xatmojo@gmail.com</strong></div>
+          <div class="cc-icon mail" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">
+             ${icon('mail')}
+          </div>
+          <div>
+            <small>${esc(t('contact_email'))}</small>
+            <strong>xatmojo@gmail.com</strong>
+          </div>
         </a>
         <a href="https://wa.me/6289668262520" target="_blank" rel="noopener" class="contact-card" style="padding:12px 16px;">
-          <div class="cc-icon wa" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">${icon('wa','fill')}</div>
-          <div><small>${esc(t('contact_wa'))}</small><strong>0896-6826-2520</strong></div>
+          <div class="cc-icon wa" style="width:36px; height:36px; border-radius:10px; font-size:1.1rem;">
+             ${icon('wa','fill')}
+          </div>
+          <div>
+            <small>${esc(t('contact_wa'))}</small>
+            <strong>0896-6826-2520</strong>
+          </div>
         </a>
       </div>
-    </div>`;
-  openModal({ title: t('dev_modal_title'), bodyHTML, cancelLabel: t('dev_close') });
+    </div>
+  `;
+
+  openModal({
+    title: t('dev_modal_title'),
+    bodyHTML: bodyHTML,
+    cancelLabel: t('dev_close')
+  });
 }
 
-const THEMES_LIGHT = ['navy','ocean','emerald','crimson','violet','graphite'];
-const THEMES_DARK  = ['midnight','deep-ocean','dark-emerald','dark-crimson'];
-const THEMES_ALL   = [...THEMES_LIGHT, ...THEMES_DARK];
-function isDarkTheme(theme){ return THEMES_DARK.includes(theme); }
-
+/* ---------- 5c. THEME PICKER ---------- */
 function openThemePicker(){
-  const list = [
-    { id:'navy',          name:'Navy Gold',      desc:'Klasik maritim',    colors:['#0b1f3a','#c9a227'] },
-    { id:'ocean',         name:'Ocean Breeze',   desc:'Biru laut + cyan',  colors:['#0c2d48','#0891b2'] },
-    { id:'emerald',       name:'Emerald',        desc:'Hijau + gold',      colors:['#064e3b','#ca8a04'] },
-    { id:'crimson',       name:'Crimson',        desc:'Merah + gold',      colors:['#7f1d1d','#eab308'] },
-    { id:'violet',        name:'Violet',         desc:'Ungu + amber',      colors:['#4c1d95','#d97706'] },
-    { id:'graphite',      name:'Graphite',       desc:'Abu + gold',        colors:['#1f2937','#ca8a04'] },
-    { id:'midnight',      name:'Midnight',       desc:'Gelap klasik',      colors:['#0e1b2b','#c9a227'] },
-    { id:'deep-ocean',    name:'Deep Ocean',     desc:'Gelap biru',        colors:['#062736','#06b6d4'] },
-    { id:'dark-emerald',  name:'Dark Emerald',   desc:'Gelap hijau',       colors:['#062d20','#ca8a04'] },
-    { id:'dark-crimson',  name:'Dark Crimson',   desc:'Gelap merah',       colors:['#2a0808','#eab308'] }
-  ];
-  const cards = list.map(th => {
-    const active = UI.theme === th.id;
-    return `<button type="button" class="theme-card${active?' active':''}" data-theme-pick="${th.id}" data-theme-name="${esc(th.name)}">
-      <div class="theme-swatch" style="background:linear-gradient(135deg,${th.colors[0]},${th.colors[1]})"></div>
-      <div class="theme-info"><strong>${esc(th.name)}</strong><small>${esc(th.desc)}</small></div>
-      ${active ? '<span class="theme-check">✓</span>' : ''}
+  const swatches = THEMES.map(th => {
+    const active = (UI.color || 'navy') === th.id;
+    return `<button type="button" class="theme-swatch ${active ? 'active' : ''}" data-theme-id="${th.id}">
+      <div class="theme-preview" style="background:linear-gradient(135deg, ${th.primary} 0%, ${th.p2} 55%, ${th.p3} 100%)">
+        <span class="theme-dot" style="background:${th.accent}"></span>
+        <span class="theme-dot" style="background:${th.a2}"></span>
+      </div>
+      <span class="theme-name">${esc(t(THEME_LABEL_KEY[th.id]))}</span>
     </button>`;
   }).join('');
+
   openModal({
-    title: (UI.lang === 'en' ? 'Choose Theme' : 'Pilih Tema') + ' · ' + THEMES_ALL.length + (UI.lang === 'en' ? ' themes' : ' tema'),
-    bodyHTML: `<div class="theme-picker">${cards}</div>`,
-    cancelLabel: UI.lang === 'en' ? 'Close' : 'Tutup',
-    onSave: null
+    title: t('theme_picker_title'),
+    bodyHTML: `<p style="margin:0 0 16px;color:var(--muted);font-size:.86rem;line-height:1.65">${esc(t('theme_picker_sub'))}</p>
+               <div class="theme-grid">${swatches}</div>`,
+    cancelLabel: t('modal_close')
   });
-  setTimeout(() => {
-    $$('[data-theme-pick]').forEach(btn => {
-      btn.onclick = () => {
-        UI.theme = btn.dataset.themePick;
-        saveUI(); applyTheme(); closeModal();
-        toast(t('toast_theme_changed').replace('{name}', btn.dataset.themeName), 'info');
-      };
-    });
-  }, 50);
+
+  $$('.theme-swatch', $('#modalRoot')).forEach(btn => {
+    btn.onclick = () => {
+      UI.color = btn.dataset.themeId;
+      saveUI();
+      applyTheme();
+      closeModal();
+      toast(t('theme_applied') + ': ' + t(THEME_LABEL_KEY[UI.color]), 'info');
+    };
+  });
 }
 
+/* ---------- 6. FORM BUILDER ---------- */
 function fieldHTML(f, value){
   const id = 'fld_' + f.key;
   const v  = value == null ? '' : value;
   const label = t(f.labelKey);
   const ph = f.phKey ? t(f.phKey) : (f.ph || '');
   let input;
+
   if(f.type === 'textarea'){
     input = `<textarea id="${id}" name="${esc(f.key)}" rows="${f.rows || 3}" placeholder="${esc(ph)}">${esc(v)}</textarea>`;
   } else if(f.type === 'select'){
@@ -1438,29 +1641,58 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
   const html = `<form id="modalForm" class="form-grid" novalidate autocomplete="off">
       ${fields.map(f => fieldHTML(f, values[f.key])).join('')}
     </form>`;
+
   openModal({
-    title, bodyHTML: html, saveLabel: opts.saveLabel || t('btn_save'),
+    title,
+    bodyHTML: html,
+    saveLabel: opts.saveLabel || t('btn_save'),
     onSave: () => {
       const form = $('#modalForm');
       if(!form) return false;
       const data = {};
+
       for(const f of fields){
         const elm = form.elements[f.key];
         const raw = elm ? String(elm.value).trim() : '';
         const label = t(f.labelKey);
+
         if(f.type === 'date'){
           if(!raw){
-            if(f.required){ toast(t('toast_required').replace('{label}', label), 'err'); if(elm) elm.focus(); return false; }
-            data[f.key] = ''; continue;
+            if(f.required){
+              toast(t('toast_required').replace('{label}', label), 'err');
+              if(elm) elm.focus();
+              return false;
+            }
+            data[f.key] = '';
+            continue;
           }
           const iso = dmyToISO(raw);
-          if(iso === null){ toast(t('toast_date_invalid').replace('{label}', label), 'err'); if(elm) elm.focus(); return false; }
-          data[f.key] = iso; continue;
+          if(iso === null){
+            toast(t('toast_date_invalid').replace('{label}', label), 'err');
+            if(elm) elm.focus();
+            return false;
+          }
+          data[f.key] = iso;
+          continue;
         }
+
         data[f.key] = raw;
-        if(f.required && !raw){ toast(t('toast_required').replace('{label}', label), 'err'); if(elm) elm.focus(); return false; }
-        if(f.type === 'email' && raw && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw)){ toast(t('toast_email_invalid'), 'err'); if(elm) elm.focus(); return false; }
-        if(f.type === 'tel' && raw && !/^[0-9+\-\s()]{7,20}$/.test(raw)){ toast(t('toast_phone_invalid'), 'err'); if(elm) elm.focus(); return false; }
+
+        if(f.required && !raw){
+          toast(t('toast_required').replace('{label}', label), 'err');
+          if(elm) elm.focus();
+          return false;
+        }
+        if(f.type === 'email' && raw && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw)){
+          toast(t('toast_email_invalid'), 'err');
+          if(elm) elm.focus();
+          return false;
+        }
+        if(f.type === 'tel' && raw && !/^[0-9+\-\s()]{7,20}$/.test(raw)){
+          toast(t('toast_phone_invalid'), 'err');
+          if(elm) elm.focus();
+          return false;
+        }
       }
       onSubmit(data);
       return true;
@@ -1468,17 +1700,25 @@ function openFormModal(title, fields, values, onSubmit, opts = {}){
   });
 }
 
+/* ---------- 7. RENDER HELPERS ---------- */
 function sectionHead(iconId, title, subtitle, toolsHTML){
   return `<div class="section-head">
       <div class="section-icon">${icon(iconId)}</div>
-      <div class="section-title"><h2>${esc(title)}</h2>${subtitle ? `<p>${esc(subtitle)}</p>` : ''}</div>
+      <div class="section-title">
+        <h2>${esc(title)}</h2>
+        ${subtitle ? `<p>${esc(subtitle)}</p>` : ''}
+      </div>
       <div class="section-tools no-print">${toolsHTML || ''}</div>
     </div>`;
 }
 function addBtn(action, label, extra = ''){
-  return `<button class="btn sm primary edit-only" data-action="${action}" ${extra}>${icon('plus')} ${esc(label)}</button>`;
+  return `<button class="btn sm primary edit-only" data-action="${action}" ${extra}>
+            ${icon('plus')} ${esc(label)}
+          </button>`;
 }
-function emptyBox(msg){ return `<div class="empty">${icon('file')}${esc(msg)}</div>`; }
+function emptyBox(msg){
+  return `<div class="empty">${icon('file')}${esc(msg)}</div>`;
+}
 function editRowBtns(kind, id, label){
   return `<div class="cell-actions">
       <button class="icon-btn sm" data-action="edit-${kind}" data-id="${id}" title="${esc(t('btn_edit'))}">${icon('edit')}</button>
@@ -1486,17 +1726,21 @@ function editRowBtns(kind, id, label){
     </div>`;
 }
 
+/* ---------- 8. RENDER HERO ---------- */
 function renderHero(){
   const p = DATA.profile;
   const photoHTML = p.photo
-    ? `<img src="${p.photo}" alt="${esc(p.name || 'Photo')}" style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
+    ? `<img src="${p.photo}" alt="${esc(p.name || 'Photo')}"
+            style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
     : `<div class="photo-empty">${icon('user')}</div>`;
+
   const chips = [];
   if(p.phone) chips.push(`<a class="chip" href="tel:${esc(p.phone)}">${icon('phone')}<span>${esc(p.phone)}</span></a>`);
   if(p.email) chips.push(`<a class="chip" href="mailto:${esc(p.email)}">${icon('mail')}<span>${esc(p.email)}</span></a>`);
   if(p.address) chips.push(`<span class="chip">${icon('map-pin')}<span>${esc(p.address)}</span></span>`);
   if(p.nationality) chips.push(`<span class="chip">${icon('globe')}<span>${esc(p.nationality)}</span></span>`);
   if(!chips.length) chips.push(`<span class="chip">${icon('id-card')}<span>${esc(t('hero_fill_contact'))}</span></span>`);
+
   $('#home').innerHTML = `
     <div class="hero-photo-wrap">
       <div class="hero-photo">${photoHTML}</div>
@@ -1513,6 +1757,7 @@ function renderHero(){
     </div>`;
 }
 
+/* ---------- 9. RENDER ALERTS ---------- */
 function renderAlerts(){
   const zone = $('#alertZone');
   const soon = [], expired = [];
@@ -1523,24 +1768,39 @@ function renderAlerts(){
     else if(s.key === 'soon') soon.push(c);
   });
   if(!soon.length && !expired.length){ zone.innerHTML = ''; return; }
+
   let html = '';
   if(expired.length){
-    html += `<div class="alert-banner danger no-print">${icon('alert')}
-      <div><strong>${esc(t('alert_expired_title').replace('{n}', expired.length))}</strong>
-      <ul>${expired.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${fmtDate(c.expiryDate)}</li>`).join('')}</ul></div></div>`;
+    html += `<div class="alert-banner danger no-print">
+      ${icon('alert')}
+      <div>
+        <strong>${esc(t('alert_expired_title').replace('{n}', expired.length))}</strong>
+        <ul>${expired.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${fmtDate(c.expiryDate)}</li>`).join('')}</ul>
+      </div>
+    </div>`;
   }
   if(soon.length){
-    html += `<div class="alert-banner no-print">${icon('clock')}
-      <div><strong>${esc(t('alert_soon_title').replace('{n}', soon.length))}</strong>
-      <ul>${soon.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${t('status_days_left').replace('{n}', daysLeft(c.expiryDate))} (${fmtDate(c.expiryDate)})</li>`).join('')}</ul></div></div>`;
+    html += `<div class="alert-banner no-print">
+      ${icon('clock')}
+      <div>
+        <strong>${esc(t('alert_soon_title').replace('{n}', soon.length))}</strong>
+        <ul>${soon.map(c => `<li>${esc(c.name || t('alert_no_name'))} — ${t('status_days_left').replace('{n}', daysLeft(c.expiryDate))} (${fmtDate(c.expiryDate)})</li>`).join('')}</ul>
+      </div>
+    </div>`;
   }
   zone.innerHTML = html;
 }
 
+/* ---------- 10. RENDER PERSONAL ---------- */
 function renderPersonal(){
   const p = DATA.profile;
-  const ttl = (p.birthPlace || p.birthDate) ? `${p.birthPlace || '—'}, ${p.birthDate ? fmtDate(p.birthDate) : '—'}` : '—';
-  const bw = (p.height || p.weight) ? `${p.height || '—'} cm / ${p.weight || '—'} kg` : '—';
+  const ttl = (p.birthPlace || p.birthDate)
+    ? `${p.birthPlace || '—'}, ${p.birthDate ? fmtDate(p.birthDate) : '—'}`
+    : '—';
+  const bw = (p.height || p.weight)
+    ? `${p.height || '—'} cm / ${p.weight || '—'} kg`
+    : '—';
+
   const items = [
     { icon:'id-card', labelKey:'info_ttl', value: ttl, empty: !p.birthPlace && !p.birthDate },
     { icon:'user',    labelKey:'info_gender', value: trValue(p.gender) || '—', empty: !p.gender },
@@ -1549,32 +1809,47 @@ function renderPersonal(){
     { icon:'user',    labelKey:'info_marital', value: trValue(p.maritalStatus) || '—', empty: !p.maritalStatus },
     { icon:'globe',   labelKey:'info_nationality', value: p.nationality || '—', empty: !p.nationality }
   ];
+
   const grid = items.map(i => `
     <div class="info-item${i.empty ? ' item-empty' : ''}">
       <div class="ii-icon">${icon(i.icon)}</div>
-      <div><div class="ii-label">${esc(t(i.labelKey))}</div><div class="ii-value">${esc(i.value)}</div></div>
+      <div>
+        <div class="ii-label">${esc(t(i.labelKey))}</div>
+        <div class="ii-value">${esc(i.value)}</div>
+      </div>
     </div>`).join('');
-  const address = `<div class="info-item full${!p.address ? ' item-empty' : ''}">
+
+  const address = `
+    <div class="info-item full${!p.address ? ' item-empty' : ''}">
       <div class="ii-icon">${icon('map-pin')}</div>
-      <div><div class="ii-label">${esc(t('info_address'))}</div><div class="ii-value">${esc(p.address || '—')}</div></div>
+      <div>
+        <div class="ii-label">${esc(t('info_address'))}</div>
+        <div class="ii-value">${esc(p.address || '—')}</div>
+      </div>
     </div>`;
+
   $('#personal').innerHTML =
     sectionHead('id-card', t('sec_personal_title'), t('sec_personal_sub'),
       `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit'))}</button>`) +
     `<div class="info-grid">${grid}${address}</div>`;
 }
 
+/* ---------- 11. RENDER SUMMARY ---------- */
 function renderSummary(){
   const p = DATA.profile;
   $('#summary').innerHTML =
     sectionHead('file', t('sec_summary_title'), t('sec_summary_sub'),
       `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit'))}</button>`) +
-    (p.summary ? `<div class="summary-text">${esc(p.summary)}</div>` : emptyBox(t('empty_summary')));
+    (p.summary
+      ? `<div class="summary-text">${esc(p.summary)}</div>`
+      : emptyBox(t('empty_summary')));
 }
 
+/* ---------- 12. RENDER DOCUMENTS ---------- */
 function renderDocuments(){
   const list = DATA.documents;
   const q = (UI.search.documents || '').toLowerCase();
+
   const rows = list.map(d => {
     const text = `${d.type} ${d.name} ${d.number} ${d.issuer}`.toLowerCase();
     const hide = q && !text.includes(q) ? ' style="display:none"' : '';
@@ -1589,23 +1864,38 @@ function renderDocuments(){
       <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('doc', d.id, d.name || d.type || 'document')}</td>
     </tr>`;
   }).join('');
+
   const body = list.length
-    ? `<div class="toolbar no-print"><div class="search-box">${icon('search')}<input type="text" data-search="documents" placeholder="${esc(t('search_documents'))}" value="${esc(UI.search.documents)}"></div></div>
-       <div class="table-wrap"><table class="data"><thead><tr>
-         <th>${esc(t('th_type'))}</th><th>${esc(t('th_doc_name'))}</th><th>${esc(t('th_number'))}</th>
-         <th>${esc(t('th_issuer'))}</th><th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
-         <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
-       </tr></thead><tbody>${rows}</tbody></table></div>`
+    ? `<div class="toolbar no-print">
+         <div class="search-box">
+           ${icon('search')}
+           <input type="text" data-search="documents" placeholder="${esc(t('search_documents'))}" value="${esc(UI.search.documents)}">
+         </div>
+       </div>
+       <div class="table-wrap">
+         <table class="data">
+           <thead><tr>
+             <th>${esc(t('th_type'))}</th><th>${esc(t('th_doc_name'))}</th><th>${esc(t('th_number'))}</th>
+             <th>${esc(t('th_issuer'))}</th><th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
+             <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
+           </tr></thead>
+           <tbody>${rows}</tbody>
+         </table>
+       </div>`
     : emptyBox(t('empty_documents'));
+
   $('#documents').innerHTML =
-    sectionHead('layers', t('sec_documents_title'), t('sec_documents_sub'), addBtn('add-doc', t('btn_add_doc'))) + body;
+    sectionHead('layers', t('sec_documents_title'), t('sec_documents_sub'),
+      addBtn('add-doc', t('btn_add_doc'))) + body;
 }
 
+/* ---------- 13. RENDER CERTIFICATES ---------- */
 const CERT_META = {
   coc:   { id:'coc',   icon:'award',  titleKey:'sec_coc_title',   subKey:'sec_coc_sub',   emptyKey:'empty_coc' },
   cop:   { id:'cop',   icon:'shield', titleKey:'sec_cop_title',   subKey:'sec_cop_sub',   emptyKey:'empty_cop' },
   other: { id:'other', icon:'award',  titleKey:'sec_other_title', subKey:'sec_other_sub', emptyKey:'empty_other' }
 };
+
 function getCerts(cat){
   let list = DATA.certificates.filter(c => c.category === cat);
   const s = UI.sort[cat] || 'default';
@@ -1614,10 +1904,12 @@ function getCerts(cat){
   else if(s === 'issued') list.sort((a,b) => (b.issueDate || '').localeCompare(a.issueDate || ''));
   return list;
 }
+
 function renderCertSection(cat){
   const meta = CERT_META[cat];
   const list = getCerts(cat);
   const q = (UI.search[cat] || '').toLowerCase();
+
   const rows = list.map(c => {
     const text = `${c.name} ${c.number} ${c.issuer}`.toLowerCase();
     const hide = q && !text.includes(q) ? ' style="display:none"' : '';
@@ -1631,31 +1923,48 @@ function renderCertSection(cat){
       <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('cert', c.id, c.name || 'certificate')}</td>
     </tr>`;
   }).join('');
+
   const body = list.length
-    ? `<div class="toolbar no-print"><div class="search-box">${icon('search')}<input type="text" data-search="${cat}" placeholder="${esc(t('search_certs'))}" value="${esc(UI.search[cat] || '')}"></div>
+    ? `<div class="toolbar no-print">
+         <div class="search-box">
+           ${icon('search')}
+           <input type="text" data-search="${cat}" placeholder="${esc(t('search_certs'))}" value="${esc(UI.search[cat] || '')}">
+         </div>
          <select class="mini" data-sort="${cat}">
            <option value="default"${UI.sort[cat]==='default'?' selected':''}>${esc(t('sort_default'))}</option>
            <option value="expiry"${UI.sort[cat]==='expiry'?' selected':''}>${esc(t('sort_expiry'))}</option>
            <option value="issued"${UI.sort[cat]==='issued'?' selected':''}>${esc(t('sort_issued'))}</option>
            <option value="name"${UI.sort[cat]==='name'?' selected':''}>${esc(t('sort_name'))}</option>
-         </select></div>
-       <div class="table-wrap"><table class="data"><thead><tr>
-         <th>${esc(t('th_cert_name'))}</th><th>${esc(t('th_number'))}</th><th>${esc(t('th_issuer'))}</th>
-         <th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
-         <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
-       </tr></thead><tbody>${rows}</tbody></table></div>`
+         </select>
+       </div>
+       <div class="table-wrap">
+         <table class="data">
+           <thead><tr>
+             <th>${esc(t('th_cert_name'))}</th><th>${esc(t('th_number'))}</th><th>${esc(t('th_issuer'))}</th>
+             <th>${esc(t('th_issued'))}</th><th>${esc(t('th_expiry'))}</th>
+             <th>${esc(t('th_status'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
+           </tr></thead>
+           <tbody>${rows}</tbody>
+         </table>
+       </div>`
     : emptyBox(t(meta.emptyKey));
+
   $('#' + cat).innerHTML =
     sectionHead(meta.icon, t(meta.titleKey), t(meta.subKey),
       addBtn('add-cert', t('btn_add'), `data-cat="${cat}"`)) + body;
 }
 
+/* ---------- 14. RENDER SEA SERVICE ---------- */
 function renderSeaService(){
   let list = [...DATA.seaService];
   const s = UI.sort.sea || 'desc';
-  list.sort((a,b) => s === 'asc' ? (a.signOn || '').localeCompare(b.signOn || '') : (b.signOn || '').localeCompare(a.signOn || ''));
+  list.sort((a,b) => s === 'asc'
+    ? (a.signOn || '').localeCompare(b.signOn || '')
+    : (b.signOn || '').localeCompare(a.signOn || ''));
+
   let totalDays = 0;
   list.forEach(x => { const d = durationDays(x.signOn, x.signOff); if(d) totalDays += d; });
+
   const rows = list.map(x => {
     const gtdwt = [x.gt ? x.gt + ' GT' : '', x.dwt ? x.dwt + ' DWT' : ''].filter(Boolean).join(' / ');
     return `<tr>
@@ -1671,30 +1980,48 @@ function renderSeaService(){
       <td class="col-action" data-label="${esc(t('th_action'))}">${editRowBtns('sea', x.id, x.vesselName || 'vessel')}</td>
     </tr>`;
   }).join('');
+
   const footer = list.length && totalDays > 0
-    ? `<div style="margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:600">${icon('clock')} ${esc(t('sea_total'))}
-         <strong style="color:var(--gold)">${esc(t('sea_months').replace('{n}', Math.round(totalDays/30.44*10)/10))}</strong>
-         ${esc(t('sea_days').replace('{n}', totalDays))}</div>` : '';
+    ? `<div style="margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:600">
+         ${icon('clock')} ${esc(t('sea_total'))}
+         <strong style="color:var(--accent)">${esc(t('sea_months').replace('{n}', Math.round(totalDays/30.44*10)/10))}</strong>
+         ${esc(t('sea_days').replace('{n}', totalDays))}
+       </div>`
+    : '';
+
   const body = list.length
-    ? `<div class="toolbar no-print"><select class="mini" data-sort="sea">
+    ? `<div class="toolbar no-print">
+         <select class="mini" data-sort="sea">
            <option value="desc"${s==='desc'?' selected':''}>${esc(t('sort_sea_desc'))}</option>
            <option value="asc"${s==='asc'?' selected':''}>${esc(t('sort_sea_asc'))}</option>
-         </select></div>
-       <div class="table-wrap"><table class="data"><thead><tr>
-         <th>${esc(t('th_vessel'))}</th><th>${esc(t('th_flag'))}</th><th>${esc(t('th_vessel_type'))}</th>
-         <th>${esc(t('th_gt_dwt'))}</th><th>${esc(t('th_engine'))}</th><th>${esc(t('th_rank'))}</th>
-         <th>${esc(t('th_sign_on'))}</th><th>${esc(t('th_sign_off'))}</th>
-         <th>${esc(t('th_sea_duration'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
-       </tr></thead><tbody>${rows}</tbody></table></div>${footer}`
+         </select>
+       </div>
+       <div class="table-wrap">
+         <table class="data">
+           <thead><tr>
+             <th>${esc(t('th_vessel'))}</th><th>${esc(t('th_flag'))}</th><th>${esc(t('th_vessel_type'))}</th>
+             <th>${esc(t('th_gt_dwt'))}</th><th>${esc(t('th_engine'))}</th><th>${esc(t('th_rank'))}</th>
+             <th>${esc(t('th_sign_on'))}</th><th>${esc(t('th_sign_off'))}</th>
+             <th>${esc(t('th_sea_duration'))}</th><th class="th-actions">${esc(t('th_action'))}</th>
+           </tr></thead>
+           <tbody>${rows}</tbody>
+         </table>
+       </div>${footer}`
     : emptyBox(t('empty_sea'));
+
   $('#sea').innerHTML =
-    sectionHead('anchor', t('sec_sea_title'), t('sec_sea_sub'), addBtn('add-sea', t('btn_add_vessel'))) + body;
+    sectionHead('anchor', t('sec_sea_title'), t('sec_sea_sub'),
+      addBtn('add-sea', t('btn_add_vessel'))) + body;
 }
 
+/* ---------- 15. RENDER WORK ---------- */
 function renderWork(){
   let list = [...DATA.workExperience];
   const s = UI.sort.work || 'desc';
-  list.sort((a,b) => s === 'asc' ? (a.startDate || '').localeCompare(b.startDate || '') : (b.startDate || '').localeCompare(a.startDate || ''));
+  list.sort((a,b) => s === 'asc'
+    ? (a.startDate || '').localeCompare(b.startDate || '')
+    : (b.startDate || '').localeCompare(a.startDate || ''));
+
   const items = list.map(w => {
     const period = (w.startDate || w.endDate)
       ? `${w.startDate ? fmtDate(w.startDate) : '—'} – ${w.endDate ? fmtDate(w.endDate) : (UI.lang === 'en' ? 'Present' : 'Sekarang')}`
@@ -1704,11 +2031,15 @@ function renderWork(){
       w.vesselType ? `${t('th_vessel_type')}: ${w.vesselType}` : '',
       w.contractDuration ? `${t('lbl_contract_duration')}: ${w.contractDuration}` : ''
     ].filter(Boolean);
+
     return `<div class="tl-item">
       <div class="tl-dot"></div>
       <div class="tl-card">
         <div class="tl-head">
-          <div>${w.rank ? `<h3>${esc(w.rank)}</h3>` : ''}<p class="tl-company">${tv(w.company)}</p></div>
+          <div>
+            ${w.rank ? `<h3>${esc(w.rank)}</h3>` : ''}
+            <p class="tl-company">${tv(w.company)}</p>
+          </div>
           ${period ? `<span class="pill">${esc(period)}</span>` : ''}
         </div>
         ${meta.length ? `<div class="tl-meta">${meta.map(m => `<span>${esc(m)}</span>`).join('')}</div>` : ''}
@@ -1720,50 +2051,69 @@ function renderWork(){
       </div>
     </div>`;
   }).join('');
+
   const body = list.length
-    ? `<div class="toolbar no-print"><select class="mini" data-sort="work">
+    ? `<div class="toolbar no-print">
+         <select class="mini" data-sort="work">
            <option value="desc"${s==='desc'?' selected':''}>${esc(t('sort_work_desc'))}</option>
            <option value="asc"${s==='asc'?' selected':''}>${esc(t('sort_work_asc'))}</option>
-         </select></div>
+         </select>
+       </div>
        <div class="timeline">${items}</div>`
     : emptyBox(t('empty_work'));
+
   $('#work').innerHTML =
-    sectionHead('briefcase', t('sec_work_title'), t('sec_work_sub'), addBtn('add-work', t('btn_add_work'))) + body;
+    sectionHead('briefcase', t('sec_work_title'), t('sec_work_sub'),
+      addBtn('add-work', t('btn_add_work'))) + body;
 }
 
+/* ---------- 16. RENDER CONTACT ---------- */
 function renderContact(){
   const p = DATA.profile;
   const wa = waNumber(p.phone);
   const cards = [];
+
   if(p.phone){
     cards.push(`<a class="contact-card" href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener">
       <div class="cc-icon wa">${icon('wa','fill')}</div>
-      <div><small>${esc(t('contact_wa'))}</small><strong>${esc(p.phone)}</strong></div></a>`);
+      <div><small>${esc(t('contact_wa'))}</small><strong>${esc(p.phone)}</strong></div>
+    </a>`);
   } else {
-    cards.push(`<div class="contact-card is-placeholder"><div class="cc-icon wa">${icon('wa','fill')}</div>
+    cards.push(`<div class="contact-card is-placeholder">
+      <div class="cc-icon wa">${icon('wa','fill')}</div>
       <div><small>${esc(t('contact_wa'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
   }
+
   if(p.email){
     cards.push(`<a class="contact-card" href="mailto:${esc(p.email)}">
       <div class="cc-icon mail">${icon('mail')}</div>
-      <div><small>${esc(t('contact_email'))}</small><strong>${esc(p.email)}</strong></div></a>`);
+      <div><small>${esc(t('contact_email'))}</small><strong>${esc(p.email)}</strong></div>
+    </a>`);
   } else {
-    cards.push(`<div class="contact-card is-placeholder"><div class="cc-icon mail">${icon('mail')}</div>
+    cards.push(`<div class="contact-card is-placeholder">
+      <div class="cc-icon mail">${icon('mail')}</div>
       <div><small>${esc(t('contact_email'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
   }
+
   if(p.address){
-    cards.push(`<div class="contact-card"><div class="cc-icon">${icon('map-pin')}</div>
-      <div><small>${esc(t('contact_address'))}</small><strong>${esc(p.address)}</strong></div></div>`);
+    cards.push(`<div class="contact-card">
+      <div class="cc-icon">${icon('map-pin')}</div>
+      <div><small>${esc(t('contact_address'))}</small><strong>${esc(p.address)}</strong></div>
+    </div>`);
   } else {
-    cards.push(`<div class="contact-card is-placeholder"><div class="cc-icon">${icon('map-pin')}</div>
-      <div><small>${esc(t('contact_address'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div></div>`);
+    cards.push(`<div class="contact-card is-placeholder">
+      <div class="cc-icon">${icon('map-pin')}</div>
+      <div><small>${esc(t('contact_address'))}</small><strong style="color:var(--muted)">${esc(t('contact_not_filled'))}</strong></div>
+    </div>`);
   }
+
   $('#contact').innerHTML =
     sectionHead('phone', t('sec_contact_title'), t('sec_contact_sub'),
       `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} ${esc(t('btn_edit'))}</button>`) +
     `<div class="contact-grid">${cards.join('')}</div>`;
 }
 
+/* ---------- 17. EMPTY STATES ---------- */
 function updateEmptyStates(){
   const p = DATA.profile;
   $('#summary').classList.toggle('is-empty', !p.summary);
@@ -1773,18 +2123,31 @@ function updateEmptyStates(){
   $('#other').classList.toggle('is-empty', !DATA.certificates.filter(c => c.category === 'other').length);
   $('#sea').classList.toggle('is-empty', !DATA.seaService.length);
   $('#work').classList.toggle('is-empty', !DATA.workExperience.length);
+
   const personalEmpty = !p.birthPlace && !p.birthDate && !p.gender && !p.religion &&
                         !p.height && !p.weight && !p.maritalStatus && !p.nationality && !p.address;
   $('#personal').classList.toggle('is-empty', personalEmpty);
+
   const contactEmpty = !p.phone && !p.email && !p.address;
   $('#contact').classList.toggle('is-empty', contactEmpty);
 }
 
+/* ---------- 18. RENDER ALL / LANG / THEME ---------- */
 function renderAll(){
-  renderHero(); renderAlerts(); renderPersonal(); renderSummary(); renderDocuments();
-  renderCertSection('coc'); renderCertSection('cop'); renderCertSection('other');
-  renderSeaService(); renderWork(); renderContact();
-  updateEmptyStates(); applyEditMode(); applyTheme();
+  renderHero();
+  renderAlerts();
+  renderPersonal();
+  renderSummary();
+  renderDocuments();
+  renderCertSection('coc');
+  renderCertSection('cop');
+  renderCertSection('other');
+  renderSeaService();
+  renderWork();
+  renderContact();
+  updateEmptyStates();
+  applyEditMode();
+  applyTheme();
 }
 function applyEditMode(){
   document.body.classList.toggle('edit-on', !!UI.edit);
@@ -1796,42 +2159,71 @@ function applyEditMode(){
   }
 }
 function applyTheme(){
-  if(UI.theme === 'light') UI.theme = 'navy';
-  if(UI.theme === 'dark')  UI.theme = 'midnight';
-  if(!THEMES_ALL.includes(UI.theme)) UI.theme = 'navy';
-  const dark = isDarkTheme(UI.theme);
-  document.documentElement.setAttribute('data-theme', UI.theme);
-  document.documentElement.setAttribute('data-dark', dark ? 'true' : 'false');
+  const color = UI.color || 'navy';
+  const mode  = UI.mode  || 'light';
+  document.documentElement.setAttribute('data-color', color);
+  document.documentElement.setAttribute('data-mode',  mode);
+  document.documentElement.setAttribute('data-theme', mode);
+
   const btn = $('#themeBtn');
-  if(btn) btn.innerHTML = icon('palette');
+  if(btn) btn.innerHTML = icon(mode === 'dark' ? 'sun' : 'moon');
+
+  const paletteBtn = $('#paletteBtn');
+  if(paletteBtn) paletteBtn.style.color = mode === 'dark' ? 'var(--accent-2)' : '';
+
+  const th = THEMES.find(x => x.id === color) || THEMES[0];
   const meta = document.querySelector('meta[name=theme-color]');
-  if(meta){
-    const colors = { navy:'#0b1f3a', ocean:'#0c2d48', emerald:'#064e3b', crimson:'#450a0a',
-      violet:'#2e1065', graphite:'#1f2937', midnight:'#070f19',
-      'deep-ocean':'#03151f', 'dark-emerald':'#03140e', 'dark-crimson':'#1a0404' };
-    meta.setAttribute('content', colors[UI.theme] || '#0b1f3a');
-  }
+  if(meta) meta.setAttribute('content', th.primary);
 }
 function applyLang(){
   document.documentElement.lang = UI.lang;
   document.body.classList.toggle('lang-en', UI.lang === 'en');
+
   const lbl = $('#langLabel');
   if(lbl) lbl.textContent = UI.lang === 'en' ? 'EN' : 'ID';
-  $$('[data-i18n-key]').forEach(el => { const key = el.dataset.i18nKey; if(key) el.textContent = t(key); });
-  $$('[data-i18n-title]').forEach(el => { el.title = t(el.dataset.i18nTitle); });
+
+  $$('[data-i18n-key]').forEach(el => {
+    const key = el.dataset.i18nKey;
+    if(key) el.textContent = t(key);
+  });
+  $$('[data-i18n-title]').forEach(el => {
+    el.title = t(el.dataset.i18nTitle);
+  });
 }
 
+/* ---------- 19. FORM DEFINITIONS ---------- */
 const OPTS = {
-  gender: [{ v:'', l:'opt_choose' },{ v:'Laki-laki', l:'opt_male' },{ v:'Perempuan', l:'opt_female' }],
-  religion: [{ v:'', l:'opt_choose' },{ v:'Islam', l:'opt_islam' },{ v:'Kristen', l:'opt_christian' },
-    { v:'Katolik', l:'opt_catholic' },{ v:'Hindu', l:'opt_hindu' },{ v:'Buddha', l:'opt_buddhist' },
-    { v:'Konghucu', l:'opt_confucian' },{ v:'Lainnya', l:'opt_other' }],
-  marital: [{ v:'', l:'opt_choose' },{ v:'Belum Menikah', l:'opt_single' },{ v:'Menikah', l:'opt_married' },
-    { v:'Cerai Hidup', l:'opt_divorced' },{ v:'Cerai Mati', l:'opt_widowed' }],
-  doctype: [{ v:'Buku Pelaut', l:'opt_doctype_seaman' },{ v:'MCU', l:'opt_doctype_mcu' },
-    { v:'Sertifikat Medis', l:'opt_doctype_medical' },{ v:'Paspor', l:'opt_doctype_passport' },
-    { v:'Kartu Keluarga', l:'opt_doctype_family' },{ v:'Ijazah', l:'opt_doctype_diploma' },
-    { v:'Dokumen Lainnya', l:'opt_doctype_other' }]
+  gender: [
+    { v:'', l:'opt_choose' },
+    { v:'Laki-laki', l:'opt_male' },
+    { v:'Perempuan', l:'opt_female' }
+  ],
+  religion: [
+    { v:'', l:'opt_choose' },
+    { v:'Islam', l:'opt_islam' },
+    { v:'Kristen', l:'opt_christian' },
+    { v:'Katolik', l:'opt_catholic' },
+    { v:'Hindu', l:'opt_hindu' },
+    { v:'Buddha', l:'opt_buddhist' },
+    { v:'Konghucu', l:'opt_confucian' },
+    { v:'Lainnya', l:'opt_other' }
+  ],
+  marital: [
+    { v:'', l:'opt_choose' },
+    { v:'Belum Menikah', l:'opt_single' },
+    { v:'Menikah', l:'opt_married' },
+    { v:'Cerai Hidup', l:'opt_divorced' },
+    { v:'Cerai Mati', l:'opt_widowed' }
+  ],
+  doctype: [
+    { v:'Buku Pelaut', l:'opt_doctype_seaman' },
+    { v:'MCU', l:'opt_doctype_mcu' },
+    { v:'Sertifikat Medis', l:'opt_doctype_medical' },
+    { v:'Paspor', l:'opt_doctype_passport' },
+    { v:'Kartu Keluarga', l:'opt_doctype_family' },
+    { v:'Ijazah', l:'opt_doctype_diploma' },
+    { v:'Dokumen Lainnya', l:'opt_doctype_other' }
+  ]
 };
 
 const PROFILE_FIELDS = [
@@ -1842,22 +2234,24 @@ const PROFILE_FIELDS = [
   { key:'birthDate', labelKey:'lbl_birth_date', type:'date' },
   { key:'gender', labelKey:'lbl_gender', type:'select', options: OPTS.gender },
   { key:'religion', labelKey:'lbl_religion', type:'select', options: OPTS.religion },
-  { key:'height', labelKey:'lbl_height', type:'number', min:0 },
-  { key:'weight', labelKey:'lbl_weight', type:'number', min:0 },
+  { key:'height', labelKey:'lbl_height', type:'number', min:0, max:300 },
+  { key:'weight', labelKey:'lbl_weight', type:'number', min:0, max:500 },
   { key:'maritalStatus', labelKey:'lbl_marital', type:'select', options: OPTS.marital },
-  { key:'phone', labelKey:'lbl_phone', type:'tel', full:true },
-  { key:'email', labelKey:'lbl_email', type:'email', full:true },
-  { key:'address', labelKey:'lbl_address', type:'textarea', full:true, rows:3 },
+  { key:'phone', labelKey:'lbl_phone', type:'tel' },
+  { key:'email', labelKey:'lbl_email', type:'email' },
+  { key:'address', labelKey:'lbl_address', type:'textarea', full:true },
   { key:'summary', labelKey:'lbl_summary', type:'textarea', full:true, rows:5 }
 ];
+
 const DOC_FIELDS = [
-  { key:'type', labelKey:'lbl_doc_type', type:'select', options: OPTS.doctype, required:true },
-  { key:'name', labelKey:'lbl_doc_name', type:'text', required:true, phKey:'ph_doc_name' },
+  { key:'type', labelKey:'lbl_doc_type', type:'select', options: OPTS.doctype, full:true },
+  { key:'name', labelKey:'lbl_doc_name', type:'text', required:true, full:true },
   { key:'number', labelKey:'lbl_doc_number', type:'text' },
   { key:'issuer', labelKey:'lbl_issuer', type:'text' },
   { key:'issueDate', labelKey:'lbl_issue_date', type:'date' },
   { key:'expiryDate', labelKey:'lbl_expiry_date', type:'date' }
 ];
+
 const CERT_FIELDS = [
   { key:'name', labelKey:'lbl_cert_name', type:'text', required:true, full:true },
   { key:'number', labelKey:'lbl_cert_number', type:'text' },
@@ -1865,17 +2259,19 @@ const CERT_FIELDS = [
   { key:'issueDate', labelKey:'lbl_issue_date', type:'date' },
   { key:'expiryDate', labelKey:'lbl_expiry_date', type:'date' }
 ];
+
 const SEA_FIELDS = [
-  { key:'vesselName', labelKey:'lbl_vessel_name', type:'text', required:true },
+  { key:'vesselName', labelKey:'lbl_vessel_name', type:'text', required:true, full:true },
   { key:'flag', labelKey:'lbl_flag', type:'text', phKey:'ph_flag' },
   { key:'vesselType', labelKey:'lbl_vessel_type', type:'text', phKey:'ph_vessel_type' },
-  { key:'rank', labelKey:'lbl_rank_onboard', type:'text' },
   { key:'gt', labelKey:'lbl_gt', type:'text', phKey:'ph_gt' },
   { key:'dwt', labelKey:'lbl_dwt', type:'text', phKey:'ph_dwt' },
   { key:'mainEngine', labelKey:'lbl_main_engine', type:'text', phKey:'ph_engine', full:true },
-  { key:'signOn', labelKey:'lbl_sign_on', type:'date' },
+  { key:'rank', labelKey:'lbl_rank_onboard', type:'text' },
+  { key:'signOn', labelKey:'lbl_sign_on', type:'date', required:true },
   { key:'signOff', labelKey:'lbl_sign_off', type:'date' }
 ];
+
 const WORK_FIELDS = [
   { key:'company', labelKey:'lbl_company', type:'text', required:true, full:true },
   { key:'rank', labelKey:'lbl_rank', type:'text' },
@@ -1884,249 +2280,391 @@ const WORK_FIELDS = [
   { key:'contractDuration', labelKey:'lbl_contract_duration', type:'text', phKey:'ph_contract' },
   { key:'startDate', labelKey:'lbl_sign_on', type:'date' },
   { key:'endDate', labelKey:'lbl_sign_off', type:'date' },
-  { key:'description', labelKey:'lbl_description', type:'textarea', full:true, rows:4 }
+  { key:'description', labelKey:'lbl_description', type:'textarea', full:true }
 ];
 
-function editProfile(){ openFormModal(t('modal_edit_profile'), PROFILE_FIELDS, DATA.profile, (data) => {
-  Object.assign(DATA.profile, data); save(); renderAll(); toast(t('toast_profile_updated')); }); }
-function addDoc(){ openFormModal(t('modal_add_doc'), DOC_FIELDS, {}, (data) => {
-  DATA.documents.push(Object.assign({ id: uid() }, data)); save(); renderAll(); toast(t('toast_doc_added')); }); }
-function editDoc(id){ const item = DATA.documents.find(x => x.id === id); if(!item) return;
-  openFormModal(t('modal_edit_doc'), DOC_FIELDS, item, (data) => {
-    Object.assign(item, data); save(); renderAll(); toast(t('toast_doc_updated')); }); }
-function addCert(cat){ openFormModal(t('modal_add_cert'), CERT_FIELDS, {}, (data) => {
-  DATA.certificates.push(Object.assign({ id: uid(), category: cat }, data)); save(); renderAll(); toast(t('toast_cert_added')); }); }
-function editCert(id){ const item = DATA.certificates.find(x => x.id === id); if(!item) return;
-  openFormModal(t('modal_edit_cert'), CERT_FIELDS, item, (data) => {
-    Object.assign(item, data); save(); renderAll(); toast(t('toast_cert_updated')); }); }
-function addSea(){ openFormModal(t('modal_add_sea'), SEA_FIELDS, {}, (data) => {
-  DATA.seaService.push(Object.assign({ id: uid() }, data)); save(); renderAll(); toast(t('toast_sea_added')); }); }
-function editSea(id){ const item = DATA.seaService.find(x => x.id === id); if(!item) return;
-  openFormModal(t('modal_edit_sea'), SEA_FIELDS, item, (data) => {
-    Object.assign(item, data); save(); renderAll(); toast(t('toast_sea_updated')); }); }
-function addWork(){ openFormModal(t('modal_add_work'), WORK_FIELDS, {}, (data) => {
-  DATA.workExperience.push(Object.assign({ id: uid() }, data)); save(); renderAll(); toast(t('toast_work_added')); }); }
-function editWork(id){ const item = DATA.workExperience.find(x => x.id === id); if(!item) return;
-  openFormModal(t('modal_edit_work'), WORK_FIELDS, item, (data) => {
-    Object.assign(item, data); save(); renderAll(); toast(t('toast_work_updated')); }); }
-function deleteItem(type, id, label){
-  const msg = t('modal_delete_msg').replace('{x}', label || 'item');
-  confirmModal(t('modal_delete_title'), msg, () => {
-    if(type === 'doc')   DATA.documents      = DATA.documents.filter(x => x.id !== id);
-    if(type === 'cert')  DATA.certificates   = DATA.certificates.filter(x => x.id !== id);
-    if(type === 'sea')   DATA.seaService     = DATA.seaService.filter(x => x.id !== id);
-    if(type === 'work')  DATA.workExperience = DATA.workExperience.filter(x => x.id !== id);
-    save(); renderAll(); toast(t('toast_deleted'));
+/* ---------- 20. MODAL HANDLERS ---------- */
+function openProfileModal(){
+  openFormModal(t('modal_edit_profile'), PROFILE_FIELDS, DATA.profile, (data) => {
+    Object.assign(DATA.profile, data);
+    save(); renderAll(); toast(t('toast_profile_updated'));
   });
 }
-
-function openPhotoModal(){
-  const p = DATA.profile;
-  const preview = p.photo
-    ? `<img id="photoPrevImg" src="${p.photo}" alt="preview" style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
-    : `<div id="photoPrevImg" style="display:grid;place-items:center;width:100%;height:100%;color:var(--muted);font-size:2.5rem;">${icon('user')}</div>`;
-  const body = `
-    <div class="photo-editor">
-      <div class="photo-preview" id="photoPreviewBox">${preview}</div>
-      <div class="photo-controls">
-        <label class="upload-btn" for="photoFileInput">${icon('upload')} ${esc(t('photo_choose'))}</label>
-        <input type="file" id="photoFileInput" accept="image/*" hidden>
-        <button class="btn ghost" type="button" id="photoRemoveBtn">${icon('trash')} ${esc(t('photo_remove'))}</button>
-        <div><label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_zoom'))}</label>
-          <input type="range" id="photoZoom" min="1" max="2.5" step="0.05" value="${p.photoZoom}"></div>
-        <div><label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_x'))}</label>
-          <input type="range" id="photoX" min="0" max="100" step="1" value="${p.photoX}"></div>
-        <div><label style="font-size:.75rem;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;">${esc(t('photo_y'))}</label>
-          <input type="range" id="photoY" min="0" max="100" step="1" value="${p.photoY}"></div>
-        <p style="font-size:.75rem;color:var(--muted);line-height:1.5;margin:0;">${esc(t('photo_hint'))}</p>
-      </div>
-    </div>`;
-  openModal({ title: t('photo_title'), bodyHTML: body, saveLabel: t('photo_use'),
-    onSave: () => {
-      const img = $('#photoPreviewBox img');
-      if(img){ DATA.profile.photo = img.src;
-        DATA.profile.photoZoom = parseFloat($('#photoZoom').value) || 1;
-        DATA.profile.photoX = parseInt($('#photoX').value, 10) || 50;
-        DATA.profile.photoY = parseInt($('#photoY').value, 10) || 50;
-      } else { DATA.profile.photo = ''; }
-      save(); renderAll(); toast(t('photo_updated')); return true;
+function openDocModal(existing){
+  const isEdit = !!existing;
+  const values = existing || { type:'Buku Pelaut', name:'', number:'', issuer:'', issueDate:'', expiryDate:'' };
+  openFormModal(
+    isEdit ? t('modal_edit_doc') : t('modal_add_doc'),
+    DOC_FIELDS, values,
+    (data) => {
+      if(isEdit){ Object.assign(existing, data); toast(t('toast_doc_updated')); }
+      else{ DATA.documents.push(Object.assign({id:uid()}, data)); toast(t('toast_doc_added')); }
+      save(); renderAll();
+    }
+  );
+}
+function openCertModal(existing, category){
+  const isEdit = !!existing;
+  const values = existing || { name:'', number:'', issuer:'', issueDate:'', expiryDate:'' };
+  openFormModal(
+    isEdit ? t('modal_edit_cert') : t('modal_add_cert'),
+    CERT_FIELDS, values,
+    (data) => {
+      if(isEdit){ Object.assign(existing, data); toast(t('toast_cert_updated')); }
+      else{ DATA.certificates.push(Object.assign({id:uid(), category: category || 'coc'}, data)); toast(t('toast_cert_added')); }
+      save(); renderAll();
+    }
+  );
+}
+function openSeaModal(existing){
+  const isEdit = !!existing;
+  const values = existing || { vesselName:'', flag:'', vesselType:'', gt:'', dwt:'', mainEngine:'', rank:'', signOn:'', signOff:'' };
+  openFormModal(
+    isEdit ? t('modal_edit_sea') : t('modal_add_sea'),
+    SEA_FIELDS, values,
+    (data) => {
+      if(isEdit){ Object.assign(existing, data); toast(t('toast_sea_updated')); }
+      else{ DATA.seaService.push(Object.assign({id:uid()}, data)); toast(t('toast_sea_added')); }
+      save(); renderAll();
+    }
+  );
+}
+function openWorkModal(existing){
+  const isEdit = !!existing;
+  const values = existing || { company:'', rank:'', vesselName:'', vesselType:'', contractDuration:'', startDate:'', endDate:'', description:'' };
+  openFormModal(
+    isEdit ? t('modal_edit_work') : t('modal_add_work'),
+    WORK_FIELDS, values,
+    (data) => {
+      if(isEdit){ Object.assign(existing, data); toast(t('toast_work_updated')); }
+      else{ DATA.workExperience.push(Object.assign({id:uid()}, data)); toast(t('toast_work_added')); }
+      save(); renderAll();
+    }
+  );
+}
+function deleteItem(arr, id, kind){
+  const item = arr.find(x => x.id === id);
+  if(!item) return;
+  const label = item.name || item.company || item.vesselName || 'data';
+  confirmModal(t('modal_delete_title'), t('modal_delete_msg').replace('{x}', label), () => {
+    const idx = arr.findIndex(x => x.id === id);
+    if(idx > -1){
+      arr.splice(idx, 1);
+      save(); renderAll(); toast(t('toast_deleted'));
     }
   });
-  setTimeout(() => {
-    const fileIn = $('#photoFileInput');
-    const prevBox = $('#photoPreviewBox');
-    const zoom = $('#photoZoom'), px = $('#photoX'), py = $('#photoY');
-    function updateTransform(){
-      const img = prevBox.querySelector('img'); if(!img) return;
-      img.style.transform = `scale(${zoom.value})`;
-      img.style.objectPosition = `${px.value}% ${py.value}%`;
-    }
-    if(fileIn){
-      fileIn.onchange = (e) => {
-        const file = e.target.files[0]; if(!file) return;
-        if(!file.type.startsWith('image/')){ toast(t('photo_not_image'), 'err'); return; }
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-          const srcImg = new Image();
-          srcImg.onload = () => {
-            const maxDim = 400;
-            const ratio = Math.min(maxDim/srcImg.width, maxDim/srcImg.height, 1);
-            const w = Math.round(srcImg.width * ratio), h = Math.round(srcImg.height * ratio);
-            const canvas = document.createElement('canvas');
-            canvas.width = w; canvas.height = h;
-            canvas.getContext('2d').drawImage(srcImg, 0, 0, w, h);
-            const compressed = canvas.toDataURL('image/jpeg', 0.85);
-            prevBox.innerHTML = `<img src="${compressed}" alt="preview" style="width:100%;height:100%;object-fit:cover;display:block;">`;
-            updateTransform();
-            toast(t('photo_ready'), 'info');
-          };
-          srcImg.onerror = () => toast(t('photo_read_err'), 'err');
-          srcImg.src = ev.target.result;
-        };
-        reader.onerror = () => toast(t('photo_file_err'), 'err');
-        reader.readAsDataURL(file);
-      };
-    }
-    const removeBtn = $('#photoRemoveBtn');
-    if(removeBtn){
-      removeBtn.onclick = () => {
-        prevBox.innerHTML = `<div style="display:grid;place-items:center;width:100%;height:100%;color:var(--muted);font-size:2.5rem;">${icon('user')}</div>`;
-        toast(t('photo_removed'), 'info');
-      };
-    }
-    [zoom, px, py].forEach(el => { if(el) el.oninput = updateTransform; });
-  }, 60);
 }
-
-function exportJSON(){
+function resetAllData(){
+  confirmModal(t('modal_reset_title'), t('modal_reset_msg'), () => {
+    DATA = blankData();
+    save(); renderAll(); toast(t('toast_reset'));
+  });
+}
+function exportData(){
   try{
-    const blob = new Blob([JSON.stringify(DATA, null, 2)], { type:'application/json' });
+    const blob = new Blob([JSON.stringify(DATA, null, 2)], {type:'application/json'});
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = `cv-backup-${new Date().toISOString().slice(0,10)}.json`;
-    document.body.appendChild(a); a.click(); document.body.removeChild(a); URL.revokeObjectURL(url);
+    a.href = url;
+    a.download = `cv-pelaut-backup-${new Date().toISOString().slice(0,10)}.json`;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(() => URL.revokeObjectURL(url), 100);
     toast(t('toast_backup_ok'));
-  }catch(e){ console.error(e); toast(t('toast_backup_err'), 'err'); }
-}
-function triggerImport(){
-  const inp = $('#importInput'); inp.value = '';
-  inp.onchange = (e) => {
-    const file = e.target.files[0]; if(!file) return;
-    const reader = new FileReader();
-    reader.onload = (ev) => {
-      try{
-        const parsed = JSON.parse(ev.target.result);
-        confirmModal(t('modal_import_title'), t('modal_import_msg'), () => {
-          DATA = mergeData(parsed); save(); renderAll(); toast(t('toast_import_ok'));
-        });
-      }catch(err){ toast(t('toast_import_invalid'), 'err'); }
-    };
-    reader.onerror = () => toast(t('toast_import_err'), 'err');
-    reader.readAsText(file);
-  };
-  inp.click();
-}
-function resetAll(){
-  confirmModal(t('modal_reset_title'), t('modal_reset_msg'), () => {
-    DATA = blankData(); save(); renderAll(); toast(t('toast_reset'));
-  });
+  }catch(e){ toast(t('toast_backup_err'), 'err'); }
 }
 
-function doAction(action, el){
+/* ---------- 21. PHOTO EDITOR ---------- */
+function openPhotoModal(){
+  const p = DATA.profile;
+  let workingPhoto = p.photo || '';
+  let workingZoom = p.photoZoom || 1;
+  let workingX = (p.photoX ?? 50);
+  let workingY = (p.photoY ?? 50);
+
+  const previewHTML = workingPhoto
+    ? `<img src="${workingPhoto}" style="object-position:${workingX}% ${workingY}%;transform:scale(${workingZoom})">`
+    : `<div class="photo-empty">${icon('user')}</div>`;
+
+  const bodyHTML = `
+    <div class="photo-editor">
+      <div class="photo-preview" id="photoPreview">${previewHTML}</div>
+      <div class="photo-controls">
+        <label class="upload-btn">
+          ${icon('upload')} ${esc(t('photo_choose'))}
+          <input type="file" accept="image/*" hidden id="photoFileInput">
+        </label>
+        <button type="button" class="btn danger" id="photoRemoveBtn">${icon('trash')} ${esc(t('photo_remove'))}</button>
+        <div class="field">
+          <label>${esc(t('photo_zoom'))}</label>
+          <input type="range" id="photoZoom" min="1" max="3" step="0.05" value="${workingZoom}">
+        </div>
+        <div class="field">
+          <label>${esc(t('photo_x'))}</label>
+          <input type="range" id="photoX" min="0" max="100" value="${workingX}">
+        </div>
+        <div class="field">
+          <label>${esc(t('photo_y'))}</label>
+          <input type="range" id="photoY" min="0" max="100" value="${workingY}">
+        </div>
+        <p style="font-size:.76rem;color:var(--muted);margin:0">${esc(t('photo_hint'))}</p>
+      </div>
+    </div>`;
+
+  openModal({
+    title: t('photo_title'),
+    bodyHTML,
+    saveLabel: t('photo_use'),
+    onSave: () => {
+      DATA.profile.photo = workingPhoto;
+      DATA.profile.photoZoom = workingZoom;
+      DATA.profile.photoX = workingX;
+      DATA.profile.photoY = workingY;
+      save(); renderHero(); toast(t('photo_updated'));
+    }
+  });
+
+  const $preview = $('#photoPreview');
+  const updatePreview = () => {
+    if(!workingPhoto){ $preview.innerHTML = `<div class="photo-empty">${icon('user')}</div>`; return; }
+    $preview.innerHTML = `<img src="${workingPhoto}" style="object-position:${workingX}% ${workingY}%;transform:scale(${workingZoom})">`;
+  };
+
+  $('#photoFileInput').onchange = (e) => {
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    if(!file.type.startsWith('image/')){ toast(t('photo_not_image'), 'err'); return; }
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        const canvas = document.createElement('canvas');
+        const maxSize = 400;
+        let w = img.width, h = img.height;
+        if(w > h){ if(w > maxSize){ h = h * maxSize / w; w = maxSize; } }
+        else{ if(h > maxSize){ w = w * maxSize / h; h = maxSize; } }
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, w, h);
+        workingPhoto = canvas.toDataURL('image/jpeg', 0.85);
+        updatePreview();
+      };
+      img.onerror = () => toast(t('photo_read_err'), 'err');
+      img.src = reader.result;
+    };
+    reader.onerror = () => toast(t('photo_file_err'), 'err');
+    reader.readAsDataURL(file);
+  };
+
+  $('#photoRemoveBtn').onclick = () => {
+    workingPhoto = '';
+    updatePreview();
+    toast(t('photo_removed'), 'info');
+  };
+
+  $('#photoZoom').oninput = (e) => { workingZoom = parseFloat(e.target.value); updatePreview(); };
+  $('#photoX').oninput = (e) => { workingX = parseInt(e.target.value,10); updatePreview(); };
+  $('#photoY').oninput = (e) => { workingY = parseInt(e.target.value,10); updatePreview(); };
+}
+
+/* ---------- 22. ACTION HANDLER ---------- */
+function handleAction(action, el){
+  const id = el.dataset.id;
+
   switch(action){
     case 'toggle-sidebar':
       $('#sidebar').classList.toggle('open');
       $('#sidebarBackdrop').classList.toggle('show');
       break;
     case 'toggle-theme':
-    case 'theme-picker': openThemePicker(); break;
+      UI.mode = (UI.mode === 'dark') ? 'light' : 'dark';
+      saveUI(); applyTheme();
+      toast(t(UI.mode === 'dark' ? 'toast_theme_dark' : 'toast_theme_light'), 'info');
+      break;
+    case 'theme-palette':
+      openThemePicker();
+      break;
     case 'toggle-lang':
-      UI.lang = UI.lang === 'en' ? 'id' : 'en';
+      UI.lang = (UI.lang === 'en') ? 'id' : 'en';
       saveUI(); applyLang(); renderAll();
-      toast(UI.lang === 'en' ? t('toast_lang_en') : t('toast_lang_id'), 'info'); break;
+      toast(t(UI.lang === 'en' ? 'toast_lang_en' : 'toast_lang_id'), 'info');
+      break;
     case 'toggle-edit':
-      UI.edit = !UI.edit; saveUI(); applyEditMode();
-      toast(UI.edit ? t('toast_edit_on') : t('toast_preview_on'), 'info'); break;
-    case 'print': window.print(); break;
-    case 'reset': resetAll(); break;
-    case 'export': exportJSON(); break;
-    case 'import': triggerImport(); break;
-    case 'back-top': window.scrollTo({ top: 0, behavior: 'smooth' }); break;
-    case 'dev-info': openDevModal(); break;
-    case 'photo': openPhotoModal(); break;
-    case 'edit-profile': editProfile(); break;
-    case 'add-doc': addDoc(); break;
-    case 'add-cert': addCert(el.dataset.cat || 'coc'); break;
-    case 'add-sea': addSea(); break;
-    case 'add-work': addWork(); break;
-    case 'edit-doc': editDoc(el.dataset.id); break;
-    case 'edit-cert': editCert(el.dataset.id); break;
-    case 'edit-sea': editSea(el.dataset.id); break;
-    case 'edit-work': editWork(el.dataset.id); break;
-    case 'del-doc': deleteItem('doc', el.dataset.id, el.dataset.label); break;
-    case 'del-cert': deleteItem('cert', el.dataset.id, el.dataset.label); break;
-    case 'del-sea': deleteItem('sea', el.dataset.id, el.dataset.label); break;
-    case 'del-work': deleteItem('work', el.dataset.id, el.dataset.label); break;
+      UI.edit = !UI.edit;
+      saveUI(); applyEditMode();
+      toast(t(UI.edit ? 'toast_edit_on' : 'toast_preview_on'), 'info');
+      break;
+    case 'print':
+      toast(t('toast_preparing'), 'info');
+      setTimeout(() => window.print(), 200);
+      break;
+    case 'reset':
+      resetAllData();
+      break;
+    case 'export':
+      exportData();
+      break;
+    case 'import':
+      $('#importInput').click();
+      break;
+    case 'dev-info':
+      openDevModal();
+      break;
+    case 'photo':
+      openPhotoModal();
+      break;
+    case 'edit-profile':
+      openProfileModal();
+      break;
+    case 'add-doc':
+      openDocModal(null);
+      break;
+    case 'edit-doc':
+      openDocModal(DATA.documents.find(d => d.id === id));
+      break;
+    case 'del-doc':
+      deleteItem(DATA.documents, id, 'doc');
+      break;
+    case 'add-cert':
+      openCertModal(null, el.dataset.cat);
+      break;
+    case 'edit-cert':
+      openCertModal(DATA.certificates.find(c => c.id === id));
+      break;
+    case 'del-cert':
+      deleteItem(DATA.certificates, id, 'cert');
+      break;
+    case 'add-sea':
+      openSeaModal(null);
+      break;
+    case 'edit-sea':
+      openSeaModal(DATA.seaService.find(s => s.id === id));
+      break;
+    case 'del-sea':
+      deleteItem(DATA.seaService, id, 'sea');
+      break;
+    case 'add-work':
+      openWorkModal(null);
+      break;
+    case 'edit-work':
+      openWorkModal(DATA.workExperience.find(w => w.id === id));
+      break;
+    case 'del-work':
+      deleteItem(DATA.workExperience, id, 'work');
+      break;
+    case 'back-top':
+      window.scrollTo({top:0, behavior:'smooth'});
+      break;
   }
 }
 
-document.addEventListener('click', (e) => {
+document.addEventListener('click', e => {
   const btn = e.target.closest('[data-action]');
-  if(btn){ doAction(btn.dataset.action, btn); }
+  if(!btn) return;
+  // Jangan ganggu tombol tutup modal & save modal (ditangani sendiri)
+  const action = btn.dataset.action;
+  if(action === 'toggle-sidebar' && window.innerWidth > 1024) return;
+  handleAction(action, btn);
 });
-document.addEventListener('input', (e) => {
-  const search = e.target.closest('[data-search]');
-  if(search){
-    const cat = search.dataset.search;
-    UI.search[cat] = search.value; saveUI();
-    const section = search.closest('.section');
-    const q = search.value.toLowerCase();
-    if(section){
-      section.querySelectorAll('tbody tr[data-text]').forEach(tr => {
-        const txt = tr.dataset.text || '';
-        tr.style.display = (!q || txt.includes(q)) ? '' : 'none';
-      });
-    }
-  }
-});
-document.addEventListener('change', (e) => {
-  const sort = e.target.closest('[data-sort]');
-  if(sort){
-    const cat = sort.dataset.sort;
-    UI.sort[cat] = sort.value; saveUI();
-    if(cat === 'sea')  renderSeaService();
-    else if(cat === 'work') renderWork();
-    else renderCertSection(cat);
-  }
-});
+
 $('#sidebarBackdrop').addEventListener('click', () => {
   $('#sidebar').classList.remove('open');
   $('#sidebarBackdrop').classList.remove('show');
 });
-window.addEventListener('scroll', () => {
-  const top = $('#backTop');
-  if(window.scrollY > 300) top.classList.add('show');
-  else top.classList.remove('show');
-  const sections = $$('main section[id]');
-  const navLinks = $$('.nav-link');
-  let current = '';
-  sections.forEach(sec => {
-    const rect = sec.getBoundingClientRect();
-    if(rect.top <= 120 && rect.bottom > 120) current = sec.id;
-  });
-  if(current) navLinks.forEach(l => l.classList.toggle('active', l.dataset.nav === current));
-});
-document.addEventListener('keydown', (e) => {
-  if(e.key === 'Escape'){
-    $('#sidebar').classList.remove('open');
-    $('#sidebarBackdrop').classList.remove('show');
+
+/* ---------- 23. SEARCH & SORT ---------- */
+document.addEventListener('input', e => {
+  const searchInput = e.target.closest('[data-search]');
+  if(!searchInput) return;
+  const key = searchInput.dataset.search;
+  UI.search[key] = searchInput.value;
+  saveUI();
+  const section = searchInput.closest('section');
+  const q = searchInput.value.toLowerCase();
+  if(section){
+    $$('tbody tr', section).forEach(tr => {
+      const text = tr.dataset.text || '';
+      tr.style.display = (!q || text.includes(q)) ? '' : 'none';
+    });
   }
 });
-function init(){
-  applyLang(); renderAll();
-  setTimeout(() => $('#preloader').classList.add('hide'), 500);
+
+document.addEventListener('change', e => {
+  const sortSel = e.target.closest('[data-sort]');
+  if(!sortSel) return;
+  const key = sortSel.dataset.sort;
+  UI.sort[key] = sortSel.value;
+  saveUI();
+  if(key === 'sea') renderSeaService();
+  else if(key === 'work') renderWork();
+  else renderCertSection(key);
+});
+
+/* ---------- 24. IMPORT ---------- */
+$('#importInput').addEventListener('change', e => {
+  const file = e.target.files && e.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = () => {
+    try{
+      const parsed = JSON.parse(reader.result);
+      if(!parsed || typeof parsed !== 'object') throw new Error('Invalid');
+      confirmModal(t('modal_import_title'), t('modal_import_msg'), () => {
+        DATA = mergeData(parsed);
+        save(); renderAll(); toast(t('toast_import_ok'));
+      });
+    }catch(err){ toast(t('toast_import_invalid'), 'err'); }
+  };
+  reader.onerror = () => toast(t('toast_import_err'), 'err');
+  reader.readAsText(file);
+  e.target.value = '';
+});
+
+/* ---------- 25. NAV / SCROLL ---------- */
+const SECTIONS = ['home','personal','summary','documents','coc','cop','other','sea','work','contact'];
+
+function updateActiveNav(){
+  const y = window.scrollY + 130;
+  let active = 'home';
+  SECTIONS.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && el.offsetTop <= y) active = id;
+  });
+  $$('.nav-link').forEach(a => a.classList.toggle('active', a.dataset.nav === active));
 }
-init();
+
+window.addEventListener('scroll', () => {
+  updateActiveNav();
+  $('#backTop').classList.toggle('show', window.scrollY > 400);
+}, {passive:true});
+
+$$('.nav-link').forEach(a => {
+  a.addEventListener('click', () => {
+    $('#sidebar').classList.remove('open');
+    $('#sidebarBackdrop').classList.remove('show');
+  });
+});
+
+/* ---------- 26. INIT ---------- */
+function init(){
+  $('#year').textContent = new Date().getFullYear();
+  applyLang();
+  applyTheme();
+  renderAll();
+  updateActiveNav();
+
+  setTimeout(() => {
+    const pre = $('#preloader');
+    if(pre){ pre.classList.add('hide'); setTimeout(() => pre.remove(), 500); }
+  }, 280);
+}
+
+if(document.readyState === 'loading'){
+  document.addEventListener('DOMContentLoaded', init);
+} else {
+  init();
+}
 </script>
 </body>
 </html>
