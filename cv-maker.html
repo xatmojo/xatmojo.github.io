@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1f3a">
+<title>CV Pelaut — Seafarer Professional Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   1. DESIGN TOKENS
+   ========================================================= */
+:root{
+  --fs:15px;
+  --navy:#0b1f3a;
+  --navy-2:#123055;
+  --navy-3:#1b4066;
+  --gold:#c9a227;
+  --gold-2:#e6c85c;
+  --bg:#eef2f8;
+  --card:#ffffff;
+  --card-2:#f8fafc;
+  --text:#0f1c2e;
+  --muted:#64748b;
+  --border:#dde5ef;
+  --shadow:0 10px 30px rgba(11,31,58,.08);
+  --shadow-sm:0 2px 10px rgba(11,31,58,.06);
+  --radius:18px;
+  --radius-sm:12px;
+  --green:#0f9d58;
+  --amber:#d97706;
+  --red:#dc2626;
+}
+[data-theme="dark"]{
+  --bg:#070f19;
+  --card:#0e1b2b;
+  --card-2:#122133;
+  --text:#e6eef8;
+  --muted:#8ba0b8;
+  --border:#1e3350;
+  --shadow:0 10px 30px rgba(0,0,0,.45);
+  --shadow-sm:0 2px 10px rgba(0,0,0,.35);
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  font-size:var(--fs);
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  transition:background .3s,color .3s;
+}
+h1,h2,h3,h4{font-family:'Outfit','Inter',sans-serif;margin:0;line-height:1.25;font-weight:600}
+button{font-family:inherit;font-size:inherit}
+a{color:inherit}
+img{max-width:100%}
+
+.icon{width:1em;height:1em;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex:none;display:inline-block;vertical-align:-0.14em}
+.icon.fill{fill:currentColor;stroke:none}
+
+/* =========================================================
+   2. PRELOADER
+   ========================================================= */
+#preloader{
+  position:fixed;inset:0;z-index:9999;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;gap:16px;
+  background:linear-gradient(160deg,#0b1f3a,#0a1729);color:#cbd8e8;
+  transition:opacity .45s ease,visibility .45s;
+}
+#preloader.hide{opacity:0;visibility:hidden}
+.loader{
+  width:46px;height:46px;border-radius:50%;
+  border:3px solid rgba(201,162,39,.22);
+  border-top-color:var(--gold);
+  animation:spin .85s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+#preloader span{font-size:.85rem;letter-spacing:.18em;text-transform:uppercase}
+
+/* =========================================================
+   3. APP SHELL
+   ========================================================= */
+.app{display:grid;grid-template-columns:272px 1fr;min-height:100vh}
+
+/* ---------- Sidebar ---------- */
+.sidebar{
+  background:linear-gradient(180deg,#0b1f3a 0%,#0a1729 100%);
+  color:#cfdcec;position:sticky;top:0;height:100vh;
+  display:flex;flex-direction:column;padding:22px 16px;gap:6px;
+  border-right:1px solid rgba(201,162,39,.16);
+  z-index:120;
+}
+.brand{display:flex;align-items:center;gap:12px;padding:6px 8px 20px}
+.brand-mark{
+  width:42px;height:42px;border-radius:13px;flex:none;
+  background:linear-gradient(140deg,var(--gold),#a4821c);
+  display:grid;place-items:center;color:#0b1f3a;font-size:1.3rem;
+  box-shadow:0 6px 16px rgba(201,162,39,.32);
+}
+.brand strong{display:block;font-family:'Outfit',sans-serif;font-size:1.02rem;color:#fff;letter-spacing:.02em}
+.brand small{display:block;font-size:.7rem;color:#8ba0b8;letter-spacing:.12em;text-transform:uppercase}
+
+.nav{display:flex;flex-direction:column;gap:3px;overflow-y:auto;flex:1;padding-right:2px}
+.nav::-webkit-scrollbar{width:5px}
+.nav::-webkit-scrollbar-thumb{background:rgba(201,162,39,.35);border-radius:8px}
+.nav-link{
+  display:flex;align-items:center;gap:11px;
+  padding:10px 13px;border-radius:11px;text-decoration:none;
+  font-size:.865rem;font-weight:500;color:#b6c6d9;
+  border-left:3px solid transparent;transition:.22s;
+}
+.nav-link .icon{font-size:1.02rem;opacity:.85}
+.nav-link:hover{background:rgba(255,255,255,.06);color:#fff}
+.nav-link.active{
+  background:linear-gradient(90deg,rgba(201,162,39,.2),rgba(201,162,39,.04));
+  color:#fff;border-left-color:var(--gold);
+}
+.nav-link.active .icon{color:var(--gold-2);opacity:1}
+
+.sidebar-foot{border-top:1px solid rgba(255,255,255,.09);padding-top:14px;display:grid;gap:7px}
+.sidebar-foot .btn{width:100%;justify-content:flex-start;font-size:.82rem}
+
+/* ---------- Main / Topbar ---------- */
+.main{min-width:0;display:flex;flex-direction:column}
+.topbar{
+  position:sticky;top:0;z-index:100;
+  display:flex;align-items:center;gap:12px;
+  padding:11px 22px;background:var(--card);
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow-sm);
+  backdrop-filter:blur(8px);
+}
+.topbar-title{font-family:'Outfit',sans-serif;font-weight:600;font-size:.95rem;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.topbar-actions{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.save-indicator{
+  font-size:.72rem;font-weight:600;color:var(--green);
+  display:flex;align-items:center;gap:5px;opacity:0;transition:.3s;letter-spacing:.04em;
+}
+.save-indicator.show{opacity:1}
+
+/* ---------- Content ---------- */
+.content{padding:22px;max-width:1180px;width:100%;margin:0 auto;flex:1}
+section{scroll-margin-top:82px}
+
+/* =========================================================
+   4. BUTTONS
+   ========================================================= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:7px;
+  padding:9px 15px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card);color:var(--text);font-weight:600;font-size:.83rem;
+  cursor:pointer;transition:.2s;white-space:nowrap;line-height:1.2;
+}
+.btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
+.btn:active{transform:translateY(0)}
+.btn .icon{font-size:1rem}
+.btn.primary{background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;border-color:transparent}
+.btn.gold{background:linear-gradient(135deg,var(--gold),#a4821c);color:#12233a;border-color:transparent}
+.btn.danger{background:var(--red);color:#fff;border-color:transparent}
+.btn.ghost{background:transparent;color:var(--muted)}
+.btn.ghost:hover{background:rgba(0,0,0,.05);color:var(--text)}
+[data-theme="dark"] .btn.ghost:hover{background:rgba(255,255,255,.07)}
+.btn.sm{padding:6px 11px;font-size:.76rem;border-radius:9px}
+.btn.sm .icon{font-size:.9rem}
+
+.icon-btn{
+  display:inline-grid;place-items:center;width:38px;height:38px;
+  border-radius:11px;border:1px solid var(--border);background:var(--card);
+  color:var(--text);cursor:pointer;transition:.2s;font-size:1.05rem;flex:none;
+}
+.icon-btn:hover{background:var(--card-2);transform:translateY(-1px)}
+.icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
+
+/* =========================================================
+   5. HERO / PROFESSIONAL HEADER
+   ========================================================= */
+.hero{
+  position:relative;overflow:hidden;color:#fff;
+  background:linear-gradient(135deg,#0b1f3a 0%,#16406b 55%,#0b1f3a 100%);
+  border-radius:22px;padding:34px;margin-bottom:20px;
+  display:grid;grid-template-columns:auto 1fr;gap:30px;align-items:center;
+  box-shadow:var(--shadow);
+}
+.hero::before{
+  content:'';position:absolute;right:-70px;top:-70px;width:300px;height:300px;border-radius:50%;
+  background:radial-gradient(circle,rgba(201,162,39,.30),transparent 68%);pointer-events:none;
+}
+.hero::after{
+  content:'';position:absolute;left:-90px;bottom:-110px;width:260px;height:260px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.06),transparent 70%);pointer-events:none;
+}
+.hero-photo-wrap{position:relative;z-index:1}
+.hero-photo{
+  width:152px;height:152px;border-radius:50%;overflow:hidden;position:relative;
+  border:3px solid var(--gold);box-shadow:0 0 0 7px rgba(201,162,39,.14);
+  background:#16324f;display:grid;place-items:center;
+}
+.hero-photo img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .2s}
+.hero-photo .photo-empty{font-size:3.2rem;color:#4c6f96}
+.photo-edit{
+  position:absolute;right:-2px;bottom:-2px;width:38px;height:38px;border-radius:50%;
+  background:var(--gold);color:#0b1f3a;border:3px solid #0b1f3a;
+  display:grid;place-items:center;cursor:pointer;font-size:1rem;transition:.2s;
+}
+.photo-edit:hover{transform:scale(1.08)}
+
+.hero-text{position:relative;z-index:1;min-width:0}
+.hero-eyebrow{
+  font-size:.68rem;letter-spacing:.32em;text-transform:uppercase;
+  color:var(--gold-2);font-weight:600;margin-bottom:6px;
+}
+.hero h1{
+  font-size:clamp(1.5rem,3.4vw,2.35rem);color:#fff;letter-spacing:.01em;
+  word-break:break-word;
+}
+.hero-rank{
+  display:inline-flex;align-items:center;gap:8px;margin-top:9px;
+  font-size:.9rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--gold-2);
+}
+.hero-rank::before{content:'';width:26px;height:2px;background:var(--gold);border-radius:2px}
+.hero-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:6px 12px;border-radius:999px;font-size:.775rem;font-weight:500;
+  background:rgba(255,255,255,.10);border:1px solid rgba(255,255,255,.16);
+  color:#dbe7f4;text-decoration:none;transition:.2s;max-width:100%;
+}
+.chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+a.chip:hover{background:rgba(201,162,39,.22);border-color:rgba(201,162,39,.5);color:#fff}
+.chip .icon{color:var(--gold-2)}
+
+/* =========================================================
+   6. SECTIONS & CARDS
+   ========================================================= */
+.section{
+  background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+  padding:24px;margin-bottom:20px;box-shadow:var(--shadow-sm);
+  transition:background .3s,border-color .3s;
+}
+.section-head{display:flex;align-items:center;gap:13px;margin-bottom:18px;flex-wrap:wrap}
+.section-icon{
+  width:42px;height:42px;border-radius:13px;flex:none;display:grid;place-items:center;
+  background:linear-gradient(140deg,rgba(11,31,58,.09),rgba(201,162,39,.16));
+  color:var(--navy-3);font-size:1.15rem;
+}
+[data-theme="dark"] .section-icon{background:rgba(201,162,39,.14);color:var(--gold-2)}
+.section-title{min-width:0}
+.section-title h2{font-size:.98rem;letter-spacing:.09em;text-transform:uppercase}
+.section-title p{margin:2px 0 0;font-size:.78rem;color:var(--muted)}
+.section-tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* ---------- Info grid (personal data) ---------- */
+.info-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:13px}
+.info-item{
+  display:flex;gap:11px;padding:13px 14px;border-radius:var(--radius-sm);
+  background:var(--card-2);border:1px solid var(--border);
+}
+.info-item .ii-icon{
+  width:34px;height:34px;border-radius:10px;flex:none;display:grid;place-items:center;
+  background:rgba(201,162,39,.14);color:#a4821c;font-size:.95rem;
+}
+[data-theme="dark"] .info-item .ii-icon{color:var(--gold-2)}
+.info-item .ii-label{font-size:.7rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.info-item .ii-value{font-size:.9rem;font-weight:600;word-break:break-word}
+.info-item.full{grid-column:1/-1}
+
+/* ---------- Summary ---------- */
+.summary-text{font-size:.95rem;line-height:1.85;color:var(--text);white-space:pre-wrap}
+.empty{
+  padding:34px 18px;text-align:center;color:var(--muted);font-size:.87rem;
+  border:1.5px dashed var(--border);border-radius:var(--radius-sm);background:var(--card-2);
+}
+.empty .icon{font-size:1.9rem;display:block;margin:0 auto 10px;opacity:.45}
+
+/* =========================================================
+   7. TABLES
+   ========================================================= */
+.table-wrap{overflow-x:auto;border:1px solid var(--border);border-radius:var(--radius-sm);-webkit-overflow-scrolling:touch}
+table.data{width:100%;border-collapse:collapse;font-size:.86rem;min-width:760px}
+table.data th{
+  background:var(--card-2);text-align:left;padding:11px 14px;font-weight:700;
+  font-size:.71rem;letter-spacing:.07em;text-transform:uppercase;color:var(--muted);
+  white-space:nowrap;border-bottom:1px solid var(--border);
+}
+table.data td{padding:11px 14px;border-top:1px solid var(--border);vertical-align:top;word-break:break-word}
+table.data tbody tr:first-child td{border-top:0}
+table.data tbody tr{transition:background .15s}
+table.data tbody tr:hover{background:rgba(201,162,39,.06)}
+.cell-actions{display:flex;gap:6px;justify-content:flex-end}
+.cell-strong{font-weight:600}
+
+/* ---------- Badges ---------- */
+.badge{
+  display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;
+  font-size:.7rem;font-weight:700;letter-spacing:.03em;white-space:nowrap;
+}
+.badge-green{background:rgba(15,157,88,.14);color:#0f9d58}
+.badge-amber{background:rgba(217,119,6,.16);color:#b45309}
+.badge-red{background:rgba(220,38,38,.14);color:#dc2626}
+.badge-gray{background:rgba(100,116,139,.16);color:var(--muted)}
+[data-theme="dark"] .badge-green{color:#3ddc84}
+[data-theme="dark"] .badge-amber{color:#fbbf24}
+[data-theme="dark"] .badge-red{color:#f87171}
+.cd{display:block;font-size:.68rem;color:var(--muted);margin-top:4px}
+
+/* ---------- Toolbar (search & sort) ---------- */
+.toolbar{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:14px}
+.search-box{position:relative;flex:1;min-width:190px}
+.search-box .icon{position:absolute;left:12px;top:50%;transform:translateY(-50%);color:var(--muted);font-size:.95rem}
+.search-box input{
+  width:100%;padding:9px 12px 9px 36px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card-2);color:var(--text);font-size:.83rem;font-family:inherit;
+}
+.search-box input:focus{outline:2px solid rgba(201,162,39,.4);outline-offset:0}
+select.mini{
+  padding:9px 12px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card-2);color:var(--text);font-size:.8rem;font-family:inherit;cursor:pointer;
+}
+
+/* =========================================================
+   8. TIMELINE (work experience)
+   ========================================================= */
+.timeline{position:relative;padding-left:26px}
+.timeline::before{
+  content:'';position:absolute;left:7px;top:8px;bottom:8px;width:2px;
+  background:linear-gradient(180deg,var(--gold),rgba(201,162,39,.12));border-radius:2px;
+}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{
+  position:absolute;left:-24px;top:16px;width:13px;height:13px;border-radius:50%;
+  background:var(--gold);border:3px solid var(--card);box-shadow:0 0 0 2px rgba(201,162,39,.35);
+}
+.tl-card{
+  background:var(--card-2);border:1px solid var(--border);border-radius:var(--radius-sm);
+  padding:16px 18px;
+}
+.tl-head{display:flex;gap:12px;align-items:flex-start;flex-wrap:wrap}
+.tl-head h3{font-size:.98rem}
+.tl-company{font-size:.83rem;color:var(--gold);font-weight:600;margin:1px 0 0}
+.pill{
+  margin-left:auto;padding:4px 11px;border-radius:999px;font-size:.7rem;font-weight:700;
+  background:rgba(11,31,58,.08);color:var(--navy-3);white-space:nowrap;
+}
+[data-theme="dark"] .pill{background:rgba(201,162,39,.16);color:var(--gold-2)}
+.tl-meta{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}
+.tl-meta span{
+  font-size:.72rem;padding:3px 9px;border-radius:7px;
+  background:var(--card);border:1px solid var(--border);color:var(--muted);
+}
+.tl-desc{margin:11px 0 0;font-size:.85rem;color:var(--muted);white-space:pre-wrap;line-height:1.7}
+.tl-actions{display:flex;gap:6px;margin-top:12px;justify-content:flex-end}
+
+/* =========================================================
+   9. CONTACT CARDS
+   ========================================================= */
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:13px}
+.contact-card{
+  display:flex;align-items:center;gap:13px;padding:16px;border-radius:var(--radius-sm);
+  background:var(--card-2);border:1px solid var(--border);text-decoration:none;
+  color:var(--text);transition:.22s;
+}
+a.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow-sm);border-color:rgba(201,162,39,.5)}
+.cc-icon{
+  width:44px;height:44px;border-radius:13px;flex:none;display:grid;place-items:center;
+  background:linear-gradient(140deg,var(--navy-2),var(--navy-3));color:var(--gold-2);font-size:1.15rem;
+}
+.cc-icon.wa{background:linear-gradient(140deg,#128C7E,#25D366);color:#fff}
+.cc-icon.mail{background:linear-gradient(140deg,#1b4066,#2a6ba8);color:#fff}
+.contact-card small{display:block;font-size:.68rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.contact-card strong{display:block;font-size:.87rem;word-break:break-word;font-weight:600}
+
+/* =========================================================
+   10. ALERT BANNER
+   ========================================================= */
+.alert-banner{
+  display:flex;gap:13px;align-items:flex-start;padding:15px 18px;border-radius:var(--radius-sm);
+  background:rgba(217,119,6,.10);border:1px solid rgba(217,119,6,.35);
+  margin-bottom:20px;font-size:.84rem;
+}
+.alert-banner.danger{background:rgba(220,38,38,.09);border-color:rgba(220,38,38,.35)}
+.alert-banner .icon{font-size:1.3rem;color:var(--amber);flex:none;margin-top:1px}
+.alert-banner.danger .icon{color:var(--red)}
+.alert-banner strong{display:block;margin-bottom:3px}
+.alert-banner ul{margin:5px 0 0;padding-left:18px}
+
+/* =========================================================
+   11. MODAL
+   ========================================================= */
+#modalRoot{position:fixed;inset:0;z-index:500;display:none}
+#modalRoot.open{display:block}
+.modal-backdrop{position:absolute;inset:0;background:rgba(7,15,25,.62);backdrop-filter:blur(3px);animation:fadeIn .22s}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.modal{
+  position:relative;z-index:1;width:min(680px,calc(100% - 28px));max-height:88vh;
+  margin:6vh auto;display:flex;flex-direction:column;
+  background:var(--card);border-radius:20px;border:1px solid var(--border);
+  box-shadow:0 30px 70px rgba(0,0,0,.4);animation:popIn .26s cubic-bezier(.2,.9,.3,1.2);
+  overflow:hidden;
+}
+@keyframes popIn{from{opacity:0;transform:translateY(18px) scale(.97)}to{opacity:1;transform:none}}
+.modal-head{
+  display:flex;align-items:center;gap:12px;padding:17px 20px;
+  border-bottom:1px solid var(--border);background:var(--card-2);flex:none;
+}
+.modal-head h3{font-size:1rem;flex:1}
+.modal-body{padding:20px;overflow-y:auto;flex:1}
+.modal-foot{
+  display:flex;gap:9px;justify-content:flex-end;padding:14px 20px;
+  border-top:1px solid var(--border);background:var(--card-2);flex:none;
+}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.field{display:flex;flex-direction:column;gap:6px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:.76rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.field label .req{color:var(--red);margin-left:2px}
+.field input,.field select,.field textarea{
+  width:100%;padding:10px 12px;border-radius:11px;border:1px solid var(--border);
+  background:var(--card-2);color:var(--text);font-family:inherit;font-size:.87rem;
+  transition:.18s;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(201,162,39,.18);
+}
+.field textarea{resize:vertical;min-height:78px;line-height:1.6}
+.confirm-msg{font-size:.92rem;line-height:1.75;margin:0}
+
+/* Photo editor */
+.photo-editor{display:grid;grid-template-columns:200px 1fr;gap:22px;align-items:start}
+.photo-preview{
+  width:200px;height:240px;border-radius:16px;overflow:hidden;border:2px solid var(--gold);
+  background:var(--card-2);display:grid;place-items:center;
+}
+.photo-preview img{width:100%;height:100%;object-fit:cover;display:block}
+.photo-controls{display:flex;flex-direction:column;gap:13px}
+.upload-btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  padding:11px;border-radius:11px;cursor:pointer;font-weight:700;font-size:.84rem;
+  background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;
+}
+input[type="range"]{
+  width:100%;-webkit-appearance:none;height:6px;border-radius:6px;
+  background:var(--border);outline:none;
+}
+input[type="range"]::-webkit-slider-thumb{
+  -webkit-appearance:none;width:18px;height:18px;border-radius:50%;
+  background:var(--gold);cursor:pointer;border:2px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.3);
+}
+input[type="range"]::-moz-range-thumb{
+  width:16px;height:16px;border-radius:50%;background:var(--gold);
+  cursor:pointer;border:2px solid #fff;
+}
+
+/* =========================================================
+   12. TOAST
+   ========================================================= */
+#toasts{
+  position:fixed;left:50%;bottom:26px;transform:translateX(-50%);z-index:900;
+  display:flex;flex-direction:column;gap:9px;align-items:center;pointer-events:none;
+  width:max-content;max-width:calc(100% - 30px);
+}
+.toast{
+  display:flex;align-items:center;gap:9px;padding:11px 18px;border-radius:12px;
+  background:#0f2b4c;color:#fff;font-size:.83rem;font-weight:600;
+  box-shadow:0 12px 30px rgba(0,0,0,.3);animation:toastIn .3s cubic-bezier(.2,.9,.3,1.3);
+  transition:opacity .3s,transform .3s;
+}
+.toast .icon{font-size:1.05rem;color:#3ddc84}
+.toast.err{background:#7f1d1d}
+.toast.err .icon{color:#fca5a5}
+.toast.info{background:#1e3a5f}
+.toast.info .icon{color:var(--gold-2)}
+.toast.out{opacity:0;transform:translateY(12px)}
+@keyframes toastIn{from{opacity:0;transform:translateY(16px) scale(.95)}to{opacity:1;transform:none}}
+
+/* =========================================================
+   13. BACK TO TOP
+   ========================================================= */
+.back-top{
+  position:fixed;right:20px;bottom:20px;z-index:200;
+  width:46px;height:46px;border-radius:50%;border:none;cursor:pointer;
+  background:linear-gradient(140deg,var(--gold),#a4821c);color:#0b1f3a;
+  display:grid;place-items:center;font-size:1.15rem;
+  box-shadow:0 10px 24px rgba(201,162,39,.4);
+  opacity:0;visibility:hidden;transform:translateY(14px);transition:.3s;
+}
+.back-top.show{opacity:1;visibility:visible;transform:none}
+
+/* =========================================================
+   14. EDIT MODE VISIBILITY
+   ========================================================= */
+.edit-only{display:none !important}
+body.edit-on .edit-only{display:inline-flex !important}
+body.edit-on .edit-only.block{display:flex !important}
+body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),#a4821c);color:#12233a;border-color:transparent}
+
+/* =========================================================
+   15. APP FOOTER
+   ========================================================= */
+.app-foot{
+  text-align:center;padding:22px;font-size:.75rem;color:var(--muted);
+  border-top:1px solid var(--border);letter-spacing:.04em;
+}
+
+/* =========================================================
+   16. RESPONSIVE
+   ========================================================= */
+@media (max-width:1024px){
+  .app{grid-template-columns:1fr}
+  .sidebar{
+    position:fixed;left:0;top:0;bottom:0;width:280px;
+    transform:translateX(-100%);transition:transform .3s cubic-bezier(.3,.9,.4,1);
+    box-shadow:0 0 50px rgba(0,0,0,.4);height:100vh;
+  }
+  .sidebar.open{transform:none}
+  .sidebar-backdrop{
+    position:fixed;inset:0;background:rgba(7,15,25,.55);z-index:110;
+    opacity:0;visibility:hidden;transition:.3s;
+  }
+  .sidebar-backdrop.show{opacity:1;visibility:visible}
+  .content{padding:16px}
+  .hero{padding:26px}
+}
+@media (max-width:760px){
+  .hero{grid-template-columns:1fr;justify-items:center;text-align:center;gap:20px;padding:26px 20px}
+  .hero-rank{justify-content:center}
+  .hero-chips{justify-content:center}
+  .hero-photo{width:128px;height:128px}
+  .section{padding:18px}
+  .form-grid{grid-template-columns:1fr}
+  .photo-editor{grid-template-columns:1fr;justify-items:center}
+  .photo-preview{width:170px;height:200px}
+  .topbar{padding:10px 14px}
+  .topbar-title{display:none}
+  .section-tools{margin-left:0;width:100%}
+  .section-head{gap:10px}
+
+  /* Tabel jadi kartu */
+  table.data{min-width:0}
+  table.data thead{display:none}
+  table.data tr{
+    display:block;border:1px solid var(--border);border-radius:12px;
+    margin-bottom:10px;padding:4px;background:var(--card);
+  }
+  table.data tbody tr:first-child td{border-top:0}
+  table.data td{
+    display:flex;justify-content:space-between;align-items:flex-start;gap:14px;
+    border:0;padding:8px 10px;border-bottom:1px dashed var(--border);text-align:right;
+  }
+  table.data td:last-child{border-bottom:0}
+  table.data td::before{
+    content:attr(data-label);font-weight:700;color:var(--muted);
+    font-size:.68rem;text-transform:uppercase;letter-spacing:.05em;flex:none;text-align:left;
+    padding-top:2px;
+  }
+  table.data td.cell-actions{justify-content:flex-end}
+  .timeline{padding-left:20px}
+  .tl-dot{left:-19px}
+}
+@media (max-width:420px){
+  .topbar-actions .btn span{display:none}
+  .topbar-actions .btn{padding:9px 11px}
+}
+
+/* =========================================================
+   17. PRINT — A4 PROFESSIONAL CV
+   ========================================================= */
+@media print{
+  @page{size:A4 portrait;margin:12mm 11mm 13mm}
+
+  html[data-theme],:root{
+    --bg:#ffffff;--card:#ffffff;--card-2:#ffffff;--text:#0f1c2e;
+    --muted:#4a5a6e;--border:#b9c6d6;--shadow:none;--shadow-sm:none;
+  }
+  html,body{background:#fff !important;color:#0f1c2e !important;font-size:10pt !important}
+  body{line-height:1.45}
+
+  .sidebar,.sidebar-backdrop,.topbar,.back-top,#toasts,#preloader,
+  .no-print,#modalRoot{display:none !important}
+
+  /* Paksa sembunyikan kontrol edit walau Mode Edit aktif */
+  body .edit-only,
+  body.edit-on .edit-only{display:none !important}
+
+  /* Sembunyikan data kosong */
+  .empty{display:none !important}
+  section.is-empty{display:none !important}
+  .v-empty{display:none !important}
+  .info-item.item-empty{display:none !important}
+  .contact-card.is-placeholder{display:none !important}
+
+  /* Sembunyikan kolom aksi (header + sel) */
+  table.data th.th-actions{display:none !important}
+  table.data td.cell-actions,
+  table.data td[data-label="Aksi"]{display:none !important}
+
+  .app{display:block !important}
+  .main{display:block !important}
+  .content{padding:0 !important;max-width:none !important;margin:0 !important}
+
+  /* Hero ringkas untuk cetak */
+  .hero{
+    display:grid !important;grid-template-columns:26mm 1fr;gap:6mm;align-items:center;
+    background:#0b1f3a !important;color:#fff !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact;
+    border-radius:6px !important;padding:6mm !important;margin:0 0 4mm !important;
+    box-shadow:none !important;page-break-inside:avoid;
+  }
+  .hero::before,.hero::after{display:none !important}
+  .hero-photo{width:26mm !important;height:26mm !important;border-width:2px !important;box-shadow:none !important}
+  .hero-photo .photo-empty{font-size:2rem}
+  .hero h1{font-size:16pt !important;color:#fff !important}
+  .hero-rank{font-size:8.5pt !important;color:#e6c85c !important;margin-top:1mm !important}
+  .hero-eyebrow{font-size:6.5pt !important;margin-bottom:1mm !important}
+  .hero-chips{gap:2mm !important;margin-top:2.5mm !important}
+  .chip{font-size:7.2pt !important;padding:1mm 2.4mm !important;background:rgba(255,255,255,.13) !important;border-color:rgba(255,255,255,.25) !important;color:#eaf1f9 !important}
+  .photo-edit{display:none !important}
+
+  .section{
+    border:1px solid #c3cede !important;border-radius:4px !important;
+    padding:3.4mm 4mm !important;margin:0 0 3mm !important;
+    box-shadow:none !important;background:#fff !important;
+    break-inside:avoid;page-break-inside:avoid;
+  }
+  .section-head{margin-bottom:2.4mm !important;gap:2.5mm !important}
+  .section-icon{
+    width:7mm !important;height:7mm !important;border-radius:2mm !important;
+    font-size:9pt !important;background:#eef2f8 !important;color:#123055 !important;
+  }
+  .section-title h2{font-size:9.5pt !important;letter-spacing:.06em !important;color:#0b1f3a !important}
+  .section-title p{font-size:7pt !important;margin-top:0 !important}
+
+  .info-grid{grid-template-columns:1fr 1fr !important;gap:2mm !important}
+  .info-item{padding:2mm 2.6mm !important;border:1px solid #dfe6ee !important;background:#fafcfe !important;border-radius:2mm !important}
+  .info-item .ii-icon{display:none !important}
+  .info-item .ii-label{font-size:6.5pt !important}
+  .info-item .ii-value{font-size:8.3pt !important}
+  .summary-text{font-size:8.8pt !important;line-height:1.6 !important}
+
+  /* Tabel normal kembali */
+  .table-wrap{overflow:visible !important;border:1px solid #c3cede !important;border-radius:3px !important}
+  table.data{min-width:0 !important;width:100% !important;font-size:7.6pt !important}
+  table.data thead{display:table-header-group !important}
+  table.data tr{display:table-row !important;border:0 !important;margin:0 !important;padding:0 !important;background:transparent !important}
+  table.data th{
+    display:table-cell !important;padding:1.6mm 2mm !important;font-size:6.6pt !important;
+    background:#eef2f8 !important;-webkit-print-color-adjust:exact;print-color-adjust:exact;
+    border-bottom:1px solid #b9c6d6 !important;color:#33455c !important;
+  }
+  table.data td{
+    display:table-cell !important;padding:1.6mm 2mm !important;
+    border-bottom:1px solid #dde5ef !important;border-top:0 !important;text-align:left !important;
+  }
+  table.data td::before{display:none !important}
+  table.data tbody tr{page-break-inside:avoid}
+
+  .badge{font-size:6.4pt !important;padding:.6mm 1.8mm !important;border:1px solid currentColor !important;background:transparent !important}
+  .cd{font-size:6pt !important;margin-top:.4mm !important}
+
+  .timeline{padding-left:5mm !important}
+  .timeline::before{width:1px !important;left:1.2mm !important}
+  .tl-dot{left:-5mm !important;width:2.6mm !important;height:2.6mm !important;border-width:1px !important}
+  .tl-card{background:#fafcfe !important;border:1px solid #dfe6ee !important;padding:2.4mm 3mm !important;border-radius:2mm !important;page-break-inside:avoid}
+  .tl-head h3{font-size:8.8pt !important}
+  .tl-company{font-size:8pt !important;color:#8a6d12 !important}
+  .pill{font-size:6.6pt !important;padding:.6mm 2mm !important;background:#eef2f8 !important;color:#123055 !important;border:1px solid #cfdae7 !important}
+  .tl-meta span{font-size:6.6pt !important;padding:.5mm 1.6mm !important;background:#fff !important;border:1px solid #dfe6ee !important}
+  .tl-desc{font-size:7.6pt !important;line-height:1.5 !important;margin-top:1.5mm !important}
+  .tl-actions{display:none !important}
+  .tl-item{margin-bottom:2.5mm !important}
+
+  .contact-grid{grid-template-columns:1fr 1fr !important;gap:2mm !important}
+  .contact-card{padding:2.4mm 3mm !important;background:#fafcfe !important;border:1px solid #dfe6ee !important;border-radius:2mm !important}
+  .cc-icon{width:8mm !important;height:8mm !important;border-radius:2mm !important;font-size:9pt !important;
+    -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .contact-card small{font-size:6.2pt !important}
+  .contact-card strong{font-size:8pt !important}
+
+  .alert-banner{display:none !important}
+  .toolbar{display:none !important}
+  .app-foot{display:none !important}
+  .timeline,.section:last-child{margin-bottom:0 !important}
+  a{text-decoration:none !important;color:inherit !important}
+}
+</style>
+</head>
+<body>
+
+<!-- =========================================================
+     SVG ICON SPRITE (offline-safe, no CDN required)
+     ========================================================= -->
+<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="position:absolute;width:0;height:0;overflow:hidden">
+  <symbol id="i-user" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></symbol>
+  <symbol id="i-briefcase" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></symbol>
+  <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><line x1="12" y1="22" x2="12" y2="8"/><path d="M5 12H2a10 10 0 0 0 20 0h-3"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="8" y1="13" x2="16" y2="13"/><line x1="8" y1="17" x2="13" y2="17"/></symbol>
+  <symbol id="i-award" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 12.5 17 22l-5-3-5 3 1.5-9.5"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></symbol>
+  <symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22,6 12,13 2,6"/></symbol>
+  <symbol id="i-map-pin" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></symbol>
+  <symbol id="i-edit" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></symbol>
+  <symbol id="i-save" viewBox="0 0 24 24"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></symbol>
+  <symbol id="i-download" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></symbol>
+  <symbol id="i-print" viewBox="0 0 24 24"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></symbol>
+  <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></symbol>
+  <symbol id="i-moon" viewBox="0 0 24 24"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></symbol>
+  <symbol id="i-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></symbol>
+  <symbol id="i-arrow-up" viewBox="0 0 24 24"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></symbol>
+  <symbol id="i-camera" viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></symbol>
+  <symbol id="i-refresh" viewBox="0 0 24 24"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/></symbol>
+  <symbol id="i-settings" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></symbol>
+  <symbol id="i-id-card" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><circle cx="9" cy="11" r="2.5"/><path d="M4.5 18a4.5 4.5 0 0 1 9 0"/><line x1="16" y1="10" x2="19" y2="10"/><line x1="16" y1="14" x2="19" y2="14"/></symbol>
+  <symbol id="i-shield" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+  <symbol id="i-eye" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></symbol>
+  <symbol id="i-layers" viewBox="0 0 24 24"><polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/></symbol>
+  <symbol id="i-wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/></symbol>
+</svg>
+
+<!-- Preloader -->
+<div id="preloader"><div class="loader"></div><span>Memuat CV Pelaut</span></div>
+
+<div class="app">
+  <!-- ============ SIDEBAR ============ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-mark"><svg class="icon"><use href="#i-anchor"/></svg></div>
+      <div>
+        <strong>Seafarer CV</strong>
+        <small>Professional Portfolio</small>
+      </div>
+    </div>
+
+    <nav class="nav" id="nav">
+      <a href="#home" class="nav-link active" data-nav="home"><svg class="icon"><use href="#i-user"/></svg> Profil Utama</a>
+      <a href="#personal" class="nav-link" data-nav="personal"><svg class="icon"><use href="#i-id-card"/></svg> Data Pribadi</a>
+      <a href="#summary" class="nav-link" data-nav="summary"><svg class="icon"><use href="#i-file"/></svg> Ringkasan Profesional</a>
+      <a href="#documents" class="nav-link" data-nav="documents"><svg class="icon"><use href="#i-layers"/></svg> Dokumen Pelaut</a>
+      <a href="#coc" class="nav-link" data-nav="coc"><svg class="icon"><use href="#i-award"/></svg> Sertifikat Kompetensi</a>
+      <a href="#cop" class="nav-link" data-nav="cop"><svg class="icon"><use href="#i-shield"/></svg> Sertifikat Keterampilan</a>
+      <a href="#other" class="nav-link" data-nav="other"><svg class="icon"><use href="#i-award"/></svg> Sertifikat Lainnya</a>
+      <a href="#sea" class="nav-link" data-nav="sea"><svg class="icon"><use href="#i-anchor"/></svg> Sea Service Record</a>
+      <a href="#work" class="nav-link" data-nav="work"><svg class="icon"><use href="#i-briefcase"/></svg> Pengalaman Kerja</a>
+      <a href="#contact" class="nav-link" data-nav="contact"><svg class="icon"><use href="#i-phone"/></svg> Kontak</a>
+    </nav>
+
+    <div class="sidebar-foot">
+      <button class="btn ghost sm" data-action="export"><svg class="icon"><use href="#i-download"/></svg> Backup JSON</button>
+      <button class="btn ghost sm" data-action="import"><svg class="icon"><use href="#i-upload"/></svg> Import JSON</button>
+      <button class="btn ghost sm" data-action="reset"><svg class="icon"><use href="#i-refresh"/></svg> Reset Data</button>
+    </div>
+  </aside>
+  <div class="sidebar-backdrop" id="sidebarBackdrop"></div>
+
+  <!-- ============ MAIN ============ -->
+  <div class="main">
+    <header class="topbar">
+      <button class="icon-btn" data-action="toggle-sidebar" title="Menu" id="menuBtn">
+        <svg class="icon"><use href="#i-menu"/></svg>
+      </button>
+      <div class="topbar-title">Curriculum Vitae</div>
+      <div class="topbar-actions">
+        <span class="save-indicator" id="saveInd"><svg class="icon"><use href="#i-check"/></svg> Tersimpan</span>
+        <button class="icon-btn" data-action="toggle-theme" id="themeBtn" title="Mode Gelap / Terang">
+          <svg class="icon"><use href="#i-moon"/></svg>
+        </button>
+        <button class="icon-btn" data-action="font-down" title="Perkecil font"><span style="font-size:.72rem;font-weight:800">A-</span></button>
+        <button class="icon-btn" data-action="font-up" title="Perbesar font"><span style="font-size:.82rem;font-weight:800">A+</span></button>
+        <button class="btn" data-action="toggle-edit" id="editToggle">
+          <svg class="icon"><use href="#i-edit"/></svg> <span>Mode Edit</span>
+        </button>
+        <button class="btn primary" data-action="print" title="Cetak / Simpan PDF">
+          <svg class="icon"><use href="#i-print"/></svg> <span>Cetak / PDF</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="content" id="content">
+      <div id="alertZone"></div>
+      <section class="hero" id="home"></section>
+      <section class="section" id="personal"></section>
+      <section class="section" id="summary"></section>
+      <section class="section" id="documents"></section>
+      <section class="section" id="coc"></section>
+      <section class="section" id="cop"></section>
+      <section class="section" id="other"></section>
+      <section class="section" id="sea"></section>
+      <section class="section" id="work"></section>
+      <section class="section" id="contact"></section>
+    </main>
+
+    <footer class="app-foot">
+      Seafarer Professional Portfolio · Data tersimpan lokal di perangkat Anda · &copy; <span id="year"></span>
+    </footer>
+  </div>
+</div>
+
+<button class="back-top" id="backTop" data-action="back-top" title="Kembali ke atas">
+  <svg class="icon"><use href="#i-arrow-up"/></svg>
+</button>
+
+<div id="modalRoot"></div>
+<div id="toasts"></div>
+<input type="file" id="importInput" accept="application/json,.json" hidden>
+
+<script>
+"use strict";
+/* =========================================================================
+   CV PELAUT — SEAFARER PROFESSIONAL PORTFOLIO
+   Vanilla JS · LocalStorage · Offline-ready
+   ========================================================================= */
+
+/* ------------------------------------------------------------------
+   1. KONSTANTA & UTILITAS
+   ------------------------------------------------------------------ */
+const STORE_KEY = 'seafarer_cv_data_v1';
+const UI_KEY    = 'seafarer_cv_ui_v1';
+const DAY       = 86400000;
+const MONTHS    = ['Januari','Februari','Maret','April','Mei','Juni',
+                   'Juli','Agustus','September','Oktober','November','Desember'];
+
+const $  = (s, r = document) => r.querySelector(s);
+const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+
+function esc(v){
+  return String(v ?? '').replace(/[&<>"']/g, c => (
+    {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]
+  ));
+}
+function uid(){
+  return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+}
+function fmtDate(v){
+  if(!v) return '—';
+  const d = new Date(String(v).length === 10 ? v + 'T00:00:00' : v);
+  if(isNaN(d.getTime())) return '—';
+  return `${String(d.getDate()).padStart(2,'0')} ${MONTHS[d.getMonth()]} ${d.getFullYear()}`;
+}
+function daysLeft(exp){
+  if(!exp) return null;
+  const d = new Date(exp + 'T00:00:00');
+  if(isNaN(d.getTime())) return null;
+  const today = new Date(); today.setHours(0,0,0,0);
+  return Math.round((d - today) / DAY);
+}
+
+/* Status hanya untuk item yang PUNYA tanggal kedaluwarsa.
+   Item tanpa masa berlaku -> tidak ditampilkan statusnya. */
+function certStatus(c){
+  const d = daysLeft(c.expiryDate);
+  if(d === null) return null;                                  // <-- dihilangkan
+  if(d < 0)   return { key:'expired', label:'Kedaluwarsa',      cls:'badge-red',   days:d };
+  if(d <= 90) return { key:'soon',    label:'Akan Kedaluwarsa', cls:'badge-amber', days:d };
+  return           { key:'active',  label:'Aktif',            cls:'badge-green', days:d };
+}
+function statusCell(item){
+  const s = certStatus(item);
+  if(!s) return DASH;                                          // tampil "—", hilang saat print
+  const extra = s.days < 0 ? `lewat ${Math.abs(s.days)} hari` : `${s.days} hari lagi`;
+  return `<span class="badge ${s.cls}">${s.label}</span><small class="cd">${extra}</small>`;
+}
+function durationDays(a, b){
+  if(!a || !b) return null;
+  const d1 = new Date(a + 'T00:00:00');
+  const d2 = new Date(b + 'T00:00:00');
+  if(isNaN(d1) || isNaN(d2) || d2 < d1) return null;
+  return Math.round((d2 - d1) / DAY) + 1;
+}
+function durationLabel(a, b){
+  const d = durationDays(a, b);
+  if(d === null) return '—';
+  const m = Math.round(d / 30.44 * 10) / 10;
+  return `${m} bulan · ${d} hari`;
+}
+function waNumber(phone){
+  if(!phone) return '';
+  let n = String(phone).replace(/[^\d+]/g, '');
+  n = n.replace(/^\+/, '');
+  if(n.startsWith('0')) n = '62' + n.slice(1);
+  if(n.startsWith('620')) n = '62' + n.slice(3);
+  return n;
+}
+function icon(id, cls = ''){
+  return `<svg class="icon ${cls}"><use href="#i-${id}"/></svg>`;
+}
+
+/* ---- placeholder kosong: tampil di layar, hilang saat dicetak ---- */
+const DASH = '<span class="v-empty">—</span>';
+function tv(v){
+  const s = String(v ?? '').trim();
+  return (!s || s === '—') ? DASH : esc(s);
+}
+function tvDate(v){
+  if(!v) return DASH;
+  const f = fmtDate(v);
+  return f === '—' ? DASH : esc(f);
+}
+function tvDur(a, b){
+  const d = durationDays(a, b);
+  return d === null ? DASH : esc(durationLabel(a, b));
+}
+
+/* ------------------------------------------------------------------
+   2. STATE
+   ------------------------------------------------------------------ */
+function blankData(){
+  return {
+    profile:{
+      name:'', rank:'Oiler',
+      photo:'', photoZoom:1, photoX:50, photoY:50,
+      birthPlace:'', birthDate:'', gender:'', religion:'',
+      height:'', weight:'', maritalStatus:'', nationality:'Indonesia',
+      address:'', phone:'', email:'', summary:''
+    },
+    documents:[
+      { id: uid(), type:'Buku Pelaut', name:'Buku Pelaut (Seaman Book)', number:'', issuer:'', issueDate:'', expiryDate:'' },
+      { id: uid(), type:'MCU',         name:'Medical Check-Up (MCU)',     number:'', issuer:'', issueDate:'', expiryDate:'' }
+    ],
+    certificates:[],
+    seaService:[],
+    workExperience:[]
+  };
+}
+function mergeData(saved){
+  const base = blankData();
+  if(!saved || typeof saved !== 'object') return base;
+  base.profile = Object.assign({}, base.profile, saved.profile || {});
+  base.documents      = Array.isArray(saved.documents)      ? saved.documents.map(x => Object.assign({ id: uid() }, x))      : base.documents;
+  base.certificates   = Array.isArray(saved.certificates)   ? saved.certificates.map(x => Object.assign({ id: uid() }, x))   : [];
+  base.seaService     = Array.isArray(saved.seaService)     ? saved.seaService.map(x => Object.assign({ id: uid() }, x))     : [];
+  base.workExperience = Array.isArray(saved.workExperience) ? saved.workExperience.map(x => Object.assign({ id: uid() }, x)) : [];
+  return base;
+}
+function loadData(){
+  try{
+    const raw = localStorage.getItem(STORE_KEY);
+    if(!raw) return blankData();
+    return mergeData(JSON.parse(raw));
+  }catch(e){
+    console.warn('Gagal memuat data:', e);
+    return blankData();
+  }
+}
+function loadUI(){
+  const def = {
+    edit: false, theme: 'light', fs: 15,
+    search: { documents:'', coc:'', cop:'', other:'' },
+    sort:   { coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
+  };
+  try{
+    const raw = localStorage.getItem(UI_KEY);
+    if(!raw) return def;
+    const s = JSON.parse(raw);
+    return Object.assign(def, s, {
+      search: Object.assign(def.search, s.search || {}),
+      sort:   Object.assign(def.sort,   s.sort   || {})
+    });
+  }catch(e){ return def; }
+}
+
+let DATA = loadData();
+let UI   = loadUI();
+if(!localStorage.getItem(STORE_KEY)) UI.edit = true;
+
+function saveUI(){
+  try{ localStorage.setItem(UI_KEY, JSON.stringify(UI)); }catch(e){}
+}
+function save(){
+  try{
+    localStorage.setItem(STORE_KEY, JSON.stringify(DATA));
+    flashSaved();
+  }catch(err){
+    console.error(err);
+    toast('Gagal menyimpan — penyimpanan perangkat penuh. Hapus foto atau gunakan foto lebih kecil.', 'err');
+  }
+}
+let saveTimer = null;
+function flashSaved(){
+  const el = $('#saveInd');
+  if(!el) return;
+  el.classList.add('show');
+  clearTimeout(saveTimer);
+  saveTimer = setTimeout(() => el.classList.remove('show'), 1900);
+}
+
+/* ------------------------------------------------------------------
+   3. TOAST & MODAL
+   ------------------------------------------------------------------ */
+function toast(msg, type = 'ok'){
+  const box = $('#toasts');
+  const el  = document.createElement('div');
+  el.className = 'toast ' + (type === 'ok' ? '' : type);
+  const ico = type === 'err' ? 'alert' : type === 'info' ? 'clock' : 'check';
+  el.innerHTML = icon(ico) + '<span>' + esc(msg) + '</span>';
+  box.appendChild(el);
+  setTimeout(() => {
+    el.classList.add('out');
+    setTimeout(() => el.remove(), 320);
+  }, 2900);
+}
+
+let modalSaveHandler = null;
+function openModal({ title, bodyHTML, saveLabel = 'Simpan', onSave = null, danger = false }){
+  const root = $('#modalRoot');
+  root.innerHTML = `
+    <div class="modal-backdrop" data-close></div>
+    <div class="modal" role="dialog" aria-modal="true">
+      <div class="modal-head">
+        <h3>${esc(title)}</h3>
+        <button class="icon-btn sm" data-close title="Tutup">${icon('x')}</button>
+      </div>
+      <div class="modal-body">${bodyHTML}</div>
+      <div class="modal-foot">
+        <button class="btn ghost" data-close>Batal</button>
+        ${onSave ? `<button class="btn ${danger ? 'danger' : 'primary'}" id="modalSave">${icon('save')}${esc(saveLabel)}</button>` : ''}
+      </div>
+    </div>`;
+  root.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  root.querySelectorAll('[data-close]').forEach(b => { b.onclick = closeModal; });
+  modalSaveHandler = onSave;
+  const btn = root.querySelector('#modalSave');
+  if(btn) btn.onclick = () => {
+    if(modalSaveHandler && modalSaveHandler() === false) return;
+    closeModal();
+  };
+  root.onkeydown = e => {
+    if(e.key === 'Escape') closeModal();
+    if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && btn){ e.preventDefault(); btn.click(); }
+  };
+  setTimeout(() => {
+    const first = root.querySelector('.modal-body input:not([type=range]):not([type=file]), .modal-body select, .modal-body textarea');
+    if(first) first.focus();
+  }, 90);
+}
+function closeModal(){
+  const root = $('#modalRoot');
+  root.classList.remove('open');
+  root.innerHTML = '';
+  root.onkeydown = null;
+  modalSaveHandler = null;
+  document.body.style.overflow = '';
+}
+function confirmModal(title, message, onYes){
+  openModal({
+    title,
+    bodyHTML: `<p class="confirm-msg">${esc(message)}</p>`,
+    saveLabel: 'Ya, Lanjutkan',
+    danger: true,
+    onSave: () => { onYes(); }
+  });
+}
+
+/* ------------------------------------------------------------------
+   4. FORM BUILDER
+   ------------------------------------------------------------------ */
+function fieldHTML(f, value){
+  const id = 'fld_' + f.key;
+  const v  = value == null ? '' : value;
+  let input;
+
+  if(f.type === 'textarea'){
+    input = `<textarea id="${id}" name="${esc(f.key)}" rows="${f.rows || 3}" placeholder="${esc(f.ph || '')}">${esc(v)}</textarea>`;
+  } else if(f.type === 'select'){
+    const opts = (f.options || []).map(o =>
+      `<option value="${esc(o)}"${String(o) === String(v) ? ' selected' : ''}>${esc(o || '— Pilih —')}</option>`
+    ).join('');
+    input = `<select id="${id}" name="${esc(f.key)}">${opts}</select>`;
+  } else {
+    input = `<input id="${id}" name="${esc(f.key)}" type="${f.type || 'text'}" value="${esc(v)}"
+             placeholder="${esc(f.ph || '')}"${f.min ? ` min="${esc(f.min)}"` : ''}
+             ${f.max ? ` max="${esc(f.max)}"` : ''}${f.step ? ` step="${esc(f.step)}"` : ''}
+             ${f.required ? ' required' : ''} autocomplete="off">`;
+  }
+  return `<div class="field ${f.full ? 'full' : ''}">
+            <label for="${id}">${esc(f.label)}${f.required ? '<span class="req">*</span>' : ''}</label>
+            ${input}
+          </div>`;
+}
+
+function openFormModal(title, fields, values, onSubmit, opts = {}){
+  const html = `<form id="modalForm" class="form-grid" novalidate autocomplete="off">
+      ${fields.map(f => fieldHTML(f, values[f.key])).join('')}
+    </form>`;
+
+  openModal({
+    title,
+    bodyHTML: html,
+    saveLabel: opts.saveLabel || 'Simpan',
+    onSave: () => {
+      const form = $('#modalForm');
+      if(!form) return false;
+      const data = {};
+
+      for(const f of fields){
+        const elm = form.elements[f.key];
+        const raw = elm ? String(elm.value).trim() : '';
+        data[f.key] = raw;
+
+        if(f.required && !raw){
+          toast(`${f.label} wajib diisi`, 'err');
+          if(elm) elm.focus();
+          return false;
+        }
+        if(f.type === 'email' && raw && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(raw)){
+          toast('Format email tidak valid', 'err');
+          if(elm) elm.focus();
+          return false;
+        }
+        if(f.type === 'tel' && raw && !/^[0-9+\-\s()]{7,20}$/.test(raw)){
+          toast('Format nomor telepon tidak valid', 'err');
+          if(elm) elm.focus();
+          return false;
+        }
+      }
+      onSubmit(data);
+      return true;
+    }
+  });
+}
+
+/* ------------------------------------------------------------------
+   5. RENDER — HELPER
+   ------------------------------------------------------------------ */
+function sectionHead(iconId, title, subtitle, toolsHTML){
+  return `<div class="section-head">
+      <div class="section-icon">${icon(iconId)}</div>
+      <div class="section-title">
+        <h2>${esc(title)}</h2>
+        ${subtitle ? `<p>${esc(subtitle)}</p>` : ''}
+      </div>
+      <div class="section-tools no-print">${toolsHTML || ''}</div>
+    </div>`;
+}
+function addBtn(action, label, extra = ''){
+  return `<button class="btn sm primary edit-only" data-action="${action}" ${extra}>
+            ${icon('plus')} ${esc(label)}
+          </button>`;
+}
+function emptyBox(msg){
+  return `<div class="empty">${icon('file')}${esc(msg)}</div>`;
+}
+function editRowBtns(kind, id, label){
+  return `<div class="cell-actions edit-only">
+      <button class="icon-btn sm" data-action="edit-${kind}" data-id="${id}" title="Edit">${icon('edit')}</button>
+      <button class="icon-btn sm" data-action="del-${kind}" data-id="${id}" data-label="${esc(label)}" title="Hapus">${icon('trash')}</button>
+    </div>`;
+}
+
+/* ------------------------------------------------------------------
+   6. RENDER — HERO
+   ------------------------------------------------------------------ */
+function renderHero(){
+  const p = DATA.profile;
+  const photoHTML = p.photo
+    ? `<img src="${p.photo}" alt="Foto ${esc(p.name || 'Pelaut')}"
+            style="object-position:${p.photoX}% ${p.photoY}%;transform:scale(${p.photoZoom})">`
+    : `<div class="photo-empty">${icon('user')}</div>`;
+
+  const chips = [];
+  if(p.phone) chips.push(`<a class="chip" href="tel:${esc(p.phone)}">${icon('phone')}<span>${esc(p.phone)}</span></a>`);
+  if(p.email) chips.push(`<a class="chip" href="mailto:${esc(p.email)}">${icon('mail')}<span>${esc(p.email)}</span></a>`);
+  if(p.address) chips.push(`<span class="chip">${icon('map-pin')}<span>${esc(p.address)}</span></span>`);
+  if(p.nationality) chips.push(`<span class="chip">${icon('globe')}<span>${esc(p.nationality)}</span></span>`);
+  if(!chips.length) chips.push(`<span class="chip">${icon('id-card')}<span>Lengkapi data kontak Anda</span></span>`);
+
+  $('#home').innerHTML = `
+    <div class="hero-photo-wrap">
+      <div class="hero-photo">${photoHTML}</div>
+      <button class="photo-edit no-print" data-action="photo" title="Ubah foto formal">${icon('camera')}</button>
+    </div>
+    <div class="hero-text">
+      <div class="hero-eyebrow">Curriculum Vitae · Seafarer</div>
+      <h1>${esc(p.name || 'Nama Lengkap Pelaut')}</h1>
+      <div class="hero-rank">${esc(p.rank || 'Jabatan / Rank')}</div>
+      <div class="hero-chips">${chips.join('')}</div>
+      <div class="hero-actions no-print" style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap">
+        <button class="btn sm gold edit-only" data-action="edit-profile">${icon('edit')} Edit Data Pribadi</button>
+      </div>
+    </div>`;
+}
+
+/* ------------------------------------------------------------------
+   7. RENDER — ALERT SERTIFIKAT (hanya item yang punya expiry)
+   ------------------------------------------------------------------ */
+function renderAlerts(){
+  const zone = $('#alertZone');
+  const soon = [], expired = [];
+  DATA.certificates.forEach(c => {
+    const s = certStatus(c);
+    if(!s) return;                                     // tanpa expiry -> tidak ada alert
+    if(s.key === 'expired') expired.push(c);
+    else if(s.key === 'soon') soon.push(c);
+  });
+  if(!soon.length && !expired.length){ zone.innerHTML = ''; return; }
+
+  let html = '';
+  if(expired.length){
+    html += `<div class="alert-banner danger no-print">
+      ${icon('alert')}
+      <div>
+        <strong>${expired.length} sertifikat sudah kedaluwarsa</strong>
+        <ul>${expired.map(c => `<li>${esc(c.name || 'Tanpa nama')} — ${fmtDate(c.expiryDate)}</li>`).join('')}</ul>
+      </div>
+    </div>`;
+  }
+  if(soon.length){
+    html += `<div class="alert-banner no-print">
+      ${icon('clock')}
+      <div>
+        <strong>${soon.length} sertifikat akan segera kedaluwarsa (≤ 90 hari)</strong>
+        <ul>${soon.map(c => `<li>${esc(c.name || 'Tanpa nama')} — ${daysLeft(c.expiryDate)} hari lagi (${fmtDate(c.expiryDate)})</li>`).join('')}</ul>
+      </div>
+    </div>`;
+  }
+  zone.innerHTML = html;
+}
+
+/* ------------------------------------------------------------------
+   8. RENDER — DATA PRIBADI
+   ------------------------------------------------------------------ */
+function renderPersonal(){
+  const p = DATA.profile;
+  const ttl = (p.birthPlace || p.birthDate)
+    ? `${p.birthPlace || '—'}, ${p.birthDate ? fmtDate(p.birthDate) : '—'}`
+    : '—';
+  const bw = (p.height || p.weight)
+    ? `${p.height || '—'} cm / ${p.weight || '—'} kg`
+    : '—';
+
+  const items = [
+    { icon:'id-card', label:'Tempat, Tanggal Lahir', value: ttl, empty: !p.birthPlace && !p.birthDate },
+    { icon:'user',    label:'Jenis Kelamin',         value: p.gender || '—', empty: !p.gender },
+    { icon:'shield',  label:'Agama',                 value: p.religion || '—', empty: !p.religion },
+    { icon:'user',    label:'Tinggi / Berat Badan',  value: bw, empty: !p.height && !p.weight },
+    { icon:'user',    label:'Status Pernikahan',     value: p.maritalStatus || '—', empty: !p.maritalStatus },
+    { icon:'globe',   label:'Kewarganegaraan',       value: p.nationality || '—', empty: !p.nationality }
+  ];
+
+  const grid = items.map(i => `
+    <div class="info-item${i.empty ? ' item-empty' : ''}">
+      <div class="ii-icon">${icon(i.icon)}</div>
+      <div>
+        <div class="ii-label">${esc(i.label)}</div>
+        <div class="ii-value">${esc(i.value)}</div>
+      </div>
+    </div>`).join('');
+
+  const address = `
+    <div class="info-item full${!p.address ? ' item-empty' : ''}">
+      <div class="ii-icon">${icon('map-pin')}</div>
+      <div>
+        <div class="ii-label">Alamat Lengkap</div>
+        <div class="ii-value">${esc(p.address || '—')}</div>
+      </div>
+    </div>`;
+
+  $('#personal').innerHTML =
+    sectionHead('id-card', 'Personal Information', 'Identitas pribadi pelaut',
+      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} Edit</button>`) +
+    `<div class="info-grid">${grid}${address}</div>`;
+}
+
+/* ------------------------------------------------------------------
+   9. RENDER — RINGKASAN
+   ------------------------------------------------------------------ */
+function renderSummary(){
+  const p = DATA.profile;
+  $('#summary').innerHTML =
+    sectionHead('file', 'Professional Summary', 'Ringkasan profil profesional',
+      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} Edit</button>`) +
+    (p.summary
+      ? `<div class="summary-text">${esc(p.summary)}</div>`
+      : emptyBox('Ringkasan profesional belum diisi. Aktifkan Mode Edit lalu klik "Edit" untuk menambahkan.'));
+}
+
+/* ------------------------------------------------------------------
+   10. RENDER — DOKUMEN
+   ------------------------------------------------------------------ */
+function renderDocuments(){
+  const list = DATA.documents;
+  const q = (UI.search.documents || '').toLowerCase();
+
+  const rows = list.map(d => {
+    const text = `${d.type} ${d.name} ${d.number} ${d.issuer}`.toLowerCase();
+    const hide = q && !text.includes(q) ? ' style="display:none"' : '';
+    return `<tr data-text="${esc(text)}"${hide}>
+      <td data-label="Jenis">${tv(d.type)}</td>
+      <td data-label="Nama Dokumen" class="cell-strong">${tv(d.name)}</td>
+      <td data-label="Nomor">${tv(d.number)}</td>
+      <td data-label="Penerbit">${tv(d.issuer)}</td>
+      <td data-label="Diterbitkan">${tvDate(d.issueDate)}</td>
+      <td data-label="Kedaluwarsa">${tvDate(d.expiryDate)}</td>
+      <td data-label="Status">${statusCell(d)}</td>
+      <td data-label="Aksi">${editRowBtns('doc', d.id, d.name || d.type || 'dokumen')}</td>
+    </tr>`;
+  }).join('');
+
+  const body = list.length
+    ? `<div class="toolbar no-print">
+         <div class="search-box">
+           ${icon('search')}
+           <input type="text" data-search="documents" placeholder="Cari dokumen, nomor, atau penerbit…" value="${esc(UI.search.documents)}">
+         </div>
+       </div>
+       <div class="table-wrap">
+         <table class="data">
+           <thead><tr>
+             <th>Jenis</th><th>Nama Dokumen</th><th>Nomor</th><th>Penerbit</th>
+             <th>Diterbitkan</th><th>Kedaluwarsa</th><th>Status</th><th class="th-actions">Aksi</th>
+           </tr></thead>
+           <tbody>${rows}</tbody>
+         </table>
+       </div>`
+    : emptyBox('Belum ada dokumen pelaut. Klik "Tambah Dokumen" pada Mode Edit.');
+
+  $('#documents').innerHTML =
+    sectionHead('layers', 'Documents', 'Buku Pelaut · MCU · Dokumen lainnya',
+      addBtn('add-doc', 'Tambah Dokumen')) + body;
+}
+
+/* ------------------------------------------------------------------
+   11. RENDER — SERTIFIKAT (3 kategori)
+   ------------------------------------------------------------------ */
+const CERT_META = {
+  coc:   { id:'coc',   icon:'award',  title:'Certificate of Competency',  sub:'Sertifikat kompetensi (COC)' },
+  cop:   { id:'cop',   icon:'shield', title:'Certificate of Proficiency', sub:'Sertifikat keterampilan (COP)' },
+  other: { id:'other', icon:'award',  title:'Sertifikat Lainnya',         sub:'Sertifikat pendukung & lainnya' }
+};
+
+function getCerts(cat){
+  let list = DATA.certificates.filter(c => c.category === cat);
+  const s = UI.sort[cat] || 'default';
+  if(s === 'expiry')      list.sort((a,b) => (a.expiryDate || '9999-99-99').localeCompare(b.expiryDate || '9999-99-99'));
+  else if(s === 'name')   list.sort((a,b) => (a.name || '').localeCompare(b.name || '', 'id'));
+  else if(s === 'issued') list.sort((a,b) => (b.issueDate || '').localeCompare(a.issueDate || ''));
+  return list;
+}
+
+function renderCertSection(cat){
+  const meta = CERT_META[cat];
+  const list = getCerts(cat);
+  const q = (UI.search[cat] || '').toLowerCase();
+
+  const rows = list.map(c => {
+    const text = `${c.name} ${c.number} ${c.issuer}`.toLowerCase();
+    const hide = q && !text.includes(q) ? ' style="display:none"' : '';
+    return `<tr data-text="${esc(text)}"${hide}>
+      <td data-label="Nama Sertifikat" class="cell-strong">${tv(c.name)}</td>
+      <td data-label="Nomor">${tv(c.number)}</td>
+      <td data-label="Penerbit">${tv(c.issuer)}</td>
+      <td data-label="Diterbitkan">${tvDate(c.issueDate)}</td>
+      <td data-label="Kedaluwarsa">${tvDate(c.expiryDate)}</td>
+      <td data-label="Status">${statusCell(c)}</td>
+      <td data-label="Aksi">${editRowBtns('cert', c.id, c.name || 'sertifikat')}</td>
+    </tr>`;
+  }).join('');
+
+  const body = list.length
+    ? `<div class="toolbar no-print">
+         <div class="search-box">
+           ${icon('search')}
+           <input type="text" data-search="${cat}" placeholder="Cari sertifikat…" value="${esc(UI.search[cat] || '')}">
+         </div>
+         <select class="mini" data-sort="${cat}">
+           <option value="default"${UI.sort[cat]==='default'?' selected':''}>Urutan Default</option>
+           <option value="expiry"${UI.sort[cat]==='expiry'?' selected':''}>Kedaluwarsa Terdekat</option>
+           <option value="issued"${UI.sort[cat]==='issued'?' selected':''}>Terbaru Diterbitkan</option>
+           <option value="name"${UI.sort[cat]==='name'?' selected':''}>Nama (A–Z)</option>
+         </select>
+       </div>
+       <div class="table-wrap">
+         <table class="data">
+           <thead><tr>
+             <th>Nama Sertifikat</th><th>Nomor</th><th>Penerbit</th>
+             <th>Diterbitkan</th><th>Kedaluwarsa</th><th>Status</th><th class="th-actions">Aksi</th>
+           </tr></thead>
+           <tbody>${rows}</tbody>
+         </table>
+       </div>`
+    : emptyBox(`Belum ada ${meta.sub.toLowerCase()}. Klik "Tambah" pada Mode Edit.`);
+
+  $('#' + cat).innerHTML =
+    sectionHead(meta.icon, meta.title, meta.sub,
+      addBtn('add-cert', 'Tambah', `data-cat="${cat}"`)) + body;
+}
+
+/* ------------------------------------------------------------------
+   12. RENDER — SEA SERVICE
+   ------------------------------------------------------------------ */
+function renderSeaService(){
+  let list = [...DATA.seaService];
+  const s = UI.sort.sea || 'desc';
+  list.sort((a,b) => s === 'asc'
+    ? (a.signOn || '').localeCompare(b.signOn || '')
+    : (b.signOn || '').localeCompare(a.signOn || ''));
+
+  let totalDays = 0;
+  list.forEach(x => { const d = durationDays(x.signOn, x.signOff); if(d) totalDays += d; });
+
+  const rows = list.map(x => {
+    const gtdwt = [x.gt ? x.gt + ' GT' : '', x.dwt ? x.dwt + ' DWT' : ''].filter(Boolean).join(' / ');
+    return `<tr>
+      <td data-label="Nama Kapal" class="cell-strong">${tv(x.vesselName)}</td>
+      <td data-label="Bendera">${tv(x.flag)}</td>
+      <td data-label="Jenis Kapal">${tv(x.vesselType)}</td>
+      <td data-label="GT / DWT">${tv(gtdwt)}</td>
+      <td data-label="Mesin Utama">${tv(x.mainEngine)}</td>
+      <td data-label="Jabatan">${tv(x.rank)}</td>
+      <td data-label="Sign On">${tvDate(x.signOn)}</td>
+      <td data-label="Sign Off">${tvDate(x.signOff)}</td>
+      <td data-label="Masa Berlayar">${tvDur(x.signOn, x.signOff)}</td>
+      <td data-label="Aksi">${editRowBtns('sea', x.id, x.vesselName || 'kapal')}</td>
+    </tr>`;
+  }).join('');
+
+  const footer = list.length && totalDays > 0
+    ? `<div style="margin-top:12px;font-size:.82rem;color:var(--muted);font-weight:600">
+         ${icon('clock')} Total masa berlayar tercatat: <strong style="color:var(--gold)">${Math.round(totalDays/30.44*10)/10} bulan</strong> (${totalDays} hari)
+       </div>`
+    : '';
+
+  const body = list.length
+    ? `<div class="toolbar no-print">
+         <select class="mini" data-sort="sea">
+           <option value="desc"${s==='desc'?' selected':''}>Sign On Terbaru</option>
+           <option value="asc"${s==='asc'?' selected':''}>Sign On Terlama</option>
+         </select>
+       </div>
+       <div class="table-wrap">
+         <table class="data">
+           <thead><tr>
+             <th>Nama Kapal</th><th>Bendera</th><th>Jenis</th><th>GT / DWT</th>
+             <th>Mesin Utama</th><th>Jabatan</th><th>Sign On</th><th>Sign Off</th>
+             <th>Masa Berlayar</th><th class="th-actions">Aksi</th>
+           </tr></thead>
+           <tbody>${rows}</tbody>
+         </table>
+       </div>${footer}`
+    : emptyBox('Belum ada riwayat kapal (Sea Service Record). Klik "Tambah Kapal".');
+
+  $('#sea').innerHTML =
+    sectionHead('anchor', 'Sea Service Record', 'Riwayat kapal & masa berlayar',
+      addBtn('add-sea', 'Tambah Kapal')) + body;
+}
+
+/* ------------------------------------------------------------------
+   13. RENDER — PENGALAMAN KERJA
+   ------------------------------------------------------------------ */
+function renderWork(){
+  let list = [...DATA.workExperience];
+  const s = UI.sort.work || 'desc';
+  list.sort((a,b) => s === 'asc'
+    ? (a.startDate || '').localeCompare(b.startDate || '')
+    : (b.startDate || '').localeCompare(a.startDate || ''));
+
+  const items = list.map(w => {
+    const period = (w.startDate || w.endDate)
+      ? `${w.startDate ? fmtDate(w.startDate) : '—'} – ${w.endDate ? fmtDate(w.endDate) : 'Sekarang'}`
+      : '';
+    const meta = [
+      w.vesselName ? `Kapal: ${w.vesselName}` : '',
+      w.vesselType ? `Jenis: ${w.vesselType}` : '',
+      w.contractDuration ? `Kontrak: ${w.contractDuration}` : ''
+    ].filter(Boolean);
+
+    return `<div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-card">
+        <div class="tl-head">
+          <div>
+            ${w.rank ? `<h3>${esc(w.rank)}</h3>` : ''}
+            <p class="tl-company">${tv(w.company)}</p>
+          </div>
+          ${period ? `<span class="pill">${esc(period)}</span>` : ''}
+        </div>
+        ${meta.length ? `<div class="tl-meta">${meta.map(m => `<span>${esc(m)}</span>`).join('')}</div>` : ''}
+        ${w.description ? `<p class="tl-desc">${esc(w.description)}</p>` : ''}
+        <div class="tl-actions edit-only">
+          <button class="icon-btn sm" data-action="edit-work" data-id="${w.id}" title="Edit">${icon('edit')}</button>
+          <button class="icon-btn sm" data-action="del-work" data-id="${w.id}" data-label="${esc(w.company || 'pengalaman')}" title="Hapus">${icon('trash')}</button>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+
+  const body = list.length
+    ? `<div class="toolbar no-print">
+         <select class="mini" data-sort="work">
+           <option value="desc"${s==='desc'?' selected':''}>Terbaru</option>
+           <option value="asc"${s==='asc'?' selected':''}>Terlama</option>
+         </select>
+       </div>
+       <div class="timeline">${items}</div>`
+    : emptyBox('Belum ada pengalaman kerja. Klik "Tambah Pengalaman".');
+
+  $('#work').innerHTML =
+    sectionHead('briefcase', 'Work Experience', 'Pengalaman kerja di perusahaan pelayaran',
+      addBtn('add-work', 'Tambah Pengalaman')) + body;
+}
+
+/* ------------------------------------------------------------------
+   14. RENDER — KONTAK
+   ------------------------------------------------------------------ */
+function renderContact(){
+  const p = DATA.profile;
+  const wa = waNumber(p.phone);
+  const cards = [];
+
+  if(p.phone){
+    cards.push(`<a class="contact-card" href="https://wa.me/${esc(wa)}" target="_blank" rel="noopener">
+      <div class="cc-icon wa">${icon('wa','fill')}</div>
+      <div><small>WhatsApp</small><strong>${esc(p.phone)}</strong></div>
+    </a>`);
+  } else {
+    cards.push(`<div class="contact-card is-placeholder">
+      <div class="cc-icon wa">${icon('wa','fill')}</div>
+      <div><small>WhatsApp</small><strong style="color:var(--muted)">Belum diisi</strong></div></div>`);
+  }
+
+  if(p.email){
+    cards.push(`<a class="contact-card" href="mailto:${esc(p.email)}">
+      <div class="cc-icon mail">${icon('mail')}</div>
+      <div><small>Email</small><strong>${esc(p.email)}</strong></div>
+    </a>`);
+  } else {
+    cards.push(`<div class="contact-card is-placeholder">
+      <div class="cc-icon mail">${icon('mail')}</div>
+      <div><small>Email</small><strong style="color:var(--muted)">Belum diisi</strong></div></div>`);
+  }
+
+  if(p.address){
+    cards.push(`<div class="contact-card">
+      <div class="cc-icon">${icon('map-pin')}</div>
+      <div><small>Alamat</small><strong>${esc(p.address)}</strong></div>
+    </div>`);
+  } else {
+    cards.push(`<div class="contact-card is-placeholder">
+      <div class="cc-icon">${icon('map-pin')}</div>
+      <div><small>Alamat</small><strong style="color:var(--muted)">Belum diisi</strong></div>
+    </div>`);
+  }
+
+  $('#contact').innerHTML =
+    sectionHead('phone', 'Contact Information', 'Hubungi pelaut',
+      `<button class="btn sm primary edit-only" data-action="edit-profile">${icon('edit')} Edit</button>`) +
+    `<div class="contact-grid">${cards.join('')}</div>`;
+}
+
+/* ------------------------------------------------------------------
+   15. RENDER ALL + EMPTY STATE
+   ------------------------------------------------------------------ */
+function updateEmptyStates(){
+  const p = DATA.profile;
+  $('#summary').classList.toggle('is-empty', !p.summary);
+  $('#documents').classList.toggle('is-empty', !DATA.documents.length);
+  $('#coc').classList.toggle('is-empty', !DATA.certificates.filter(c => c.category === 'coc').length);
+  $('#cop').classList.toggle('is-empty', !DATA.certificates.filter(c => c.category === 'cop').length);
+  $('#other').classList.toggle('is-empty', !DATA.certificates.filter(c => c.category === 'other').length);
+  $('#sea').classList.toggle('is-empty', !DATA.seaService.length);
+  $('#work').classList.toggle('is-empty', !DATA.workExperience.length);
+
+  const personalEmpty = !p.birthPlace && !p.birthDate && !p.gender && !p.religion &&
+                        !p.height && !p.weight && !p.maritalStatus && !p.nationality && !p.address;
+  $('#personal').classList.toggle('is-empty', personalEmpty);
+
+  const contactEmpty = !p.phone && !p.email && !p.address;
+  $('#contact').classList.toggle('is-empty', contactEmpty);
+}
+
+function renderAll(){
+  renderHero();
+  renderAlerts();
+  renderPersonal();
+  renderSummary();
+  renderDocuments();
+  renderCertSection('coc');
+  renderCertSection('cop');
+  renderCertSection('other');
+  renderSeaService();
+  renderWork();
+  renderContact();
+  updateEmptyStates();
+  applyEditMode();
+  applyTheme();
+}
+function applyEditMode(){
+  document.body.classList.toggle('edit-on', !!UI.edit);
+  const btn = $('#editToggle');
+  if(btn){
+    btn.innerHTML = UI.edit
+      ? icon('eye') + ' <span>Mode Preview</span>'
+      : icon('edit') + ' <span>Mode Edit</span>';
+  }
+}
+function applyTheme(){
+  document.documentElement.setAttribute('data-theme', UI.theme);
+  document.documentElement.style.setProperty('--fs', UI.fs + 'px');
+  const btn = $('#themeBtn');
+  if(btn) btn.innerHTML = icon(UI.theme === 'dark' ? 'sun' : 'moon');
+  const meta = document.querySelector('meta[name=theme-color]');
+  if(meta) meta.setAttribute('content', UI.theme === 'dark' ? '#070f19' : '#0b1f3a');
+}
+
+/* ==================================================================
+   16. FORM DEFINITIONS
+   ================================================================== */
+const PROFILE_FIELDS = [
+  { key:'name',          label:'Nama Lengkap',           type:'text',  required:true, full:true },
+  { key:'rank',          label:'Jabatan / Rank',         type:'text',  ph:'Contoh: Oiler' },
+  { key:'nationality',   label:'Kewarganegaraan',        type:'text',  ph:'Indonesia' },
+  { key:'birthPlace',    label:'Tempat Lahir',           type:'text' },
+  { key:'birthDate',     label:'Tanggal Lahir',          type:'date' },
+  { key:'gender',        label:'Jenis Kelamin',          type:'select', options:['','Laki-laki','Perempuan'] },
+  { key:'religion',      label:'Agama',                  type:'select', options:['','Islam','Kristen','Katolik','Hindu','Buddha','Konghucu','Lainnya'] },
+  { key:'height',        label:'Tinggi Badan (cm)',      type:'number', min:50, max:250 },
+  { key:'weight',        label:'Berat Badan (kg)',       type:'number', min:20, max:250 },
+  { key:'maritalStatus', label:'Status Pernikahan',      type:'select', options:['','Belum Menikah','Menikah','Cerai Hidup','Cerai Mati'] },
+  { key:'phone',         label:'Nomor Telepon / WhatsApp', type:'tel', ph:'08xxxxxxxxxx' },
+  { key:'email',         label:'Email',                  type:'email', ph:'nama@email.com' },
+  { key:'address',       label:'Alamat Lengkap',         type:'textarea', full:true, rows:2 },
+  { key:'summary',       label:'Ringkasan Profesional',  type:'textarea', full:true, rows:5 }
+];
+
+/* issueDate WAJIB diisi */
+const DOC_FIELDS = [
+  { key:'type',       label:'Jenis Dokumen', type:'select', options:['Buku Pelaut','MCU','Sertifikat Medis','Paspor','Kartu Keluarga','Ijazah','Dokumen Lainnya'] },
+  { key:'name',       label:'Nama Dokumen',  type:'text', required:true, ph:'Contoh: Buku Pelaut (Seaman Book)' },
+  { key:'number',     label:'Nomor Dokumen', type:'text' },
+  { key:'issuer',     label:'Instansi Penerbit', type:'text' },
+  { key:'issueDate',  label:'Tanggal Diterbitkan', type:'date', required:true },
+  { key:'expiryDate', label:'Tanggal Kedaluwarsa', type:'date' }
+];
+
+/* issueDate WAJIB diisi */
+const CERT_FIELDS = [
+  { key:'name',       label:'Nama Sertifikat', type:'text', required:true, full:true },
+  { key:'number',     label:'Nomor Sertifikat', type:'text' },
+  { key:'issuer',     label:'Penerbit', type:'text' },
+  { key:'issueDate',  label:'Tanggal Diterbitkan', type:'date', required:true },
+  { key:'expiryDate', label:'Tanggal Kedaluwarsa', type:'date' }
+];
+
+const SEA_FIELDS = [
+  { key:'vesselName', label:'Nama Kapal',   type:'text', required:true },
+  { key:'flag',       label:'Bendera Kapal', type:'text', ph:'Contoh: Panama' },
+  { key:'vesselType', label:'Jenis Kapal',  type:'text', ph:'Contoh: Bulk Carrier' },
+  { key:'rank',       label:'Jabatan di Kapal', type:'text' },
+  { key:'gt',         label:'GT',           type:'text', ph:'Contoh: 4.999' },
+  { key:'dwt',        label:'DWT',          type:'text', ph:'Contoh: 12.500' },
+  { key:'mainEngine', label:'Mesin Utama',  type:'text', full:true, ph:'Contoh: MAN B&W 6S50MC-C' },
+  { key:'signOn',     label:'Tanggal Sign On',  type:'date' },
+  { key:'signOff',    label:'Tanggal Sign Off', type:'date' }
+];
+
+const WORK_FIELDS = [
+  { key:'company',    label:'Nama Perusahaan Pelayaran', type:'text', required:true, full:true },
+  { key:'rank',       label:'Jabatan',        type:'text' },
+  { key:'vesselName', label:'Nama Kapal',     type:'text' },
+  { key:'vesselType', label:'Jenis Kapal',    type:'text' },
+  { key:'startDate',  label:'Periode Mulai',  type:'date' },
+  { key:'endDate',    label:'Periode Selesai', type:'date' },
+  { key:'contractDuration', label:'Durasi Kontrak', type:'text', full:true, ph:'Contoh: 9 bulan' },
+  { key:'description', label:'Deskripsi Pekerjaan', type:'textarea', full:true, rows:4 }
+];
+
+/* ==================================================================
+   17. ACTION HANDLERS
+   ================================================================== */
+function editProfile(){
+  openFormModal('Edit Data Pribadi', PROFILE_FIELDS, DATA.profile, (data) => {
+    DATA.profile = Object.assign(DATA.profile, data);
+    save(); renderAll(); toast('Data pribadi diperbarui');
+  });
+}
+
+function addDocument(){
+  openFormModal('Tambah Dokumen', DOC_FIELDS, {}, (data) => {
+    DATA.documents.push(Object.assign({ id: uid() }, data));
+    save(); renderAll(); toast('Dokumen ditambahkan');
+  });
+}
+function editDocument(id){
+  const item = DATA.documents.find(x => x.id === id);
+  if(!item) return;
+  openFormModal('Edit Dokumen', DOC_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast('Dokumen diperbarui');
+  });
+}
+
+function addCert(cat){
+  openFormModal('Tambah Sertifikat', CERT_FIELDS, {}, (data) => {
+    DATA.certificates.push(Object.assign({ id: uid(), category: cat }, data));
+    save(); renderAll(); toast('Sertifikat ditambahkan');
+  });
+}
+function editCert(id){
+  const item = DATA.certificates.find(x => x.id === id);
+  if(!item) return;
+  openFormModal('Edit Sertifikat', CERT_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast('Sertifikat diperbarui');
+  });
+}
+
+function addSea(){
+  openFormModal('Tambah Riwayat Kapal', SEA_FIELDS, {}, (data) => {
+    DATA.seaService.push(Object.assign({ id: uid() }, data));
+    save(); renderAll(); toast('Riwayat kapal ditambahkan');
+  });
+}
+function editSea(id){
+  const item = DATA.seaService.find(x => x.id === id);
+  if(!item) return;
+  openFormModal('Edit Riwayat Kapal', SEA_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast('Riwayat kapal diperbarui');
+  });
+}
+
+function addWork(){
+  openFormModal('Tambah Pengalaman Kerja', WORK_FIELDS, {}, (data) => {
+    DATA.workExperience.push(Object.assign({ id: uid() }, data));
+    save(); renderAll(); toast('Pengalaman kerja ditambahkan');
+  });
+}
+function editWork(id){
+  const item = DATA.workExperience.find(x => x.id === id);
+  if(!item) return;
+  openFormModal('Edit Pengalaman Kerja', WORK_FIELDS, item, (data) => {
+    Object.assign(item, data);
+    save(); renderAll(); toast('Pengalaman kerja diperbarui');
+  });
+}
+
+function deleteItem(kind, id, label){
+  confirmModal('Hapus Data', `Hapus "${label}"? Tindakan ini tidak dapat dibatalkan.`, () => {
+    if(kind === 'doc')  DATA.documents      = DATA.documents.filter(x => x.id !== id);
+    if(kind === 'cert') DATA.certificates   = DATA.certificates.filter(x => x.id !== id);
+    if(kind === 'sea')  DATA.seaService     = DATA.seaService.filter(x => x.id !== id);
+    if(kind === 'work') DATA.workExperience = DATA.workExperience.filter(x => x.id !== id);
+    save();
+    renderAll();
+    toast('Data berhasil dihapus', 'info');
+  });
+}
+
+/* ---------------- Photo editor ---------------- */
+function resizeImage(file, maxSize = 720){
+  return new Promise((resolve, reject) => {
+    if(!file.type.startsWith('image/')){ reject(new Error('Bukan file gambar')); return; }
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        let w = img.width, h = img.height;
+        const ratio = Math.min(1, maxSize / Math.max(w, h));
+        w = Math.max(1, Math.round(w * ratio));
+        h = Math.max(1, Math.round(h * ratio));
+        const canvas = document.createElement('canvas');
+        canvas.width = w; canvas.height = h;
+        const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, w, h);
+        ctx.drawImage(img, 0, 0, w, h);
+        resolve(canvas.toDataURL('image/jpeg', 0.88));
+      };
+      img.onerror = () => reject(new Error('Gagal membaca gambar'));
+      img.src = e.target.result;
+    };
+    reader.onerror = () => reject(new Error('Gagal membaca file'));
+    reader.readAsDataURL(file);
+  });
+}
+
+function openPhotoModal(){
+  const p = DATA.profile;
+  const temp = {
+    photo: p.photo || '',
+    zoom: p.photoZoom || 1,
+    x: p.photoX == null ? 50 : p.photoX,
+    y: p.photoY == null ? 50 : p.photoY
+  };
+
+  const bodyHTML = `
+    <div class="photo-editor">
+      <div class="photo-preview" id="pvBox">
+        <img id="pvImg" src="${temp.photo}" alt="Preview"
+             style="object-position:${temp.x}% ${temp.y}%;transform:scale(${temp.zoom});${temp.photo ? '' : 'display:none'}">
+      </div>
+      <div class="photo-controls">
+        <label class="upload-btn">
+          ${icon('camera')} Pilih Foto dari Perangkat
+          <input type="file" id="photoInput" accept="image/*" hidden>
+        </label>
+        <button type="button" class="btn ghost" id="photoRemove">${icon('trash')} Hapus Foto</button>
+        <div class="field">
+          <label>Zoom</label>
+          <input type="range" id="pvZoom" min="1" max="3" step="0.05" value="${temp.zoom}">
+        </div>
+        <div class="field">
+          <label>Posisi Horizontal</label>
+          <input type="range" id="pvX" min="0" max="100" step="1" value="${temp.x}">
+        </div>
+        <div class="field">
+          <label>Posisi Vertikal</label>
+          <input type="range" id="pvY" min="0" max="100" step="1" value="${temp.y}">
+        </div>
+        <small style="color:var(--muted);font-size:.74rem;line-height:1.5">
+          Gunakan foto formal dengan latar polos. Foto otomatis dikompres agar hemat penyimpanan.
+        </small>
+      </div>
+    </div>`;
+
+  openModal({
+    title: 'Foto Formal',
+    bodyHTML,
+    saveLabel: 'Gunakan Foto',
+    onSave: () => {
+      DATA.profile.photo    = temp.photo;
+      DATA.profile.photoZoom = temp.zoom;
+      DATA.profile.photoX   = temp.x;
+      DATA.profile.photoY   = temp.y;
+      save(); renderHero(); toast('Foto berhasil diperbarui');
+      return true;
+    }
+  });
+
+  const img = $('#pvImg');
+  const sync = () => {
+    if(temp.photo){
+      img.style.display = '';
+      img.src = temp.photo;
+      img.style.objectPosition = `${temp.x}% ${temp.y}%`;
+      img.style.transform = `scale(${temp.zoom})`;
+    } else {
+      img.style.display = 'none';
+    }
+  };
+
+  $('#photoInput').onchange = async (e) => {
+    const file = e.target.files && e.target.files[0];
+    if(!file) return;
+    try{
+      toast('Memproses foto…', 'info');
+      const dataUrl = await resizeImage(file, 720);
+      temp.photo = dataUrl;
+      temp.zoom = 1; temp.x = 50; temp.y = 50;
+      $('#pvZoom').value = 1; $('#pvX').value = 50; $('#pvY').value = 50;
+      sync();
+      toast('Foto siap digunakan');
+    }catch(err){
+      toast(err.message || 'Gagal memuat foto', 'err');
+    }
+    e.target.value = '';
+  };
+  $('#photoRemove').onclick = () => { temp.photo = ''; sync(); toast('Foto dihapus dari pratinjau', 'info'); };
+  $('#pvZoom').oninput = (e) => { temp.zoom = parseFloat(e.target.value); sync(); };
+  $('#pvX').oninput    = (e) => { temp.x = parseInt(e.target.value, 10); sync(); };
+  $('#pvY').oninput    = (e) => { temp.y = parseInt(e.target.value, 10); sync(); };
+}
+
+/* ---------------- Import / Export / Reset ---------------- */
+function exportJSON(){
+  try{
+    const name = (DATA.profile.name || 'Seafarer').replace(/[^\w\-]+/g, '_');
+    const stamp = new Date().toISOString().slice(0, 10);
+    const blob = new Blob([JSON.stringify(DATA, null, 2)], { type:'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `CV-${name}-${stamp}.json`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1500);
+    toast('Backup JSON berhasil diunduh');
+  }catch(e){
+    toast('Gagal membuat backup', 'err');
+  }
+}
+
+function importJSON(file){
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try{
+      const parsed = JSON.parse(e.target.result);
+      if(!parsed || typeof parsed !== 'object' || !parsed.profile){
+        toast('File JSON tidak valid', 'err');
+        return;
+      }
+      confirmModal('Import Backup', 'Semua data saat ini akan diganti dengan data dari file backup. Lanjutkan?', () => {
+        DATA = mergeData(parsed);
+        save();
+        renderAll();
+        toast('Backup berhasil diimport');
+      });
+    }catch(err){
+      toast('File JSON tidak dapat dibaca', 'err');
+    }
+  };
+  reader.readAsText(file);
+}
+
+function resetData(){
+  confirmModal('Reset Seluruh Data', 'Semua data CV (profil, foto, dokumen, sertifikat, riwayat kapal, pengalaman kerja) akan dihapus permanen dari perangkat ini. Lanjutkan?', () => {
+    try{ localStorage.removeItem(STORE_KEY); }catch(e){}
+    DATA = blankData();
+    UI.edit = true;
+    saveUI();
+    save();
+    renderAll();
+    toast('Seluruh data telah direset', 'info');
+  });
+}
+
+function doPrint(){
+  closeModal();
+  const wasEdit = document.body.classList.contains('edit-on');
+  document.body.classList.remove('edit-on');
+  toast('Menyiapkan dokumen…', 'info');
+  setTimeout(() => {
+    window.print();
+    if(wasEdit) document.body.classList.add('edit-on');
+  }, 260);
+}
+
+/* ==================================================================
+   18. EVENT DELEGATION
+   ================================================================== */
+document.addEventListener('click', (e) => {
+  const actionEl = e.target.closest('[data-action]');
+  if(!actionEl) return;
+  const action = actionEl.dataset.action;
+  const id = actionEl.dataset.id;
+  const cat = actionEl.dataset.cat;
+  const label = actionEl.dataset.label || '';
+
+  switch(action){
+    case 'toggle-sidebar':
+      $('#sidebar').classList.toggle('open');
+      $('#sidebarBackdrop').classList.toggle('show');
+      break;
+
+    case 'toggle-theme':
+      UI.theme = UI.theme === 'dark' ? 'light' : 'dark';
+      saveUI(); applyTheme();
+      toast(UI.theme === 'dark' ? 'Mode gelap aktif' : 'Mode terang aktif', 'info');
+      break;
+
+    case 'font-up':
+      UI.fs = Math.min(19, UI.fs + 1); saveUI(); applyTheme();
+      break;
+
+    case 'font-down':
+      UI.fs = Math.max(13, UI.fs - 1); saveUI(); applyTheme();
+      break;
+
+    case 'toggle-edit':
+      UI.edit = !UI.edit; saveUI(); applyEditMode();
+      toast(UI.edit ? 'Mode Edit aktif — data dapat diubah' : 'Mode Preview aktif', 'info');
+      break;
+
+    case 'print': doPrint(); break;
+
+    case 'back-top':
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      break;
+
+    case 'export': exportJSON(); break;
+    case 'import': $('#importInput').click(); break;
+    case 'reset':  resetData(); break;
+
+    case 'photo':        openPhotoModal(); break;
+    case 'edit-profile': editProfile(); break;
+
+    case 'add-doc':  addDocument(); break;
+    case 'edit-doc': editDocument(id); break;
+    case 'del-doc':  deleteItem('doc', id, label); break;
+
+    case 'add-cert':  addCert(cat); break;
+    case 'edit-cert': editCert(id); break;
+    case 'del-cert':  deleteItem('cert', id, label); break;
+
+    case 'add-sea':  addSea(); break;
+    case 'edit-sea': editSea(id); break;
+    case 'del-sea':  deleteItem('sea', id, label); break;
+
+    case 'add-work':  addWork(); break;
+    case 'edit-work': editWork(id); break;
+    case 'del-work':  deleteItem('work', id, label); break;
+  }
+});
+
+/* Search (tanpa re-render, agar fokus input tidak hilang) */
+document.addEventListener('input', (e) => {
+  const inp = e.target.closest('[data-search]');
+  if(!inp) return;
+  const key = inp.dataset.search;
+  UI.search[key] = inp.value;
+  saveUI();
+  const q = inp.value.trim().toLowerCase();
+  const section = document.getElementById(key === 'documents' ? 'documents' : key);
+  if(!section) return;
+  section.querySelectorAll('tbody tr').forEach(tr => {
+    const text = tr.dataset.text || '';
+    tr.style.display = (!q || text.includes(q)) ? '' : 'none';
+  });
+});
+
+/* Sort */
+document.addEventListener('change', (e) => {
+  const sel = e.target.closest('[data-sort]');
+  if(!sel) return;
+  const key = sel.dataset.sort;
+  UI.sort[key] = sel.value;
+  saveUI();
+  if(key === 'sea')       renderSeaService();
+  else if(key === 'work') renderWork();
+  else                    renderCertSection(key);
+});
+
+/* Nav link -> tutup sidebar di mobile */
+document.addEventListener('click', (e) => {
+  const link = e.target.closest('.nav-link');
+  if(!link) return;
+  if(window.innerWidth <= 1024){
+    $('#sidebar').classList.remove('open');
+    $('#sidebarBackdrop').classList.remove('show');
+  }
+});
+$('#sidebarBackdrop').addEventListener('click', () => {
+  $('#sidebar').classList.remove('open');
+  $('#sidebarBackdrop').classList.remove('show');
+});
+
+/* Import file input */
+$('#importInput').addEventListener('change', (e) => {
+  const f = e.target.files && e.target.files[0];
+  importJSON(f);
+  e.target.value = '';
+});
+
+/* ==================================================================
+   19. SCROLL: NAV AKTIF + BACK TO TOP
+   ================================================================== */
+const NAV_IDS = ['home','personal','summary','documents','coc','cop','other','sea','work','contact'];
+let scrollTick = false;
+
+function onScroll(){
+  if(scrollTick) return;
+  scrollTick = true;
+  requestAnimationFrame(() => {
+    const pos = window.scrollY + 120;
+    let current = NAV_IDS[0];
+    NAV_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && el.offsetTop <= pos) current = id;
+    });
+    $$('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.nav === current));
+
+    const bt = $('#backTop');
+    if(window.scrollY > 380) bt.classList.add('show');
+    else bt.classList.remove('show');
+
+    scrollTick = false;
+  });
+}
+window.addEventListener('scroll', onScroll, { passive:true });
+
+/* ==================================================================
+   20. INIT
+   ================================================================== */
+(function init(){
+  $('#year').textContent = new Date().getFullYear();
+
+  applyTheme();
+  renderAll();
+  onScroll();
+
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const pl = $('#preloader');
+      if(pl) pl.classList.add('hide');
+    }, 320);
+  });
+  setTimeout(() => {
+    const pl = $('#preloader');
+    if(pl) pl.classList.add('hide');
+  }, 1600);
+
+  document.addEventListener('keydown', (e) => {
+    if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e'){
+      e.preventDefault();
+      UI.edit = !UI.edit; saveUI(); applyEditMode();
+      toast(UI.edit ? 'Mode Edit aktif' : 'Mode Preview aktif', 'info');
+    }
+  });
+})();
+</script>
+</body>
+</html>
