@@ -6,240 +6,114 @@
 <title>CV Maker Pelaut</title>
 <style>
   /* ============ THEME TOKENS ============ */
-  :root{
-    --radius: 14px;
-    --radius-sm: 8px;
-    --font: "Segoe UI", system-ui, -apple-system, Roboto, Arial, sans-serif;
-    --transition: 180ms ease;
-  }
-  [data-theme="ocean"]{
-    --bg: #f2f7fb; --surface: #ffffff; --surface-2: #e8f1f8;
-    --text: #0f2433; --muted: #5a7183; --border: #d3e2ee;
-    --primary: #0e7bb8; --primary-contrast: #ffffff; --accent: #14b8a6;
-    --danger: #c0392b; --shadow: 0 6px 24px rgba(15,36,51,.08);
-  }
-  [data-theme="slate"]{
-    --bg: #eef1f5; --surface: #ffffff; --surface-2: #e3e8ef;
-    --text: #1c2430; --muted: #5b6775; --border: #d5dbe3;
-    --primary: #3b4a5f; --primary-contrast: #ffffff; --accent: #6b7f99;
-    --danger: #b03a2e; --shadow: 0 6px 24px rgba(28,36,48,.08);
-  }
-  [data-theme="sand"]{
-    --bg: #faf6ef; --surface: #fffdf9; --surface-2: #f3ebdd;
-    --text: #3a2f22; --muted: #7a6a55; --border: #e6d9c4;
-    --primary: #b07d3b; --primary-contrast: #fffdf9; --accent: #8a6d3b;
-    --danger: #a8432a; --shadow: 0 6px 24px rgba(58,47,34,.08);
-  }
-  [data-theme="midnight"]{
-    --bg: #0d1117; --surface: #161b22; --surface-2: #1f2630;
-    --text: #e6edf3; --muted: #9aa7b4; --border: #2b3440;
-    --primary: #2f81f7; --primary-contrast: #ffffff; --accent: #3fb950;
-    --danger: #f85149; --shadow: 0 6px 24px rgba(0,0,0,.5);
-  }
+  :root{ --radius:14px; --radius-sm:8px; --font:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif; --transition:180ms ease; }
+  [data-theme="ocean"]{ --bg:#f2f7fb;--surface:#fff;--surface-2:#e8f1f8;--text:#0f2433;--muted:#5a7183;--border:#d3e2ee;--primary:#0e7bb8;--primary-contrast:#fff;--accent:#14b8a6;--danger:#c0392b;--warn:#b7791f;--shadow:0 6px 24px rgba(15,36,51,.08); }
+  [data-theme="slate"]{ --bg:#eef1f5;--surface:#fff;--surface-2:#e3e8ef;--text:#1c2430;--muted:#5b6775;--border:#d5dbe3;--primary:#3b4a5f;--primary-contrast:#fff;--accent:#6b7f99;--danger:#b03a2e;--warn:#946c1e;--shadow:0 6px 24px rgba(28,36,48,.08); }
+  [data-theme="sand"]{ --bg:#faf6ef;--surface:#fffdf9;--surface-2:#f3ebdd;--text:#3a2f22;--muted:#7a6a55;--border:#e6d9c4;--primary:#b07d3b;--primary-contrast:#fffdf9;--accent:#8a6d3b;--danger:#a8432a;--warn:#8a6d1e;--shadow:0 6px 24px rgba(58,47,34,.08); }
+  [data-theme="midnight"]{ --bg:#0d1117;--surface:#161b22;--surface-2:#1f2630;--text:#e6edf3;--muted:#9aa7b4;--border:#2b3440;--primary:#2f81f7;--primary-contrast:#fff;--accent:#3fb950;--danger:#f85149;--warn:#d29922;--shadow:0 6px 24px rgba(0,0,0,.5); }
 
-  /* ============ BASE ============ */
   *{box-sizing:border-box}
   html,body{margin:0;padding:0}
-  body{
-    font-family:var(--font);
-    background:var(--bg); color:var(--text);
-    line-height:1.5; -webkit-font-smoothing:antialiased;
-    transition: background var(--transition), color var(--transition);
-  }
+  body{font-family:var(--font);background:var(--bg);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;transition:background var(--transition),color var(--transition)}
   a{color:var(--primary)}
   button{font-family:inherit;cursor:pointer}
   .hidden{display:none !important}
 
-  /* ============ AUTH SCREEN ============ */
-  #auth-screen{
-    min-height:100vh; display:flex; align-items:center; justify-content:center;
-    padding:24px;
-    background:
-      radial-gradient(1200px 600px at 80% -10%, color-mix(in srgb, var(--accent) 22%, transparent), transparent 60%),
-      var(--bg);
-  }
-  .auth-card{
-    width:100%; max-width:420px; background:var(--surface);
-    border:1px solid var(--border); border-radius:var(--radius);
-    box-shadow:var(--shadow); padding:32px 28px; text-align:center;
-  }
-  .brand-mark{
-    width:56px;height:56px;border-radius:16px;margin:0 auto 16px;
-    display:grid;place-items:center;font-size:28px;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
-    color:#fff;
-  }
+  /* ============ AUTH ============ */
+  #auth-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:radial-gradient(1200px 600px at 80% -10%,color-mix(in srgb,var(--accent) 22%,transparent),transparent 60%),var(--bg)}
+  .auth-card{width:100%;max-width:440px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:32px 28px;text-align:center}
+  .brand-mark{width:56px;height:56px;border-radius:16px;margin:0 auto 16px;display:grid;place-items:center;font-size:28px;background:linear-gradient(135deg,var(--primary),var(--accent));color:#fff}
   .auth-card h1{font-size:1.3rem;margin:0 0 6px}
   .auth-card p.sub{color:var(--muted);font-size:.9rem;margin:0 0 24px}
-  .btn{
-    display:inline-flex; align-items:center; justify-content:center; gap:8px;
-    border:1px solid transparent; border-radius:var(--radius-sm);
-    padding:10px 16px; font-size:.9rem; font-weight:600;
-    transition: background var(--transition), border-color var(--transition), opacity var(--transition);
-  }
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:1px solid transparent;border-radius:var(--radius-sm);padding:10px 16px;font-size:.9rem;font-weight:600;transition:background var(--transition),border-color var(--transition),opacity var(--transition)}
   .btn-primary{background:var(--primary);color:var(--primary-contrast)}
   .btn-primary:hover{opacity:.9}
   .btn-ghost{background:transparent;color:var(--text);border-color:var(--border)}
   .btn-ghost:hover{background:var(--surface-2)}
   .btn-danger{background:transparent;color:var(--danger);border-color:color-mix(in srgb,var(--danger) 40%,transparent)}
   .btn-block{width:100%}
-  .btn-google{background:#fff;color:#1f1f1f;border:1px solid #d0d7de;font-weight:600}
+  .btn-google{background:#fff;color:#1f1f1f;border:1px solid #d0d7de;font-weight:600;min-height:44px}
   .btn-google:hover{background:#f6f8fa}
-  .auth-divider{
-    display:flex;align-items:center;gap:12px;color:var(--muted);
-    font-size:.75rem;margin:18px 0;text-transform:uppercase;letter-spacing:.06em;
-  }
+  .auth-divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-size:.75rem;margin:18px 0;text-transform:uppercase;letter-spacing:.06em}
   .auth-divider::before,.auth-divider::after{content:"";flex:1;height:1px;background:var(--border)}
-  .auth-foot{font-size:.78rem;color:var(--muted);margin-top:20px}
-  .spinner{
-    width:16px;height:16px;border:2px solid rgba(0,0,0,.15);
-    border-top-color:currentColor;border-radius:50%;
-    animation:spin .7s linear infinite;display:inline-block;
-  }
+  .auth-foot{font-size:.78rem;color:var(--muted);margin-top:20px;text-align:left;line-height:1.5}
+  .spinner{width:16px;height:16px;border:2px solid rgba(0,0,0,.15);border-top-color:currentColor;border-radius:50%;animation:spin .7s linear infinite;display:inline-block}
   @keyframes spin{to{transform:rotate(360deg)}}
 
-  /* ============ APP SHELL ============ */
+  /* ============ SHELL ============ */
   #app{min-height:100vh;display:flex;flex-direction:column}
-  .topbar{
-    position:sticky;top:0;z-index:20;
-    display:flex;align-items:center;gap:12px;flex-wrap:wrap;
-    padding:10px 20px;
-    background:color-mix(in srgb, var(--surface) 92%, transparent);
-    backdrop-filter: blur(8px);
-    border-bottom:1px solid var(--border);
-  }
+  .topbar{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:10px 20px;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
   .topbar .brand{display:flex;align-items:center;gap:10px;font-weight:700}
-  .topbar .brand .dot{
-    width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;font-size:16px;
-    background:linear-gradient(135deg,var(--primary),var(--accent));
-  }
+  .topbar .brand .dot{width:30px;height:30px;border-radius:9px;display:grid;place-items:center;color:#fff;font-size:16px;background:linear-gradient(135deg,var(--primary),var(--accent))}
   .spacer{flex:1}
-  .userchip{
-    display:flex;align-items:center;gap:8px;font-size:.85rem;
-    padding:5px 10px 5px 5px;border:1px solid var(--border);border-radius:999px;
-    background:var(--surface);
-  }
-  .avatar{
-    width:28px;height:28px;border-radius:50%;display:grid;place-items:center;
-    background:var(--surface-2);color:var(--muted);font-size:.75rem;font-weight:700;
-  }
-  .theme-select{
-    display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted);
-  }
-  select{
-    font-family:inherit;font-size:.85rem;padding:7px 10px;
-    border:1px solid var(--border);border-radius:var(--radius-sm);
-    background:var(--surface);color:var(--text);
-  }
-  .mode-toggle{
-    display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden;
-  }
-  .mode-toggle button{
-    border:0;background:transparent;color:var(--muted);
-    padding:7px 12px;font-size:.82rem;font-weight:600;
-  }
+  .userchip{display:flex;align-items:center;gap:8px;font-size:.85rem;padding:5px 10px 5px 5px;border:1px solid var(--border);border-radius:999px;background:var(--surface)}
+  .avatar{width:28px;height:28px;border-radius:50%;display:grid;place-items:center;background:var(--surface-2);color:var(--muted);font-size:.75rem;font-weight:700;overflow:hidden}
+  .avatar img{width:100%;height:100%;object-fit:cover}
+  .theme-select{display:flex;align-items:center;gap:6px;font-size:.8rem;color:var(--muted)}
+  select{font-family:inherit;font-size:.85rem;padding:7px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)}
+  .mode-toggle{display:flex;border:1px solid var(--border);border-radius:var(--radius-sm);overflow:hidden}
+  .mode-toggle button{border:0;background:transparent;color:var(--muted);padding:7px 12px;font-size:.82rem;font-weight:600}
   .mode-toggle button.active{background:var(--primary);color:var(--primary-contrast)}
 
-  /* ============ CV DOCUMENT ============ */
+  /* ============ CV ============ */
   .canvas{padding:28px 16px 64px;display:flex;justify-content:center}
-  .cv{
-    width:100%;max-width:820px;background:var(--surface);
-    border:1px solid var(--border);border-radius:var(--radius);
-    box-shadow:var(--shadow);padding:36px 40px;
-    transition: background var(--transition), border-color var(--transition);
-  }
-  .cv-head{
-    display:flex;gap:20px;align-items:flex-start;
-    padding-bottom:20px;border-bottom:2px solid var(--primary);
-  }
-  .cv-avatar{
-    width:88px;height:88px;border-radius:50%;flex:0 0 auto;
-    display:grid;place-items:center;font-size:2rem;font-weight:700;
-    background:var(--surface-2);color:var(--primary);border:2px solid var(--border);
-  }
+  .cv{width:100%;max-width:820px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:36px 40px;transition:background var(--transition),border-color var(--transition)}
+  .alert-banner{margin:0 0 18px;padding:10px 14px;border-radius:var(--radius-sm);background:color-mix(in srgb,var(--warn) 15%,transparent);border:1px solid color-mix(in srgb,var(--warn) 40%,transparent);color:var(--text);font-size:.85rem}
+  .alert-banner.danger{background:color-mix(in srgb,var(--danger) 12%,transparent);border-color:color-mix(in srgb,var(--danger) 40%,transparent)}
+  .alert-banner b{color:var(--warn)}
+  .alert-banner.danger b{color:var(--danger)}
+
+  .cv-head{display:flex;gap:20px;align-items:flex-start;padding-bottom:20px;border-bottom:2px solid var(--primary)}
+  .cv-avatar{width:96px;height:96px;border-radius:50%;flex:0 0 auto;display:grid;place-items:center;font-size:2rem;font-weight:700;background:var(--surface-2);color:var(--primary);border:2px solid var(--border);overflow:hidden;position:relative}
+  .cv-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+  .cv-avatar .av-edit{position:absolute;bottom:-2px;right:-2px;width:26px;height:26px;border-radius:50%;background:var(--primary);color:var(--primary-contrast);display:grid;place-items:center;font-size:.75rem;border:2px solid var(--surface);cursor:pointer}
+  .cv-avatar input[type=file]{display:none}
   .cv-head h1{margin:0 0 4px;font-size:1.7rem;letter-spacing:-.01em}
   .cv-role{font-size:1rem;font-weight:600;color:var(--primary)}
   .cv-meta{font-size:.85rem;color:var(--muted);margin-top:4px}
   .cv-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
 
-  .cv-grid{display:grid;grid-template-columns:1fr;gap:0}
   section.cv-section{padding:22px 0;border-bottom:1px solid var(--border)}
   section.cv-section:last-child{border-bottom:0}
   .sec-head{display:flex;align-items:center;gap:10px;margin-bottom:14px}
-  .sec-head h2{
-    margin:0;font-size:1.02rem;text-transform:uppercase;letter-spacing:.08em;
-    color:var(--primary);
-  }
+  .sec-head h2{margin:0;font-size:1.02rem;text-transform:uppercase;letter-spacing:.08em;color:var(--primary)}
   .sec-head .line{flex:1;height:1px;background:var(--border)}
   .sec-desc{color:var(--muted);font-size:.8rem;margin:-8px 0 14px}
 
   .field-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px 18px}
   .field label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:3px}
-  .field .val{font-size:.92rem;font-weight:500}
-  .field .val.empty{color:var(--muted);font-style:italic}
-  .field input,.field textarea,.field select{
-    width:100%;font-family:inherit;font-size:.9rem;
-    padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);
-    background:var(--surface);color:var(--text);
-  }
+  .field input,.field textarea,.field select{width:100%;font-family:inherit;font-size:.9rem;padding:8px 10px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface);color:var(--text)}
   .field textarea{min-height:70px;resize:vertical}
-  .field input:focus,.field textarea:focus,.field select:focus{
-    outline:2px solid color-mix(in srgb,var(--primary) 45%,transparent);outline-offset:1px;
-  }
+  .field input:focus,.field textarea:focus,.field select:focus{outline:2px solid color-mix(in srgb,var(--primary) 45%,transparent);outline-offset:1px}
 
-  /* table cards */
-  .item-card{
-    border:1px solid var(--border);border-radius:var(--radius-sm);
-    padding:14px 16px;margin-bottom:10px;background:var(--surface);
-  }
+  .item-card{border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:10px;background:var(--surface)}
   .item-card .item-top{display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
   .item-card h3{margin:0;font-size:.95rem}
   .item-card .sub{color:var(--muted);font-size:.8rem;margin-top:2px}
   .item-card .actions{display:flex;gap:6px;flex-shrink:0}
-  .icon-btn{
-    border:1px solid var(--border);background:var(--surface);color:var(--muted);
-    width:30px;height:30px;border-radius:7px;display:grid;place-items:center;font-size:.9rem;
-  }
+  .icon-btn{border:1px solid var(--border);background:var(--surface);color:var(--muted);width:30px;height:30px;border-radius:7px;display:grid;place-items:center;font-size:.9rem}
   .icon-btn:hover{background:var(--surface-2);color:var(--text)}
   .icon-btn.del:hover{color:var(--danger);border-color:color-mix(in srgb,var(--danger) 40%,transparent)}
-  .empty-hint{
-    color:var(--muted);font-size:.85rem;font-style:italic;
-    padding:10px 0;
-  }
+  .empty-hint{color:var(--muted);font-size:.85rem;font-style:italic;padding:10px 0}
   .add-row{margin-top:6px}
 
   .doc-table{width:100%;border-collapse:collapse;font-size:.85rem}
   .doc-table th,.doc-table td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--border);vertical-align:top}
   .doc-table th{font-size:.72rem;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);font-weight:600}
-  .badge{
-    display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;
-    background:var(--surface-2);color:var(--muted);
-  }
+  .badge{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;background:var(--surface-2);color:var(--muted)}
   .badge.ok{background:color-mix(in srgb,var(--accent) 20%,transparent);color:var(--accent)}
-  .badge.warn{background:color-mix(in srgb,var(--danger) 15%,transparent);color:var(--danger)}
+  .badge.warn{background:color-mix(in srgb,var(--warn) 22%,transparent);color:var(--warn)}
+  .badge.exp{background:color-mix(in srgb,var(--danger) 15%,transparent);color:var(--danger)}
 
   .contact-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
   .contact-item{display:flex;align-items:center;gap:10px;font-size:.9rem}
-  .contact-item .ci-ic{
-    width:32px;height:32px;border-radius:8px;display:grid;place-items:center;
-    background:var(--surface-2);color:var(--primary);flex-shrink:0;
-  }
+  .contact-item .ci-ic{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;background:var(--surface-2);color:var(--primary);flex-shrink:0}
 
-  /* print button floating */
-  .fab{
-    position:fixed;right:20px;bottom:20px;z-index:30;
-    display:flex;gap:8px;
-  }
+  .fab{position:fixed;right:20px;bottom:20px;z-index:30;display:flex;gap:8px}
 
-  /* ============ TOAST ============ */
-  #toast{
-    position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);
-    background:var(--text);color:var(--bg);padding:10px 18px;border-radius:999px;
-    font-size:.85rem;opacity:0;pointer-events:none;transition:.25s;z-index:100;
-  }
+  #toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%) translateY(20px);background:var(--text);color:var(--bg);padding:10px 18px;border-radius:999px;font-size:.85rem;opacity:0;pointer-events:none;transition:.25s;z-index:100}
   #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
 
-  /* ============ RESPONSIVE ============ */
   @media (max-width:640px){
     .cv{padding:22px 18px;border-radius:0;border-left:0;border-right:0}
     .cv-head{flex-direction:column;align-items:center;text-align:center}
@@ -250,52 +124,40 @@
 
   /* ============ PRINT ============ */
   @media print{
-    @page{ size:A4; margin:14mm 14mm 16mm; }
+    @page{size:A4;margin:14mm 14mm 16mm}
     body{background:#fff !important;color:#000 !important}
-    .topbar,.fab,.mode-toggle,.theme-select,.cv-actions,.sec-head .add-btn,.icon-btn,.add-row,#toast{display:none !important}
+    .topbar,.fab,.mode-toggle,.theme-select,.cv-actions,.add-row,.icon-btn,#toast,.alert-banner,.cv-avatar .av-edit{display:none !important}
     .canvas{padding:0;display:block}
-    .cv{
-      max-width:100%;width:100%;border:0;border-radius:0;box-shadow:none;
-      padding:0;background:#fff;color:#000;
-    }
+    .cv{max-width:100%;width:100%;border:0;border-radius:0;box-shadow:none;padding:0;background:#fff;color:#000}
     section.cv-section{border-color:#ccc;page-break-inside:avoid}
     .cv-head{border-bottom-color:#000}
     .cv-avatar{border-color:#999;color:#000;background:#f0f0f0}
     .cv-role,.sec-head h2{color:#000 !important}
     .sec-head .line{background:#999}
-    .field .val{color:#000}
-    .field .val.empty{display:none}
     .item-card{border-color:#ccc;page-break-inside:avoid}
     .doc-table th,.doc-table td{border-color:#ccc}
     .badge{border:1px solid #999;color:#000 !important;background:#f4f4f4 !important}
     .empty-hint{display:none}
     a{color:#000;text-decoration:none}
-    /* show only sections that have content in print */
-    .print-hide-empty:empty{display:none}
-    /* inputs look like text on print */
-    .field input,.field textarea,.field select{
-      border:0 !important;padding:0 !important;background:transparent !important;
-      color:#000 !important;font-weight:500;resize:none;appearance:none;
-    }
+    .field input,.field textarea,.field select{border:0 !important;padding:0 !important;background:transparent !important;color:#000 !important;font-weight:500;resize:none;appearance:none}
     .field input::placeholder,.field textarea::placeholder{color:transparent}
+    .print-badge{display:inline-block !important}
   }
 </style>
 </head>
 <body>
 
-<!-- ================= AUTH SCREEN ================= -->
+<!-- AUTH -->
 <div id="auth-screen">
   <div class="auth-card">
     <div class="brand-mark">⚓</div>
     <h1>CV Maker Pelaut</h1>
     <p class="sub">Masuk untuk membuat & menyimpan CV maritim Anda</p>
 
-    <button id="sso-google" class="btn btn-google btn-block" type="button">
-      <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9 3.5l6.7-6.7C35.5 2.4 30.2 0 24 0 14.6 0 6.5 5.4 2.5 13.3l7.8 6c1.9-5.6 7.1-9.8 13.7-9.8z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.9 7.2l7.6 5.9c4.4-4.1 7.1-10.1 7.1-17.6z"/><path fill="#FBBC05" d="M10.3 28.7c-.5-1.5-.8-3-.8-4.7s.3-3.2.8-4.7l-7.8-6C.9 16.4 0 20.1 0 24s.9 7.6 2.5 10.7l7.8-6z"/><path fill="#34A853" d="M24 48c6.2 0 11.4-2 15.2-5.5l-7.6-5.9c-2.1 1.4-4.8 2.3-7.6 2.3-6.6 0-11.8-4.2-13.7-9.8l-7.8 6C6.5 42.6 14.6 48 24 48z"/></svg>
-      Lanjutkan dengan Google
-    </button>
+    <!-- Google Identity Services render target -->
+    <div id="gsi-btn" style="display:flex;justify-content:center;min-height:44px"></div>
 
-    <div class="auth-divider">atau</div>
+    <div class="auth-divider">atau demo lokal</div>
 
     <form id="sso-demo" autocomplete="off">
       <div class="field" style="margin-bottom:10px;text-align:left">
@@ -306,24 +168,25 @@
         <label for="sso-name">Nama tampilan</label>
         <input id="sso-name" type="text" placeholder="Nama Anda" required />
       </div>
-      <button class="btn btn-primary btn-block" type="submit">Masuk (Demo SSO)</button>
+      <button class="btn btn-primary btn-block" type="submit">Masuk (Demo)</button>
     </form>
 
-    <p class="auth-foot">🔒 Autentikasi ini adalah <b>lapisan demo</b> yang meniru alur OIDC/SSO. Ganti dengan provider nyata (Google OAuth, Auth0, Keycloak) di produksi.</p>
+    <p class="auth-foot">
+      🔐 Tombol Google memakai <b>Google Identity Services</b>. Decode JWT di sini hanya untuk demo —
+      <b>verifikasi signature wajib di backend</b> (mis. via <code>google-auth-library</code>) sebelum mempercayai identitas.
+    </p>
   </div>
 </div>
 
-<!-- ================= APP ================= -->
+<!-- APP -->
 <div id="app" class="hidden">
   <header class="topbar">
     <div class="brand"><span class="dot">⚓</span> CV Maker Pelaut</div>
     <div class="spacer"></div>
-
     <div class="mode-toggle" role="group" aria-label="Mode tampilan">
       <button id="mode-edit" class="active" type="button">Edit</button>
       <button id="mode-preview" type="button">Preview</button>
     </div>
-
     <label class="theme-select" for="theme-select">Tema
       <select id="theme-select" aria-label="Pilih tema">
         <option value="ocean">Ocean</option>
@@ -332,19 +195,24 @@
         <option value="midnight">Midnight</option>
       </select>
     </label>
-
     <div class="userchip">
       <span class="avatar" id="user-avatar">?</span>
       <span class="uname" id="user-name">—</span>
     </div>
-    <button id="logout-btn" class="btn btn-ghost" type="button" title="Keluar">Keluar</button>
+    <button id="logout-btn" class="btn btn-ghost" type="button">Keluar</button>
   </header>
 
   <main class="canvas">
     <article class="cv" id="cv-root">
-      <!-- HEADER -->
+      <div id="alerts"></div>
+
       <div class="cv-head">
-        <div class="cv-avatar" id="cv-avatar">⚓</div>
+        <label class="cv-avatar" id="cv-avatar" title="Klik untuk unggah foto">
+          <span id="cv-avatar-fallback">⚓</span>
+          <img id="cv-avatar-img" class="hidden" alt="Foto profil" />
+          <span class="av-edit" title="Unggah foto">📷</span>
+          <input type="file" id="avatar-input" accept="image/*" />
+        </label>
         <div style="flex:1;min-width:0">
           <h1 id="cv-name">Nama Lengkap Pelaut</h1>
           <div class="cv-role" id="cv-role">Oiler</div>
@@ -354,80 +222,72 @@
             <button class="btn btn-ghost" id="export-btn" type="button">⬇️ Ekspor JSON</button>
             <button class="btn btn-ghost" id="import-btn" type="button">⬆️ Impor JSON</button>
             <input type="file" id="import-file" accept="application/json" class="hidden" />
+            <button class="btn btn-ghost" id="notif-btn" type="button">🔔 Aktifkan Reminder</button>
             <button class="btn btn-danger" id="reset-btn" type="button">Reset Data</button>
           </div>
         </div>
       </div>
 
-      <!-- PERSONAL -->
       <section class="cv-section">
         <div class="sec-head"><h2>Personal Information</h2><span class="line"></span></div>
         <p class="sec-desc">Identitas pribadi pelaut</p>
         <div class="field-grid" id="personal-grid"></div>
       </section>
 
-      <!-- SUMMARY -->
       <section class="cv-section">
         <div class="sec-head"><h2>Professional Summary</h2><span class="line"></span></div>
         <p class="sec-desc">Ringkasan profil profesional</p>
-        <div class="field" style="grid-column:1/-1">
-          <label for="summary">Ringkasan</label>
+        <div class="field"><label for="summary">Ringkasan</label>
           <textarea id="summary" data-bind="summary" placeholder="Ringkas pengalaman, sertifikasi, dan keunggulan Anda..."></textarea>
         </div>
       </section>
 
-      <!-- DOCUMENTS -->
       <section class="cv-section">
         <div class="sec-head"><h2>Documents</h2><span class="line"></span></div>
         <p class="sec-desc">Buku Pelaut · MCU · Dokumen lainnya</p>
         <div id="docs-container"></div>
       </section>
 
-      <!-- COC -->
       <section class="cv-section">
         <div class="sec-head"><h2>Certificate of Competency</h2><span class="line"></span></div>
         <p class="sec-desc">Sertifikat kompetensi (COC)</p>
         <div id="coc-container"></div>
-        <div class="add-row" data-add-row><button class="btn btn-ghost" data-add="coc" type="button">+ Tambah COC</button></div>
+        <div class="add-row"><button class="btn btn-ghost" data-add="coc" type="button">+ Tambah COC</button></div>
       </section>
 
-      <!-- COP -->
       <section class="cv-section">
         <div class="sec-head"><h2>Certificate of Proficiency</h2><span class="line"></span></div>
         <p class="sec-desc">Sertifikat keterampilan (COP)</p>
         <div id="cop-container"></div>
-        <div class="add-row" data-add-row><button class="btn btn-ghost" data-add="cop" type="button">+ Tambah COP</button></div>
+        <div class="add-row"><button class="btn btn-ghost" data-add="cop" type="button">+ Tambah COP</button></div>
       </section>
 
-      <!-- OTHER CERTS -->
       <section class="cv-section">
         <div class="sec-head"><h2>Sertifikat Lainnya</h2><span class="line"></span></div>
         <p class="sec-desc">Sertifikat pendukung & lainnya</p>
         <div id="cert-container"></div>
-        <div class="add-row" data-add-row><button class="btn btn-ghost" data-add="cert" type="button">+ Tambah Sertifikat</button></div>
+        <div class="add-row"><button class="btn btn-ghost" data-add="cert" type="button">+ Tambah Sertifikat</button></div>
       </section>
 
-      <!-- SEA SERVICE -->
       <section class="cv-section">
         <div class="sec-head"><h2>Sea Service Record</h2><span class="line"></span></div>
         <p class="sec-desc">Riwayat kapal & masa berlayar</p>
         <div id="sea-container"></div>
-        <div class="add-row" data-add-row><button class="btn btn-ghost" data-add="sea" type="button">+ Tambah Kapal</button></div>
+        <div class="add-row"><button class="btn btn-ghost" data-add="sea" type="button">+ Tambah Kapal</button></div>
       </section>
 
-      <!-- WORK EXPERIENCE -->
       <section class="cv-section">
         <div class="sec-head"><h2>Work Experience</h2><span class="line"></span></div>
         <p class="sec-desc">Pengalaman kerja di perusahaan pelayaran</p>
         <div id="work-container"></div>
-        <div class="add-row" data-add-row><button class="btn btn-ghost" data-add="work" type="button">+ Tambah Pengalaman</button></div>
+        <div class="add-row"><button class="btn btn-ghost" data-add="work" type="button">+ Tambah Pengalaman</button></div>
       </section>
 
-      <!-- CONTACT -->
       <section class="cv-section">
         <div class="sec-head"><h2>Contact Information</h2><span class="line"></span></div>
         <p class="sec-desc">Hubungi pelaut</p>
         <div class="contact-list" id="contact-list"></div>
+        <div class="field-grid" id="contact-editor" style="margin-top:14px"></div>
       </section>
     </article>
   </main>
@@ -439,9 +299,20 @@
 
 <div id="toast" role="status" aria-live="polite"></div>
 
+<!-- Google Identity Services -->
+<script src="https://accounts.google.com/gsi/client" async defer></script>
+
 <script>
 /* ============================================================
-   0. UTIL
+   KONFIGURASI
+============================================================ */
+const GOOGLE_CLIENT_ID = "GANTI_DENGAN_CLIENT_ID.apps.googleusercontent.com"; // <-- isi di sini
+const REMINDER_DAYS = 90;   // ambang "segera kedaluwarsa"
+const AVATAR_MAX = 400;     // px sisi maksimum
+const AVATAR_QUALITY = 0.82;
+
+/* ============================================================
+   UTIL
 ============================================================ */
 const $  = (s, ctx=document) => ctx.querySelector(s);
 const $$ = (s, ctx=document) => [...ctx.querySelectorAll(s)];
@@ -449,167 +320,246 @@ const uid = () => Math.random().toString(36).slice(2,9);
 const esc = (s='') => String(s).replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 const toastEl = $('#toast');
 let toastTimer;
-function toast(msg){
-  toastEl.textContent = msg;
-  toastEl.classList.add('show');
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(()=>toastEl.classList.remove('show'), 2200);
-}
+function toast(msg){ toastEl.textContent=msg; toastEl.classList.add('show'); clearTimeout(toastTimer); toastTimer=setTimeout(()=>toastEl.classList.remove('show'),2200); }
 
 /* ============================================================
-   1. SSO / AUTH LAYER (demo OIDC-like)
-   - Ganti fungsi loginDemo / loginGoogle dengan provider nyata.
-   - Struktur: session { user:{name,email,picture}, idToken, expiresAt }
+   SSO (Demo + Google Identity Services)
 ============================================================ */
 const SSO = {
-  KEY: 'cvp_session_v1',
+  KEY:'cvp_session_v1',
   get(){ try{ return JSON.parse(localStorage.getItem(this.KEY)||'null'); }catch{ return null; } },
   set(s){ localStorage.setItem(this.KEY, JSON.stringify(s)); },
   clear(){ localStorage.removeItem(this.KEY); },
-  isAuthed(){
-    const s = this.get();
-    return !!(s && s.user && s.expiresAt && s.expiresAt > Date.now());
-  },
-  /** Demo login — meniru alur OIDC yang mengembalikan ID token */
+  isAuthed(){ const s=this.get(); return !!(s&&s.user&&s.expiresAt&&s.expiresAt>Date.now()); },
   async loginDemo({name,email}){
-    await new Promise(r=>setTimeout(r,650)); // simulate network
-    const session = {
-      user: { name: name.trim(), email: email.trim().toLowerCase(),
-              picture: null },
-      idToken: 'demo.'+uid()+'.'+uid(),
-      provider: 'demo',
-      expiresAt: Date.now() + 1000*60*60*8 // 8 jam
-    };
-    this.set(session);
-    return session;
+    await new Promise(r=>setTimeout(r,650));
+    const s={user:{name:name.trim(),email:email.trim().toLowerCase(),picture:null},idToken:'demo.'+uid(),provider:'demo',expiresAt:Date.now()+1000*60*60*8};
+    this.set(s); return s;
   },
-  /** Placeholder Google — di produksi arahkan ke Google Identity Services */
-  async loginGoogle(){
-    toast('Demo: integrasikan Google Identity Services di sini');
-    // Contoh produksi:
-    // const res = await google.accounts.id.prompt();
-    // lalu verifikasi credential di backend.
+  setFromGoogle(credentialJwt){
+    // HANYA DEMO: decode payload tanpa verifikasi signature.
+    // Di produksi: kirim credential ke backend, verifikasi dengan google-auth-library,
+    // lalu buat session server-side (httpOnly cookie).
+    const payload = decodeJwt(credentialJwt);
+    const s={
+      user:{ name:payload.name||payload.email, email:payload.email, picture:payload.picture||null },
+      idToken:credentialJwt, provider:'google', expiresAt:(payload.exp||0)*1000 || Date.now()+1000*60*60*8
+    };
+    this.set(s); return s;
   },
   logout(){ this.clear(); }
 };
+function decodeJwt(jwt){
+  const p = jwt.split('.')[1].replace(/-/g,'+').replace(/_/g,'/');
+  return JSON.parse(decodeURIComponent(escape(atob(p))));
+}
+
+/* ---- Google Identity Services ---- */
+function initGoogleSSO(){
+  if(!window.google?.accounts?.id){
+    setTimeout(initGoogleSSO, 400); return;
+  }
+  if(GOOGLE_CLIENT_ID.startsWith('GANTI_')){
+    $('#gsi-btn').innerHTML = `<div style="font-size:.8rem;color:var(--muted);padding:10px;border:1px dashed var(--border);border-radius:8px">
+      Google SSO siap — isi <code>GOOGLE_CLIENT_ID</code> di kode untuk mengaktifkan.
+    </div>`;
+    return;
+  }
+  google.accounts.id.initialize({
+    client_id: GOOGLE_CLIENT_ID,
+    callback: (res) => {
+      try{
+        SSO.setFromGoogle(res.credential);
+        showApp(); toast('Berhasil masuk dengan Google');
+      }catch(e){ toast('Gagal memproses kredensial Google'); }
+    },
+    auto_select: false, cancel_on_tap_outside: true
+  });
+  google.accounts.id.renderButton($('#gsi-btn'), {
+    theme:'outline', size:'large', shape:'pill', text:'signin_with', width:300
+  });
+}
 
 /* ============================================================
-   2. DATA MODEL + STORAGE
+   DATA MODEL + STORAGE
 ============================================================ */
-const STORE_KEY = 'cvp_data_v1';
-
+const STORE_KEY='cvp_data_v1';
 const emptyData = () => ({
-  header: { name:'', role:'Oiler', country:'Indonesia' },
-  personal: {
-    dob:'', gender:'', religion:'', heightWeight:'', marital:'', nationality:'Indonesia', address:''
-  },
+  header:{ name:'', role:'Oiler', country:'Indonesia', photo:'' /* dataURL */ },
+  personal:{ dob:'',gender:'',religion:'',heightWeight:'',marital:'',nationality:'Indonesia',address:'' },
   summary:'',
-  docs: {
-    seaman:{ name:'Buku Pelaut (Seaman Book)', no:'', issuer:'', issued:'', expiry:'' },
-    mcu:{ name:'Medical Check-Up (MCU)', no:'', issuer:'', issued:'', expiry:'' }
+  docs:{
+    seaman:{name:'Buku Pelaut (Seaman Book)',no:'',issuer:'',issued:'',expiry:''},
+    mcu:{name:'Medical Check-Up (MCU)',no:'',issuer:'',issued:'',expiry:''}
   },
-  coc:[], cop:[], cert:[], sea:[], work:[],
-  contact:{ whatsapp:'', email:'', address:'' }
+  coc:[],cop:[],cert:[],sea:[],work:[],
+  contact:{whatsapp:'',email:'',address:''}
 });
-
 let state = load();
-
 function load(){
   try{
-    const raw = localStorage.getItem(STORE_KEY);
+    const raw=localStorage.getItem(STORE_KEY);
     if(!raw) return emptyData();
-    const parsed = JSON.parse(raw);
-    // shallow merge with defaults to tolerate schema evolution
-    return deepMerge(emptyData(), parsed);
+    return deepMerge(emptyData(), JSON.parse(raw));
   }catch(e){ return emptyData(); }
 }
 function deepMerge(a,b){
   if(Array.isArray(b)) return b;
-  if(typeof b !== 'object' || b===null) return b;
-  const out = {...a};
+  if(typeof b!=='object'||b===null) return b;
+  const out={...a};
   for(const k in b){
-    out[k] = (k in a && typeof a[k]==='object' && a[k]!==null && !Array.isArray(a[k]))
-      ? deepMerge(a[k], b[k])
-      : b[k];
+    out[k]=(k in a && typeof a[k]==='object' && a[k]!==null && !Array.isArray(a[k]))
+      ? deepMerge(a[k],b[k]) : b[k];
   }
   return out;
 }
 let saveTimer;
 function save(){
   clearTimeout(saveTimer);
-  saveTimer = setTimeout(()=>{
-    localStorage.setItem(STORE_KEY, JSON.stringify(state));
-  }, 250);
+  saveTimer=setTimeout(()=>{
+    try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }
+    catch(e){
+      if(e.name==='QuotaExceededError') toast('Penyimpanan penuh — kurangi ukuran foto');
+    }
+  },250);
 }
 
 /* ============================================================
-   3. THEME
+   THEME + MODE
 ============================================================ */
-const THEME_KEY = 'cvp_theme';
-function applyTheme(t){
-  document.documentElement.setAttribute('data-theme', t);
-  localStorage.setItem(THEME_KEY, t);
-}
-function initTheme(){
-  const t = localStorage.getItem(THEME_KEY) || 'ocean';
-  applyTheme(t);
-  $('#theme-select').value = t;
-}
-
-/* ============================================================
-   4. MODE (edit / preview)
-============================================================ */
-let mode = 'edit';
+function applyTheme(t){ document.documentElement.setAttribute('data-theme',t); localStorage.setItem('cvp_theme',t); }
+function initTheme(){ const t=localStorage.getItem('cvp_theme')||'ocean'; applyTheme(t); $('#theme-select').value=t; }
+let mode='edit';
 function setMode(m){
-  mode = m;
-  $('#mode-edit').classList.toggle('active', m==='edit');
-  $('#mode-preview').classList.toggle('active', m==='preview');
-  document.body.classList.toggle('preview-mode', m==='preview');
-  // disable inputs & hide add/delete buttons in preview
-  $$('.cv input, .cv textarea, .cv select').forEach(el=>{
-    el.readOnly = (m==='preview');
-    el.disabled = (m==='preview');
-  });
-  $$('[data-add-row]').forEach(el=>el.classList.toggle('hidden', m==='preview'));
-  $$('.icon-btn').forEach(el=>el.classList.toggle('hidden', m==='preview'));
-  $('#cv-actions').classList.toggle('hidden', false); // tetap tampil untuk print/export
+  mode=m;
+  $('#mode-edit').classList.toggle('active',m==='edit');
+  $('#mode-preview').classList.toggle('active',m==='preview');
+  $$('.cv input, .cv textarea, .cv select').forEach(el=>{ el.readOnly=(m==='preview'); el.disabled=(m==='preview'); });
+  $$('.add-row, .icon-btn').forEach(el=>el.classList.toggle('hidden',m==='preview'));
 }
 
 /* ============================================================
-   5. RENDER
+   FOTO PROFIL (resize + compress)
+============================================================ */
+function readAndResizeImage(file){
+  return new Promise((resolve,reject)=>{
+    if(!file.type.startsWith('image/')) return reject(new Error('Bukan gambar'));
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      const scale = Math.min(1, AVATAR_MAX / Math.max(img.width, img.height));
+      const w = Math.round(img.width*scale), h = Math.round(img.height*scale);
+      const c = document.createElement('canvas'); c.width=w; c.height=h;
+      c.getContext('2d').drawImage(img,0,0,w,h);
+      try{
+        resolve(c.toDataURL('image/jpeg', AVATAR_QUALITY));
+      }catch(e){ reject(e); }
+    };
+    img.onerror = () => { URL.revokeObjectURL(url); reject(new Error('Gagal memuat gambar')); };
+    img.src = url;
+  });
+}
+$('#avatar-input').addEventListener('change', async (e)=>{
+  const f=e.target.files[0]; if(!f) return;
+  try{
+    const dataUrl = await readAndResizeImage(f);
+    state.header.photo = dataUrl;
+    save(); renderHeader(); toast('Foto diperbarui');
+  }catch(err){ toast('Gagal memproses foto'); }
+  e.target.value='';
+});
+
+/* ============================================================
+   EXPIRY VALIDATION + REMINDER
+============================================================ */
+function daysUntil(dateStr){
+  if(!dateStr) return null;
+  const d=new Date(dateStr); if(isNaN(d)) return null;
+  return Math.ceil((d - new Date()) / 86400000);
+}
+function statusOf(dateStr){
+  const d = daysUntil(dateStr);
+  if(d===null) return {cls:'',label:'—',days:null};
+  if(d<0) return {cls:'exp',label:'Kedaluwarsa',days:d};
+  if(d<=REMINDER_DAYS) return {cls:'warn',label:`Segera (${d}h)`,days:d};
+  return {cls:'ok',label:'Aktif',days:d};
+}
+/** Kumpulkan semua item ber-expiry (docs + coc/cop/cert) */
+function collectExpiries(){
+  const out=[];
+  for(const [k,d] of Object.entries(state.docs)){
+    if(d.expiry) out.push({label:d.name||k.toUpperCase(), expiry:d.expiry, group:'Dokumen'});
+  }
+  for(const key of ['coc','cop','cert']){
+    (state[key]||[]).forEach(it=>{
+      if(it.expiry) out.push({label:it.name||key.toUpperCase(), expiry:it.expiry, group:key.toUpperCase()});
+    });
+  }
+  return out;
+}
+function renderAlerts(){
+  const items = collectExpiries();
+  const expired = items.filter(i=>statusOf(i.expiry).days<0);
+  const soon = items.filter(i=>{const d=statusOf(i.expiry).days; return d>=0&&d<=REMINDER_DAYS;});
+  const box = $('#alerts');
+  if(!expired.length && !soon.length){ box.innerHTML=''; return; }
+  const parts=[];
+  if(expired.length){
+    parts.push(`<div class="alert-banner danger">❌ <b>${expired.length} dokumen kedaluwarsa:</b> ${expired.map(e=>esc(e.label)).join(', ')}</div>`);
+  }
+  if(soon.length){
+    parts.push(`<div class="alert-banner">⚠️ <b>${soon.length} dokumen segera habis</b> (≤${REMINDER_DAYS} hari): ${soon.map(e=>`${esc(e.label)} (${statusOf(e.expiry).days}h)`).join(', ')}</div>`);
+  }
+  box.innerHTML = parts.join('');
+}
+
+/* ---- Web Notifications (opsional) ---- */
+async function enableReminders(){
+  if(!('Notification' in window)){ toast('Browser tidak mendukung notifikasi'); return; }
+  const perm = await Notification.requestPermission();
+  if(perm!=='granted'){ toast('Izin notifikasi ditolak'); return; }
+  toast('Reminder diaktifkan');
+  fireReminders();
+}
+function fireReminders(){
+  if(Notification.permission!=='granted') return;
+  const items = collectExpiries().map(i=>({...i, st:statusOf(i.expiry)}));
+  const urgent = items.filter(i=>i.st.days!==null && i.st.days<=REMINDER_DAYS);
+  if(!urgent.length) return;
+  const body = urgent.slice(0,4).map(i=>`${i.label}: ${i.st.days<0?'KEDALUWARSA':i.st.days+' hari'}`).join('\n');
+  new Notification('CV Pelaut — Reminder Dokumen', { body, tag:'cvp-reminder' });
+}
+$('#notif-btn').addEventListener('click', enableReminders);
+
+/* ============================================================
+   RENDER
 ============================================================ */
 function renderAll(){
-  renderHeader();
-  renderPersonal();
-  renderSummary();
+  renderHeader(); renderPersonal(); $('#summary').value=state.summary||'';
   renderDocs();
-  renderList('coc', '#coc-container', {
-    fields:[['name','Nama Sertifikat'],['no','Nomor'],['issuer','Penerbit'],['issued','Diterbitkan'],['expiry','Kedaluwarsa']]
-  });
-  renderList('cop', '#cop-container', {
-    fields:[['name','Nama Sertifikat'],['no','Nomor'],['issuer','Penerbit'],['issued','Diterbitkan'],['expiry','Kedaluwarsa']]
-  });
-  renderList('cert', '#cert-container', {
-    fields:[['name','Nama Sertifikat'],['no','Nomor'],['issuer','Penerbit'],['issued','Diterbitkan'],['expiry','Kedaluwarsa']]
-  });
-  renderList('sea', '#sea-container', {
-    fields:[['vessel','Nama Kapal'],['type','Tipe/Jenis'],['flag','Bendera'],['rank','Jabatan'],['from','Dari'],['to','Sampai'],['company','Perusahaan']]
-  });
-  renderList('work', '#work-container', {
-    fields:[['company','Perusahaan'],['position','Posisi'],['from','Dari'],['to','Sampai'],['desc','Deskripsi']]
-  });
-  renderContact();
-  renderMeta();
+  renderList('coc','#coc-container',{fields:[['name','Nama Sertifikat'],['no','Nomor'],['issuer','Penerbit'],['issued','Diterbitkan'],['expiry','Kedaluwarsa']]});
+  renderList('cop','#cop-container',{fields:[['name','Nama Sertifikat'],['no','Nomor'],['issuer','Penerbit'],['issued','Diterbitkan'],['expiry','Kedaluwarsa']]});
+  renderList('cert','#cert-container',{fields:[['name','Nama Sertifikat'],['no','Nomor'],['issuer','Penerbit'],['issued','Diterbitkan'],['expiry','Kedaluwarsa']]});
+  renderList('sea','#sea-container',{fields:[['vessel','Nama Kapal'],['type','Tipe/Jenis'],['flag','Bendera'],['rank','Jabatan'],['from','Dari'],['to','Sampai'],['company','Perusahaan']]});
+  renderList('work','#work-container',{fields:[['company','Perusahaan'],['position','Posisi'],['from','Dari'],['to','Sampai'],['desc','Deskripsi']]});
+  renderContact(); renderHeaderEditor(); renderAlerts();
+  setMode(mode);
 }
-
 function renderHeader(){
   $('#cv-name').textContent = state.header.name || 'Nama Lengkap Pelaut';
   $('#cv-role').textContent = state.header.role || 'Oiler';
   $('#cv-meta').textContent = [state.header.role, state.header.country].filter(Boolean).join(' · ');
-  $('#cv-avatar').textContent = (state.header.name || '⚓').trim().charAt(0).toUpperCase() || '⚓';
+  const img = $('#cv-avatar-img'), fb = $('#cv-avatar-fallback');
+  if(state.header.photo){ img.src = state.header.photo; img.classList.remove('hidden'); fb.classList.add('hidden'); }
+  else { img.classList.add('hidden'); fb.classList.remove('hidden'); fb.textContent='⚓'; }
+  // topbar user avatar
+  const s = SSO.get();
+  const pic = (s&&s.user&&s.user.picture) || state.header.photo;
+  const av = $('#user-avatar');
+  av.innerHTML = pic ? `<img src="${esc(pic)}" alt="">` : (s?.user?.name||'?').charAt(0).toUpperCase();
 }
-
-const personalFields = [
+const personalFields=[
   ['dob','Tempat, Tanggal Lahir','text','Contoh: Jakarta, 1 Jan 1990'],
   ['gender','Jenis Kelamin','select',['','Laki-laki','Perempuan']],
   ['religion','Agama','text',''],
@@ -618,93 +568,58 @@ const personalFields = [
   ['nationality','Kewarganegaraan','text',''],
   ['address','Alamat Lengkap','textarea','']
 ];
-
 function renderPersonal(){
-  const g = $('#personal-grid');
-  g.innerHTML = personalFields.map(([key,label,type,extra])=>{
-    const val = state.personal[key] || '';
+  $('#personal-grid').innerHTML = personalFields.map(([key,label,type,extra])=>{
+    const val=state.personal[key]||'';
     let input;
     if(type==='select'){
-      input = `<select data-bind="personal.${key}">
-        ${extra.map(o=>`<option value="${esc(o)}" ${o===val?'selected':''}>${o||'—'}</option>`).join('')}
-      </select>`;
+      input=`<select data-bind="personal.${key}">${extra.map(o=>`<option value="${esc(o)}" ${o===val?'selected':''}>${o||'—'}</option>`).join('')}</select>`;
     } else if(type==='textarea'){
-      input = `<textarea data-bind="personal.${key}" placeholder="${esc(extra)}">${esc(val)}</textarea>`;
+      input=`<textarea data-bind="personal.${key}" placeholder="${esc(extra)}">${esc(val)}</textarea>`;
     } else {
-      input = `<input type="text" data-bind="personal.${key}" value="${esc(val)}" placeholder="${esc(extra)}" />`;
+      input=`<input type="text" data-bind="personal.${key}" value="${esc(val)}" placeholder="${esc(extra)}" />`;
     }
     return `<div class="field"><label>${label}</label>${input}</div>`;
   }).join('');
 }
-
-function renderSummary(){
-  $('#summary').value = state.summary || '';
-}
-
 function renderDocs(){
-  const c = $('#docs-container');
-  const rows = [
-    ['seaman','Buku Pelaut'],
-    ['mcu','MCU']
-  ].map(([key,label])=>{
-    const d = state.docs[key];
-    const status = docStatus(d.expiry);
+  const rows=[['seaman','Buku Pelaut'],['mcu','MCU']].map(([key,label])=>{
+    const d=state.docs[key], st=statusOf(d.expiry);
     return `<tr>
       <td>${label}</td>
-      <td><input data-bind="docs.${key}.name" value="${esc(d.name)}" placeholder="Nama dokumen" /></td>
-      <td><input data-bind="docs.${key}.no" value="${esc(d.no)}" placeholder="Nomor" /></td>
-      <td><input data-bind="docs.${key}.issuer" value="${esc(d.issuer)}" placeholder="Penerbit" /></td>
-      <td><input type="date" data-bind="docs.${key}.issued" value="${esc(d.issued)}" /></td>
-      <td><input type="date" data-bind="docs.${key}.expiry" value="${esc(d.expiry)}" /></td>
-      <td><span class="badge ${status.cls}">${status.label}</span></td>
+      <td><input data-bind="docs.${key}.name" value="${esc(d.name)}" placeholder="Nama dokumen"/></td>
+      <td><input data-bind="docs.${key}.no" value="${esc(d.no)}" placeholder="Nomor"/></td>
+      <td><input data-bind="docs.${key}.issuer" value="${esc(d.issuer)}" placeholder="Penerbit"/></td>
+      <td><input type="date" data-bind="docs.${key}.issued" value="${esc(d.issued)}"/></td>
+      <td><input type="date" data-bind="docs.${key}.expiry" value="${esc(d.expiry)}"/></td>
+      <td><span class="badge ${st.cls}">${st.label}</span></td>
     </tr>`;
   }).join('');
-  c.innerHTML = `<table class="doc-table">
+  $('#docs-container').innerHTML = `<table class="doc-table">
     <thead><tr><th>Jenis</th><th>Nama Dokumen</th><th>Nomor</th><th>Penerbit</th><th>Diterbitkan</th><th>Kedaluwarsa</th><th>Status</th></tr></thead>
-    <tbody>${rows}</tbody>
-  </table>`;
+    <tbody>${rows}</tbody></table>`;
 }
-
-function docStatus(expiry){
-  if(!expiry) return {cls:'', label:'—'};
-  const d = new Date(expiry);
-  if(isNaN(d)) return {cls:'', label:'—'};
-  const now = new Date();
-  const diffDays = (d - now) / 86400000;
-  if(diffDays < 0) return {cls:'warn', label:'Kedaluwarsa'};
-  if(diffDays < 90) return {cls:'warn', label:'Segera habis'};
-  return {cls:'ok', label:'Aktif'};
+function renderList(key,sel,cfg){
+  const items=state[key]||[];
+  const empty=items.length===0?`<div class="empty-hint">Belum ada data. ${mode==='edit'?'Klik "Tambah" di bawah.':''}</div>`:'';
+  $(sel).innerHTML = empty + items.map((it,i)=>renderItemCard(key,it,i,cfg)).join('');
 }
-
-function renderList(key, sel, cfg){
-  const container = $(sel);
-  const items = state[key] || [];
-  const empty = items.length===0
-    ? `<div class="empty-hint">Belum ada data. ${mode==='edit'?'Klik "Tambah" di bawah.':''}</div>`
-    : '';
-  container.innerHTML = empty + items.map((it,i)=>renderItemCard(key, it, i, cfg)).join('');
-}
-
-function renderItemCard(key, it, idx, cfg){
-  const titleField = cfg.fields[0][0];
-  const subFields = cfg.fields.slice(1).filter(([f])=>it[f]);
-  const sub = subFields.map(([f,l])=>`${l}: ${esc(it[f])}`).join(' · ') || '<span style="opacity:.6">—</span>';
-  const inputs = cfg.fields.map(([f,l])=>{
-    const v = it[f] || '';
-    if(f==='issued'||f==='expiry'||f==='from'||f==='to'){
-      return `<div class="field"><label>${l}</label><input type="date" data-bind="${key}.${idx}.${f}" value="${esc(v)}" /></div>`;
-    }
-    if(f==='desc'){
+function renderItemCard(key,it,idx,cfg){
+  const titleField=cfg.fields[0][0];
+  const sub=cfg.fields.slice(1).filter(([f])=>it[f]).map(([f,l])=>`${l}: ${esc(it[f])}`).join(' · ')||'<span style="opacity:.6">—</span>';
+  const inputs=cfg.fields.map(([f,l])=>{
+    const v=it[f]||'';
+    if(['issued','expiry','from','to'].includes(f))
+      return `<div class="field"><label>${l}</label><input type="date" data-bind="${key}.${idx}.${f}" value="${esc(v)}"/></div>`;
+    if(f==='desc')
       return `<div class="field" style="grid-column:1/-1"><label>${l}</label><textarea data-bind="${key}.${idx}.${f}">${esc(v)}</textarea></div>`;
-    }
-    return `<div class="field"><label>${l}</label><input data-bind="${key}.${idx}.${f}" value="${esc(v)}" /></div>`;
+    return `<div class="field"><label>${l}</label><input data-bind="${key}.${idx}.${f}" value="${esc(v)}"/></div>`;
   }).join('');
+  const st = it.expiry ? statusOf(it.expiry) : null;
+  const badge = st && st.cls ? `<span class="badge ${st.cls}" style="margin-left:6px">${st.label}</span>` : '';
   return `<div class="item-card">
     <div class="item-top">
-      <div>
-        <h3>${esc(it[titleField]||'—')}</h3>
-        <div class="sub">${sub}</div>
-      </div>
+      <div><h3>${esc(it[titleField]||'—')}${badge}</h3><div class="sub">${sub}</div></div>
       <div class="actions">
         <button class="icon-btn" data-edit="${key}:${idx}" title="Edit">✎</button>
         <button class="icon-btn del" data-del="${key}:${idx}" title="Hapus">🗑</button>
@@ -713,220 +628,111 @@ function renderItemCard(key, it, idx, cfg){
     <div class="field-grid" style="margin-top:12px">${inputs}</div>
   </div>`;
 }
-
 function renderContact(){
-  const c = state.contact;
-  const rows = [
-    ['WhatsApp', c.whatsapp || '—', '📱'],
-    ['Email', c.email || '—', '✉️'],
-    ['Alamat', c.address || '—', '📍']
-  ];
-  $('#contact-list').innerHTML = rows.map(([l,v,ic])=>`
-    <div class="contact-item">
-      <span class="ci-ic">${ic}</span>
-      <span><b>${l}:</b> ${esc(v)}</span>
-    </div>`).join('');
-
-  // make contact editable via fields (append inline editor below)
-  const oldEditor = $('#contact-editor');
-  if(oldEditor) oldEditor.remove();
-  const ed = document.createElement('div');
-  ed.id = 'contact-editor';
-  ed.className = 'field-grid';
-  ed.style.marginTop = '14px';
-  ed.innerHTML = [
-    ['whatsapp','WhatsApp','text'],
-    ['email','Email','email'],
-    ['address','Alamat','textarea']
-  ].map(([k,l,t])=>`<div class="field"><label>${l}</label>
-      ${t==='textarea'
-        ? `<textarea data-bind="contact.${k}">${esc(state.contact[k]||'')}</textarea>`
-        : `<input type="${t}" data-bind="contact.${k}" value="${esc(state.contact[k]||'')}" />`}
-    </div>`).join('');
-  $('#contact-list').after(ed);
+  const c=state.contact;
+  const rows=[['WhatsApp',c.whatsapp||'—','📱'],['Email',c.email||'—','✉️'],['Alamat',c.address||'—','📍']];
+  $('#contact-list').innerHTML=rows.map(([l,v,ic])=>`<div class="contact-item"><span class="ci-ic">${ic}</span><span><b>${l}:</b> ${esc(v)}</span></div>`).join('');
+  $('#contact-editor').innerHTML=[
+    ['whatsapp','WhatsApp','text'],['email','Email','email'],['address','Alamat','textarea']
+  ].map(([k,l,t])=>`<div class="field"><label>${l}</label>${
+    t==='textarea'?`<textarea data-bind="contact.${k}">${esc(c[k]||'')}</textarea>`
+    :`<input type="${t}" data-bind="contact.${k}" value="${esc(c[k]||'')}"/>`
+  }</div>`).join('');
 }
-
-function renderMeta(){
-  // header name/role editable fields inserted at top (small)
-  const old = $('#header-editor');
-  if(old) old.remove();
-  const wrap = document.createElement('div');
-  wrap.id = 'header-editor';
-  wrap.className = 'field-grid';
-  wrap.style.marginTop = '14px';
-  wrap.innerHTML = `
-    <div class="field"><label>Nama Lengkap</label><input data-bind="header.name" value="${esc(state.header.name)}" placeholder="Nama Lengkap Pelaut" /></div>
-    <div class="field"><label>Jabatan</label><input data-bind="header.role" value="${esc(state.header.role)}" placeholder="Oiler" /></div>
-    <div class="field"><label>Negara</label><input data-bind="header.country" value="${esc(state.header.country)}" placeholder="Indonesia" /></div>
-  `;
+function renderHeaderEditor(){
+  const old=$('#header-editor'); if(old) old.remove();
+  const wrap=document.createElement('div');
+  wrap.id='header-editor'; wrap.className='field-grid'; wrap.style.marginTop='14px';
+  wrap.innerHTML=`
+    <div class="field"><label>Nama Lengkap</label><input data-bind="header.name" value="${esc(state.header.name)}" placeholder="Nama Lengkap Pelaut"/></div>
+    <div class="field"><label>Jabatan</label><input data-bind="header.role" value="${esc(state.header.role)}" placeholder="Oiler"/></div>
+    <div class="field"><label>Negara</label><input data-bind="header.country" value="${esc(state.header.country)}" placeholder="Indonesia"/></div>`;
   $('#cv-meta').parentElement.appendChild(wrap);
 }
 
 /* ============================================================
-   6. BINDINGS
+   BINDINGS
 ============================================================ */
-function getByPath(obj, path){
-  return path.split('.').reduce((o,k)=> (o==null?o:o[k]), obj);
+function setByPath(obj,path,val){
+  const keys=path.split('.'); const last=keys.pop();
+  const tgt=keys.reduce((o,k)=>o[k],obj); tgt[last]=val;
 }
-function setByPath(obj, path, val){
-  const keys = path.split('.');
-  const last = keys.pop();
-  const tgt = keys.reduce((o,k)=>o[k], obj);
-  tgt[last] = val;
-}
-
-// delegate input events
-document.addEventListener('input', (e)=>{
-  const el = e.target.closest('[data-bind]');
-  if(!el) return;
-  const path = el.dataset.bind;
-  setByPath(state, path, el.value);
-  save();
-  // light re-render for derived displays
+document.addEventListener('input',(e)=>{
+  const el=e.target.closest('[data-bind]'); if(!el) return;
+  const path=el.dataset.bind; setByPath(state,path,el.value); save();
   if(path.startsWith('header.')) renderHeader();
-  if(path.startsWith('docs.')) renderDocs();
+  if(path.startsWith('docs.')||path.includes('.expiry')){ renderAlerts(); if(path.startsWith('docs.')) renderDocs(); }
+  if(path.startsWith('contact.')) renderContact();
 });
-
-// add buttons
-document.addEventListener('click', (e)=>{
-  const add = e.target.closest('[data-add]');
-  if(add){
-    const key = add.dataset.add;
-    state[key].push({});
-    save(); renderAll(); setMode(mode);
-    toast('Item ditambahkan');
-    return;
-  }
-  const del = e.target.closest('[data-del]');
-  if(del){
-    const [key, idx] = del.dataset.del.split(':');
-    if(confirm('Hapus item ini?')){
-      state[key].splice(Number(idx),1);
-      save(); renderAll(); setMode(mode);
-    }
-    return;
-  }
-  const ed = e.target.closest('[data-edit]');
-  if(ed){
-    const [key, idx] = ed.dataset.edit.split(':');
-    const card = ed.closest('.item-card');
-    card.querySelector('.field-grid').style.display = 'grid';
-    card.scrollIntoView({behavior:'smooth', block:'center'});
-    return;
-  }
+document.addEventListener('click',(e)=>{
+  const add=e.target.closest('[data-add]');
+  if(add){ state[add.dataset.add].push({}); save(); renderAll(); toast('Item ditambahkan'); return; }
+  const del=e.target.closest('[data-del]');
+  if(del){ const [k,i]=del.dataset.del.split(':');
+    if(confirm('Hapus item ini?')){ state[k].splice(Number(i),1); save(); renderAll(); } return; }
 });
 
 /* ============================================================
-   7. IMPORT / EXPORT / RESET
+   IMPORT / EXPORT / RESET / PRINT
 ============================================================ */
-$('#export-btn').addEventListener('click', ()=>{
-  const blob = new Blob([JSON.stringify(state, null, 2)], {type:'application/json'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `cv-pelaut-${(state.header.name||'draft').replace(/\s+/g,'-').toLowerCase()}.json`;
-  a.click();
-  URL.revokeObjectURL(a.href);
-  toast('Data diekspor');
+$('#export-btn').addEventListener('click',()=>{
+  const blob=new Blob([JSON.stringify(state,null,2)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download=`cv-pelaut-${(state.header.name||'draft').replace(/\s+/g,'-').toLowerCase()}.json`;
+  a.click(); URL.revokeObjectURL(a.href); toast('Data diekspor');
 });
-
-$('#import-btn').addEventListener('click', ()=> $('#import-file').click());
+$('#import-btn').addEventListener('click',()=>$('#import-file').click());
 $('#import-file').addEventListener('change', async (e)=>{
-  const f = e.target.files[0]; if(!f) return;
-  try{
-    const text = await f.text();
-    const parsed = JSON.parse(text);
-    state = deepMerge(emptyData(), parsed);
-    save(); renderAll(); setMode(mode);
-    toast('Data diimpor');
-  }catch(err){
-    toast('File JSON tidak valid');
-  }
-  e.target.value = '';
+  const f=e.target.files[0]; if(!f) return;
+  try{ const parsed=JSON.parse(await f.text()); state=deepMerge(emptyData(),parsed); save(); renderAll(); toast('Data diimpor'); }
+  catch{ toast('File JSON tidak valid'); }
+  e.target.value='';
 });
-
-$('#reset-btn').addEventListener('click', ()=>{
-  if(confirm('Hapus semua data CV dan kembalikan ke template kosong?')){
-    state = emptyData(); save(); renderAll(); setMode(mode);
-    toast('Data direset');
-  }
+$('#reset-btn').addEventListener('click',()=>{
+  if(confirm('Hapus semua data CV?')){ state=emptyData(); save(); renderAll(); toast('Data direset'); }
 });
+function doPrint(){ const prev=mode; setMode('preview'); setTimeout(()=>{ window.print(); setMode(prev); },60); }
+$('#print-btn').addEventListener('click',doPrint);
+$('#print-btn-fab').addEventListener('click',doPrint);
 
 /* ============================================================
-   8. PRINT
-============================================================ */
-function doPrint(){
-  // pastikan mode preview agar input tampil sebagai teks
-  const prev = mode;
-  setMode('preview');
-  setTimeout(()=>{ window.print(); setMode(prev); }, 60);
-}
-$('#print-btn').addEventListener('click', doPrint);
-$('#print-btn-fab').addEventListener('click', doPrint);
-
-/* ============================================================
-   9. SSO WIRING
+   AUTH WIRING
 ============================================================ */
 function showApp(){
   $('#auth-screen').classList.add('hidden');
   $('#app').classList.remove('hidden');
-  const s = SSO.get();
-  if(s && s.user){
-    $('#user-name').textContent = s.user.name;
-    $('#user-avatar').textContent = (s.user.name||'?').charAt(0).toUpperCase();
+  const s=SSO.get();
+  if(s&&s.user){
+    $('#user-name').textContent=s.user.name;
+    if(!state.header.name) state.header.name=s.user.name;
+    if(!state.contact.email) state.contact.email=s.user.email;
+    if(!state.header.photo && s.user.picture) state.header.photo=s.user.picture;
+    save();
   }
-  if(!state.header.name && s && s.user){ state.header.name = s.user.name; }
-  if(!state.contact.email && s && s.user){ state.contact.email = s.user.email; }
   renderAll(); setMode('edit');
+  // jalankan reminder sekali saat masuk
+  setTimeout(fireReminders, 800);
 }
-function showAuth(){
-  $('#app').classList.add('hidden');
-  $('#auth-screen').classList.remove('hidden');
-}
+function showAuth(){ $('#app').classList.add('hidden'); $('#auth-screen').classList.remove('hidden'); }
 
-$('#sso-demo').addEventListener('submit', async (e)=>{
+$('#sso-demo').addEventListener('submit',async(e)=>{
   e.preventDefault();
-  const btn = e.submitter || e.target.querySelector('button[type=submit]');
-  const old = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> Memverifikasi...';
-  btn.disabled = true;
-  try{
-    await SSO.loginDemo({
-      name: $('#sso-name').value,
-      email: $('#sso-email').value
-    });
-    showApp();
-    toast('Berhasil masuk');
-  }catch(err){
-    toast('Gagal masuk');
-  }finally{
-    btn.innerHTML = old; btn.disabled = false;
-  }
+  const btn=e.target.querySelector('button[type=submit]');
+  const old=btn.innerHTML; btn.innerHTML='<span class="spinner"></span> Memverifikasi...'; btn.disabled=true;
+  try{ await SSO.loginDemo({name:$('#sso-name').value,email:$('#sso-email').value}); showApp(); toast('Berhasil masuk'); }
+  catch{ toast('Gagal masuk'); }
+  finally{ btn.innerHTML=old; btn.disabled=false; }
 });
-
-$('#sso-google').addEventListener('click', async ()=>{
-  const btn = $('#sso-google');
-  const old = btn.innerHTML;
-  btn.innerHTML = '<span class="spinner"></span> Menghubungi Google...';
-  btn.disabled = true;
-  await SSO.loginGoogle();
-  btn.innerHTML = old; btn.disabled = false;
-});
-
-$('#logout-btn').addEventListener('click', ()=>{
-  if(confirm('Keluar dari sesi ini?')){
-    SSO.logout(); showAuth();
-  }
-});
+$('#logout-btn').addEventListener('click',()=>{ if(confirm('Keluar dari sesi ini?')){ SSO.logout(); showAuth(); } });
 
 /* ============================================================
-   10. INIT
+   INIT
 ============================================================ */
 initTheme();
-$('#theme-select').addEventListener('change', e=> applyTheme(e.target.value));
-
-$('#mode-edit').addEventListener('click', ()=> setMode('edit'));
-$('#mode-preview').addEventListener('click', ()=> setMode('preview'));
-
+$('#theme-select').addEventListener('change',e=>applyTheme(e.target.value));
+$('#mode-edit').addEventListener('click',()=>setMode('edit'));
+$('#mode-preview').addEventListener('click',()=>setMode('preview'));
+initGoogleSSO();
 if(SSO.isAuthed()) showApp(); else showAuth();
 </script>
 </body>
