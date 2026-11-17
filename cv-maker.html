@@ -227,35 +227,44 @@ img{max-width:100%}
 section{scroll-margin-top:82px}
 
 /* =========================================================
-   4. BUTTONS
+   4. BUTTONS (FIXED EDGE ARTIFACTS)
    ========================================================= */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
   padding:9px 15px;border-radius:11px;border:1px solid var(--border);
   background:var(--card);color:var(--text);font-weight:600;font-size:.83rem;
   cursor:pointer;transition:.2s;white-space:nowrap;line-height:1.2;
+  outline:none;
 }
 .btn:hover{transform:translateY(-1px);box-shadow:var(--shadow-sm)}
 .btn:active{transform:translateY(0)}
 .btn .icon{font-size:1rem}
-.btn.primary{background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;border-color:transparent}
-.btn.gold{background:linear-gradient(135deg,var(--gold),var(--navy-2));color:#fff;border-color:transparent}
-.btn.danger{background:var(--red);color:#fff;border-color:transparent}
+
+/* Perbaikan garis tepi: hapus border, tambah padding 1px agar ukuran sama */
+.btn.primary{background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;border:none;padding:10px 16px}
+.btn.gold{background:linear-gradient(135deg,var(--gold),var(--navy-2));color:#fff;border:none;padding:10px 16px}
+.btn.danger{background:var(--red);color:#fff;border:none;padding:10px 16px}
+
 .btn.ghost{background:transparent;color:var(--muted)}
 .btn.ghost:hover{background:rgba(0,0,0,.05);color:var(--text)}
 [data-theme="dark"] .btn.ghost:hover{background:rgba(255,255,255,.07)}
+
 .btn.sm{padding:6px 11px;font-size:.76rem;border-radius:9px}
 .btn.sm .icon{font-size:.9rem}
+
+/* Padding untuk tombol kecil (sm) tanpa border */
+.btn.sm.primary, .btn.sm.gold, .btn.sm.danger { padding:7px 12px; }
 
 .icon-btn{
   display:inline-grid;place-items:center;width:38px;height:38px;
   border-radius:11px;border:1px solid var(--border);background:var(--card);
   color:var(--text);cursor:pointer;transition:.2s;font-size:1.05rem;flex:none;
+  outline:none;
 }
 .icon-btn:hover{background:var(--card-2);transform:translateY(-1px)}
 .icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
 
-/* Language toggle button — diletakkan SETELAH .icon-btn agar override bekerja */
+/* Language toggle button */
 .lang-btn{
   display:inline-flex !important;
   width:auto !important;
@@ -602,12 +611,19 @@ input[type="range"]::-moz-range-thumb{
 .back-top.show{opacity:1;visibility:visible;transform:none}
 
 /* =========================================================
-   14. EDIT MODE VISIBILITY
+   14. EDIT MODE VISIBILITY (FIXED EDGE ARTIFACTS)
    ========================================================= */
 .edit-only{display:none !important}
 body.edit-on .edit-only{display:inline-flex !important}
 body.edit-on .edit-only.block{display:flex !important}
-body.edit-on #editToggle{background:linear-gradient(135deg,var(--gold),var(--navy-2));color:#fff;border-color:transparent}
+
+/* Perbaikan untuk tombol Mode Preview */
+body.edit-on #editToggle{
+  background:linear-gradient(135deg,var(--gold),var(--navy-2));
+  color:#fff;
+  border:none;
+  padding:10px 16px;
+}
 
 body:not(.edit-on) .cell-actions,
 body:not(.edit-on) .tl-actions{display:none !important}
@@ -1622,10 +1638,7 @@ const COLOR_THEMES = [
 function openColorThemeModal(){
   const root = $('#modalRoot');
   
-  // Buat swatch grid
   const gridHTML = COLOR_THEMES.map(theme => {
-    // Ambil warna dari CSS variables yang ada di dokumen (dengan menyuntikkan sementara)
-    // Tapi lebih mudah menggunakan hardcode map untuk preview swatch, agar akurat
     const colors = {
       navy:['#0b1f3a','#c9a227'], emerald:['#064e3b','#10b981'], royal:['#4c1d95','#fbbf24'],
       crimson:['#7f1d1d','#fca5a5'], ocean:['#0f172a','#0ea5e9'], sunset:['#4c0519','#f97316'],
@@ -1660,7 +1673,6 @@ function openColorThemeModal(){
     </div>
   `;
 
-  // Gunakan openModal tapi tanpa tombol simpan
   openModal({
     title: t('theme_modal_title'),
     bodyHTML: bodyHTML,
@@ -2235,7 +2247,6 @@ function applyColorTheme(){
   // Update meta theme-color
   const meta = document.querySelector('meta[name=theme-color]');
   if(meta) {
-    // Coba ambil primary color dari elemen dummy atau map
     const primaryMap = {
       navy:'#0b1f3a',emerald:'#064e3b',royal:'#4c1d95',crimson:'#7f1d1d',ocean:'#0f172a',
       sunset:'#4c0519',slate:'#334155',rose:'#831843',amethyst:'#581c87',lavender:'#4c1d95',
