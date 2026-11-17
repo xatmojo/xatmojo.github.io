@@ -227,7 +227,7 @@ img{max-width:100%}
 section{scroll-margin-top:82px}
 
 /* =========================================================
-   4. BUTTONS (FIXED EDGE ARTIFACTS)
+   4. BUTTONS
    ========================================================= */
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:7px;
@@ -240,7 +240,7 @@ section{scroll-margin-top:82px}
 .btn:active{transform:translateY(0)}
 .btn .icon{font-size:1rem}
 
-/* Perbaikan garis tepi: hapus border, tambah padding 1px agar ukuran sama */
+/* Perbaikan garis tepi */
 .btn.primary{background:linear-gradient(135deg,var(--navy-2),var(--navy-3));color:#fff;border:none;padding:10px 16px}
 .btn.gold{background:linear-gradient(135deg,var(--gold),var(--navy-2));color:#fff;border:none;padding:10px 16px}
 .btn.danger{background:var(--red);color:#fff;border:none;padding:10px 16px}
@@ -251,8 +251,6 @@ section{scroll-margin-top:82px}
 
 .btn.sm{padding:6px 11px;font-size:.76rem;border-radius:9px}
 .btn.sm .icon{font-size:.9rem}
-
-/* Padding untuk tombol kecil (sm) tanpa border */
 .btn.sm.primary, .btn.sm.gold, .btn.sm.danger { padding:7px 12px; }
 
 .icon-btn{
@@ -611,13 +609,12 @@ input[type="range"]::-moz-range-thumb{
 .back-top.show{opacity:1;visibility:visible;transform:none}
 
 /* =========================================================
-   14. EDIT MODE VISIBILITY (FIXED EDGE ARTIFACTS)
+   14. EDIT MODE VISIBILITY
    ========================================================= */
 .edit-only{display:none !important}
 body.edit-on .edit-only{display:inline-flex !important}
 body.edit-on .edit-only.block{display:flex !important}
 
-/* Perbaikan untuk tombol Mode Preview */
 body.edit-on #editToggle{
   background:linear-gradient(135deg,var(--gold),var(--navy-2));
   color:#fff;
@@ -625,11 +622,11 @@ body.edit-on #editToggle{
   padding:10px 16px;
 }
 
-body:not(.edit-on) .cell-actions,
-body:not(.edit-on) .tl-actions{display:none !important}
-
-@media (max-width:760px){
-  body:not(.edit-on) td.col-action{display:none !important}
+/* Menyembunyikan kolom Aksi & Timeline Actions secara TOTAL saat Mode Preview */
+body:not(.edit-on) th.th-actions,
+body:not(.edit-on) td.col-action,
+body:not(.edit-on) .tl-actions {
+  display: none !important;
 }
 
 /* =========================================================
@@ -769,6 +766,7 @@ body:not(.edit-on) .tl-actions{display:none !important}
   .info-item.item-empty{display:none !important}
   .contact-card.is-placeholder{display:none !important}
 
+  /* Sembunyikan kolom Aksi di Print apapun modenya */
   table.data th.th-actions{display:none !important}
   table.data td.col-action,
   table.data td.cell-actions{display:none !important}
