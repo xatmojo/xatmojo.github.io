@@ -20,7 +20,11 @@
 <meta property="og:url" content="https://xatmojo.github.io/cv-maker/">
 <meta property="og:title" content="CV Pelaut Profesional — Seafarer Portfolio">
 <meta property="og:description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal, dan pengalaman kerja dengan mudah.">
-<meta property="og:image" content="https://xatmojo.github.io/cv-maker/og-image.png">
+<meta property="og:image" content="https://xatmojo.github.io/cv-maker/og-image.jpg">
+<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Kapal kargo di laut lepas">
 <meta property="og:locale" content="id_ID">
 <meta property="og:site_name" content="Seafarer CV">
 
@@ -28,7 +32,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="CV Pelaut Profesional — Seafarer Portfolio">
 <meta name="twitter:description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal, dan pengalaman kerja dengan mudah.">
-<meta name="twitter:image" content="https://xatmojo.github.io/cv-maker/og-image.png">
+<meta name="twitter:image" content="https://xatmojo.github.io/cv-maker/og-image.jpg">
 <meta name="twitter:creator" content="@xatmojo">
 
 <!-- JSON-LD Structured Data -->
@@ -41,7 +45,7 @@
   "description": "Curriculum Vitae (CV) interaktif dan profesional untuk pelaut.",
   "nationality": "Indonesian",
   "url": "https://xatmojo.github.io/cv-maker/",
-      "image": "https://xatmojo.github.io/cv-maker/og-image.png",
+      "image": "https://xatmojo.github.io/cv-maker/og-image.jpg",
   "sameAs": [
     "https://instagram.com/xatmojo"
   ]
@@ -274,6 +278,7 @@ section{scroll-margin-top:82px}
 }
 .icon-btn:hover{background:var(--card-2);transform:translateY(-1px)}
 .icon-btn .icon{vertical-align:0;display:block}
+.icon-btn:focus-visible,.btn:focus-visible,.nav-link:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
 .icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
 
 /* Language toggle button */
@@ -761,8 +766,13 @@ body:not(.edit-on) .tl-actions {
   .topbar{padding:8px 10px;gap:6px}
   .topbar-actions .btn{padding:8px 5px;font-size:.7rem;gap:4px}
   .topbar-actions .btn .icon{font-size:.85rem}
-  #menuBtn,#themeBtn,#devBtn,#colorThemeBtn{width:34px;height:34px}
-  #langBtn{height:34px;padding:0 7px;font-size:.66rem;}
+  #menuBtn,#themeBtn,#devBtn,#colorThemeBtn{width:38px;height:38px}
+  #langBtn{height:38px;padding:0 7px;font-size:.66rem;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+  .icon-btn:hover{transform:none}
 }
 
 /* =========================================================
@@ -957,7 +967,7 @@ body:not(.edit-on) .tl-actions {
 
   <div class="main">
     <header class="topbar">
-      <button class="icon-btn" data-action="toggle-sidebar" id="menuBtn" data-i18n-title="btn_menu_title" title="Menu">
+      <button class="icon-btn" data-action="toggle-sidebar" id="menuBtn" aria-controls="sidebar" aria-expanded="false" data-i18n-title="btn_menu_title" title="Menu">
         <svg class="icon"><use href="#i-menu"/></svg>
       </button>
       <div class="topbar-title">Curriculum Vitae</div>
@@ -2296,6 +2306,7 @@ function applyLang(){
   });
   $$('[data-i18n-title]').forEach(el => {
     el.title = t(el.dataset.i18nTitle);
+    if(el.classList.contains('icon-btn')) el.setAttribute('aria-label', el.title);
   });
 }
 
@@ -2695,6 +2706,7 @@ document.addEventListener('click', (e) => {
     case 'toggle-sidebar':
       $('#sidebar').classList.toggle('open');
       $('#sidebarBackdrop').classList.toggle('show');
+      $('#menuBtn').setAttribute('aria-expanded', $('#sidebar').classList.contains('open'));
       break;
 
     case 'dev-info':
@@ -2820,11 +2832,13 @@ document.addEventListener('click', (e) => {
   if(window.innerWidth <= 1024){
     $('#sidebar').classList.remove('open');
     $('#sidebarBackdrop').classList.remove('show');
+    $('#menuBtn').setAttribute('aria-expanded', 'false');
   }
 });
 $('#sidebarBackdrop').addEventListener('click', () => {
   $('#sidebar').classList.remove('open');
   $('#sidebarBackdrop').classList.remove('show');
+  $('#menuBtn').setAttribute('aria-expanded', 'false');
 });
 $('#importInput').addEventListener('change', (e) => {
   const f = e.target.files && e.target.files[0];
@@ -2875,6 +2889,12 @@ window.addEventListener('scroll', onScroll, { passive:true });
   }, 1600);
 
   document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && $('#sidebar').classList.contains('open')){
+      $('#sidebar').classList.remove('open');
+      $('#sidebarBackdrop').classList.remove('show');
+      $('#menuBtn').setAttribute('aria-expanded', 'false');
+      $('#menuBtn').focus();
+    }
     if((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'e'){
       e.preventDefault();
       UI.edit = !UI.edit; saveUI(); applyEditMode();
