@@ -454,11 +454,13 @@ svg{display:block;flex-shrink:0}
 .paper-body .recipient{margin-bottom:1.2em;line-height:1.5;white-space:normal}
 .paper-body .recipient .recipient-name{font-weight:600}
 .recipient-line{white-space:normal !important;text-align:left !important}
-.paper-body .signature{margin-top:2.4em;page-break-inside:avoid}
-.paper-body .signature .closing-salutation{margin-bottom:0;text-align:left;white-space:normal}
-.paper-body .signature-space{height:64px}
-.paper-body .signature-line{width:60mm;max-width:70%;border-top:1px solid #333;margin:0 0 4px}
-.paper-body .signature-name{font-weight:600;margin:0;text-align:left;white-space:normal}
+.paper-body .signature{margin-top:2.4em;page-break-inside:avoid;width:fit-content;min-width:55mm;max-width:100%;margin-left:auto;text-align:center}
+.paper-body .signature .closing-salutation{margin-bottom:0;text-align:center;white-space:normal}
+.paper-body .signature-space{height:64px;display:flex;align-items:center;justify-content:center}
+.paper-body .signature-space.has-img{height:auto;min-height:64px;padding:6px 0}
+.paper-body .signature-img{max-height:22mm;max-width:55mm;width:auto;height:auto;display:block;object-fit:contain}
+.paper-body .signature-line{width:60mm;max-width:100%;border-top:1px solid #333;margin:0 auto 4px}
+.paper-body .signature-name{font-weight:600;margin:0;text-align:center;white-space:normal}
 
 /* TEMPLATE: classic-formal */
 .template-classic-formal{--paper-font:'Times New Roman',Times,serif;--paper-size:12pt;--paper-line-height:1.65}
@@ -513,6 +515,23 @@ svg{display:block;flex-shrink:0}
 .template-international .paper-date{text-align:left;margin-bottom:20px}
 .template-international .paper-body p{margin-bottom:.95em}
 .template-international .signature-name{font-weight:600}
+
+
+/* ========== SIGNATURE PAD & DATE FIELD ========== */
+.sig-pad-wrap{border:1.5px dashed var(--border-2);border-radius:var(--radius-sm);background:#fff;position:relative;overflow:hidden;touch-action:none}
+.sig-pad-wrap canvas{display:block;width:100%;height:160px;cursor:crosshair;touch-action:none}
+.sig-pad-hint{position:absolute;inset:0;display:grid;place-items:center;color:#9aa6b8;font-size:12.5px;pointer-events:none;transition:opacity .15s}
+.sig-pad-wrap.drawn .sig-pad-hint{opacity:0}
+.sig-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.sig-current{display:none;margin-top:12px;align-items:center;gap:12px;padding:10px 12px;border:1px solid var(--border);border-radius:var(--radius-sm);background:var(--surface-2)}
+.sig-current.show{display:flex}
+.sig-current img{height:44px;max-width:140px;object-fit:contain;background:#fff;border-radius:6px;border:1px solid var(--border);padding:2px}
+.sig-current span{font-size:12px;color:var(--text-2);flex:1}
+.date-field{position:relative;display:flex;align-items:center}
+.date-field .date-text{width:100%;padding-right:42px}
+.date-field .date-pick{position:absolute;right:4px;top:50%;transform:translateY(-50%);width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:var(--text-2)}
+.date-field .date-pick:hover{background:var(--surface-3);color:var(--text)}
+.date-field .date-native{position:absolute;right:4px;top:0;width:32px;height:100%;opacity:0;pointer-events:none;border:0;padding:0}
 
 /* ========== ARSIP ========== */
 .search-bar{
@@ -1283,6 +1302,24 @@ svg{display:block;flex-shrink:0}
               <label>Penutup &amp; Tanda Tangan</label>
               <input type="text" data-bind="letter.closingSalutation" placeholder="Hormat saya,">
             </div>
+            <div class="letter-field" id="signatureField">
+              <label>Tanda Tangan <span class="lbl-hint">Gambar langsung atau unggah gambar</span></label>
+              <div class="sig-pad-wrap" id="sigPadWrap">
+                <canvas id="sigCanvas" aria-label="Area tanda tangan"></canvas>
+                <div class="sig-pad-hint">Gambar tanda tangan di sini (mouse atau sentuh)</div>
+              </div>
+              <div class="sig-actions">
+                <button type="button" class="btn btn-gold btn-sm" id="sigSaveBtn">Gunakan Tanda Tangan</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="sigClearPadBtn">Hapus Coretan</button>
+                <button type="button" class="btn btn-ghost btn-sm" id="sigUploadBtn">Unggah Gambar</button>
+                <input type="file" id="sigFileInput" accept="image/png,image/jpeg,image/webp" hidden>
+              </div>
+              <div class="sig-current" id="sigCurrent">
+                <img id="sigCurrentImg" alt="Tanda tangan saat ini">
+                <span>Tanda tangan sudah dipasang pada surat.</span>
+                <button type="button" class="btn btn-ghost btn-sm" id="sigRemoveBtn">Hapus</button>
+              </div>
+            </div>
           </div>
           <div style="display:flex;gap:8px;margin-top:16px;flex-wrap:wrap">
             <button class="btn btn-ghost btn-sm" id="addParagraphBtn">
@@ -1663,7 +1700,7 @@ function defaultState(){
     letter:{
       place:'', date:'', salutation:'Dengan hormat,', opening:'', purpose:'',
       qualification:'', experience:'', skills:'', reason:'', availability:'',
-      closing:'', closingSalutation:'Hormat saya,'
+      closing:'', closingSalutation:'Hormat saya,', signatureImage:''
     },
     style:{
       template:'classic-formal', font:'', fontSize:'', lineHeight:'', margin:'', color:'',
@@ -1914,7 +1951,9 @@ function buildPaperHTML(){
   const sigStyle = s.style.signatureStyle || 'plain';
   bodyHTML += '<div class="signature">' +
     '<p class="closing-salutation" contenteditable="true" data-field="letter.closingSalutation" spellcheck="false">' + esc(l.closingSalutation || 'Hormat saya,') + '</p>' +
-    '<div class="signature-space"></div>' +
+    '<div class="signature-space' + (l.signatureImage ? ' has-img' : '') + '">' +
+      (l.signatureImage ? '<img class="signature-img" alt="Tanda tangan" src="' + esc(l.signatureImage) + '" style="max-height:22mm;max-width:55mm">' : '') +
+    '</div>' +
     (sigStyle==='line' ? '<div class="signature-line"></div>' : '') +
     '<p class="signature-name" contenteditable="true" data-field="applicant.fullName" spellcheck="false">' + esc(a.fullName || 'Nama Lengkap') + '</p>' +
   '</div>';
@@ -2403,6 +2442,7 @@ function updateArchiveCount(){
 }
 function updateStyleControlsFromState(){
   const st = state.style;
+  if(typeof updateSignatureUI === 'function') updateSignatureUI();
   const fontSel = $('#styleFont'); if(fontSel) fontSel.value = st.font || '';
   const sigSel = $('#signatureStyle'); if(sigSel) sigSel.value = st.signatureStyle || 'plain';
   const fr = $('#fontSizeRange'); if(fr){ fr.value = st.fontSize || 12; $('#fontSizeVal').textContent = (st.fontSize||12) + 'pt'; }
@@ -2668,7 +2708,7 @@ function downloadDOCX(){
     '<head><meta charset="utf-8"><title>Surat Lamaran</title>' +
     '<style>body{font-family:"Times New Roman",Times,serif;font-size:12pt;line-height:1.6;color:#1a1a1a;margin:0}' +
     'p{margin:0 0 1em;text-align:justify;white-space:pre-wrap}' +
-    '.signature{margin-top:2.4em}.signature-space{height:60px}' +
+    '.signature{margin-top:2.4em;margin-left:55%;text-align:center}.signature p{text-align:center}.signature-space{height:60px;text-align:center}.signature-img{max-height:22mm}' +
     '.paper-header{margin-bottom:18px}.paper-name{font-size:1.8em;font-weight:700;margin:0 0 4px}' +
     '.paper-contact{font-size:.85em;color:#555}.paper-date{text-align:right;margin-bottom:16px}' +
     '.recipient{margin-bottom:1.2em}' +
@@ -3001,10 +3041,248 @@ function init(){
   }
 
   initPreviewUI();
+  initDateFields();
+  initSignaturePad();
 
   setTimeout(()=>{
     toast('Selamat datang di Surat Lamaran Pro', 'success');
   }, 600);
+}
+
+
+/* ---------- DATE FIELD (dd/mm/yyyy) ---------- */
+function isoToDMY(iso){
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso || '');
+  return m ? m[3] + '/' + m[2] + '/' + m[1] : '';
+}
+function dmyToISO(txt){
+  const m = /^(\d{2})\/(\d{2})\/(\d{4})$/.exec(txt || '');
+  if(!m) return null;
+  const d = +m[1], mo = +m[2], y = +m[3];
+  const dt = new Date(y, mo - 1, d);
+  if(y < 1000 || dt.getFullYear() !== y || dt.getMonth() !== mo - 1 || dt.getDate() !== d) return null;
+  return m[3] + '-' + m[2] + '-' + m[1];
+}
+function initDateFields(){
+  const proto = Object.getOwnPropertyDescriptor(HTMLInputElement.prototype, 'value');
+  $$('input[type="date"][data-bind]').forEach(native=>{
+    if(native.dataset.dmy) return;
+    native.dataset.dmy = '1';
+    const wrap = document.createElement('div');
+    wrap.className = 'date-field';
+    const text = document.createElement('input');
+    text.type = 'text';
+    text.className = 'date-text';
+    text.inputMode = 'numeric';
+    text.placeholder = 'dd/mm/yyyy';
+    text.autocomplete = 'off';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'date-pick';
+    btn.title = 'Pilih dari kalender';
+    btn.setAttribute('aria-label', 'Pilih tanggal dari kalender');
+    btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>';
+    native.parentNode.insertBefore(wrap, native);
+    wrap.appendChild(text);
+    wrap.appendChild(btn);
+    wrap.appendChild(native);
+    native.className = (native.className + ' date-native').trim();
+    native.tabIndex = -1;
+
+    // Setiap kali nilai ISO diubah lewat kode (refresh form, muat surat, generator), tampilan dd/mm/yyyy ikut diperbarui.
+    Object.defineProperty(native, 'value', {
+      configurable: true,
+      get(){ return proto.get.call(native); },
+      set(v){
+        proto.set.call(native, v);
+        if(document.activeElement !== text) text.value = isoToDMY(proto.get.call(native));
+      }
+    });
+    text.value = isoToDMY(proto.get.call(native));
+
+    const commit = (iso)=>{
+      proto.set.call(native, iso);
+      native.dispatchEvent(new Event('input', { bubbles:true }));
+    };
+    text.addEventListener('input', ()=>{
+      const isoPaste = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text.value.trim());
+      if(isoPaste) text.value = isoPaste[3] + isoPaste[2] + isoPaste[1];
+      let digits = text.value.replace(/\D/g, '').slice(0, 8);
+      let out = digits;
+      if(digits.length > 4) out = digits.slice(0,2) + '/' + digits.slice(2,4) + '/' + digits.slice(4);
+      else if(digits.length > 2) out = digits.slice(0,2) + '/' + digits.slice(2);
+      text.value = out;
+      if(out === ''){ commit(''); text.classList.remove('invalid'); return; }
+      const iso = dmyToISO(out);
+      if(iso){ commit(iso); text.style.borderColor = ''; }
+      else if(out.length === 10){ text.style.borderColor = 'var(--danger)'; }
+      else text.style.borderColor = '';
+    });
+    text.addEventListener('focus', ()=>{ setTimeout(()=>text.select(), 0); });
+    text.addEventListener('blur', ()=>{
+      const cur = proto.get.call(native);
+      if(text.value && !dmyToISO(text.value)){
+        text.value = isoToDMY(cur);
+        text.style.borderColor = '';
+        if(typeof toast === 'function') toast('Format tanggal harus dd/mm/yyyy dan tanggalnya valid', 'warning');
+      } else {
+        text.value = isoToDMY(cur);
+      }
+    });
+    btn.addEventListener('click', ()=>{
+      try{
+        if(typeof native.showPicker === 'function'){ native.showPicker(); return; }
+      } catch(e){}
+      native.style.pointerEvents = 'auto';
+      native.focus(); native.click();
+      setTimeout(()=>{ native.style.pointerEvents = 'none'; }, 300);
+    });
+    native.addEventListener('change', ()=>{ text.value = isoToDMY(proto.get.call(native)); });
+  });
+}
+
+/* ---------- SIGNATURE PAD ---------- */
+function initSignaturePad(){
+  const canvas = $('#sigCanvas');
+  if(!canvas) return;
+  const wrap = $('#sigPadWrap');
+  const ctx = canvas.getContext('2d');
+  let drawing = false, last = null, hasInk = false;
+
+  function resize(){
+    const rect = canvas.getBoundingClientRect();
+    if(!rect.width) return;
+    const ratio = Math.max(window.devicePixelRatio || 1, 1);
+    const snapshot = hasInk ? canvas.toDataURL() : null;
+    canvas.width = Math.round(rect.width * ratio);
+    canvas.height = Math.round(rect.height * ratio);
+    ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
+    ctx.lineWidth = 2.4; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.strokeStyle = '#111827';
+    if(snapshot){
+      const img = new Image();
+      img.onload = ()=>ctx.drawImage(img, 0, 0, rect.width, rect.height);
+      img.src = snapshot;
+    }
+  }
+  function pos(e){
+    const r = canvas.getBoundingClientRect();
+    return { x: e.clientX - r.left, y: e.clientY - r.top };
+  }
+  canvas.addEventListener('pointerdown', e=>{
+    e.preventDefault();
+    if(!canvas.width) resize();
+    canvas.setPointerCapture(e.pointerId);
+    drawing = true; last = pos(e);
+    ctx.beginPath(); ctx.arc(last.x, last.y, 1.2, 0, Math.PI*2); ctx.fillStyle = '#111827'; ctx.fill();
+    hasInk = true; wrap.classList.add('drawn');
+  });
+  canvas.addEventListener('pointermove', e=>{
+    if(!drawing) return;
+    e.preventDefault();
+    const p = pos(e);
+    ctx.beginPath(); ctx.moveTo(last.x, last.y); ctx.lineTo(p.x, p.y); ctx.stroke();
+    last = p;
+  });
+  const stop = ()=>{ drawing = false; last = null; };
+  canvas.addEventListener('pointerup', stop);
+  canvas.addEventListener('pointercancel', stop);
+  canvas.addEventListener('pointerleave', stop);
+
+  function clearPad(){
+    ctx.save(); ctx.setTransform(1,0,0,1,0,0); ctx.clearRect(0,0,canvas.width,canvas.height); ctx.restore();
+    hasInk = false; wrap.classList.remove('drawn');
+  }
+  // Potong area kosong di sekeliling coretan, hasilnya PNG transparan.
+  function trimmedDataURL(srcCanvas){
+    const w = srcCanvas.width, h = srcCanvas.height;
+    const data = srcCanvas.getContext('2d').getImageData(0, 0, w, h).data;
+    let x0 = w, y0 = h, x1 = -1, y1 = -1;
+    for(let y = 0; y < h; y++){
+      for(let x = 0; x < w; x++){
+        if(data[(y*w + x)*4 + 3] > 10){
+          if(x < x0) x0 = x; if(x > x1) x1 = x;
+          if(y < y0) y0 = y; if(y > y1) y1 = y;
+        }
+      }
+    }
+    if(x1 < 0) return '';
+    const pad = 6;
+    x0 = Math.max(0, x0 - pad); y0 = Math.max(0, y0 - pad);
+    x1 = Math.min(w - 1, x1 + pad); y1 = Math.min(h - 1, y1 + pad);
+    const out = document.createElement('canvas');
+    out.width = x1 - x0 + 1; out.height = y1 - y0 + 1;
+    out.getContext('2d').drawImage(srcCanvas, x0, y0, out.width, out.height, 0, 0, out.width, out.height);
+    return out.toDataURL('image/png');
+  }
+  function applySignature(dataUrl){
+    state.letter.signatureImage = dataUrl || '';
+    state.meta.updatedAt = Date.now();
+    renderPreview();
+    saveCurrent();
+    updateSignatureUI();
+  }
+
+  $('#sigSaveBtn')?.addEventListener('click', ()=>{
+    if(!hasInk){ toast('Gambar tanda tangan dulu pada kotak di atas', 'warning'); return; }
+    const url = trimmedDataURL(canvas);
+    if(!url){ toast('Tanda tangan kosong', 'warning'); return; }
+    applySignature(url);
+    toast('Tanda tangan dipasang pada surat', 'success');
+  });
+  $('#sigClearPadBtn')?.addEventListener('click', clearPad);
+  $('#sigRemoveBtn')?.addEventListener('click', ()=>{
+    applySignature('');
+    toast('Tanda tangan dihapus', 'info');
+  });
+  $('#sigUploadBtn')?.addEventListener('click', ()=>$('#sigFileInput')?.click());
+  $('#sigFileInput')?.addEventListener('change', e=>{
+    const f = e.target.files && e.target.files[0];
+    e.target.value = '';
+    if(!f) return;
+    if(!/^image\/(png|jpeg|webp)$/.test(f.type)){ toast('Gunakan file gambar PNG, JPG, atau WebP', 'warning'); return; }
+    const reader = new FileReader();
+    reader.onload = ()=>{
+      const img = new Image();
+      img.onload = ()=>{
+        // Perkecil agar penyimpanan ringan (maks. lebar 600px).
+        const scale = Math.min(1, 600 / img.width);
+        const c = document.createElement('canvas');
+        c.width = Math.max(1, Math.round(img.width * scale));
+        c.height = Math.max(1, Math.round(img.height * scale));
+        const cx = c.getContext('2d');
+        cx.drawImage(img, 0, 0, c.width, c.height);
+        // Jika gambar berlatar putih (foto/scan), jadikan latar putih transparan.
+        if(f.type !== 'image/png'){
+          const id = cx.getImageData(0, 0, c.width, c.height);
+          const d = id.data;
+          for(let i = 0; i < d.length; i += 4){
+            const lum = (d[i] + d[i+1] + d[i+2]) / 3;
+            if(lum > 225) d[i+3] = 0;
+            else if(lum > 170) d[i+3] = Math.round(d[i+3] * (225 - lum) / 55);
+          }
+          cx.putImageData(id, 0, 0);
+        }
+        applySignature(c.toDataURL('image/png'));
+        toast('Tanda tangan dipasang pada surat', 'success');
+      };
+      img.onerror = ()=>toast('Gambar tidak dapat dibaca', 'error');
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(f);
+  });
+
+  window.addEventListener('resize', ()=>{ if(!drawing) resize(); });
+  // Canvas baru berukuran benar setelah section terlihat.
+  new ResizeObserver(()=>{ if(!drawing && !hasInk) resize(); }).observe(canvas);
+  resize();
+  updateSignatureUI();
+}
+function updateSignatureUI(){
+  const box = $('#sigCurrent'), img = $('#sigCurrentImg');
+  if(!box || !img) return;
+  const has = !!(state.letter && state.letter.signatureImage);
+  box.classList.toggle('show', has);
+  if(has) img.src = state.letter.signatureImage;
 }
 
 function debouncedSave(){ if(autoSaveEnabled){ saveCurrent(); } }
