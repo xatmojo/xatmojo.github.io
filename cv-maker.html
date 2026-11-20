@@ -2829,6 +2829,7 @@ document.addEventListener('change', (e) => {
 document.addEventListener('click', (e) => {
   const link = e.target.closest('.nav-link');
   if(!link) return;
+  setActiveNav(link.dataset.nav);
   if(window.innerWidth <= 1024){
     $('#sidebar').classList.remove('open');
     $('#sidebarBackdrop').classList.remove('show');
@@ -2849,27 +2850,27 @@ $('#importInput').addEventListener('change', (e) => {
 /* ---------- 25. SCROLL NAV ---------- */
 const NAV_IDS = ['home','personal','summary','documents','coc','cop','other','sea','work','contact'];
 let scrollTick = false;
-let navLock = null; // id yang baru diklik; dipakai sampai scroll selesai
-let navLockTimer = null;
-function setActiveNav(current){
-  $$('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.nav === current));
+function setActiveNav(id){
+  $$('.nav-link').forEach(l => l.classList.toggle('active', l.dataset.nav === id));
 }
 function onScroll(){
   if(scrollTick) return;
   scrollTick = true;
   requestAnimationFrame(() => {
+    const pos = window.scrollY + 120;
     let current = NAV_IDS[0];
-    const doc = document.documentElement;
-    const atBottom = window.innerHeight + window.scrollY >= doc.scrollHeight - 4;
-    if(navLock){
-      current = navLock;
-    } else if(atBottom){
-      current = NAV_IDS[NAV_IDS.length - 1];
-    } else {
-      NAV_IDS.forEach(id => {
-        const el = document.getElementById(id);
-        if(el && el.getBoundingClientRect().top <= 120) current = id;
-      });
+    NAV_IDS.forEach(id => {
+      const el = document.getElementById(id);
+      if(el && el.offsetParent !== null && (el.getBoundingClientRect().top + window.scrollY) <= pos) current = id;
+    });
+    /* Jika sudah mentok di dasar halaman, section terakhir (Kontak) dianggap aktif,
+       karena section pendek tidak akan pernah mencapai batas atas viewport. */
+    const atBottom = (window.innerHeight + window.scrollY) >= (document.documentElement.scrollHeight - 4);
+    if(atBottom && window.scrollY > 0){
+      for(let i = NAV_IDS.length - 1; i >= 0; i--){
+        const el = document.getElementById(NAV_IDS[i]);
+        if(el && el.offsetParent !== null){ current = NAV_IDS[i]; break; }
+      }
     }
     setActiveNav(current);
     const bt = $('#backTop');
@@ -2878,19 +2879,6 @@ function onScroll(){
     scrollTick = false;
   });
 }
-document.addEventListener('click', (e) => {
-  const link = e.target.closest('.nav-link');
-  if(!link || !link.dataset.nav) return;
-  navLock = link.dataset.nav;
-  setActiveNav(navLock);
-  clearTimeout(navLockTimer);
-  // lepas kunci setelah scroll halus selesai (tidak ada scroll baru selama 150ms)
-  const release = () => { navLock = null; onScroll(); };
-  const bump = () => { clearTimeout(navLockTimer); navLockTimer = setTimeout(() => {
-    window.removeEventListener('scroll', bump); release(); }, 150); };
-  window.addEventListener('scroll', bump, { passive:true });
-  navLockTimer = setTimeout(() => { window.removeEventListener('scroll', bump); release(); }, 600);
-});
 window.addEventListener('scroll', onScroll, { passive:true });
 
 /* ---------- 26. INIT ---------- */
