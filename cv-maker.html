@@ -816,6 +816,11 @@ body:not(.edit-on) .tl-actions {
     box-shadow:none !important;page-break-inside:avoid;
   }
   .hero::before,.hero::after{display:none !important}
+  /* Cetak selalu rata kiri, walau dicetak dari HP (lebar <= 760px memakai gaya mobile yang rata tengah) */
+  .hero{justify-items:start !important;text-align:left !important}
+  .hero-text{text-align:left !important}
+  .hero-rank{justify-content:flex-start !important}
+  .hero-chips{justify-content:flex-start !important}
   .hero-photo{width:26mm !important;height:26mm !important;border-width:2px !important;box-shadow:none !important}
   .hero-photo .photo-empty{font-size:2rem}
   .hero h1{font-size:16pt !important;color:#fff !important}
