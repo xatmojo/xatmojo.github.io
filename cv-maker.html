@@ -273,6 +273,7 @@ section{scroll-margin-top:82px}
   outline:none;
 }
 .icon-btn:hover{background:var(--card-2);transform:translateY(-1px)}
+.icon-btn .icon{vertical-align:0;display:block}
 .icon-btn.sm{width:31px;height:31px;font-size:.85rem;border-radius:9px}
 
 /* Language toggle button */
@@ -670,7 +671,7 @@ body:not(.edit-on) .tl-actions {
   .topbar-title{display:none}
   .topbar-actions{flex-wrap:nowrap}
   .topbar-actions .btn span{white-space:nowrap}
-  #menuBtn{display:inline-flex}
+  #menuBtn{display:inline-grid;place-items:center}
   .sidebar-backdrop{
     display:block;position:fixed;inset:0;background:rgba(7,15,25,.55);z-index:110;
     opacity:0;visibility:hidden;transition:.3s;
