@@ -4,7 +4,54 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="theme-color" content="#0f2744">
-<title>ProCV — Formal Professional CV Builder</title>
+<title>ProCV — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF</title>
+<meta name="description" content="Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.">
+<meta name="keywords" content="pembuat CV, buat CV online, CV formal, CV profesional, CV ATS, template CV, curriculum vitae, resume builder, CV PDF gratis, ProCV">
+<meta name="author" content="xatmojo">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://xatmojo.github.io/cv-pro">
+<link rel="alternate" hreflang="id" href="https://xatmojo.github.io/cv-pro">
+<link rel="alternate" hreflang="x-default" href="https://xatmojo.github.io/cv-pro">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="ProCV">
+<meta property="og:locale" content="id_ID">
+<meta property="og:url" content="https://xatmojo.github.io/cv-pro">
+<meta property="og:title" content="ProCV — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF">
+<meta property="og:description" content="Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.">
+<meta property="og:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-pro.png">
+<meta property="og:image:secure_url" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-pro.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="ProCV — pembuat CV profesional formal">
+
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ProCV — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF">
+<meta name="twitter:description" content="Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-pro.png">
+<meta name="twitter:image:alt" content="ProCV — pembuat CV profesional formal">
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "ProCV",
+  "alternateName": "CV Pro",
+  "url": "https://xatmojo.github.io/cv-pro",
+  "description": "Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.",
+  "image": "https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-pro.png",
+  "inLanguage": "id",
+  "applicationCategory": "BusinessApplication",
+  "operatingSystem": "Any (web browser)",
+  "browserRequirements": "Requires JavaScript",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "IDR" },
+  "author": { "@type": "Person", "name": "xatmojo", "url": "https://xatmojo.github.io" }
+}
+</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
@@ -496,6 +543,7 @@ body.mode-preview .sidebar{display:none}
   border-top:1px solid var(--border);flex-shrink:0;background:var(--panel-2);
 }
 
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
 /* ============ CROP ============ */
 .crop-stage{
   position:relative;width:300px;height:300px;max-width:100%;margin:0 auto 14px;
@@ -583,6 +631,15 @@ body.mode-preview .sidebar{display:none}
 </style>
 </head>
 <body data-theme="light" class="mode-edit">
+
+<h1 class="sr-only">ProCV — Pembuat CV Profesional Formal</h1>
+<noscript>
+  <div style="max-width:640px;margin:40px auto;padding:20px;font-family:system-ui,sans-serif;line-height:1.6">
+    <h2>ProCV — Pembuat CV Profesional Formal</h2>
+    <p>Buat CV formal langsung di browser: isi data pribadi, pengalaman kerja, pendidikan, dan skill, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis dan tanpa registrasi.</p>
+    <p>Aplikasi ini membutuhkan JavaScript. Silakan aktifkan JavaScript di browser Anda.</p>
+  </div>
+</noscript>
 
 <!-- ================= LOADER ================= -->
 <div id="loader">
@@ -2173,6 +2230,27 @@ function onPhotoChosen(e) {
 
 let crop = { img: null, zoom: 1, ox: 0, oy: 0, base: 1, dragging: false, sx: 0, sy: 0, src: '' };
 
+function cropStageSize() {
+  return document.getElementById('cropStage').clientWidth || 300;
+}
+
+// Hitung skala dasar dari ukuran kotak crop yang SEBENARNYA (260px di HP, 300px di desktop)
+function cropRecalcBase() {
+  if (!crop.img) return;
+  const stage = cropStageSize();
+  crop.base = Math.max(stage / crop.img.naturalWidth, stage / crop.img.naturalHeight);
+}
+
+// Jaga agar foto selalu menutupi seluruh kotak (tidak ada area kosong)
+function cropClamp() {
+  const stage = cropStageSize();
+  const s = crop.base * crop.zoom;
+  const maxX = Math.max(0, (crop.img.naturalWidth * s - stage) / 2);
+  const maxY = Math.max(0, (crop.img.naturalHeight * s - stage) / 2);
+  crop.ox = Math.min(maxX, Math.max(-maxX, crop.ox));
+  crop.oy = Math.min(maxY, Math.max(-maxY, crop.oy));
+}
+
 function openCropModal() {
   if (!state.personal.photo) { toast('Upload foto terlebih dahulu', 'warn'); return; }
   const img = new Image();
@@ -2182,12 +2260,12 @@ function openCropModal() {
     crop.zoom = 1;
     crop.ox = 0;
     crop.oy = 0;
-    const stage = 300;
-    crop.base = Math.max(stage / img.naturalWidth, stage / img.naturalHeight);
     document.getElementById('cropZoom').value = 100;
     document.getElementById('cropZoomVal').textContent = '100%';
-    updateCropView();
+    // Tampilkan modal DULU supaya ukuran kotak crop bisa diukur
     document.getElementById('cropModal').classList.add('show');
+    cropRecalcBase();
+    updateCropView();
   };
   img.onerror = () => toast('Gagal memuat gambar', 'err');
   img.src = state.personal.photo;
@@ -2196,12 +2274,13 @@ function openCropModal() {
 function updateCropView() {
   const el = document.getElementById('cropImg');
   if (!el || !crop.img) return;
-  const stageSize = document.getElementById('cropStage').clientWidth || 300;
+  // FIX: sumber gambar sebelumnya tidak pernah di-set sehingga kotak crop tampil hitam
+  if (el.getAttribute('src') !== crop.src) el.src = crop.src;
+  cropClamp();
   const s = crop.base * crop.zoom;
-  const w = crop.img.naturalWidth * s;
-  const h = crop.img.naturalHeight * s;
-  el.style.width = w + 'px';
-  el.style.height = h + 'px';
+  el.style.maxWidth = 'none';
+  el.style.width = crop.img.naturalWidth * s + 'px';
+  el.style.height = crop.img.naturalHeight * s + 'px';
   el.style.left = `calc(50% + ${crop.ox}px)`;
   el.style.top = `calc(50% + ${crop.oy}px)`;
   el.style.transform = 'translate(-50%, -50%)';
@@ -2243,6 +2322,12 @@ function setupCropEvents() {
   stage.addEventListener('pointerup', endDrag);
   stage.addEventListener('pointercancel', endDrag);
 
+  window.addEventListener('resize', () => {
+    if (!crop.img || !document.getElementById('cropModal').classList.contains('show')) return;
+    cropRecalcBase();
+    updateCropView();
+  });
+
   document.querySelectorAll('[data-crop-close]').forEach(b => {
     b.addEventListener('click', () => document.getElementById('cropModal').classList.remove('show'));
   });
@@ -2250,7 +2335,8 @@ function setupCropEvents() {
   document.getElementById('cropApply').addEventListener('click', () => {
     if (!crop.img) return;
     const out = 520;
-    const stageSize = document.getElementById('cropStage').clientWidth || 300;
+    cropClamp();
+    const stageSize = cropStageSize();
     const k = out / stageSize;
     const cv = document.createElement('canvas');
     cv.width = out; cv.height = out;
