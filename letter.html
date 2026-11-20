@@ -483,10 +483,6 @@ svg{display:block;flex-shrink:0}
 .template-international .paper-body p{margin-bottom:.95em}
 .template-international .signature-name{font-weight:600}
 
-/* Template overrides via CSS vars */
-.paper{font-family:var(--paper-font)}
-.paper .paper-header{}
-
 /* ========== ARSIP ========== */
 .search-bar{
   display:flex;align-items:center;gap:10px;background:var(--surface);
@@ -573,6 +569,60 @@ svg{display:block;flex-shrink:0}
 .modal .field{margin-bottom:14px}
 .modal-actions{display:flex;gap:10px;justify-content:flex-end}
 
+/* ========== PRINT PREVIEW MODAL ========== */
+.print-modal{
+  position:fixed;inset:0;z-index:150;background:#4a5568;
+  display:none;flex-direction:column;
+}
+.print-modal.show{display:flex;animation:fadeIn .2s ease}
+.print-modal-head{
+  display:flex;align-items:center;gap:14px;padding:12px 20px;
+  background:var(--navy);color:#fff;flex-wrap:wrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.25);position:relative;z-index:2;
+}
+.print-modal-title{display:flex;align-items:center;gap:12px;min-width:0;flex:1}
+.print-modal-title > svg{color:var(--gold-2);flex-shrink:0}
+.print-modal-title h3{margin:0;font-size:15px;font-weight:700;line-height:1.2}
+.print-modal-title p{margin:2px 0 0;font-size:11px;color:rgba(232,238,251,.7);font-weight:500;line-height:1.3}
+.print-modal-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.print-modal-actions .btn{font-size:12px;padding:8px 14px}
+.print-modal-actions .btn-close{
+  background:rgba(255,255,255,.12);color:#fff;border-color:rgba(255,255,255,.18);
+}
+.print-modal-actions .btn-close:hover{background:rgba(255,255,255,.22);color:#fff}
+.print-modal-body{
+  flex:1;overflow:auto;padding:30px 20px;
+  display:flex;justify-content:center;align-items:flex-start;
+  background:
+    radial-gradient(circle at 15% 10%,rgba(201,162,39,.10),transparent 40%),
+    radial-gradient(circle at 85% 90%,rgba(37,74,140,.18),transparent 45%),
+    #4a5568;
+  position:relative;
+}
+.print-modal-body::-webkit-scrollbar-thumb{background:#718096;border:2px solid #4a5568}
+.print-modal-body .paper{
+  flex-shrink:0;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+}
+.print-modal-tip{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  background:rgba(15,33,71,.92);color:#fff;padding:8px 16px;border-radius:20px;
+  font-size:11.5px;font-weight:500;white-space:nowrap;backdrop-filter:blur(8px);
+  box-shadow:0 8px 20px rgba(0,0,0,.3);display:flex;align-items:center;gap:8px;
+  pointer-events:none;
+}
+.print-modal-tip svg{color:var(--gold-2)}
+@media(max-width:640px){
+  .print-modal-head{padding:10px 12px;gap:8px}
+  .print-modal-title p{display:none}
+  .print-modal-title h3{font-size:13px}
+  .print-modal-actions .btn{padding:7px 10px;font-size:11px}
+  .print-modal-actions .btn .btn-label{display:none}
+  .print-modal-body{padding:14px 8px}
+  .print-modal-body .paper{min-height:auto;padding:14mm 10mm}
+  .print-modal-tip{display:none}
+}
+
 /* ========== TOAST ========== */
 .toast-container{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;flex-direction:column;gap:8px;pointer-events:none}
 .toast{
@@ -654,23 +704,60 @@ svg{display:block;flex-shrink:0}
 /* ========== PRINT ========== */
 @media print{
   @page{size:A4;margin:20mm 18mm}
-  html,body{background:#fff !important;margin:0 !important;padding:0 !important}
+  html,body{
+    background:#fff !important;margin:0 !important;padding:0 !important;
+    overflow:visible !important;
+  }
   body{font-size:12pt}
-  .sidebar,.sidebar-scrim,.topbar,.editor-panel,.preview-toolbar,.toast-container,
-  .back-top,.mobile-preview-overlay,.modal-overlay,.menu-toggle,
-  .mobile-preview-toggle,.preview-panel .preview-toolbar{display:none !important}
-  .app,.main,.content{display:block !important;margin:0 !important;padding:0 !important;max-height:none !important}
-  .preview-panel{display:block !important;position:static !important;max-height:none !important;background:#fff !important}
-  .preview-scroll{display:block !important;overflow:visible !important;padding:0 !important;background:#fff !important}
-  .paper{
+
+  /* Default: hide UI, keep live preview paper */
+  .sidebar,.sidebar-scrim,.topbar,.editor-panel,.preview-toolbar,
+  .toast-container,.back-top,.mobile-preview-overlay,.modal-overlay,.menu-toggle,
+  .mobile-preview-toggle,.preview-badge,.preview-toolbar-actions,
+  .print-modal-head,.print-modal-actions,.print-modal-tip{display:none !important}
+
+  /* When printing FROM the print preview modal */
+  body.print-from-modal > *:not(#printModal){display:none !important}
+  body.print-from-modal #printModal{
+    display:block !important;position:static !important;inset:auto !important;
+    background:#fff !important;
+  }
+  body.print-from-modal .print-modal-body{
+    display:block !important;padding:0 !important;overflow:visible !important;
+    background:#fff !important;position:static !important;
+  }
+  body.print-from-modal .print-modal-body .paper{
     width:100% !important;max-width:none !important;min-height:auto !important;
     box-shadow:none !important;margin:0 !important;padding:0 !important;
     transform:none !important;border:none !important;
   }
+
+  /* Legacy: printing from live preview panel */
+  body:not(.print-from-modal) .app,
+  body:not(.print-from-modal) .main,
+  body:not(.print-from-modal) .content{
+    display:block !important;margin:0 !important;padding:0 !important;max-height:none !important;
+  }
+  body:not(.print-from-modal) .preview-panel{
+    display:block !important;position:static !important;max-height:none !important;
+    background:#fff !important;
+  }
+  body:not(.print-from-modal) .preview-scroll{
+    display:block !important;overflow:visible !important;padding:0 !important;
+    background:#fff !important;
+  }
+  body:not(.print-from-modal) .paper{
+    width:100% !important;max-width:none !important;min-height:auto !important;
+    box-shadow:none !important;margin:0 !important;padding:0 !important;
+    transform:none !important;border:none !important;
+  }
+
+  /* Content flow rules */
   .paper-header{margin-bottom:16px}
   .paper-body p{page-break-inside:avoid;orphans:2;widows:2}
   .paper-body .signature{page-break-inside:avoid}
   .paper-body p:focus{background:transparent !important}
+  .paper-body p{padding:0 !important}
   .template-elegant-navy .paper-header{
     margin:0 0 20px !important;padding:20px !important;
     -webkit-print-color-adjust:exact;print-color-adjust:exact;
@@ -723,6 +810,9 @@ svg{display:block;flex-shrink:0}
     <button class="sidebar-foot-btn" id="themeToggleSide">
       <span data-icon="moon"></span><span class="theme-label">Dark Mode</span>
     </button>
+    <button class="sidebar-foot-btn" id="sidebarPrintBtn">
+      <span data-icon="printer"></span><span>Pratinjau Cetak</span>
+    </button>
     <div style="font-size:10.5px;color:rgba(232,238,251,.4);text-align:center;padding-top:4px;font-weight:500">
       v1.0 · Offline Ready
     </div>
@@ -741,6 +831,9 @@ svg{display:block;flex-shrink:0}
     <div class="topbar-actions">
       <button class="icon-btn" id="mobilePreviewBtn" title="Pratinjau Surat" style="display:none">
         <span data-icon="eye"></span>
+      </button>
+      <button class="icon-btn" id="topPrintBtn" title="Pratinjau Cetak / PDF">
+        <span data-icon="printer"></span>
       </button>
       <button class="icon-btn" id="themeToggle" title="Ganti tema">
         <span data-icon="moon"></span>
@@ -799,6 +892,10 @@ svg{display:block;flex-shrink:0}
             <button class="quick-btn" data-quick="template">
               <span data-icon="template" style="width:20px;height:20px"></span>
               <span>Pilih Template</span>
+            </button>
+            <button class="quick-btn" data-quick="print">
+              <span data-icon="printer" style="width:20px;height:20px"></span>
+              <span>Pratinjau Cetak</span>
             </button>
           </div>
         </div>
@@ -1228,11 +1325,8 @@ svg{display:block;flex-shrink:0}
           <button class="pt-btn" data-action="copy" title="Salin surat">
             <span data-icon="copy"></span><span>Copy</span>
           </button>
-          <button class="pt-btn" data-action="pdf" title="Download PDF">
-            <span data-icon="download"></span><span>PDF</span>
-          </button>
-          <button class="pt-btn" data-action="print" title="Cetak">
-            <span data-icon="printer"></span><span>Print</span>
+          <button class="pt-btn" data-action="print" title="Pratinjau Cetak / PDF">
+            <span data-icon="printer"></span><span>Cetak / PDF</span>
           </button>
           <button class="pt-btn" data-action="txt" title="Download TXT">
             <span data-icon="download"></span><span>TXT</span>
@@ -1253,13 +1347,44 @@ svg{display:block;flex-shrink:0}
 <div class="mobile-preview-overlay" id="mobilePreviewOverlay">
   <div class="mobile-preview-head">
     <h3>Pratinjau Surat</h3>
-    <button class="pt-btn" data-action="pdf"><span data-icon="download"></span>PDF</button>
-    <button class="pt-btn" data-action="print"><span data-icon="printer"></span>Print</button>
+    <button class="pt-btn" data-action="print"><span data-icon="printer"></span>Cetak</button>
     <button class="icon-btn" id="closeMobilePreview" style="width:34px;height:34px">
       <span data-icon="x"></span>
     </button>
   </div>
   <div class="mobile-preview-body" id="mobilePreviewBody"></div>
+</div>
+
+<!-- ============ PRINT PREVIEW MODAL ============ -->
+<div class="print-modal" id="printModal" role="dialog" aria-modal="true" aria-labelledby="printModalTitle">
+  <div class="print-modal-head">
+    <div class="print-modal-title">
+      <span data-icon="printer" style="width:22px;height:22px"></span>
+      <div>
+        <h3 id="printModalTitle">Pratinjau Cetak</h3>
+        <p>Ukuran A4 · Siap cetak atau simpan sebagai PDF</p>
+      </div>
+    </div>
+    <div class="print-modal-actions">
+      <button class="btn btn-ghost btn-sm btn-close" id="printModalClose" title="Tutup">
+        <span data-icon="x" style="width:14px;height:14px"></span>
+        <span class="btn-label">Tutup</span>
+      </button>
+      <button class="btn btn-ghost btn-sm btn-close" id="printModalPDF" title="Download PDF">
+        <span data-icon="download" style="width:14px;height:14px"></span>
+        <span class="btn-label">Download PDF</span>
+      </button>
+      <button class="btn btn-gold btn-sm" id="printModalPrint" title="Cetak sekarang">
+        <span data-icon="printer" style="width:14px;height:14px"></span>
+        <span class="btn-label">Cetak Sekarang</span>
+      </button>
+    </div>
+  </div>
+  <div class="print-modal-body" id="printModalBody"></div>
+  <div class="print-modal-tip">
+    <span data-icon="sparkles" style="width:14px;height:14px"></span>
+    <span>Tips: Untuk PDF, pilih "Save as PDF" pada dialog cetak browser.</span>
+  </div>
 </div>
 
 <!-- ============ BACK TO TOP ============ -->
@@ -1271,8 +1396,6 @@ svg{display:block;flex-shrink:0}
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modalBox"></div>
 </div>
-
-<!-- ============ HIDDEN PRINT AREA (uses #paperContainer directly) ============ -->
 
 <script>
 /* ================================================================
@@ -1459,8 +1582,6 @@ function applyTheme(theme){
   document.documentElement.setAttribute('data-theme', theme);
   localStorage.setItem(STORAGE_THEME, theme);
   const isDark = theme === 'dark';
-  $$('[data-icon-theme]').forEach(el=>{});
-  // Update all theme toggle buttons
   const themeToggle = $('#themeToggle');
   const themeToggleSide = $('#themeToggleSide');
   if(themeToggle) themeToggle.innerHTML = icon(isDark?'sun':'moon', 18);
@@ -1493,19 +1614,16 @@ function navigateTo(section){
   const meta = SECTION_META[section] || {title:'',sub:''};
   $('#pageTitle').textContent = meta.title;
   $('#pageSub').textContent = meta.sub;
-  // Close sidebar on mobile
   if(window.innerWidth <= 900){
     $('#sidebar').classList.remove('open');
     $('#sidebarScrim').classList.remove('show');
   }
-  // Scroll editor to top
   const ep = $('#editorPanel');
   if(ep) ep.scrollTo({ top:0, behavior:'smooth' });
   if(section === 'archive') renderLetterList();
   if(section === 'dashboard') updateDashboard();
-  // Show mobile preview button on non-dashboard sections
   const mpb = $('#mobilePreviewBtn');
-  if(mpb) mpb.style.display = (window.innerWidth <= 1180) ? 'grid' : 'none';
+  if(mpb) mpb.style.display = (window.innerWidth <= 1180 && section !== 'dashboard') ? 'grid' : 'none';
 }
 
 /* ---------- FIELD GET/SET ---------- */
@@ -1595,7 +1713,6 @@ function buildPaperHTML(){
   let bodyHTML = '';
   bodyHTML += '<p class="salutation" contenteditable="true" data-field="letter.salutation" spellcheck="false">' + esc(l.salutation || 'Dengan hormat,') + '</p>';
 
-  // Recipient block
   if(c.name || c.hrdName){
     let rec = '<div class="recipient">';
     rec += '<div class="recipient-line">Kepada Yth.</div>';
@@ -1620,7 +1737,6 @@ function buildPaperHTML(){
     bodyHTML += '<p class="paragraph" contenteditable="true" data-field="letter.closing" spellcheck="false">' + esc(l.closing) + '</p>';
   }
 
-  // Signature
   const sigStyle = s.style.signatureStyle || 'plain';
   bodyHTML += '<div class="signature">' +
     '<p class="closing-salutation" contenteditable="true" data-field="letter.closingSalutation" spellcheck="false">' + esc(l.closingSalutation || 'Hormat saya,') + '</p>' +
@@ -1634,8 +1750,7 @@ function buildPaperHTML(){
   return '<div class="paper template-' + tpl + '">' + headerHTML + dateHTML + '<div class="paper-body">' + bodyHTML + '</div></div>';
 }
 
-function applyStyleVars(){
-  const paper = document.querySelector('.paper');
+function applyStyleVarsTo(paper){
   if(!paper) return;
   const st = state.style;
   if(st.font) paper.style.setProperty('--paper-font', st.font); else paper.style.removeProperty('--paper-font');
@@ -1649,23 +1764,14 @@ function renderPreview(){
   const container = $('#paperContainer');
   if(!container) return;
   container.innerHTML = buildPaperHTML();
-  applyStyleVars();
+  applyStyleVarsTo(container.querySelector('.paper'));
   attachPreviewListeners();
-  // Sync mobile preview
   const mob = $('#mobilePreviewBody');
-  if(mob) mob.innerHTML = buildPaperHTML();
-  // Ensure style vars in mobile
-  const p2 = mob?.querySelector('.paper');
-  if(p2){
-    const st = state.style;
-    if(st.font) p2.style.setProperty('--paper-font', st.font);
-    if(st.fontSize) p2.style.setProperty('--paper-size', st.fontSize + 'pt');
-    if(st.lineHeight) p2.style.setProperty('--paper-line-height', st.lineHeight);
-    if(st.margin) p2.style.setProperty('--paper-margin', st.margin + 'mm');
-    if(st.color) p2.style.setProperty('--paper-color', st.color);
+  if(mob){
+    mob.innerHTML = buildPaperHTML();
+    applyStyleVarsTo(mob.querySelector('.paper'));
+    attachPreviewListeners(mob);
   }
-  // Re-attach for mobile
-  if(mob) attachPreviewListeners(mob);
   updateStats();
   updateDashboard();
 }
@@ -1744,7 +1850,6 @@ function generateID(preset, tone){
   l.salutation = 'Dengan hormat,';
   l.closingSalutation = 'Hormat saya,';
 
-  // Opening
   if(preset === 'short'){
     l.opening = 'Saya bermaksud mengajukan lamaran kerja untuk posisi ' + position + ' di ' + company + '.';
   } else if(preset === 'fresh'){
@@ -1755,7 +1860,6 @@ function generateID(preset, tone){
     l.opening = 'Saya yang bertanda tangan di bawah ini bermaksud mengajukan lamaran pekerjaan untuk posisi ' + position + ' di ' + company + '.';
   }
 
-  // Purpose
   let purpose = '';
   if(c.source){
     purpose = 'Lowongan pekerjaan ini saya ketahui dari ' + c.source + '. ';
@@ -1773,7 +1877,6 @@ function generateID(preset, tone){
   }
   l.purpose = purpose.trim();
 
-  // Qualification
   let qual = '';
   if(a.education && a.major){
     qual = 'Saya merupakan lulusan ' + a.education + ' jurusan ' + a.major + '.';
@@ -1782,17 +1885,14 @@ function generateID(preset, tone){
   }
   l.qualification = qual;
 
-  // Experience
   l.experience = (a.experience && a.experience.trim()) ? a.experience.trim() : '';
 
-  // Skills
   if(a.skills && a.skills.trim()){
     l.skills = 'Beberapa keahlian dan kompetensi yang saya miliki antara lain: ' + a.skills.trim() + '.';
   } else {
     l.skills = '';
   }
 
-  // Reason
   if(preset === 'short'){
     l.reason = 'Saya meyakini dapat memberikan kontribusi terbaik bagi ' + company + '.';
   } else if(tone === 'confident'){
@@ -1803,21 +1903,18 @@ function generateID(preset, tone){
     l.reason = 'Saya tertarik untuk bergabung dengan ' + company + ' karena saya meyakini bahwa latar belakang dan kompetensi yang saya miliki dapat memberikan kontribusi positif bagi perusahaan.';
   }
 
-  // Availability
   if(preset === 'short'){
     l.availability = 'Saya siap mengikuti seluruh proses seleksi.';
   } else {
     l.availability = 'Saya siap untuk mengikuti seluruh proses seleksi, termasuk wawancara, sesuai dengan jadwal yang Bapak/Ibu tentukan.';
   }
 
-  // Closing
   if(preset === 'short'){
     l.closing = 'Demikian surat lamaran ini saya buat. Atas perhatian Bapak/Ibu, saya mengucapkan terima kasih.';
   } else {
     l.closing = 'Demikian surat lamaran ini saya buat dengan sebenar-benarnya. Besar harapan saya untuk dapat diberikan kesempatan bergabung dan berkontribusi di ' + company + '. Atas perhatian dan kesempatan yang Bapak/Ibu berikan, saya mengucapkan terima kasih.';
   }
 
-  // Auto-fill place
   if(!l.place) l.place = c.city || a.city || '';
   if(!l.date) l.date = new Date().toISOString().slice(0,10);
   syncDateInputs();
@@ -1905,17 +2002,16 @@ function renderTemplateGrid(){
 /* ---------- STYLE CONTROLS ---------- */
 const COLOR_SWATCHES = ['#1a1a1a','#0f2147','#334155','#7c2d12','#166534','#1e3a8a','#4c1d95','#831843'];
 function initStyleControls(){
-  // Font
   const fontSel = $('#styleFont');
   if(fontSel){
     fontSel.value = state.style.font || '';
     fontSel.addEventListener('change', ()=>{
       state.style.font = fontSel.value;
-      applyStyleVars();
+      applyStyleVarsTo($('#paperContainer .paper'));
+      applyStyleVarsTo($('#mobilePreviewBody .paper'));
       saveCurrent();
     });
   }
-  // Color
   const colorRow = $('#colorRow');
   if(colorRow){
     colorRow.innerHTML = COLOR_SWATCHES.map(c=>
@@ -1925,12 +2021,12 @@ function initStyleControls(){
       dot.addEventListener('click', ()=>{
         state.style.color = dot.getAttribute('data-color');
         colorRow.querySelectorAll('.color-dot').forEach(d=>d.classList.toggle('active', d===dot));
-        applyStyleVars();
+        applyStyleVarsTo($('#paperContainer .paper'));
+        applyStyleVarsTo($('#mobilePreviewBody .paper'));
         saveCurrent();
       });
     });
   }
-  // Ranges
   const fontRange = $('#fontSizeRange');
   if(fontRange){
     if(state.style.fontSize) fontRange.value = state.style.fontSize;
@@ -1938,7 +2034,8 @@ function initStyleControls(){
       const v = parseFloat(fontRange.value);
       state.style.fontSize = v;
       $('#fontSizeVal').textContent = v + 'pt';
-      applyStyleVars();
+      applyStyleVarsTo($('#paperContainer .paper'));
+      applyStyleVarsTo($('#mobilePreviewBody .paper'));
       saveCurrent();
     };
     fontRange.addEventListener('input', update);
@@ -1951,7 +2048,8 @@ function initStyleControls(){
       const v = parseFloat(lhRange.value);
       state.style.lineHeight = v;
       $('#lineHeightVal').textContent = v.toFixed(2);
-      applyStyleVars();
+      applyStyleVarsTo($('#paperContainer .paper'));
+      applyStyleVarsTo($('#mobilePreviewBody .paper'));
       saveCurrent();
     };
     lhRange.addEventListener('input', update);
@@ -1964,13 +2062,13 @@ function initStyleControls(){
       const v = parseFloat(mRange.value);
       state.style.margin = v;
       $('#marginVal').textContent = v + 'mm';
-      applyStyleVars();
+      applyStyleVarsTo($('#paperContainer .paper'));
+      applyStyleVarsTo($('#mobilePreviewBody .paper'));
       saveCurrent();
     };
     mRange.addEventListener('input', update);
     $('#marginVal').textContent = (state.style.margin || 20) + 'mm';
   }
-  // Signature style
   const sigSel = $('#signatureStyle');
   if(sigSel){
     sigSel.value = state.style.signatureStyle || 'plain';
@@ -1980,7 +2078,6 @@ function initStyleControls(){
       saveCurrent();
     });
   }
-  // Reset
   const resetBtn = $('#resetStyleBtn');
   if(resetBtn){
     resetBtn.addEventListener('click', ()=>{
@@ -2186,6 +2283,45 @@ function updateStats(){
   const c = $('#charCount'); if(c) c.value = chars + ' karakter';
 }
 
+/* ---------- PRINT PREVIEW MODAL ---------- */
+function openPrintPreview(){
+  const body = $('#printModalBody');
+  const modal = $('#printModal');
+  if(!body || !modal) return;
+  body.innerHTML = buildPaperHTML();
+  applyStyleVarsTo(body.querySelector('.paper'));
+  modal.classList.add('show');
+  document.body.style.overflow = 'hidden';
+  // Scroll to top
+  body.scrollTop = 0;
+}
+function closePrintPreview(){
+  const modal = $('#printModal');
+  if(!modal) return;
+  modal.classList.remove('show');
+  document.body.style.overflow = '';
+}
+function printFromModal(){
+  const body = $('#printModalBody');
+  if(!body || !body.querySelector('.paper')){
+    toast('Surat belum siap dicetak', 'warning');
+    return;
+  }
+  document.body.classList.add('print-from-modal');
+  // Small delay ensures the print dialog captures rendered layout
+  setTimeout(()=>{
+    window.print();
+    // Restore after print dialog closes
+    setTimeout(()=>{
+      document.body.classList.remove('print-from-modal');
+    }, 600);
+  }, 120);
+}
+function pdfFromModal(){
+  toast('Pilih "Save as PDF" pada dialog cetak', 'info');
+  printFromModal();
+}
+
 /* ---------- DOWNLOAD / PRINT / COPY ---------- */
 function getPlainText(){
   const paper = document.querySelector('#paperContainer .paper');
@@ -2231,7 +2367,7 @@ function downloadDOCX(){
     '.signature{margin-top:2.4em}.signature-space{height:60px}' +
     '.paper-header{margin-bottom:18px}.paper-name{font-size:1.8em;font-weight:700;margin:0 0 4px}' +
     '.paper-contact{font-size:.85em;color:#555}.paper-date{text-align:right;margin-bottom:16px}' +
-    '.recipient{margin-bottom:1.2em}.recipient-line{}' +
+    '.recipient{margin-bottom:1.2em}' +
     '</style></head><body>' + paper.innerHTML + '</body></html>';
   const blob = new Blob(['\ufeff', html], { type:'application/msword' });
   const a = document.createElement('a');
@@ -2241,16 +2377,9 @@ function downloadDOCX(){
   URL.revokeObjectURL(a.href);
   toast('File DOCX diunduh', 'success');
 }
-function downloadPDF(){
-  toast('Membuka dialog cetak — pilih "Save as PDF"', 'info');
-  setTimeout(()=>window.print(), 400);
-}
 function safeFileName(){
   const base = (state.meta.name || 'Surat Lamaran').replace(/[^\w\s\-]/g,'').trim().replace(/\s+/g,'_');
   return base || 'Surat_Lamaran';
-}
-function printLetter(){
-  window.print();
 }
 
 /* ---------- EXPORT / IMPORT ---------- */
@@ -2354,8 +2483,8 @@ function resetAll(){
 function handleAction(action){
   switch(action){
     case 'copy': copyLetter(); break;
-    case 'pdf': downloadPDF(); break;
-    case 'print': printLetter(); break;
+    case 'pdf': openPrintPreview(); break;
+    case 'print': openPrintPreview(); break;
     case 'txt': downloadTXT(); break;
     case 'docx': downloadDOCX(); break;
   }
@@ -2364,23 +2493,19 @@ function handleAction(action){
 /* ---------- INIT ---------- */
 function init(){
   hydrateIcons();
-  // Load theme
   const savedTheme = localStorage.getItem(STORAGE_THEME) || 'light';
   applyTheme(savedTheme);
-  // Load autosave setting
   const as = localStorage.getItem(STORAGE_AUTOSAVE);
   autoSaveEnabled = as === null ? true : as === '1';
   const sw = $('#autoSaveSwitch');
   if(sw) sw.classList.toggle('on', autoSaveEnabled);
 
-  // Load data
   loadLetters();
   if(!loadCurrent()){
     state.letter.date = new Date().toISOString().slice(0,10);
   }
   if(!state.letter.date) state.letter.date = new Date().toISOString().slice(0,10);
 
-  // Bind
   bindForms();
   initStyleControls();
   initTips();
@@ -2391,19 +2516,16 @@ function init(){
   updateDashboard();
   updateStats();
 
-  // Sync generation selects with state
   const gl = $('#genLanguage'); if(gl) gl.value = state.style.language || 'id';
   const gp = $('#genPreset'); if(gp) gp.value = state.style.preset || 'formal';
   const gt = $('#genTone'); if(gt) gt.value = state.style.tone || 'polite';
 
-  // ===== EVENT LISTENERS =====
+  // ===== EVENTS =====
 
-  // Nav
   $$('.nav-item').forEach(b=>{
     b.addEventListener('click', ()=>navigateTo(b.getAttribute('data-section')));
   });
 
-  // Sidebar toggle
   $('#menuToggle')?.addEventListener('click', ()=>{
     const sb = $('#sidebar');
     const sc = $('#sidebarScrim');
@@ -2415,14 +2537,12 @@ function init(){
     $('#sidebarScrim').classList.remove('show');
   });
 
-  // Theme toggles
   $('#themeToggle')?.addEventListener('click', toggleTheme);
   $('#themeToggleSide')?.addEventListener('click', toggleTheme);
   $$('[data-theme-set]').forEach(b=>{
     b.addEventListener('click', ()=>applyTheme(b.getAttribute('data-theme-set')));
   });
 
-  // Quick save
   $('#quickSaveBtn')?.addEventListener('click', ()=>{
     openModal({
       title:'Simpan Surat',
@@ -2436,15 +2556,30 @@ function init(){
     });
   });
 
-  // Quick actions
   $$('[data-quick]').forEach(b=>{
-    b.addEventListener('click', ()=>navigateTo(b.getAttribute('data-quick')));
+    b.addEventListener('click', ()=>{
+      const q = b.getAttribute('data-quick');
+      if(q === 'print'){ openPrintPreview(); }
+      else { navigateTo(q); }
+    });
   });
 
-  // Generate
   $('#genBtn')?.addEventListener('click', generateLetter);
 
-  // Preview toolbar actions
+  // Print preview buttons
+  $('#topPrintBtn')?.addEventListener('click', openPrintPreview);
+  $('#sidebarPrintBtn')?.addEventListener('click', ()=>{
+    openPrintPreview();
+    if(window.innerWidth <= 900){
+      $('#sidebar').classList.remove('open');
+      $('#sidebarScrim').classList.remove('show');
+    }
+  });
+  $('#printModalClose')?.addEventListener('click', closePrintPreview);
+  $('#printModalPrint')?.addEventListener('click', printFromModal);
+  $('#printModalPDF')?.addEventListener('click', pdfFromModal);
+
+  // Preview toolbar actions (delegated)
   document.addEventListener('click', (e)=>{
     const btn = e.target.closest('[data-action]');
     if(btn){
@@ -2453,10 +2588,8 @@ function init(){
     }
   });
 
-  // Archive search
   $('#archiveSearch')?.addEventListener('input', debounce(renderLetterList, 200));
 
-  // Auto-save switch
   $('#autoSaveSwitch')?.addEventListener('click', ()=>{
     autoSaveEnabled = !autoSaveEnabled;
     $('#autoSaveSwitch').classList.toggle('on', autoSaveEnabled);
@@ -2464,7 +2597,6 @@ function init(){
     toast(autoSaveEnabled ? 'Auto-save diaktifkan' : 'Auto-save dimatikan', 'info');
   });
 
-  // Export/Import
   $('#exportJsonBtn')?.addEventListener('click', exportJSON);
   $('#importJsonBtn')?.addEventListener('click', ()=>$('#importFileInput')?.click());
   $('#importFileInput')?.addEventListener('change', (e)=>{
@@ -2473,13 +2605,10 @@ function init(){
     e.target.value = '';
   });
 
-  // Reset
   $('#resetAllBtn')?.addEventListener('click', resetAll);
   $('#newLetterBtn')?.addEventListener('click', newLetter);
 
-  // Add paragraph / clear
   $('#addParagraphBtn')?.addEventListener('click', ()=>{
-    // Append to closing as a new paragraph with a subtle separator
     const cur = state.letter.closing || '';
     state.letter.closing = (cur ? cur + '\n\n' : '') + 'Paragraf tambahan...';
     refreshFormValues();
@@ -2508,7 +2637,6 @@ function init(){
     });
   });
 
-  // Mobile preview
   $('#mobilePreviewBtn')?.addEventListener('click', ()=>{
     renderPreview();
     $('#mobilePreviewOverlay').classList.add('show');
@@ -2519,7 +2647,6 @@ function init(){
     document.body.style.overflow = '';
   });
 
-  // Back to top
   const editorPanel = $('#editorPanel');
   const backTop = $('#backTop');
   if(editorPanel){
@@ -2532,23 +2659,28 @@ function init(){
     window.scrollTo({ top:0, behavior:'smooth' });
   });
 
-  // Keyboard shortcuts
   document.addEventListener('keydown', (e)=>{
     if((e.ctrlKey || e.metaKey) && e.key === 's'){
       e.preventDefault();
       $('#quickSaveBtn')?.click();
     }
     if((e.ctrlKey || e.metaKey) && e.key === 'p'){
-      // allow default print but our handler is fine
+      // Let browser handle print but route via our modal
+      if($('#printModal')?.classList.contains('show')){
+        // already in modal — let default print
+        return;
+      }
+      e.preventDefault();
+      openPrintPreview();
     }
     if(e.key === 'Escape'){
+      if($('#printModal')?.classList.contains('show')){ closePrintPreview(); return; }
       $('#mobilePreviewOverlay').classList.remove('show');
       document.body.style.overflow = '';
       $('#modalOverlay').classList.remove('show');
     }
   });
 
-  // Window resize: update mobile preview button visibility
   window.addEventListener('resize', ()=>{
     const mpb = $('#mobilePreviewBtn');
     if(mpb) mpb.style.display = (window.innerWidth <= 1180 && currentSection !== 'dashboard') ? 'grid' : 'none';
@@ -2558,26 +2690,18 @@ function init(){
     }
   });
 
-  // Debounced save
-  const debouncedSaveFn = debounce(()=>{ saveCurrent(); }, 400);
-  window.__debouncedSave = debouncedSaveFn;
-
-  // Set initial mobile preview button
   if(window.innerWidth <= 1180){
     const mpb = $('#mobilePreviewBtn');
     if(mpb) mpb.style.display = currentSection !== 'dashboard' ? 'grid' : 'none';
   }
 
-  // Welcome toast
   setTimeout(()=>{
     toast('Selamat datang di Surat Lamaran Pro', 'success');
   }, 600);
 }
 
-// Debounced save helper accessible globally
 function debouncedSave(){ if(autoSaveEnabled){ saveCurrent(); } }
 
-// Run
 if(document.readyState === 'loading'){
   document.addEventListener('DOMContentLoaded', init);
 } else {
