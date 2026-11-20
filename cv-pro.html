@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
 <meta name="theme-color" content="#0f2744">
-<title>ProCV — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF</title>
+<title>CvPro — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF</title>
 <meta name="description" content="Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.">
-<meta name="keywords" content="pembuat CV, buat CV online, CV formal, CV profesional, CV ATS, template CV, curriculum vitae, resume builder, CV PDF gratis, ProCV">
+<meta name="keywords" content="pembuat CV, buat CV online, CV formal, CV profesional, CV ATS, template CV, curriculum vitae, resume builder, CV PDF gratis, CvPro">
 <meta name="author" content="xatmojo">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://xatmojo.github.io/cv-pro">
@@ -15,31 +15,31 @@
 
 <!-- Open Graph -->
 <meta property="og:type" content="website">
-<meta property="og:site_name" content="ProCV">
+<meta property="og:site_name" content="CvPro">
 <meta property="og:locale" content="id_ID">
 <meta property="og:url" content="https://xatmojo.github.io/cv-pro">
-<meta property="og:title" content="ProCV — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF">
+<meta property="og:title" content="CvPro — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF">
 <meta property="og:description" content="Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.">
 <meta property="og:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-pro.png">
 <meta property="og:image:secure_url" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-pro.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="ProCV — pembuat CV profesional formal">
+<meta property="og:image:alt" content="CvPro — pembuat CV profesional formal">
 
 <!-- Twitter / X -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="ProCV — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF">
+<meta name="twitter:title" content="CvPro — Pembuat CV Profesional Formal Gratis, Siap Cetak PDF">
 <meta name="twitter:description" content="Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-pro.png">
-<meta name="twitter:image:alt" content="ProCV — pembuat CV profesional formal">
+<meta name="twitter:image:alt" content="CvPro — pembuat CV profesional formal">
 
 <!-- Structured data -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  "name": "ProCV",
+  "name": "CvPro",
   "alternateName": "CV Pro",
   "url": "https://xatmojo.github.io/cv-pro",
   "description": "Buat CV formal dan profesional langsung di browser: isi data, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis, tanpa daftar, data tersimpan otomatis di perangkat Anda.",
@@ -632,10 +632,10 @@ body.mode-preview .sidebar{display:none}
 </head>
 <body data-theme="light" class="mode-edit">
 
-<h1 class="sr-only">ProCV — Pembuat CV Profesional Formal</h1>
+<h1 class="sr-only">CvPro — Pembuat CV Profesional Formal</h1>
 <noscript>
   <div style="max-width:640px;margin:40px auto;padding:20px;font-family:system-ui,sans-serif;line-height:1.6">
-    <h2>ProCV — Pembuat CV Profesional Formal</h2>
+    <h2>CvPro — Pembuat CV Profesional Formal</h2>
     <p>Buat CV formal langsung di browser: isi data pribadi, pengalaman kerja, pendidikan, dan skill, atur foto, pilih desain, lalu cetak atau simpan sebagai PDF. Gratis dan tanpa registrasi.</p>
     <p>Aplikasi ini membutuhkan JavaScript. Silakan aktifkan JavaScript di browser Anda.</p>
   </div>
@@ -644,7 +644,7 @@ body.mode-preview .sidebar{display:none}
 <!-- ================= LOADER ================= -->
 <div id="loader">
   <div class="spinner"></div>
-  <div class="l-title">ProCV</div>
+  <div class="l-title">CvPro</div>
   <div class="l-sub">Memuat aplikasi…</div>
 </div>
 
@@ -799,7 +799,7 @@ body.mode-preview .sidebar{display:none}
 <script>
 'use strict';
 /* =====================================================================
-   ProCV — Formal Professional CV Builder
+   CvPro — Formal Professional CV Builder
    Single-file application. HTML + CSS + JS. No backend, no external DB.
    ===================================================================== */
 
@@ -1009,8 +1009,8 @@ function mergeState(base, incoming) {
 /* ------------------------------------------------------------------
    4. STORAGE (LocalStorage + IndexedDB)
 ------------------------------------------------------------------ */
-const LS_KEY = 'procv_state_v1';
-const IDB_NAME = 'procv_db';
+const LS_KEY = 'cvpro_state_v1';
+const IDB_NAME = 'cvpro_db';
 const IDB_STORE = 'kv';
 let dbPromise = null;
 
@@ -2457,7 +2457,7 @@ function exportBackup() {
     const a = document.createElement('a');
     const name = (state.personal.fullName || 'cv').replace(/[^\w\-]+/g, '_').toLowerCase();
     a.href = url;
-    a.download = `procv-backup-${name}-${todayISO()}.json`;
+    a.download = `CvPro-backup-${name}-${todayISO()}.json`;
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
