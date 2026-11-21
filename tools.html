@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<title>Alat Lamaran Pelaut</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+:root{--paper:#f5f2ec;--surface:#fffdf9;--ink:#14213d;--mut:#667085;--line:#e3ded3;--acc:#e4572e;--acc-ink:#fff;--sea:#0b6e78;--ok:#1b7f4d;--bad:#b42318;--r:14px;--shadow:0 1px 2px rgba(20,33,61,.06),0 10px 28px -14px rgba(20,33,61,.22)}
+@media(prefers-color-scheme:dark){:root{--paper:#0e1320;--surface:#161d2e;--ink:#eef1f7;--mut:#9aa6bd;--line:#26304a;--acc:#ff7a52;--acc-ink:#1b0c06;--sea:#4fc3d1;--ok:#5cc58d;--bad:#ff8a80;--shadow:0 10px 28px -14px rgba(0,0,0,.6)}}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;font:16px/1.6 "IBM Plex Sans",system-ui,sans-serif;background:var(--paper);color:var(--ink)}
+h1,h2,h3{font-family:"Bricolage Grotesque","IBM Plex Sans",sans-serif;letter-spacing:-.015em;margin:0}
+.i{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px;border-radius:6px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+.top{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--paper) 90%,transparent);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{max-width:1080px;margin:auto;padding:12px 20px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;font:700 18px "Bricolage Grotesque",sans-serif}
+.mark{width:34px;height:34px;border-radius:10px;background:var(--ink);color:var(--paper);display:grid;place-items:center}
+[role=tablist]{display:flex;gap:4px;background:var(--surface);border:1px solid var(--line);padding:4px;border-radius:999px}
+[role=tab]{display:flex;align-items:center;gap:8px;border:0;background:none;color:var(--mut);font:500 14px "IBM Plex Sans",sans-serif;padding:8px 14px;border-radius:999px;cursor:pointer;white-space:nowrap}
+[role=tab][aria-selected=true]{background:var(--ink);color:var(--paper)}
+[role=tab]:not([aria-selected=true]):hover{color:var(--ink)}
+@media(max-width:700px){.bar{padding:10px 14px}[role=tablist]{width:100%}[role=tab]{flex:1;justify-content:center;padding:9px 6px;font-size:13px;gap:5px}[role=tab] .i{display:none}}
+
+.wrap{max-width:1080px;margin:auto;padding:30px 20px 90px}
+.head{margin-bottom:22px}.head h2{font-size:clamp(26px,5vw,38px);line-height:1.1}.head p{color:var(--mut);margin:8px 0 0;max-width:60ch}
+.grid2{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:20px;align-items:start}
+@media(max-width:860px){.grid2{grid-template-columns:minmax(0,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;box-shadow:var(--shadow)}
+.card h3{font-size:18px;margin-bottom:12px}
+.stack{display:grid;gap:14px}
+label.f{display:grid;gap:6px;font-size:13px;font-weight:500;color:var(--mut)}
+input[type=text],input[type=tel],input[type=number],select,textarea{font:inherit;font-size:16px;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;width:100%}
+textarea{min-height:250px;resize:vertical;line-height:1.55}
+input[type=range]{width:100%;accent-color:var(--acc)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:480px){.two.keep{grid-template-columns:1fr 1fr}.two:not(.keep){grid-template-columns:1fr}}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font:600 14px "IBM Plex Sans",sans-serif;border:1px solid transparent;border-radius:10px;padding:10px 16px;cursor:pointer;background:var(--acc);color:var(--acc-ink);text-decoration:none;min-height:42px}
+.btn:hover{filter:brightness(1.06)}.btn:disabled{opacity:.5;cursor:not-allowed}
+.btn.ghost{background:transparent;color:var(--ink);border-color:var(--line)}.btn.ghost:hover{border-color:var(--ink)}
+.btn.sea{background:var(--sea);color:#fff}
+.btn.sm{padding:6px 12px;min-height:34px;font-size:13px}
+.icon{width:34px;height:34px;display:grid;place-items:center;border:1px solid var(--line);background:none;color:var(--mut);border-radius:9px;cursor:pointer}
+.icon:hover:not(:disabled){color:var(--ink);border-color:var(--ink)}.icon:disabled{opacity:.35;cursor:default}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.chips{display:flex;gap:8px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);color:var(--ink);border-radius:999px;padding:6px 14px;font:500 13px "IBM Plex Sans",sans-serif;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.mono{font-family:"IBM Plex Mono",monospace}
+.note{color:var(--mut);font-size:13px;margin:0}
+.bar-p{height:8px;border-radius:9px;background:var(--line);overflow:hidden}.bar-p i{display:block;height:100%;width:0;background:var(--sea);transition:width .25s}
+
+.drop{display:grid;place-items:center;text-align:center;gap:6px;padding:28px 16px;border:2px dashed var(--line);border-radius:var(--r);cursor:pointer;color:var(--mut);background:var(--paper)}
+.drop:hover,.drop.over{border-color:var(--acc);color:var(--ink)}
+.drop b{color:var(--ink)}
+ul.list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.file,.res{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+.thumb{width:48px;height:48px;border-radius:9px;background:var(--line);display:grid;place-items:center;overflow:hidden;flex:none;color:var(--mut)}.thumb img{width:100%;height:100%;object-fit:cover}
+.meta{display:grid;min-width:0;flex:1}.meta b{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-weight:500}.meta small{color:var(--mut)}
+.acts{display:flex;gap:6px}
+.save{color:var(--ok);font-weight:600}
+.empty{color:var(--mut);text-align:center;padding:22px 10px;margin:0}
+
+.flip{perspective:1400px;cursor:pointer;outline-offset:4px}
+.flip-in{display:grid;transition:transform .55s cubic-bezier(.2,.7,.2,1);transform-style:preserve-3d}
+.flip.on .flip-in{transform:rotateY(180deg)}
+.face{grid-area:1/1;backface-visibility:hidden;-webkit-backface-visibility:hidden;min-height:250px;padding:28px;border-radius:var(--r);display:flex;flex-direction:column;justify-content:center;gap:12px;border:1px solid var(--line);background:var(--surface);box-shadow:var(--shadow)}
+.face.back{transform:rotateY(180deg);background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.face .tag{font-size:12px;font-weight:600;color:var(--acc)}.face.back .tag{color:var(--paper);opacity:.7}
+.face p{margin:0;font:600 clamp(19px,3.4vw,24px)/1.4 "Bricolage Grotesque",sans-serif}
+.face.back p{font-family:"IBM Plex Sans",sans-serif;font-weight:500;font-size:clamp(16px,2.8vw,19px)}
+.kbd{font:500 12px "IBM Plex Mono",monospace;border:1px solid var(--line);border-bottom-width:2px;border-radius:6px;padding:1px 6px}
+@media(prefers-reduced-motion:reduce){.flip-in,.bar-p i{transition:none}}
+
+#qrbox{display:none;background:#fff;padding:18px;border-radius:var(--r);width:max-content;max-width:100%;margin:0 auto;box-shadow:var(--shadow)}
+#qrbox img,#qrbox canvas{max-width:100%;height:auto!important}
+.qrval{word-break:break-all;font:500 13px "IBM Plex Mono",monospace;color:var(--mut);background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:0}
+
+#toasts{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom));transform:translateX(-50%);display:grid;gap:8px;z-index:50;width:max-content;max-width:92vw}
+.toast{background:var(--ink);color:var(--paper);padding:10px 16px;border-radius:10px;font-size:14px;box-shadow:var(--shadow)}.toast.bad{background:var(--bad);color:#fff}
+footer{max-width:1080px;margin:0 auto;padding:0 20px 40px;color:var(--mut);font-size:13px}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-photo" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L6 21"/></symbol>
+<symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
+<symbol id="i-cards" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
+<symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h3M20 17v4"/></symbol>
+<symbol id="i-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
+<symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
+<symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
+<symbol id="i-dl" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></symbol>
+<symbol id="i-up2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"/></symbol>
+<symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></symbol>
+<symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></symbol>
+<symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/></symbol>
+</defs></svg>
+
+<header class="top"><div class="bar">
+ <div class="brand"><span class="mark"><svg class="i"><use href="#i-anchor"/></svg></span>Alat Lamaran Pelaut</div>
+ <div role="tablist" aria-label="Pilih alat">
+  <button role="tab" id="t-foto" aria-controls="foto" data-tab="foto"><svg class="i"><use href="#i-photo"/></svg>Foto &amp; PDF</button>
+  <button role="tab" id="t-pesan" aria-controls="pesan" data-tab="pesan"><svg class="i"><use href="#i-chat"/></svg>Pesan</button>
+  <button role="tab" id="t-latihan" aria-controls="latihan" data-tab="latihan"><svg class="i"><use href="#i-cards"/></svg>Latihan</button>
+  <button role="tab" id="t-qr" aria-controls="qr" data-tab="qr"><svg class="i"><use href="#i-qr"/></svg>QR</button>
+ </div>
+</div></header>
+
+<main class="wrap">
+
+<!-- FOTO & PDF -->
+<section id="foto" role="tabpanel" aria-labelledby="t-foto">
+ <div class="head"><h2>Foto &amp; PDF</h2><p>Kecilkan foto dokumen agar lolos batas ukuran portal crewing, atau gabungkan scan sertifikat menjadi satu PDF. Semua diproses di perangkat ini, tidak ada yang diunggah.</p></div>
+ <div class="grid2">
+  <div class="stack">
+   <label class="drop" id="f-drop" tabindex="0"><svg class="i" style="width:28px;height:28px"><use href="#i-up2"/></svg><span><b>Pilih file</b> atau seret ke sini</span><span class="note">Foto (JPG, PNG, HEIC bila didukung) dan PDF</span><input class="sr" type="file" id="f-in" accept="image/*,application/pdf" multiple></label>
+   <div class="card stack">
+    <h3>Pengaturan</h3>
+    <div class="chips" id="f-presets" role="group" aria-label="Preset ukuran">
+     <button class="chip" data-kb="150" data-px="1280">Portal ketat 150 KB</button><button class="chip" data-kb="300" data-px="1600" aria-pressed="true">Standar 300 KB</button><button class="chip" data-kb="800" data-px="2400">Kualitas tinggi 800 KB</button>
+    </div>
+    <label class="f">Ukuran maksimum per foto: <span class="mono" id="f-kbv">300 KB</span><input type="range" id="f-kb" min="50" max="1000" step="10" value="300"></label>
+    <label class="f">Sisi terpanjang: <span class="mono" id="f-pxv">1600 px</span><input type="range" id="f-px" min="600" max="3000" step="100" value="1600"></label>
+    <div class="row"><button class="btn" id="f-go-img"><svg class="i"><use href="#i-photo"/></svg>Kompres foto</button><button class="btn ghost" id="f-go-pdf"><svg class="i"><use href="#i-file"/></svg>Gabung jadi PDF</button></div>
+    <div class="bar-p" id="f-prog" hidden><i></i></div>
+   </div>
+  </div>
+  <div class="stack">
+   <div class="card"><h3>File dipilih</h3><ul class="list" id="f-list"></ul><p class="note" style="margin-top:10px">Urutan di sini menjadi urutan halaman PDF.</p></div>
+   <div class="card" id="f-outcard" hidden><h3>Hasil</h3><ul class="list" id="f-out"></ul></div>
+  </div>
+ </div>
+</section>
+
+<!-- PESAN -->
+<section id="pesan" role="tabpanel" aria-labelledby="t-pesan" hidden>
+ <div class="head"><h2>Templat Pesan</h2><p>Pesan singkat untuk crewing atau perusahaan pelayaran. Isi data sekali, hasilnya langsung diperbarui dan tersimpan di perangkat ini.</p></div>
+ <div class="grid2">
+  <form class="card stack" id="m-form" autocomplete="off">
+   <div class="two keep"><label class="f">Jenis pesan<select name="type"><option value="lamar">Melamar</option><option value="status">Tanya status</option><option value="follow">Setelah interview</option></select></label><label class="f">Bahasa<select name="lang"><option value="id">Indonesia</option><option value="en">English</option></select></label></div>
+   <div class="two"><label class="f">Nama Anda<input type="text" name="nama" placeholder="Nama lengkap"></label><label class="f">Nomor telepon<input type="tel" name="tel" placeholder="08xxxxxxxxxx"></label></div>
+   <div class="two"><label class="f">Posisi<input type="text" name="pos" placeholder="mis. Oiler"></label><label class="f">Perusahaan <span class="note">(opsional)</span><input type="text" name="co"></label></div>
+   <label class="f">Nama penerima <span class="note">(opsional)</span><input type="text" name="pen" placeholder="mis. Bapak Andi"></label>
+  </form>
+  <div class="card stack">
+   <div class="row" style="justify-content:space-between"><h3 style="margin:0">Hasil</h3><span class="note mono" id="m-count"></span></div>
+   <textarea id="m-out" aria-label="Hasil pesan"></textarea>
+   <div class="row"><button class="btn" id="m-copy"><svg class="i"><use href="#i-copy"/></svg>Salin</button><button class="btn sea" id="m-wa">WhatsApp</button><a class="btn ghost" id="m-mail" href="#">Email</a></div>
+  </div>
+ </div>
+</section>
+
+<!-- LATIHAN -->
+<section id="latihan" role="tabpanel" aria-labelledby="t-latihan" hidden>
+ <div class="head"><h2>Latihan Interview</h2><p>Tanya jawab teknis kamar mesin, aturan keselamatan, dan bahasa Inggris maritim. Balik kartu, tandai yang sudah hafal, dan tambahkan kartu Anda sendiri.</p></div>
+ <div class="grid2">
+  <div class="stack">
+   <div class="chips" id="l-cats" role="group" aria-label="Kategori"></div>
+   <div class="flip" id="l-card" role="button" tabindex="0" aria-live="polite">
+    <div class="flip-in"><div class="face front"><span class="tag" id="l-tag"></span><p id="l-q"></p></div><div class="face back" aria-hidden="true"><span class="tag">Jawaban</span><p id="l-a"></p></div></div>
+   </div>
+   <div class="row"><button class="btn ghost" id="l-prev">Sebelumnya</button><button class="btn" id="l-flip">Balik</button><button class="btn ghost" id="l-next">Berikutnya</button><button class="btn ghost" id="l-known"></button><button class="btn ghost" id="l-shuf">Acak</button></div>
+   <p class="note">Pintasan: <span class="kbd">←</span> <span class="kbd">→</span> pindah kartu, <span class="kbd">Spasi</span> balik, <span class="kbd">K</span> tandai hafal.</p>
+  </div>
+  <div class="stack">
+   <div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Kemajuan</h3><span class="mono note" id="l-prog-t"></span></div><div class="bar-p" style="margin-top:12px"><i id="l-prog"></i></div></div>
+   <form class="card stack" id="l-form" autocomplete="off"><h3>Tambah kartu sendiri</h3><label class="f">Pertanyaan<input type="text" name="q" required></label><label class="f">Jawaban<input type="text" name="a" required></label><div class="row"><button class="btn">Tambah kartu</button><button type="button" class="btn ghost" id="l-del" hidden>Hapus kartu ini</button></div></form>
+  </div>
+ </div>
+</section>
+
+<!-- QR -->
+<section id="qr" role="tabpanel" aria-labelledby="t-qr" hidden>
+ <div class="head"><h2>QR Code</h2><p>QR untuk tautan portfolio, nomor WhatsApp, atau teks lain. Cetak di CV atau tempel di kartu nama.</p></div>
+ <div class="grid2">
+  <form class="card stack" id="q-form" onsubmit="return false" autocomplete="off">
+   <div class="chips" id="q-mode" role="group" aria-label="Jenis isi"><button type="button" class="chip" data-m="link" aria-pressed="true">Tautan</button><button type="button" class="chip" data-m="wa">WhatsApp</button><button type="button" class="chip" data-m="text">Teks</button></div>
+   <label class="f" data-for="link">Alamat tautan<input type="text" name="link" placeholder="https://xatmojo.github.io/cv-maker"></label>
+   <label class="f" data-for="wa" hidden>Nomor WhatsApp<input type="tel" name="tel" placeholder="08xxxxxxxxxx"></label>
+   <label class="f" data-for="wa" hidden>Pesan pembuka <span class="note">(opsional)</span><input type="text" name="wam" placeholder="Halo, saya ingin bertanya..."></label>
+   <label class="f" data-for="text" hidden>Teks<input type="text" name="text"></label>
+   <label class="f">Ukuran<select name="sz"><option value="256">Sedang</option><option value="384">Besar</option><option value="160">Kecil</option></select></label>
+  </form>
+  <div class="card stack">
+   <p class="note" id="q-msg">Isi data di samping untuk membuat QR.</p>
+   <div id="qrbox"></div>
+   <p class="qrval" id="q-val" hidden></p>
+   <div class="row"><button class="btn" id="q-dl" disabled><svg class="i"><use href="#i-dl"/></svg>Unduh PNG</button><button class="btn ghost" id="q-copy" disabled><svg class="i"><use href="#i-copy"/></svg>Salin isi</button></div>
+  </div>
+ </div>
+</section>
+
+</main>
+<footer>Semua proses berjalan di browser Anda. Data tersimpan di perangkat ini saja.</footer>
+<div id="toasts" role="status" aria-live="polite"></div>
+
+<script>
+const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store={get(k,d){try{const v=localStorage.getItem('alat:'+k);return v==null?d:JSON.parse(v)}catch{return d}},set(k,v){try{localStorage.setItem('alat:'+k,JSON.stringify(v))}catch{}}};
+const kb=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';
+const debounce=(f,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}};
+function toast(msg,kind=''){const t=document.createElement('div');t.className='toast '+kind;t.textContent=msg;$('#toasts').append(t);setTimeout(()=>t.remove(),3200)}
+async function copy(text,ok='Tersalin'){try{await navigator.clipboard.writeText(text)}catch{const a=document.createElement('textarea');a.value=text;document.body.append(a);a.select();document.execCommand('copy');a.remove()}toast(ok)}
+const libs={};const load=u=>libs[u]??=new Promise((ok,no)=>{const s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=()=>{delete libs[u];no(new Error('Gagal memuat pustaka. Periksa koneksi internet.'))};document.head.append(s)});
+const PDFLIB='https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js',QRLIB='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+const wa=n=>{let d=String(n).replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d};
+
+/* ===== Tabs ===== */
+const tabs=$$('[role=tab]'),panels=$$('[role=tabpanel]');
+function go(id){if(!panels.some(p=>p.id===id))id='foto';
+ tabs.forEach(t=>{const on=t.dataset.tab===id;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1});
+ panels.forEach(p=>p.hidden=p.id!==id);document.title=$('#t-'+id).textContent.trim()+' | Alat Lamaran Pelaut';
+ if(id==='qr')qr.render();scrollTo({top:0})}
+tabs.forEach((t,i)=>{t.addEventListener('click',()=>{location.hash=t.dataset.tab});
+ t.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(d){const n=tabs[(i+d+tabs.length)%tabs.length];n.focus();location.hash=n.dataset.tab}})});
+addEventListener('hashchange',()=>go(location.hash.slice(1)));
+
+/* ===== Foto & PDF ===== */
+const foto=(()=>{let files=[],resUrls=[],n=0;const list=$('#f-list'),out=$('#f-out'),kbR=$('#f-kb'),pxR=$('#f-px'),prog=$('#f-prog');
+ const isPdf=f=>f.type==='application/pdf'||/\.pdf$/i.test(f.name),isImg=f=>f.type.startsWith('image/');
+ function add(fl){const all=[...fl],ok=all.filter(f=>isPdf(f)||isImg(f));if(ok.length<all.length)toast('Hanya foto dan PDF yang diterima','bad');
+  ok.forEach(f=>files.push({id:++n,file:f,url:isImg(f)?URL.createObjectURL(f):''}));draw()}
+ function draw(){list.innerHTML=files.map((x,i)=>`<li class="file"><span class="thumb">${x.url?`<img src="${x.url}" alt="">`:'<svg class="i"><use href="#i-file"/></svg>'}</span><span class="meta"><b>${esc(x.file.name)}</b><small>${kb(x.file.size)}${isPdf(x.file)?', PDF':''}</small></span><span class="acts"><button class="icon" data-a="up" data-i="${i}" aria-label="Naikkan" ${i?'':'disabled'}><svg class="i"><use href="#i-up"/></svg></button><button class="icon" data-a="dn" data-i="${i}" aria-label="Turunkan" ${i<files.length-1?'':'disabled'}><svg class="i"><use href="#i-down"/></svg></button><button class="icon" data-a="rm" data-i="${i}" aria-label="Hapus"><svg class="i"><use href="#i-x"/></svg></button></span></li>`).join('')||'<p class="empty">Belum ada file.</p>'}
+ list.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const i=+b.dataset.i,a=b.dataset.a;
+  if(a==='rm'){if(files[i].url)URL.revokeObjectURL(files[i].url);files.splice(i,1)}else{const j=a==='up'?i-1:i+1;[files[i],files[j]]=[files[j],files[i]]}draw()});
+ const drop=$('#f-drop');['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
+ ['dragleave','drop'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.remove('over')}));
+ drop.addEventListener('drop',e=>add(e.dataTransfer.files));drop.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();$('#f-in').click()}});
+ $('#f-in').addEventListener('change',e=>{add(e.target.files);e.target.value=''});
+ const sync=()=>{$('#f-kbv').textContent=kbR.value+' KB';$('#f-pxv').textContent=pxR.value+' px';$$('#f-presets .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.kb===kbR.value&&c.dataset.px===pxR.value))};
+ kbR.addEventListener('input',sync);pxR.addEventListener('input',sync);
+ $('#f-presets').addEventListener('click',e=>{const c=e.target.closest('.chip');if(c){kbR.value=c.dataset.kb;pxR.value=c.dataset.px;sync()}});
+ const toBlob=(c,q)=>new Promise(r=>c.toBlob(r,'image/jpeg',q));
+ async function squeeze(file,limit,max){const bmp=await createImageBitmap(file);let s=Math.min(1,max/Math.max(bmp.width,bmp.height)),last;
+  for(let t=0;t<8;t++){const c=document.createElement('canvas');c.width=Math.max(1,Math.round(bmp.width*s));c.height=Math.max(1,Math.round(bmp.height*s));
+   const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bmp,0,0,c.width,c.height);
+   for(let q=.9;q>=.4;q-=.1){last=await toBlob(c,q);if(last.size<=limit*1024)return last}s*=.8}
+  return last}
+ const busy=v=>{$$('#f-go-img,#f-go-pdf').forEach(b=>b.disabled=v);prog.hidden=!v;if(v)prog.firstElementChild.style.width='4%'};
+ const step=(i,t)=>prog.firstElementChild.style.width=Math.max(4,Math.round(i/t*100))+'%';
+ function result(blob,name,info){const u=URL.createObjectURL(blob);resUrls.push(u);out.insertAdjacentHTML('beforeend',`<li class="res"><span class="meta"><b>${esc(name)}</b><small>${info}</small></span><a class="btn sm" href="${u}" download="${esc(name)}"><svg class="i"><use href="#i-dl"/></svg>Unduh</a></li>`);$('#f-outcard').hidden=false}
+ async function run(kind){if(!files.length)return toast('Pilih file dulu','bad');const k=+kbR.value,m=+pxR.value;
+  resUrls.forEach(URL.revokeObjectURL);resUrls=[];out.innerHTML='';$('#f-outcard').hidden=true;busy(true);
+  try{if(kind==='img'){const im=files.filter(x=>!isPdf(x.file));if(!im.length)throw new Error('Pilih minimal satu foto.');
+    for(let i=0;i<im.length;i++){step(i,im.length);const f=im[i].file,b=await squeeze(f,k,m);result(b,f.name.replace(/\.[^.]+$/,'')+'-kecil.jpg',`${kb(f.size)} menjadi ${kb(b.size)} <span class="save">(hemat ${Math.max(0,Math.round(100-b.size/f.size*100))}%)</span>`)}}
+   else{await load(PDFLIB);const{PDFDocument}=PDFLib,doc=await PDFDocument.create();
+    for(let i=0;i<files.length;i++){step(i,files.length);const f=files[i].file;
+     if(isPdf(f)){const s=await PDFDocument.load(await f.arrayBuffer(),{ignoreEncryption:true});(await doc.copyPages(s,s.getPageIndices())).forEach(p=>doc.addPage(p))}
+     else{const b=await squeeze(f,k,m),img=await doc.embedJpg(await b.arrayBuffer()),W=595.28,H=841.89,g=24,sc=Math.min((W-2*g)/img.width,(H-2*g)/img.height);
+      doc.addPage([W,H]).drawImage(img,{x:(W-img.width*sc)/2,y:(H-img.height*sc)/2,width:img.width*sc,height:img.height*sc})}}
+    const bytes=await doc.save();result(new Blob([bytes],{type:'application/pdf'}),'dokumen-gabungan.pdf',`${doc.getPageCount()} halaman, ${kb(bytes.length)}`)}
+   step(1,1);toast('Selesai')}
+  catch(e){toast(e.message||'Gagal memproses. Pastikan PDF tidak dikunci kata sandi.','bad')}finally{setTimeout(()=>busy(false),250)}}
+ $('#f-go-img').addEventListener('click',()=>run('img'));$('#f-go-pdf').addEventListener('click',()=>run('pdf'));
+ draw();sync()})();
+
+/* ===== Templat pesan ===== */
+const pesan=(()=>{const f=$('#m-form'),out=$('#m-out');
+ const T={id:{hi:p=>`Yth. ${p||'Bapak/Ibu HRD'},`,bye:(n,t)=>`Terima kasih atas perhatiannya.\n\nHormat saya,\n${n}${t?'\n'+t:''}`,
+  lamar:m=>`Perkenalkan, saya ${m.nama}. Saya bermaksud melamar posisi ${m.pos}${m.co?' di '+m.co:''}. Bersama pesan ini saya lampirkan CV dan dokumen pendukung saya. Saya siap mengikuti proses seleksi sesuai jadwal yang ditentukan.`,
+  status:m=>`Saya ${m.nama}, sebelumnya telah mengirimkan lamaran untuk posisi ${m.pos}${m.co?' di '+m.co:''}. Mohon informasi mengenai perkembangan proses lamaran saya.`,
+  follow:m=>`Terima kasih atas kesempatan interview untuk posisi ${m.pos}${m.co?' di '+m.co:''}. Saya ${m.nama}, ingin menanyakan tahapan selanjutnya dan dokumen apa yang perlu saya siapkan.`,
+  subj:{lamar:m=>`Lamaran ${m.pos} - ${m.nama}`,status:m=>`Status lamaran ${m.pos} - ${m.nama}`,follow:m=>`Tindak lanjut interview ${m.pos} - ${m.nama}`}},
+ en:{hi:p=>`Dear ${p||'Sir/Madam'},`,bye:(n,t)=>`Thank you for your time and consideration.\n\nBest regards,\n${n}${t?'\n'+t:''}`,
+  lamar:m=>`My name is ${m.nama}. I would like to apply for the position of ${m.pos}${m.co?' at '+m.co:''}. Please find my CV and supporting documents attached. I am available to attend the selection process at your convenience.`,
+  status:m=>`This is ${m.nama}. I previously submitted an application for the position of ${m.pos}${m.co?' at '+m.co:''}. May I kindly ask for an update on my application?`,
+  follow:m=>`Thank you for the interview opportunity for the position of ${m.pos}${m.co?' at '+m.co:''}. This is ${m.nama}. May I ask about the next steps and which documents I should prepare?`,
+  subj:{lamar:m=>`Application for ${m.pos} - ${m.nama}`,status:m=>`Application status: ${m.pos} - ${m.nama}`,follow:m=>`Interview follow-up: ${m.pos} - ${m.nama}`}}};
+ const saved=store.get('msg',{});for(const[k,v]of Object.entries(saved)){if(f.elements[k])f.elements[k].value=v}
+ let subject='';
+ function gen(){const m=Object.fromEntries(new FormData(f));store.set('msg',m);Object.keys(m).forEach(k=>m[k]=m[k].trim());
+  const L=T[m.lang],v={...m,nama:m.nama||'[nama]',pos:m.pos||'[posisi]'};
+  out.value=`${L.hi(m.pen)}\n\n${L[m.type](v)}\n\n${L.bye(v.nama,m.tel)}`;subject=L.subj[m.type](v);
+  $('#m-count').textContent=out.value.length+' karakter';$('#m-mail').href=`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(out.value)}`}
+ f.addEventListener('input',gen);f.addEventListener('change',gen);
+ $('#m-copy').addEventListener('click',()=>copy(out.value));
+ $('#m-wa').addEventListener('click',()=>window.open('https://wa.me/?text='+encodeURIComponent(out.value),'_blank','noopener'));
+ gen()})();
+
+/* ===== Latihan interview ===== */
+const latihan=(()=>{
+ const CARDS=[
+ ['Teknis','Apa tugas utama Oiler saat jaga mesin?','Berpatroli di kamar mesin, mencatat suhu, tekanan dan level, memeriksa kebocoran dan suara tidak normal, membantu perawatan, dan melapor ke Duty Engineer.'],
+ ['Teknis','Apa fungsi purifier pada bahan bakar dan minyak lumas?','Memisahkan air dan kotoran dari minyak dengan gaya sentrifugal sehingga minyak lebih bersih sebelum dipakai mesin.'],
+ ['Teknis','Apa fungsi turbocharger?','Gas buang memutar turbin yang menggerakkan kompresor, sehingga udara masuk silinder bertekanan lebih tinggi dan mesin menghasilkan daya lebih besar.'],
+ ['Teknis','Apa fungsi governor pada mesin?','Menjaga putaran mesin tetap stabil dengan mengatur jumlah bahan bakar sesuai perubahan beban.'],
+ ['Teknis','Mengapa HFO perlu dipanaskan sebelum dipakai?','HFO sangat kental pada suhu normal. Pemanasan menurunkan viskositasnya agar bisa dipompa dan dikabutkan dengan baik oleh injektor.'],
+ ['Teknis','Sebutkan fungsi minyak lumas pada mesin.','Mengurangi gesekan, mendinginkan, membersihkan, menyekat celah, dan melindungi dari korosi.'],
+ ['Teknis','Pompa sentrifugal tidak mengeluarkan tekanan. Apa kemungkinan penyebabnya?','Ada udara di dalam pompa dan perlu priming, katup hisap tertutup atau strainer tersumbat, impeller rusak, atau arah putaran salah.'],
+ ['Teknis','Apa yang dilakukan saat terjadi blackout di kamar mesin?','Pastikan generator darurat menyala, lapor ke anjungan dan Chief Engineer, cari penyebab, lalu pulihkan daya sesuai prosedur kapal.'],
+ ['Keselamatan','Apa kepanjangan dan fungsi SOLAS?','Safety of Life at Sea: konvensi internasional tentang standar keselamatan jiwa di laut.'],
+ ['Keselamatan','Apa itu MARPOL?','Konvensi internasional untuk mencegah pencemaran laut oleh kapal, antara lain oleh minyak, bahan kimia, sampah, dan limbah.'],
+ ['Keselamatan','Apa kepanjangan STCW?','Standards of Training, Certification and Watchkeeping for Seafarers: standar pelatihan, sertifikasi, dan jaga bagi pelaut.'],
+ ['Keselamatan','Berapa batas kandungan minyak pada air bilga yang boleh dibuang lewat Oily Water Separator?','15 ppm, dan hanya sesuai ketentuan MARPOL Annex I serta prosedur kapal.'],
+ ['Keselamatan','Apa tiga unsur segitiga api?','Bahan bakar, oksigen, dan panas.'],
+ ['English','Dead slow ahead','Perintah mesin maju dengan kecepatan paling pelan.'],
+ ['English','Stand by engine','Mesin disiapkan untuk manuver, misalnya saat keluar masuk pelabuhan.'],
+ ['English','Finished with engine','Mesin tidak diperlukan lagi, biasanya setelah kapal sandar atau berlabuh.'],
+ ['English','Bagaimana mengatakan "Saya sedang jaga mesin" dalam bahasa Inggris?','I am on engine watch.'],
+ ['English','Bagaimana mengatakan "Ada kebocoran di pipa" dalam bahasa Inggris?','There is a leak in the pipe.']];
+ let mine=store.get('cards',[]),known=store.get('known',{}),cat='Semua',order=[],i=0;
+ const card=$('#l-card'),all=()=>[...CARDS,...mine.map(c=>['Kartu saya',c[0],c[1]])];
+ const build=(shuffle)=>{order=all().filter(c=>cat==='Semua'||c[0]===cat);if(shuffle)order.sort(()=>Math.random()-.5);if(i>=order.length)i=0};
+ function cats(){const c=['Semua',...new Set(all().map(x=>x[0]))];$('#l-cats').innerHTML=c.map(x=>`<button class="chip" data-c="${esc(x)}" aria-pressed="${x===cat}">${esc(x)}</button>`).join('')}
+ function draw(){const c=order[i];$('#l-prog-t').textContent='';const pool=order,h=pool.filter(x=>known[x[1]]).length;
+  $('#l-prog').style.width=(pool.length?h/pool.length*100:0)+'%';$('#l-prog-t').textContent=`${h} dari ${pool.length} hafal`;
+  if(!c){card.classList.remove('on');$('#l-q').textContent='Belum ada kartu.';$('#l-a').textContent='';$('#l-tag').textContent='';return}
+  $('#l-tag').textContent=`${c[0]}, kartu ${i+1} dari ${pool.length}`;$('#l-q').textContent=c[1];$('#l-a').textContent=c[2];
+  $('#l-known').textContent=known[c[1]]?'Batal hafal':'Tandai hafal';$('#l-del').hidden=c[0]!=='Kartu saya';card.setAttribute('aria-label','Kartu: '+c[1]+'. Tekan untuk membalik.')}
+ const flip=v=>{const on=v??!card.classList.contains('on');card.classList.toggle('on',on);$('.back',card).setAttribute('aria-hidden',!on)};
+ const move=d=>{if(!order.length)return;i=(i+d+order.length)%order.length;flip(false);draw()};
+ card.addEventListener('click',()=>flip());card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});
+ $('#l-flip').addEventListener('click',()=>flip());$('#l-next').addEventListener('click',()=>move(1));$('#l-prev').addEventListener('click',()=>move(-1));
+ $('#l-shuf').addEventListener('click',()=>{build(true);i=0;flip(false);draw();toast('Kartu diacak')});
+ $('#l-known').addEventListener('click',()=>{const q=order[i]?.[1];if(!q)return;known[q]?delete known[q]:known[q]=1;store.set('known',known);draw()});
+ $('#l-cats').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(b){cat=b.dataset.c;i=0;build();cats();flip(false);draw()}});
+ $('#l-form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;mine.push([f.q.value.trim(),f.a.value.trim()]);store.set('cards',mine);f.reset();cat='Kartu saya';build();i=order.length-1;cats();flip(false);draw();toast('Kartu ditambahkan')});
+ $('#l-del').addEventListener('click',()=>{const q=order[i][1];mine=mine.filter(c=>c[0]!==q);store.set('cards',mine);delete known[q];store.set('known',known);if(!mine.length)cat='Semua';build();cats();flip(false);draw();toast('Kartu dihapus')});
+ addEventListener('keydown',e=>{if($('#latihan').hidden||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.closest('.flip'))return;
+  if(e.key==='ArrowRight')move(1);else if(e.key==='ArrowLeft')move(-1);else if(e.key===' '){e.preventDefault();flip()}else if(e.key.toLowerCase()==='k')$('#l-known').click()});
+ build();cats();draw()})();
+
+/* ===== QR code ===== */
+const qr=(()=>{const f=$('#q-form'),box=$('#qrbox'),msg=$('#q-msg'),val=$('#q-val');let mode='link',cur='';
+ const s=store.get('qr',{});for(const[k,v]of Object.entries(s.f||{}))if(f.elements[k])f.elements[k].value=v;mode=s.mode||'link';
+ const value=()=>{const e=f.elements;if(mode==='link')return e.link.value.trim();if(mode==='text')return e.text.value.trim();const n=wa(e.tel.value),m=e.wam.value.trim();return n?`https://wa.me/${n}${m?'?text='+encodeURIComponent(m):''}`:''};
+ function setMode(m){mode=m;$$('#q-mode .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.m===m));$$('[data-for]',f).forEach(l=>l.hidden=l.dataset.for!==m)}
+ async function render(){const v=value();store.set('qr',{mode,f:Object.fromEntries(new FormData(f))});cur=v;
+  $('#q-dl').disabled=$('#q-copy').disabled=!v;
+  if(!v){box.innerHTML='';box.style.display='none';val.hidden=true;msg.hidden=false;msg.textContent='Isi data di samping untuk membuat QR.';return}
+  try{await load(QRLIB)}catch(e){msg.hidden=false;msg.textContent=e.message;box.style.display='none';return}
+  if(cur!==v)return;msg.hidden=true;box.innerHTML='';box.style.display='block';const z=+f.elements.sz.value;
+  new QRCode(box,{text:v,width:z,height:z,correctLevel:QRCode.CorrectLevel.M});val.hidden=false;val.textContent=v}
+ const soon=debounce(render,250);f.addEventListener('input',soon);f.addEventListener('change',render);
+ $('#q-mode').addEventListener('click',e=>{const c=e.target.closest('.chip');if(c){setMode(c.dataset.m);render()}});
+ $('#q-copy').addEventListener('click',()=>copy(cur,'Isi QR tersalin'));
+ $('#q-dl').addEventListener('click',()=>{const c=$('canvas',box);if(!c)return;const o=document.createElement('canvas'),p=24;o.width=c.width+2*p;o.height=c.height+2*p;
+  const x=o.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,o.width,o.height);x.drawImage(c,p,p);const a=document.createElement('a');a.href=o.toDataURL('image/png');a.download='qr-code.png';a.click()});
+ setMode(mode);return{render}})();
+
+go(location.hash.slice(1));
+</script>
+</body>
+</html>
