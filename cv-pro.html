@@ -54,7 +54,9 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=Merriweather:wght@400;700&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Source+Sans+3:wght@400;600;700&family=Merriweather:wght@400;700&display=swap"></noscript>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230f2744'/%3E%3Ctext x='32' y='42' font-family='Arial' font-size='28' font-weight='700' text-anchor='middle' fill='%23c9a961'%3ECV%3C/text%3E%3C/svg%3E">
 <style>
 /* ============ RESET & BASE ============ */
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
@@ -651,7 +653,6 @@ body.mode-preview .sidebar{display:none}
     width:auto!important;min-height:0!important;
     padding:0!important;margin:0!important;
     box-shadow:none!important;border:none!important;
-    font-size:10pt!important;
     -webkit-print-color-adjust:exact!important;
     print-color-adjust:exact!important;
   }
@@ -694,6 +695,12 @@ body.mode-preview .sidebar{display:none}
   .brand-mark{width:28px;height:28px;font-size:13px}
   .brand-name{font-size:12.5px}
 }
+/* ============ A11Y / UX ADDITIONS ============ */
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.field input:focus-visible,.field select:focus-visible,.field textarea:focus-visible{outline:none}
+@supports (height:100dvh){.app-main{height:calc(100dvh - var(--header-h))}}
+@media (pointer:coarse){.icon-btn{width:38px;height:38px}.btn-sm{min-height:38px}.tab-btn{min-height:40px}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body data-theme="light" class="mode-edit">
@@ -760,7 +767,7 @@ body.mode-preview .sidebar{display:none}
 
   <!-- SIDEBAR -->
   <aside class="sidebar no-print">
-    <div class="tab-strip" id="tabStrip"></div>
+    <div class="tab-strip" id="tabStrip" role="tablist" aria-label="Bagian formulir"></div>
     <div class="sidebar-body" id="sidebarBody"></div>
     <div class="sidebar-foot">
       <span id="statusText">Siap</span>
@@ -825,7 +832,7 @@ body.mode-preview .sidebar{display:none}
 </button>
 
 <!-- ================= TOASTS ================= -->
-<div class="toast-wrap" id="toastWrap"></div>
+<div class="toast-wrap" id="toastWrap" role="status" aria-live="polite"></div>
 
 <!-- ================= COLOR PICKER ================= -->
 <div class="cp-wrap" id="cpWrap">
@@ -857,7 +864,7 @@ body.mode-preview .sidebar{display:none}
   <div class="modal">
     <div class="modal-head">
       <h3>Sesuaikan Foto</h3>
-      <button class="icon-btn" data-crop-close>
+      <button class="icon-btn" data-crop-close aria-label="Tutup" title="Tutup">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
       </button>
     </div>
@@ -1093,6 +1100,30 @@ function mergeState(base, incoming) {
   return out;
 }
 
+const SAFE_FONTS = ['Inter','Source Sans 3','Merriweather','Georgia','Arial'];
+const LIST_KEYS = ['experience','education','hardSkills','softSkills','techSkills','computerSkills','languages','certificates','organizations','projects','awards','references'];
+function safePhoto(v) { return typeof v === 'string' && /^data:image\/[a-z0-9.+-]+;base64,[A-Za-z0-9+\/=]+$/i.test(v) ? v : ''; }
+function normalizeState(st) {
+  const base = defaultState();
+  if (!st.personal || typeof st.personal !== 'object') st.personal = base.personal;
+  if (!st.settings || typeof st.settings !== 'object') st.settings = base.settings;
+  const s = st.settings;
+  LIST_KEYS.forEach(k => { st[k] = (Array.isArray(st[k]) ? st[k] : []).filter(x => x && typeof x === 'object' && !Array.isArray(x)); });
+  st.personal.photo = safePhoto(st.personal.photo);
+  s.theme = s.theme === 'dark' ? 'dark' : 'light';
+  s.accent = /^#[0-9a-f]{6}$/i.test(s.accent) ? s.accent : base.settings.accent;
+  if (!SAFE_FONTS.includes(s.font)) s.font = 'Inter';
+  const fs = Number(s.fontSize); s.fontSize = fs >= 8 && fs <= 13 ? fs : 10.5;
+  if (!['compact','normal','relaxed'].includes(s.density)) s.density = 'normal';
+  const known = base.settings.sectionOrder;
+  const order = (Array.isArray(s.sectionOrder) ? s.sectionOrder : []).filter((id, i, a) => known.includes(id) && a.indexOf(id) === i);
+  known.forEach(id => { if (!order.includes(id)) order.push(id); });
+  s.sectionOrder = order;
+  s.hiddenSections = (Array.isArray(s.hiddenSections) ? s.hiddenSections : []).filter(id => known.includes(id));
+  s.showPhoto = s.showPhoto !== false;
+  return st;
+}
+
 /* ------------------------------------------------------------------
    4. STORAGE (LocalStorage + IndexedDB)
 ------------------------------------------------------------------ */
@@ -1153,8 +1184,9 @@ function save() {
   saveTimer = setTimeout(doSave, 350);
 }
 
+let savePending = false;
 async function doSave() {
-  if (saving) return;
+  if (saving) { savePending = true; return; }
   saving = true;
   try {
     try { await idbSet('state', state); } catch (e) { console.warn('IDB save failed', e); }
@@ -1172,6 +1204,7 @@ async function doSave() {
     flashSaveDot();
   } finally {
     saving = false;
+    if (savePending) { savePending = false; doSave(); }
   }
 }
 
@@ -1187,7 +1220,7 @@ async function loadState() {
       if (raw) data = JSON.parse(raw);
     } catch (e) { /* ignore */ }
   }
-  state = data ? mergeState(defaultState(), data) : defaultState();
+  state = normalizeState(data ? mergeState(defaultState(), data) : defaultState());
   // Ensure every section exists
   const base = defaultState();
   for (const k in base) {
@@ -1364,23 +1397,37 @@ function flashSaveDot() {
   setTimeout(() => d.classList.remove('flash'), 900);
 }
 
+let lastFocus = null;
+function labelButtons(root) {
+  (root || document).querySelectorAll('button[title]:not([aria-label])').forEach(b => b.setAttribute('aria-label', b.getAttribute('title')));
+}
 function openModal(html, size) {
   const wrap = document.getElementById('modalWrap');
   const box = document.getElementById('modalBox');
   box.className = 'modal' + (size === 'sm' ? ' sm' : '');
   box.innerHTML = html;
+  box.setAttribute('role', 'dialog');
+  box.setAttribute('aria-modal', 'true');
+  box.tabIndex = -1;
+  const h = box.querySelector('h3');
+  if (h) box.setAttribute('aria-label', h.textContent);
+  lastFocus = document.activeElement;
   wrap.classList.add('show');
+  labelButtons(box);
+  (box.querySelector('input:not([type=hidden]),textarea,select') || box.querySelector('.modal-foot .btn:last-child') || box).focus();
   return box;
 }
 function closeModal() {
   document.getElementById('modalWrap').classList.remove('show');
   modalCtx = null;
+  if (lastFocus && lastFocus.isConnected && lastFocus.focus) lastFocus.focus();
+  lastFocus = null;
 }
 function confirmDialog(title, msg, okLabel, onOk, danger) {
   const box = openModal(`
     <div class="modal-head">
       <h3>${esc(title)}</h3>
-      <button class="icon-btn" data-modal-close>${icon('x', 18)}</button>
+      <button class="icon-btn" data-modal-close aria-label="Tutup" title="Tutup">${icon('x', 18)}</button>
     </div>
     <div class="modal-body" style="font-size:13px;color:var(--text-2);line-height:1.6">${msg}</div>
     <div class="modal-foot">
@@ -1585,7 +1632,7 @@ function renderCV() {
   if (p.website) contact.push(`<span>${cvIcon('globe')}${esc(p.website)}</span>`);
 
   const photoHTML = (p.photo && s.showPhoto)
-    ? `<img class="cv-photo" src="${p.photo}" alt="Foto">`
+    ? `<img class="cv-photo" src="${esc(p.photo)}" alt="Foto profil">`
     : '';
 
   let html = `
@@ -1673,7 +1720,7 @@ function fitPreview() {
 function renderTabStrip() {
   const strip = document.getElementById('tabStrip');
   strip.innerHTML = TABS.map(t => `
-    <button class="tab-btn ${activeTab === t.id ? 'active' : ''}" data-tab="${t.id}">
+    <button class="tab-btn ${activeTab === t.id ? 'active' : ''}" data-tab="${t.id}" role="tab" aria-selected="${activeTab === t.id}">
       ${icon(t.icon, 13)}<span>${t.label}</span>
     </button>
   `).join('');
@@ -1694,6 +1741,7 @@ function renderSidebar() {
   }[activeTab];
   body.innerHTML = fn ? fn() : '';
   bindSidebarEvents();
+  labelButtons(body);
 }
 
 /* ---------- Personal ---------- */
@@ -1701,23 +1749,23 @@ function fieldHTML(label, key, type, ph, extraAttr) {
   const val = getPath(state, key);
   const v = val == null ? '' : val;
   return `<div class="field">
-    <label>${esc(label)}</label>
-    <input type="${type}" data-bind="${key}" value="${esc(v)}" placeholder="${esc(ph || '')}" ${extraAttr || ''}>
+    <label for="b_${key}">${esc(label)}</label>
+    <input id="b_${key}" type="${type}" data-bind="${key}" value="${esc(v)}" placeholder="${esc(ph || '')}" ${extraAttr || ''}>
     <div class="field-err" data-err="${key}"></div>
   </div>`;
 }
 function textareaHTML(label, key, ph) {
   const v = getPath(state, key) || '';
   return `<div class="field full">
-    <label>${esc(label)}</label>
-    <textarea data-bind="${key}" rows="5" placeholder="${esc(ph || '')}">${esc(v)}</textarea>
+    <label for="b_${key}">${esc(label)}</label>
+    <textarea id="b_${key}" data-bind="${key}" rows="5" placeholder="${esc(ph || '')}">${esc(v)}</textarea>
   </div>`;
 }
 
 function renderPersonalTab() {
   const p = state.personal;
   const photoInner = p.photo
-    ? `<img src="${p.photo}" alt="Foto">`
+    ? `<img src="${esc(p.photo)}" alt="Foto profil">`
     : `<span>Belum ada<br>foto</span>`;
   return `
     <div class="panel-title">${icon('image', 13)} Foto Formal</div>
@@ -1889,14 +1937,14 @@ function renderDesignTab() {
     <div class="field">
       <label>Warna Aksen CV</label>
       <div class="swatches">
-        ${ACCENTS.map(c => `<button class="swatch ${s.accent===c?'active':''}" data-accent="${c}" style="background:${c}" title="${c}"></button>`).join('')}
+        ${ACCENTS.map(c => `<button class="swatch ${s.accent===c?'active':''}" data-accent="${c}" style="background:${c}" title="${c}" aria-label="Warna aksen ${c}" aria-pressed="${s.accent===c}"></button>`).join('')}
         <button type="button" class="swatch custom-btn ${ACCENTS.includes(s.accent)?'':'active'}" data-accent-custom title="Warna kustom" aria-label="Pilih warna kustom"><i class="cdot" style="background:${s.accent}"></i></button>
       </div>
     </div>
 
     <div class="field">
-      <label>Font CV</label>
-      <select data-bind="settings.font">
+      <label for="b_font">Font CV</label>
+      <select id="b_font" data-bind="settings.font">
         <option value="Inter" ${s.font==='Inter'?'selected':''}>Inter (Modern Sans)</option>
         <option value="Source Sans 3" ${s.font==='Source Sans 3'?'selected':''}>Source Sans 3 (Clean)</option>
         <option value="Merriweather" ${s.font==='Merriweather'?'selected':''}>Merriweather (Serif)</option>
@@ -1906,13 +1954,13 @@ function renderDesignTab() {
     </div>
 
     <div class="field">
-      <label>Ukuran Font Dasar: <b id="fsVal">${s.fontSize} pt</b></label>
-      <input type="range" min="8" max="13" step="0.5" value="${s.fontSize}" data-bind="settings.fontSize" data-range="fontSize">
+      <label for="b_fs">Ukuran Font Dasar: <b id="fsVal">${s.fontSize} pt</b></label>
+      <input id="b_fs" type="range" min="8" max="13" step="0.5" value="${s.fontSize}" data-bind="settings.fontSize" data-range="fontSize">
     </div>
 
     <div class="field">
-      <label>Kerapatan Layout</label>
-      <select data-bind="settings.density">
+      <label for="b_density">Kerapatan Layout</label>
+      <select id="b_density" data-bind="settings.density">
         <option value="compact" ${s.density==='compact'?'selected':''}>Compact (target 1 halaman)</option>
         <option value="normal" ${s.density==='normal'?'selected':''}>Normal (2 halaman)</option>
         <option value="relaxed" ${s.density==='relaxed'?'selected':''}>Relaxed (multi-halaman)</option>
@@ -2005,36 +2053,8 @@ function bindSidebarEvents() {
     btn.addEventListener('click', () => openItemModal(btn.dataset.add, null));
   });
 
-  // Edit / Delete / Move
-  body.querySelectorAll('[data-edit]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const [k, i] = btn.dataset.edit.split(':');
-      openItemModal(k, parseInt(i, 10));
-    });
-  });
-  body.querySelectorAll('[data-del]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const [k, i] = btn.dataset.del.split(':');
-      const idx = parseInt(i, 10);
-      const item = state[k][idx];
-      confirmDialog('Hapus Data', `Hapus "<b>${esc(itemTitle(k, item) || 'item ini')}</b>"? Tindakan ini tidak dapat dibatalkan.`, 'Hapus', () => {
-        state[k].splice(idx, 1);
-        save(); renderSidebar(); renderCV();
-        toast('Data dihapus', 'ok');
-      }, true);
-    });
-  });
-  body.querySelectorAll('[data-move]').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const [k, i, dir] = btn.dataset.move.split(':');
-      const idx = parseInt(i, 10), d = parseInt(dir, 10);
-      const arr = state[k];
-      const ni = idx + d;
-      if (ni < 0 || ni >= arr.length) return;
-      [arr[idx], arr[ni]] = [arr[ni], arr[idx]];
-      save(); renderSidebar(); renderCV();
-    });
-  });
+  // Edit / Delete / Move (satu implementasi bersama)
+  rebindListActions(body);
 
   // Search
   body.querySelectorAll('[data-search]').forEach(inp => {
@@ -2109,12 +2129,12 @@ function bindSidebarEvents() {
   if (bWa) bWa.addEventListener('click', () => {
     const phone = (state.personal.phone || '').replace(/[^\d]/g, '').replace(/^0/, '62');
     if (!phone) return toast('Nomor telepon belum diisi', 'warn');
-    window.open('https://wa.me/' + phone, '_blank');
+    window.open('https://wa.me/' + phone, '_blank', 'noopener,noreferrer');
   });
   const bMail = body.querySelector('#btnMail');
   if (bMail) bMail.addEventListener('click', () => {
     if (!state.personal.email) return toast('Email belum diisi', 'warn');
-    window.location.href = 'mailto:' + state.personal.email;
+    window.location.href = 'mailto:' + encodeURIComponent(state.personal.email.trim());
   });
 }
 
@@ -2130,7 +2150,7 @@ function rebindListActions(scope) {
       const [k, i] = btn.dataset.del.split(':');
       const idx = parseInt(i, 10);
       const item = state[k][idx];
-      confirmDialog('Hapus Data', `Hapus "<b>${esc(itemTitle(k, item) || 'item ini')}</b>"?`, 'Hapus', () => {
+      confirmDialog('Hapus Data', `Hapus "<b>${esc(itemTitle(k, item) || 'item ini')}</b>"? Tindakan ini tidak dapat dibatalkan.`, 'Hapus', () => {
         state[k].splice(idx, 1);
         save(); renderSidebar(); renderCV();
         toast('Data dihapus', 'ok');
@@ -2150,6 +2170,12 @@ function rebindListActions(scope) {
   });
 }
 
+let renderQueued = false;
+function scheduleRender() {
+  if (renderQueued) return;
+  renderQueued = true;
+  requestAnimationFrame(() => { renderQueued = false; renderCV(); });
+}
 function onBindInput(e) {
   const el = e.currentTarget;
   const key = el.dataset.bind;
@@ -2169,7 +2195,7 @@ function onBindInput(e) {
     if (v) v.textContent = el.value + ' pt';
   }
 
-  renderCV();
+  scheduleRender();
   save();
 }
 
@@ -2193,8 +2219,8 @@ function fieldInModal(f, item) {
   const full = (f.type === 'textarea' || f.type === 'range' || f.type === 'checkbox');
   if (f.type === 'textarea') {
     return `<div class="field full">
-      <label>${esc(f.label)}</label>
-      <textarea data-f="${f.key}" rows="4" placeholder="${esc(f.ph || '')}">${esc(val)}</textarea>
+      <label for="m_${f.key}">${esc(f.label)}</label>
+      <textarea id="m_${f.key}" data-f="${f.key}" rows="4" placeholder="${esc(f.ph || '')}">${esc(val)}</textarea>
     </div>`;
   }
   if (f.type === 'checkbox') {
@@ -2212,9 +2238,9 @@ function fieldInModal(f, item) {
   if (f.type === 'date') {
     const iso = /^\d{4}-\d{2}-\d{2}/.test(String(val)) ? String(val).slice(0, 10) : '';
     return `<div class="field">
-      <label>${esc(f.label)}</label>
+      <label for="m_${f.key}">${esc(f.label)}</label>
       <div class="date-wrap">
-        <input type="text" class="date-text" inputmode="numeric" autocomplete="off" maxlength="10"
+        <input id="m_${f.key}" type="text" class="date-text" inputmode="numeric" autocomplete="off" maxlength="10"
                data-f="${f.key}" data-dmy="1" value="${esc(isoToDMY(val))}" placeholder="dd/mm/yyyy">
         <span class="date-ic">${icon('calendar', 16)}</span>
         <input type="date" class="date-native" tabindex="-1" aria-label="Pilih dari kalender" value="${iso}">
@@ -2223,8 +2249,8 @@ function fieldInModal(f, item) {
     </div>`;
   }
   return `<div class="field ${full ? 'full' : ''}">
-    <label>${esc(f.label)}</label>
-    <input type="${f.type}" data-f="${f.key}" value="${esc(val)}" placeholder="${esc(f.ph || '')}">
+    <label for="m_${f.key}">${esc(f.label)}</label>
+    <input id="m_${f.key}" type="${f.type}" data-f="${f.key}" value="${esc(val)}" placeholder="${esc(f.ph || '')}">
     <div class="field-err" data-ferr="${f.key}"></div>
   </div>`;
 }
@@ -2241,7 +2267,7 @@ function openItemModal(key, index) {
   const box = openModal(`
     <div class="modal-head">
       <h3>${isNew ? 'Tambah' : 'Edit'} — ${esc(label)}</h3>
-      <button class="icon-btn" data-modal-close>${icon('x', 18)}</button>
+      <button class="icon-btn" data-modal-close aria-label="Tutup" title="Tutup">${icon('x', 18)}</button>
     </div>
     <div class="modal-body">
       <div class="form-grid">
@@ -2628,7 +2654,7 @@ function importBackup(e) {
       confirmDialog('Import Backup',
         'Data saat ini akan <b>ditimpa</b> dengan isi file backup. Lanjutkan?',
         'Import', () => {
-          state = mergeState(defaultState(), data);
+          state = normalizeState(mergeState(defaultState(), data));
           save();
           applyAllSettings();
           renderSidebar();
@@ -2652,7 +2678,7 @@ async function restoreLast() {
     confirmDialog('Pulihkan Sesi Terakhir',
       'Muat ulang data dari LocalStorage (tanpa foto jika melebihi kuota)?',
       'Pulihkan', () => {
-        state = mergeState(defaultState(), data);
+        state = normalizeState(mergeState(defaultState(), data));
         save();
         applyAllSettings();
         renderSidebar();
@@ -2820,6 +2846,7 @@ async function init() {
     renderSidebar();
     renderCV();
     bindGlobalEvents();
+    labelButtons(document);
     setupCropEvents();
     setStatus('Tersimpan');
     setTimeout(fitPreview, 100);
