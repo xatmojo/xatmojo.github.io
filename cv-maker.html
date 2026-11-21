@@ -21,7 +21,7 @@
 <meta property="og:title" content="CV Pelaut Profesional — Seafarer Portfolio">
 <meta property="og:description" content="Curriculum Vitae (CV) interaktif dan profesional untuk pelaut. Kelola profil, sertifikat pelayaran, riwayat kapal, dan pengalaman kerja dengan mudah.">
 <meta property="og:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/cv-maker.png">
-<meta property="og:image:type" content="image/jpeg">
+<meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="xatmojo cv maker">
@@ -895,6 +895,29 @@ body:not(.edit-on) .tl-actions {
   .timeline,.section:last-child{margin-bottom:0 !important}
   a{text-decoration:none !important;color:inherit !important}
 }
+
+/* =========================================================
+   POLISH LAYER (aditif; tidak mengubah logika/fitur)
+   ========================================================= */
+:where(a,button,input,select,textarea,[tabindex]):focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.skip-link{position:fixed;left:12px;top:-60px;z-index:10000;padding:10px 16px;border-radius:10px;
+  background:var(--navy);color:#fff;font-weight:600;text-decoration:none;transition:top .2s}
+.skip-link:focus{top:12px}
+#content:focus{outline:none}
+::selection{background:var(--gold-2);color:#111}
+html{scrollbar-gutter:stable}
+table.data td,table.data th,.info-item .ii-value,.hero-chips{font-variant-numeric:tabular-nums}
+.section,.info-item,.contact-card{transition:box-shadow .25s ease,transform .25s ease,border-color .25s ease}
+@media (hover:hover){
+  .info-item:hover,.contact-card:hover{transform:translateY(-2px);box-shadow:var(--shadow)}
+}
+@media (pointer:coarse){
+  .icon-btn,.btn,.nav-link{min-height:44px}
+  .icon-btn{min-width:44px}
+}
+.topbar{padding-top:max(0px,env(safe-area-inset-top))}
+.back-top{bottom:max(18px,env(safe-area-inset-bottom))}
+html,body{overflow-x:clip}
 </style>
 </head>
 <body>
@@ -937,8 +960,10 @@ body:not(.edit-on) .tl-actions {
   <symbol id="i-palette" viewBox="0 0 24 24"><circle cx="13.5" cy="6.5" r=".5" fill="currentColor"/><circle cx="17.5" cy="10.5" r=".5" fill="currentColor"/><circle cx="8.5" cy="7.5" r=".5" fill="currentColor"/><circle cx="6.5" cy="12.5" r=".5" fill="currentColor"/><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z"/></symbol>
 </svg>
 
+<a class="skip-link" href="#content">Lewati ke konten utama</a>
 <div id="preloader"><div class="loader"></div><span>Memuat CV Pelaut</span></div>
 
+<noscript><p style="padding:24px;font-family:sans-serif">Aplikasi ini membutuhkan JavaScript untuk berjalan.</p></noscript>
 <div class="app">
   <aside class="sidebar" id="sidebar">
     <div class="brand">
@@ -1006,7 +1031,7 @@ body:not(.edit-on) .tl-actions {
       </div>
     </header>
 
-    <main class="content" id="content">
+    <main class="content" id="content" tabindex="-1">
       <div id="alertZone"></div>
       <section class="hero" id="home"></section>
       <section class="section" id="personal"></section>
@@ -1503,7 +1528,9 @@ function loadData(){
 }
 function loadUI(){
   const def = {
-    edit: false, theme: 'light', lang: 'id', color: 'navy',
+    edit: false,
+    theme: (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light',
+    lang: 'id', color: 'navy',
     search: { documents:'', coc:'', cop:'', other:'' },
     sort:   { coc:'default', cop:'default', other:'default', sea:'desc', work:'desc' }
   };
@@ -1520,7 +1547,9 @@ function loadUI(){
 
 let DATA = loadData();
 let UI   = loadUI();
-if(!localStorage.getItem(STORE_KEY)) UI.edit = true;
+let hasSavedData = false;
+try{ hasSavedData = !!localStorage.getItem(STORE_KEY); }catch(e){}
+if(!hasSavedData) UI.edit = true;
 
 function saveUI(){ try{ localStorage.setItem(UI_KEY, JSON.stringify(UI)); }catch(e){} }
 function save(){
@@ -1553,14 +1582,15 @@ function toast(msg, type = 'ok'){
 }
 
 let modalSaveHandler = null;
+let modalOpener = null;
 function openModal({ title, bodyHTML, saveLabel = 'Save', onSave = null, danger = false, cancelLabel = null }){
   const root = $('#modalRoot');
   root.innerHTML = `
     <div class="modal-backdrop" data-close></div>
-    <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
       <div class="modal-head">
-        <h3>${esc(title)}</h3>
-        <button class="icon-btn sm" data-close title="${esc(t('modal_close'))}">${icon('x')}</button>
+        <h3 id="modalTitle">${esc(title)}</h3>
+        <button class="icon-btn sm" data-close type="button" aria-label="${esc(t('modal_close'))}" title="${esc(t('modal_close'))}">${icon('x')}</button>
       </div>
       <div class="modal-body">${bodyHTML}</div>
       <div class="modal-foot">
@@ -1568,6 +1598,7 @@ function openModal({ title, bodyHTML, saveLabel = 'Save', onSave = null, danger 
         ${onSave ? `<button class="btn ${danger ? 'danger' : 'primary'}" id="modalSave">${icon('save')}${esc(saveLabel)}</button>` : ''}
       </div>
     </div>`;
+  modalOpener = document.activeElement;
   root.classList.add('open');
   document.body.style.overflow = 'hidden';
   root.querySelectorAll('[data-close]').forEach(b => { b.onclick = closeModal; });
@@ -1579,7 +1610,16 @@ function openModal({ title, bodyHTML, saveLabel = 'Save', onSave = null, danger 
   };
   root.onkeydown = e => {
     if(e.key === 'Escape') closeModal();
-    if(e.key === 'Enter' && e.target.tagName !== 'TEXTAREA' && btn){ e.preventDefault(); btn.click(); }
+    /* Enter hanya menyimpan dari field input; tidak membajak tombol Batal/Tutup */
+    if(e.key === 'Enter' && e.target.tagName === 'INPUT' && e.target.type !== 'file' && btn){ e.preventDefault(); btn.click(); }
+    /* Focus trap */
+    if(e.key === 'Tab'){
+      const f = $$('button:not([disabled]), input:not([disabled]):not([type=hidden]), select, textarea, a[href]', root).filter(el => el.offsetParent !== null);
+      if(!f.length) return;
+      const first = f[0], last = f[f.length - 1];
+      if(e.shiftKey && document.activeElement === first){ e.preventDefault(); last.focus(); }
+      else if(!e.shiftKey && document.activeElement === last){ e.preventDefault(); first.focus(); }
+    }
   };
   setTimeout(() => {
     const first = root.querySelector('.modal-body input:not([type=range]):not([type=file]), .modal-body select, .modal-body textarea');
@@ -1593,6 +1633,8 @@ function closeModal(){
   root.onkeydown = null;
   modalSaveHandler = null;
   document.body.style.overflow = '';
+  if(modalOpener && document.contains(modalOpener) && typeof modalOpener.focus === 'function') modalOpener.focus();
+  modalOpener = null;
 }
 function confirmModal(title, message, onYes){
   openModal({
