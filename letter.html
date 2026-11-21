@@ -92,6 +92,11 @@ svg{display:block;flex-shrink:0}
 *::-webkit-scrollbar-thumb{background:var(--border-2);border-radius:8px;border:2px solid var(--bg)}
 *::-webkit-scrollbar-thumb:hover{background:var(--text-3)}
 
+:focus-visible{outline:2px solid var(--gold);outline-offset:2px}
+.field input:focus-visible,.field textarea:focus-visible,.field select:focus-visible{outline:none}
+@media(prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
+}
 /* ========== LAYOUT ========== */
 .app{display:flex;min-height:100vh}
 
@@ -1790,7 +1795,7 @@ function openModal(opts){
 /* ---------- THEME ---------- */
 function applyTheme(theme){
   document.documentElement.setAttribute('data-theme', theme);
-  localStorage.setItem(STORAGE_THEME, theme);
+  try{ localStorage.setItem(STORAGE_THEME, theme); }catch(e){}
   const isDark = theme === 'dark';
   const themeToggle = $('#themeToggle');
   const themeToggleSide = $('#themeToggleSide');
@@ -2810,8 +2815,7 @@ function resetAll(){
       letters = [];
       state = defaultState();
       state.letter.date = new Date().toISOString().slice(0,10);
-      localStorage.removeItem(STORAGE_LETTERS);
-      localStorage.removeItem(STORAGE_CURRENT);
+      try{ localStorage.removeItem(STORAGE_LETTERS); localStorage.removeItem(STORAGE_CURRENT); }catch(e){}
       refreshFormValues();
       renderPreview();
       updateStyleControlsFromState();
@@ -2841,9 +2845,11 @@ function handleAction(action){
 /* ---------- INIT ---------- */
 function init(){
   hydrateIcons();
-  const savedTheme = localStorage.getItem(STORAGE_THEME) || 'light';
+  try{ enhanceA11y(); }catch(e){ console.warn('a11y', e); }
+  let savedTheme = null, as = null;
+  try{ savedTheme = localStorage.getItem(STORAGE_THEME); as = localStorage.getItem(STORAGE_AUTOSAVE); }catch(e){}
+  if(!savedTheme) savedTheme = (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
   applyTheme(savedTheme);
-  const as = localStorage.getItem(STORAGE_AUTOSAVE);
   autoSaveEnabled = as === null ? true : as === '1';
   const sw = $('#autoSaveSwitch');
   if(sw) sw.classList.toggle('on', autoSaveEnabled);
@@ -2940,7 +2946,7 @@ function init(){
   $('#autoSaveSwitch')?.addEventListener('click', ()=>{
     autoSaveEnabled = !autoSaveEnabled;
     $('#autoSaveSwitch').classList.toggle('on', autoSaveEnabled);
-    localStorage.setItem(STORAGE_AUTOSAVE, autoSaveEnabled ? '1' : '0');
+    try{ localStorage.setItem(STORAGE_AUTOSAVE, autoSaveEnabled ? '1' : '0'); }catch(e){}
     toast(autoSaveEnabled ? 'Auto-save diaktifkan' : 'Auto-save dimatikan', 'info');
   });
 
@@ -3283,6 +3289,27 @@ function updateSignatureUI(){
   const has = !!(state.letter && state.letter.signatureImage);
   box.classList.toggle('show', has);
   if(has) img.src = state.letter.signatureImage;
+}
+
+/* ---------- ACCESSIBILITY ENHANCER ---------- */
+function enhanceA11y(){
+  let n = 0;
+  $$('.field').forEach(f=>{
+    const lab = f.querySelector('label'), ctl = f.querySelector('input,textarea,select');
+    if(!lab || !ctl || lab.htmlFor) return;
+    if(!ctl.id) ctl.id = 'fld-' + (++n);
+    lab.htmlFor = ctl.id;
+    if(lab.querySelector('.req')) ctl.setAttribute('aria-required','true');
+  });
+  $$('button[title]:not([aria-label])').forEach(b=>b.setAttribute('aria-label', b.getAttribute('title')));
+  const mt = $('#menuToggle'); if(mt) mt.setAttribute('aria-label','Buka menu navigasi');
+  const sb = $('#sidebar'); if(sb) sb.setAttribute('aria-label','Menu utama');
+  const tc = $('#toastContainer'); if(tc){ tc.setAttribute('role','status'); tc.setAttribute('aria-live','polite'); }
+  const mb = $('#modalBox'); if(mb){ mb.setAttribute('role','dialog'); mb.setAttribute('aria-modal','true'); }
+  $$('.nav-item').forEach(b=>b.setAttribute('aria-current', b.classList.contains('active') ? 'page' : 'false'));
+  new MutationObserver(()=>{
+    $$('.nav-item').forEach(b=>b.setAttribute('aria-current', b.classList.contains('active') ? 'page' : 'false'));
+  }).observe($('.sidebar-nav'), {attributes:true, subtree:true, attributeFilter:['class']});
 }
 
 function debouncedSave(){ if(autoSaveEnabled){ saveCurrent(); } }
