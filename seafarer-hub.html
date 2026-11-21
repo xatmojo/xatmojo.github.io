@@ -9473,7 +9473,7 @@ function show(id){cur=id;const t=TOOLS.find(x=>x.id===id),v=$('#v-'+id);
  document.querySelectorAll('.view').forEach(x=>x.classList.toggle('on',x===v));
  nav.querySelectorAll('a').forEach(a=>{a.classList.toggle('on',a.dataset.id===id);if(a.dataset.id===id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
  document.title=(t.id==='home'?'':t.t+' | ')+'Seafarer Hub';
- if(t.f){if(!v.firstChild){const f=document.createElement('iframe');f.title=t.t;f.setAttribute('allow','clipboard-write; fullscreen');f.srcdoc=$('#src-'+id).textContent.replace(/\uE000/g,'<');v.appendChild(f)}}
+ if(t.f){if(!v.firstChild){const f=document.createElement('iframe');f.title=t.t;f.setAttribute('allow','clipboard-write; fullscreen');f.src=URL.createObjectURL(new Blob([$('#src-'+id).textContent.replace(/\uE000/g,'<')],{type:'text/html'}));v.appendChild(f)}}
  else{const y=v.scrollTop;v.innerHTML=R[id]();v.scrollTop=y;if(id==='kontrak')kCalc();if(id==='pesan')msgGen();if(id==='foto')fList();if(id==='qr')qrGen()}}
 const route=()=>{const id=location.hash.slice(1);show(TOOLS.some(t=>t.id===id)?id:'home')};
 addEventListener('hashchange',route);route();
