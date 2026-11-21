@@ -12,8 +12,8 @@
 :root{--bg:#f3f5f8;--card:#fff;--ink:#12233c;--mut:#5d6c80;--line:#d8e0ea;--navy:#0b1f3a;--sea:#0f6f7c;--on:#fff;--amber:#f0a732;--ok:#1d7a4c;--warn:#a96b0b;--bad:#b3322a}
 @media(prefers-color-scheme:dark){:root{--bg:#0d1726;--card:#14233a;--ink:#e6edf6;--mut:#93a3b8;--line:#243752;--navy:#071324;--sea:#4fc3d1;--on:#06202a;--ok:#5cc58d;--warn:#f0b04d;--bad:#ff7d73}}
 html,body{height:100%;margin:0}
-body{font:15px/1.55 Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-.app{display:grid;grid-template-columns:250px 1fr;height:100dvh}
+body{font:15px/1.55 Inter,system-ui,sans-serif;background:var(--bg);color:var(--ink);overflow:hidden}
+.app{display:grid;grid-template-columns:250px minmax(0,1fr);height:100dvh;overflow:hidden}
 nav{background:var(--navy);color:#cfd9e6;overflow:auto;padding:18px 12px;display:flex;flex-direction:column;gap:2px}
 .brand{font:600 20px Outfit,sans-serif;color:#fff;padding:4px 10px 10px}
 .brand small{display:block;font:400 12px Inter,sans-serif;color:#8fa3bd}
@@ -22,8 +22,8 @@ nav a{color:inherit;text-decoration:none;padding:8px 10px;border-radius:8px;bord
 nav a:hover{background:rgba(255,255,255,.07)}
 nav a.on{background:rgba(255,255,255,.1);color:#fff;border-left-color:var(--amber)}
 :focus-visible{outline:2px solid var(--amber);outline-offset:2px}
-#views{min-width:0;height:100%}
-.view{display:none;height:100%}.view.on{display:block}
+#views{position:relative;min-width:0;min-height:0}
+.view{display:none;position:absolute;inset:0}.view.on{display:block}
 .view.native{overflow:auto;padding:28px clamp(16px,4vw,44px)}
 .view iframe{width:100%;height:100%;border:0;display:block;background:#fff}
 .wrap{max-width:860px;margin:auto}
@@ -53,7 +53,12 @@ button.x{background:none;color:var(--mut);padding:4px 8px}
 .bar{height:8px;background:var(--line);border-radius:9px;overflow:hidden;margin:8px 0 0}.bar i{display:block;height:100%;background:var(--sea)}
 .empty{color:var(--mut);padding:18px;text-align:center}
 .out{margin-top:14px;display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
-@media(max-width:820px){.app{grid-template-columns:1fr;grid-template-rows:auto 1fr}nav{flex-direction:row;overflow-x:auto;padding:8px;gap:4px;align-items:center}.brand,.grp{display:none}nav a{white-space:nowrap;border-left:0;border-bottom:3px solid transparent}nav a.on{border-bottom-color:var(--amber)}.item{flex-wrap:wrap}}
+@media(max-width:820px){.app{grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr)}nav{flex-direction:row;overflow-x:auto;overflow-y:hidden;padding:8px;gap:4px;align-items:center;min-height:0}nav a{flex:none}.brand,.grp{display:none}nav a{white-space:nowrap;border-left:0;border-bottom:3px solid transparent}nav a.on{border-bottom-color:var(--amber)}.item{flex-wrap:wrap}}
+.dt{position:relative;display:flex;gap:6px}.dt input[type=text]{flex:1;min-width:0}.dt .cal{padding:6px 10px;display:flex;align-items:center}
+.nat{position:absolute;right:0;bottom:0;width:1px;height:1px;opacity:0;pointer-events:none;border:0;padding:0}
+a.item{color:inherit;text-decoration:none}
+.fc{min-height:200px;width:100%;display:flex;align-items:center;justify-content:center;text-align:center;font:500 19px/1.5 Outfit,sans-serif;padding:24px;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;cursor:pointer}
+#qrbox{background:#fff;padding:16px;border-radius:10px;margin-top:14px;display:none}
 </style>
 </head>
 <body>
@@ -9231,7 +9236,7 @@ const $=s=>document.querySelector(s);
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const KEY='seafarer_hub_v1';
 let D;try{D=JSON.parse(localStorage.getItem(KEY))||{}}catch{D={}}
-D.docs??=[];D.sea??=[];D.apps??=[];D.chk??={done:{},custom:[]};D.msg??={};D.k??={};
+D.docs??=[];D.sea??=[];D.apps??=[];D.chk??={done:{},custom:[]};D.msg??={};D.k??={};D.cards??=[];D.known??={};D.qr??='';
 const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(D))}catch{}};
 const uid=()=>Math.random().toString(36).slice(2,9);
 const dd=s=>new Date(s+'T00:00:00');
@@ -9252,8 +9257,11 @@ const TOOLS=[
 {id:'seatime',t:'Kalkulator Sea Time',g:'Pelaut',d:'Total masa layar per kapal dan jabatan'},
 {id:'checklist',t:'Checklist Dokumen',g:'Pelaut',d:'Kelengkapan sebelum melamar atau sign on'},
 {id:'kontrak',t:'Kalkulator Kontrak',g:'Pelaut',d:'Estimasi gaji dan tabungan per kontrak'},
+{id:'foto',t:'Foto & PDF',g:'Pelaut',d:'Kecilkan foto dokumen dan gabungkan scan jadi satu PDF'},
 {id:'lamaran',t:'Pelacak Lamaran',g:'Lamaran',d:'Status lamaran ke setiap perusahaan'},
-{id:'pesan',t:'Templat Pesan',g:'Lamaran',d:'Email atau WhatsApp ke crewing, ID dan EN'}];
+{id:'pesan',t:'Templat Pesan',g:'Lamaran',d:'Email atau WhatsApp ke crewing, ID dan EN'},
+{id:'latihan',t:'Latihan Interview',g:'Lamaran',d:'Kartu tanya jawab teknis, keselamatan, dan English maritim'},
+{id:'qr',t:'QR Code',g:'Lamaran',d:'QR untuk tautan portfolio atau kontak, siap diunduh'}];
 
 /* ---------- Masa berlaku dokumen ---------- */
 const DOCN=['COC Engine','BST','SAT','AFF','SDSD','Buku Pelaut','Paspor','MCU','Yellow Fever'];
@@ -9263,7 +9271,8 @@ const R={};
 R.dokumen=()=>{const L=[...D.docs].sort((a,b)=>a.exp.localeCompare(b.exp));
  return page('Masa Berlaku Dokumen','Merah bila sisa kurang dari 90 hari, kuning bila kurang dari 180 hari.',
  `<form class="card row" data-form="addDoc"><label>Nama dokumen<input name="name" list="dn" required placeholder="mis. BST"></label><datalist id="dn">${DOCN.map(n=>`<option value="${n}">`).join('')}</datalist>
- <label>Nomor (opsional)<input name="no"></label><label>Berlaku sampai<input type="date" name="exp" required></label><button>Tambah</button></form>
+ <label>Nomor (opsional)<input name="no"></label>${dateF('exp','Berlaku sampai',1)}<button>Tambah</button></form>
+ <div class="row" style="margin-top:10px"><button class="ghost" data-act="imp">Impor dari CV Pelaut</button></div>
  <div class="list">${L.map(d=>{const[c,t]=docStatus(d);return `<div class="item"><div><b>${esc(d.name)}</b><span class="s">${d.no?esc(d.no)+', ':''}berlaku sampai ${fmtD(d.exp)}</span></div><div class="row" style="align-items:center"><span class="tag ${c}">${t}</span>${del('docs',d.id)}</div></div>`}).join('')||'<p class="empty">Belum ada dokumen. Tambahkan sertifikat pertama Anda.</p>'}</div>`)};
 
 /* ---------- Sea time ---------- */
@@ -9274,7 +9283,8 @@ R.seatime=()=>{const L=[...D.sea].sort((a,b)=>b.on.localeCompare(a.on));const to
  return page('Kalkulator Sea Time','Dihitung dari selisih tanggal sign on dan sign off. Kosongkan sign off bila masih berlayar.',
  `<div class="stats"><div class="card stat"><b>${dur(tot)}</b><span>Total ${num(tot)} hari</span></div>${Object.entries(by).map(([r,d])=>`<div class="card stat"><b>${dur(d)}</b><span>${esc(r)}</span></div>`).join('')}</div>
  <form class="card row" data-form="addSea"><label>Nama kapal<input name="ship" required></label><label>Jabatan<input name="rank" list="rk" required></label><datalist id="rk">${RANKS.map(n=>`<option value="${n}">`).join('')}</datalist>
- <label>Sign on<input type="date" name="on" required></label><label>Sign off<input type="date" name="off"></label><button>Tambah</button></form>
+ ${dateF('on','Sign on',1)}${dateF('off','Sign off')}<button>Tambah</button></form>
+ <div class="row" style="margin-top:10px"><button class="ghost" data-act="imp">Impor dari CV Pelaut</button></div>
  <div class="list">${L.map(s=>`<div class="item"><div><b>${esc(s.ship)}</b><span class="s">${esc(s.rank)}, ${fmtD(s.on)} sampai ${s.off?fmtD(s.off):'sekarang'}</span></div><div class="row" style="align-items:center"><span class="tag">${dur(seaDays(s))}</span>${del('sea',s.id)}</div></div>`).join('')||'<p class="empty">Belum ada catatan pelayaran.</p>'}</div>`)};
 
 /* ---------- Checklist ---------- */
@@ -9298,7 +9308,7 @@ const kCalc=()=>{const f=$('#kform');if(!f)return;const v={};new FormData(f).for
 const ST=['Terkirim','Interview','Medical','Diterima','Ditolak'];
 R.lamaran=()=>{const L=[...D.apps].sort((a,b)=>b.sent.localeCompare(a.sent));
  return page('Pelacak Lamaran','Catat ke mana saja Anda melamar dan kapan perlu menindaklanjuti.',
- `<form class="card row" data-form="addApp"><label>Perusahaan/crewing<input name="co" required></label><label>Posisi<input name="pos" required></label><label>Tanggal kirim<input type="date" name="sent" value="${todayISO()}" required></label><label>Tindak lanjut<input type="date" name="fu"></label><label>Catatan<input name="note"></label><button>Tambah</button></form>
+ `<form class="card row" data-form="addApp"><label>Perusahaan/crewing<input name="co" required></label><label>Posisi<input name="pos" required></label>${dateF('sent','Tanggal kirim',1,todayISO())}${dateF('fu','Tindak lanjut')}<label>Catatan<input name="note"></label><button>Tambah</button></form>
  <div class="list">${L.map(a=>{const late=a.fu&&a.fu<todayISO()&&ST.indexOf(a.st)<3;
  return `<div class="item"><div><b>${esc(a.co)}, ${esc(a.pos)}</b><span class="s">Dikirim ${fmtD(a.sent)}${a.fu?', tindak lanjut '+fmtD(a.fu):''}${a.note?'. '+esc(a.note):''}</span></div>
  <div class="row" style="align-items:center">${late?'<span class="tag bad">Perlu follow-up</span>':''}<select data-act="status" data-id="${a.id}" aria-label="Status">${ST.map(s=>`<option${s===a.st?' selected':''}>${s}</option>`).join('')}</select>${del('apps',a.id)}</div></div>`}).join('')||'<p class="empty">Belum ada lamaran tercatat.</p>'}</div>`)};
@@ -9328,22 +9338,131 @@ R.home=()=>{const near=D.docs.filter(d=>docStatus(d)[0]!=='ok').length,tot=D.sea
  `<div class="stats"><div class="card stat"><b class="${near?'bad':''}">${near}</b><span>Dokumen perlu perhatian</span></div><div class="card stat"><b>${dur(tot)}</b><span>Total sea time</span></div><div class="card stat"><b>${act}</b><span>Lamaran aktif</span></div></div>
  <div class="tools">${TOOLS.filter(t=>t.d).map(t=>`<a href="#${t.id}"><b>${t.t}</b><span>${t.d}</span></a>`).join('')}</div>`)};
 
+/* ---------- Tanggal dd/mm/yyyy ---------- */
+const iso2dmy=s=>/^\d{4}-\d{2}-\d{2}$/.test(s||'')?s.slice(8)+'/'+s.slice(5,7)+'/'+s.slice(0,4):'';
+const dmy2iso=s=>{const m=/^(\d{2})\/(\d{2})\/(\d{4})$/.exec(s||'');if(!m)return null;const d=new Date(+m[3],+m[2]-1,+m[1]);
+ return d.getFullYear()==m[3]&&d.getMonth()==m[2]-1&&d.getDate()==m[1]?`${m[3]}-${m[2]}-${m[1]}`:null};
+const toISO=s=>/^\d{4}-\d{2}-\d{2}/.test(s||'')?s.slice(0,10):(dmy2iso(s)||'');
+const dateF=(n,l,req,v)=>`<label>${l}<span class="dt"><input type="text" name="${n}" inputmode="numeric" autocomplete="off" maxlength="10" placeholder="dd/mm/yyyy" pattern="\\d{2}/\\d{2}/\\d{4}" data-dmy value="${iso2dmy(v)}"${req?' required':''}><button type="button" class="ghost cal" data-act="cal" aria-label="Pilih dari kalender"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></button><input type="date" class="nat" tabindex="-1" aria-hidden="true"></span></label>`;
+
+/* ---------- Impor dari CV Pelaut (penyimpanan browser yang sama) ---------- */
+function impCV(){let r;try{r=JSON.parse(localStorage.getItem('seafarer_cv_data_v1'))}catch{}
+ if(!r)return alert('Data CV Pelaut belum ditemukan di browser ini. Isi dulu di menu CV Pelaut, lalu coba lagi.');
+ let nd=0,ns=0;
+ [...(r.documents||[]),...(r.certificates||[])].forEach(x=>{const exp=toISO(x.expiryDate);if(!x.name||!exp||D.docs.some(d=>d.name===x.name&&d.exp===exp))return;D.docs.push({id:uid(),name:x.name,no:x.number||'',exp});nd++});
+ (r.seaService||[]).forEach(x=>{const on=toISO(x.signOn);if(!x.vesselName||!on||D.sea.some(s=>s.ship===x.vesselName&&s.on===on))return;D.sea.push({id:uid(),ship:x.vesselName,rank:x.rank||'-',on,off:toISO(x.signOff)});ns++});
+ save();alert(`Diimpor: ${nd} dokumen/sertifikat dan ${ns} catatan pelayaran.`);show(cur)}
+
+/* ---------- Pemuat pustaka (hanya saat dipakai) ---------- */
+const JSL={};const loadJS=u=>JSL[u]??=new Promise((ok,no)=>{const s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=()=>{delete JSL[u];no()};document.head.appendChild(s)});
+const PDFLIB='https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js',QRLIB='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
+
+/* ---------- Foto & PDF ---------- */
+let FILES=[];
+const kb=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';
+const isPdf=f=>f.type==='application/pdf'||/\.pdf$/i.test(f.name);
+R.foto=()=>page('Foto & PDF','Kecilkan foto dokumen dan gabungkan scan sertifikat menjadi satu PDF. Semua diproses di perangkat ini, tidak ada yang diunggah.',
+ `<div class="card row"><label>Pilih file (foto atau PDF)<input type="file" id="ffile" accept="image/*,application/pdf" multiple></label><label>Ukuran maksimum per foto (KB)<input type="number" id="fkb" min="30" value="300"></label><label>Sisi terpanjang (px)<input type="number" id="fpx" min="400" value="1600"></label></div>
+ <div class="list" id="flist"></div><div class="row" style="margin-top:12px"><button data-act="fsq">Kompres foto</button><button class="ghost" data-act="fpdf">Gabung jadi PDF</button></div><div class="list" id="fout"></div>`);
+function fList(){const el=$('#flist');if(!el)return;el.innerHTML=FILES.map((f,i)=>`<div class="item"><div><b>${esc(f.name)}</b><span class="s">${kb(f.size)}${isPdf(f)?', PDF':''}</span></div><div class="row" style="align-items:center"><button class="x" data-act="fup" data-i="${i}" aria-label="Naik">↑</button><button class="x" data-act="fdn" data-i="${i}" aria-label="Turun">↓</button><button class="x" data-act="frm" data-i="${i}" aria-label="Hapus">✕</button></div></div>`).join('')||'<p class="empty">Belum ada file dipilih.</p>'}
+const toBlob=(c,q)=>new Promise(r=>c.toBlob(r,'image/jpeg',q));
+async function squeeze(file,limit,max){const bmp=await createImageBitmap(file);let s=Math.min(1,max/Math.max(bmp.width,bmp.height)),last;
+ for(let t=0;t<8;t++){const c=document.createElement('canvas');c.width=Math.max(1,Math.round(bmp.width*s));c.height=Math.max(1,Math.round(bmp.height*s));
+  const x=c.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,c.width,c.height);x.drawImage(bmp,0,0,c.width,c.height);
+  for(let q=.9;q>=.4;q-=.1){last=await toBlob(c,q);if(last.size<=limit*1024)return last}s*=.8}
+ return last}
+const fOpts=()=>[Math.max(30,+$('#fkb').value||300),Math.max(400,+$('#fpx').value||1600)];
+const fLink=(blob,name,info)=>{const u=URL.createObjectURL(blob);return `<a class="item" href="${u}" download="${esc(name)}"><span><b>${esc(name)}</b><span class="s">${info}</span></span><span class="tag ok">Unduh</span></a>`};
+async function fSqueeze(){const out=$('#fout'),[k,m]=fOpts(),im=FILES.filter(f=>!isPdf(f));if(!im.length)return out.innerHTML='<p class="empty">Pilih minimal satu foto.</p>';
+ out.innerHTML='<p class="empty">Memproses...</p>';let h='';
+ for(const f of im){try{const b=await squeeze(f,k,m);h+=fLink(b,f.name.replace(/\.[^.]+$/,'')+'-kecil.jpg',`${kb(f.size)} menjadi ${kb(b.size)}`)}catch{h+=`<div class="item"><b>${esc(f.name)}</b><span class="tag bad">Gagal dibaca</span></div>`}}
+ out.innerHTML=h}
+async function fMerge(){const out=$('#fout'),[k,m]=fOpts();if(!FILES.length)return out.innerHTML='<p class="empty">Pilih minimal satu file.</p>';
+ out.innerHTML='<p class="empty">Memproses...</p>';
+ try{await loadJS(PDFLIB)}catch{return out.innerHTML='<p class="empty">Gagal memuat pustaka PDF. Periksa koneksi internet.</p>'}
+ try{const{PDFDocument}=PDFLib,doc=await PDFDocument.create();
+  for(const f of FILES){if(isPdf(f)){const s=await PDFDocument.load(await f.arrayBuffer(),{ignoreEncryption:true});(await doc.copyPages(s,s.getPageIndices())).forEach(p=>doc.addPage(p))}
+   else{const b=await squeeze(f,k,m),img=await doc.embedJpg(await b.arrayBuffer()),W=595.28,H=841.89,g=24,sc=Math.min((W-2*g)/img.width,(H-2*g)/img.height);
+    doc.addPage([W,H]).drawImage(img,{x:(W-img.width*sc)/2,y:(H-img.height*sc)/2,width:img.width*sc,height:img.height*sc})}}
+  const bytes=await doc.save();out.innerHTML=fLink(new Blob([bytes],{type:'application/pdf'}),'dokumen-gabungan.pdf',`${doc.getPageCount()} halaman, ${kb(bytes.length)}`)}
+ catch{out.innerHTML='<p class="empty">Gagal menggabungkan. Pastikan PDF tidak terkunci kata sandi.</p>'}}
+
+/* ---------- Latihan interview ---------- */
+const CARDS=[
+['Teknis','Apa tugas utama Oiler saat jaga mesin?','Berpatroli di kamar mesin, mencatat suhu, tekanan dan level, memeriksa kebocoran dan suara tidak normal, membantu perawatan, dan melapor ke Duty Engineer.'],
+['Teknis','Apa fungsi purifier pada bahan bakar dan minyak lumas?','Memisahkan air dan kotoran dari minyak dengan gaya sentrifugal sehingga minyak lebih bersih sebelum dipakai mesin.'],
+['Teknis','Apa fungsi turbocharger?','Gas buang memutar turbin yang menggerakkan kompresor, sehingga udara masuk silinder bertekanan lebih tinggi dan mesin menghasilkan daya lebih besar.'],
+['Teknis','Apa fungsi governor pada mesin?','Menjaga putaran mesin tetap stabil dengan mengatur jumlah bahan bakar sesuai perubahan beban.'],
+['Teknis','Mengapa HFO perlu dipanaskan sebelum dipakai?','HFO sangat kental pada suhu normal. Pemanasan menurunkan viskositasnya agar bisa dipompa dan dikabutkan dengan baik oleh injektor.'],
+['Teknis','Sebutkan fungsi minyak lumas pada mesin.','Mengurangi gesekan, mendinginkan, membersihkan, menyekat celah, dan melindungi dari korosi.'],
+['Teknis','Pompa sentrifugal tidak mengeluarkan tekanan. Apa kemungkinan penyebabnya?','Ada udara di dalam pompa dan perlu priming, katup hisap tertutup atau strainer tersumbat, impeller rusak, atau arah putaran salah.'],
+['Teknis','Apa yang dilakukan saat terjadi blackout di kamar mesin?','Pastikan generator darurat menyala, lapor ke anjungan dan Chief Engineer, cari penyebab, lalu pulihkan daya sesuai prosedur kapal.'],
+['Keselamatan & aturan','Apa kepanjangan dan fungsi SOLAS?','Safety of Life at Sea: konvensi internasional tentang standar keselamatan jiwa di laut.'],
+['Keselamatan & aturan','Apa itu MARPOL?','Konvensi internasional untuk mencegah pencemaran laut oleh kapal, antara lain oleh minyak, bahan kimia, sampah, dan limbah.'],
+['Keselamatan & aturan','Apa kepanjangan STCW?','Standards of Training, Certification and Watchkeeping for Seafarers: standar pelatihan, sertifikasi, dan jaga bagi pelaut.'],
+['Keselamatan & aturan','Berapa batas kandungan minyak pada air bilga yang boleh dibuang lewat Oily Water Separator?','15 ppm, dan hanya sesuai ketentuan MARPOL Annex I serta prosedur kapal.'],
+['Keselamatan & aturan','Apa tiga unsur segitiga api?','Bahan bakar, oksigen, dan panas.'],
+['English maritim','Dead slow ahead','Perintah mesin maju dengan kecepatan paling pelan.'],
+['English maritim','Stand by engine','Mesin disiapkan untuk manuver, misalnya saat keluar masuk pelabuhan.'],
+['English maritim','Finished with engine','Mesin tidak diperlukan lagi, biasanya setelah kapal sandar atau berlabuh.'],
+['English maritim','Bagaimana mengatakan "Saya sedang jaga mesin" dalam bahasa Inggris?','I am on engine watch.'],
+['English maritim','Bagaimana mengatakan "Ada kebocoran di pipa" dalam bahasa Inggris?','There is a leak in the pipe.']];
+const L={cat:'Semua',i:0,f:0};
+const deck=()=>{const all=[...CARDS,...D.cards.map(c=>['Kartu saya',c[0],c[1]])];return L.cat==='Semua'?all:all.filter(c=>c[0]===L.cat)};
+R.latihan=()=>{const dk=deck(),cats=['Semua',...new Set([...CARDS.map(c=>c[0]),...(D.cards.length?['Kartu saya']:[])])];
+ if(L.i>=dk.length)L.i=0;const c=dk[L.i],hf=dk.filter(x=>D.known[x[1]]).length;
+ return page('Latihan Interview','Tanya jawab teknis, aturan keselamatan, dan bahasa Inggris maritim. Tambahkan kartu Anda sendiri di bawah.',
+ `<div class="row" style="margin-bottom:12px"><label>Kategori<select data-act="cat">${cats.map(x=>`<option${x===L.cat?' selected':''}>${x}</option>`).join('')}</select></label><span class="lead" style="margin:0 0 8px">${hf} dari ${dk.length} sudah hafal</span></div>
+ ${c?`<button class="fc" data-act="flip">${esc(L.f?c[2]:c[1])}</button><p class="lead" style="margin:8px 0 12px">Kartu ${L.i+1} dari ${dk.length}, ${esc(c[0])}, ${L.f?'jawaban':'pertanyaan'}</p>
+ <div class="row"><button class="ghost" data-act="prev">Sebelumnya</button><button data-act="flip">Balik</button><button class="ghost" data-act="known">${D.known[c[1]]?'Batal hafal':'Tandai hafal'}</button><button class="ghost" data-act="rand">Acak</button><button class="ghost" data-act="next">Berikutnya</button></div>`:'<p class="empty">Belum ada kartu.</p>'}
+ <form class="card row" style="margin-top:20px" data-form="addCard"><label>Pertanyaan<input name="q" required></label><label>Jawaban<input name="a" required></label><button>Tambah kartu</button></form>`)};
+const mv=d=>{const n=deck().length;if(n){L.i=(L.i+d+n)%n;L.f=0;show(cur)}};
+
+/* ---------- QR Code ---------- */
+R.qr=()=>page('QR Code','Buat QR untuk tautan portfolio, nomor WhatsApp (https://wa.me/62...), atau teks lain.',
+ `<form class="card row" id="qform" onsubmit="return false"><label style="flex:3 1 260px">Isi QR<input name="q" value="${esc(D.qr)}" placeholder="https://xatmojo.github.io/cv-maker"></label><label>Ukuran<select name="sz"><option value="256">Sedang</option><option value="384">Besar</option><option value="160">Kecil</option></select></label></form>
+ <p class="lead" id="qmsg" style="margin:10px 0 0"></p><div id="qrbox"></div><div class="row" style="margin-top:12px"><button data-act="qdl">Unduh PNG</button></div>`);
+async function qrGen(){const f=$('#qform');if(!f)return;const v=f.q.value.trim();D.qr=v;save();const box=$('#qrbox');
+ if(!v){box.innerHTML='';box.style.display='none';return}
+ try{await loadJS(QRLIB)}catch{box.style.display='none';return $('#qmsg').textContent='Gagal memuat pustaka QR. Periksa koneksi internet.'}
+ if(f.q.value.trim()!==v)return;$('#qmsg').textContent='';box.innerHTML='';box.style.display='inline-block';
+ new QRCode(box,{text:v,width:+f.sz.value,height:+f.sz.value,correctLevel:QRCode.CorrectLevel.M})}
+let qT;const qGenSoon=()=>{clearTimeout(qT);qT=setTimeout(qrGen,250)};
+function qrDownload(){const c=$('#qrbox canvas');if(!c)return;const o=document.createElement('canvas'),p=24;o.width=c.width+2*p;o.height=c.height+2*p;
+ const x=o.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,o.width,o.height);x.drawImage(c,p,p);const a=document.createElement('a');a.href=o.toDataURL('image/png');a.download='qr-code.png';a.click()}
+
 /* ---------- Aksi ---------- */
 const FORMS={
  addDoc:f=>D.docs.push({id:uid(),name:f.get('name'),no:f.get('no'),exp:f.get('exp')}),
  addSea:f=>{if(f.get('off')&&f.get('off')<f.get('on'))return alert('Tanggal sign off harus setelah sign on.');D.sea.push({id:uid(),ship:f.get('ship'),rank:f.get('rank'),on:f.get('on'),off:f.get('off')})},
+ addCard:f=>D.cards.push([f.get('q'),f.get('a')]),
  addChk:f=>{const n=f.get('n').trim();if(n&&![...CHK,...D.chk.custom].includes(n))D.chk.custom.push(n)},
  addApp:f=>D.apps.push({id:uid(),co:f.get('co'),pos:f.get('pos'),sent:f.get('sent'),fu:f.get('fu'),note:f.get('note'),st:'Terkirim'})};
-document.addEventListener('submit',e=>{const fn=FORMS[e.target.dataset.form];if(!fn)return;e.preventDefault();fn(new FormData(e.target));save();show(cur)});
-document.addEventListener('input',e=>{if(e.target.form?.id==='kform')kCalc();if(e.target.form?.id==='mform')msgGen()});
-document.addEventListener('change',e=>{const t=e.target;if(t.form?.id==='mform')msgGen();
+document.addEventListener('submit',e=>{const fn=FORMS[e.target.dataset.form];if(!fn)return;e.preventDefault();const fd=new FormData(e.target);
+ for(const i of e.target.querySelectorAll('[data-dmy]')){const v=i.value.trim();if(!v)fd.set(i.name,'');else{const o=dmy2iso(v);if(!o)return alert('Tanggal harus valid dan berformat dd/mm/yyyy.');fd.set(i.name,o)}}
+ fn(fd);save();show(cur)});
+document.addEventListener('input',e=>{const t=e.target;if(t.dataset.dmy!==undefined){const g=t.value.replace(/\D/g,'').slice(0,8);t.value=g.length>4?g.slice(0,2)+'/'+g.slice(2,4)+'/'+g.slice(4):g.length>2?g.slice(0,2)+'/'+g.slice(2):g}});
+document.addEventListener('input',e=>{if(e.target.form?.id==='kform')kCalc();if(e.target.form?.id==='mform')msgGen();if(e.target.form?.id==='qform')qGenSoon()});
+document.addEventListener('change',e=>{const t=e.target;if(t.form?.id==='mform')msgGen();if(t.form?.id==='qform')qrGen();
+ if(t.classList.contains('nat')){t.parentNode.querySelector('[data-dmy]').value=iso2dmy(t.value)}
+ if(t.id==='ffile'){FILES=[...FILES,...t.files];t.value='';fList()}
+ if(t.dataset.act==='cat'){L.cat=t.value;L.i=0;L.f=0;show(cur)}
  if(t.dataset.act==='chk'){D.chk.done[t.dataset.n]=t.checked;save();show(cur)}
  if(t.dataset.act==='status'){D.apps.find(a=>a.id===t.dataset.id).st=t.value;save();show(cur)}});
 document.addEventListener('click',e=>{const b=e.target.closest('button[data-act]');if(!b)return;const a=b.dataset.act;
  if(a==='del'){D[b.dataset.k]=D[b.dataset.k].filter(x=>x.id!==b.dataset.id);save();show(cur)}
  if(a==='delChk'){e.preventDefault();D.chk.custom=D.chk.custom.filter(x=>x!==b.dataset.n);save();show(cur)}
  if(a==='copy'){const v=$('#mout').value;(navigator.clipboard?navigator.clipboard.writeText(v):Promise.reject()).then(()=>b.textContent='Tersalin',()=>{$('#mout').select();document.execCommand('copy');b.textContent='Tersalin'});setTimeout(()=>b.textContent='Salin',1500)}
- if(a==='wa')window.open('https://wa.me/?text='+encodeURIComponent($('#mout').value),'_blank','noopener')});
+ if(a==='wa')window.open('https://wa.me/?text='+encodeURIComponent($('#mout').value),'_blank','noopener');
+ if(a==='cal'){const n=b.parentNode.querySelector('.nat'),x=b.parentNode.querySelector('[data-dmy]');n.value=dmy2iso(x.value)||'';try{n.showPicker()}catch{n.focus();n.click()}}
+ if(a==='imp')impCV();
+ if(a==='fsq')fSqueeze();if(a==='fpdf')fMerge();
+ if(['fup','fdn','frm'].includes(a)){const i=+b.dataset.i,j=a==='fup'?i-1:i+1;if(a==='frm')FILES.splice(i,1);else if(j>=0&&j<FILES.length)[FILES[i],FILES[j]]=[FILES[j],FILES[i]];fList()}
+ if(a==='flip'){L.f=L.f?0:1;show(cur)}
+ if(a==='next')mv(1);if(a==='prev')mv(-1);
+ if(a==='rand'){const n=deck().length;L.i=Math.floor(Math.random()*n);L.f=0;show(cur)}
+ if(a==='known'){const q=deck()[L.i][1];D.known[q]?delete D.known[q]:D.known[q]=true;save();show(cur)}
+ if(a==='qdl')qrDownload()});
 
 /* ---------- Navigasi ---------- */
 let cur='home';
@@ -9355,7 +9474,7 @@ function show(id){cur=id;const t=TOOLS.find(x=>x.id===id),v=$('#v-'+id);
  nav.querySelectorAll('a').forEach(a=>{a.classList.toggle('on',a.dataset.id===id);if(a.dataset.id===id)a.setAttribute('aria-current','page');else a.removeAttribute('aria-current')});
  document.title=(t.id==='home'?'':t.t+' | ')+'Seafarer Hub';
  if(t.f){if(!v.firstChild){const f=document.createElement('iframe');f.title=t.t;f.setAttribute('allow','clipboard-write; fullscreen');f.srcdoc=$('#src-'+id).textContent.replace(/\uE000/g,'<');v.appendChild(f)}}
- else{const y=v.scrollTop;v.innerHTML=R[id]();v.scrollTop=y;if(id==='kontrak')kCalc();if(id==='pesan')msgGen()}}
+ else{const y=v.scrollTop;v.innerHTML=R[id]();v.scrollTop=y;if(id==='kontrak')kCalc();if(id==='pesan')msgGen();if(id==='foto')fList();if(id==='qr')qrGen()}}
 const route=()=>{const id=location.hash.slice(1);show(TOOLS.some(t=>t.id===id)?id:'home')};
 addEventListener('hashchange',route);route();
 </script>
