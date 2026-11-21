@@ -1,2 +1,0 @@
-# Hi
-Everyday is Sunday!
