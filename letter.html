@@ -97,7 +97,21 @@ svg{display:block;flex-shrink:0}
 @media(prefers-reduced-motion:reduce){
   *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important;scroll-behavior:auto !important}
 }
-/* ========== LAYOUT ========== */
+/* ========== SIDEBAR FOOTER (refined) ========== */
+.sidebar-footer{gap:12px;padding:14px 14px calc(16px + env(safe-area-inset-bottom,0px))}
+.foot-group{display:flex;flex-direction:column;gap:2px;padding:6px;border-radius:14px;
+  background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08)}
+.sidebar-foot-btn{gap:12px;padding:8px 10px;border-radius:10px;font-size:13px;font-weight:500;color:rgba(232,238,251,.88)}
+.sidebar-foot-btn svg{box-sizing:content-box;padding:7px;border-radius:9px;background:rgba(255,255,255,.07);
+  color:var(--gold-2);transition:background var(--transition)}
+.sidebar-foot-btn:hover svg{background:rgba(201,162,39,.2)}
+.side-ver{display:flex;align-items:center;justify-content:center;gap:7px;font-size:11px;font-weight:500;
+  letter-spacing:.2px;color:rgba(232,238,251,.62)}
+.ver-dot{width:6px;height:6px;border-radius:50%;background:#4ade80;box-shadow:0 0 0 3px rgba(74,222,128,.18)}
+@media(max-width:900px){
+  .sidebar{height:100dvh;box-shadow:0 80px 0 0 var(--navy)}
+  .sidebar-footer{padding-bottom:calc(28px + env(safe-area-inset-bottom,0px))}
+}
 .app{display:flex;min-height:100vh}
 
 /* SIDEBAR */
@@ -696,11 +710,12 @@ svg{display:block;flex-shrink:0}
 }
 
 /* ========== TOAST ========== */
-.toast-container{position:fixed;bottom:20px;right:20px;z-index:200;display:flex;flex-direction:column;gap:8px;pointer-events:none}
+.toast-container{position:fixed;top:calc(var(--header-h) + 10px + env(safe-area-inset-top,0px));left:0;right:0;z-index:200;
+  display:flex;flex-direction:column;align-items:center;gap:8px;pointer-events:none;padding:0 12px}
 .toast{
   display:flex;align-items:center;gap:10px;background:var(--surface);color:var(--text);
   padding:12px 16px;border-radius:12px;box-shadow:var(--shadow-lg);font-size:13px;font-weight:500;
-  border-left:4px solid var(--info);min-width:240px;max-width:90vw;
+  border-left:4px solid var(--info);min-width:240px;width:max-content;max-width:min(440px,100%);
   animation:toastIn .3s cubic-bezier(.34,1.56,.64,1);pointer-events:auto;
 }
 .toast.success{border-color:var(--success)}
@@ -711,8 +726,8 @@ svg{display:block;flex-shrink:0}
 .toast.warning svg{color:var(--warning)}
 .toast svg{flex-shrink:0}
 .toast.out{animation:toastOut .25s ease forwards}
-@keyframes toastIn{from{opacity:0;transform:translateX(30px)}to{opacity:1;transform:none}}
-@keyframes toastOut{to{opacity:0;transform:translateX(30px)}}
+@keyframes toastIn{from{opacity:0;transform:translateY(-14px) scale(.97)}to{opacity:1;transform:none}}
+@keyframes toastOut{to{opacity:0;transform:translateY(-14px) scale(.97)}}
 
 /* ========== BACK TO TOP ========== */
 .back-top{
@@ -755,8 +770,7 @@ svg{display:block;flex-shrink:0}
   .style-grid{grid-template-columns:1fr}
   .stats-grid{grid-template-columns:repeat(2,1fr)}
   .section-head h2{font-size:19px}
-  .toast-container{left:12px;right:12px;bottom:12px}
-  .toast{min-width:0;width:100%}
+  .toast{min-width:0}
 }
 @media(max-width:520px){
   .topbar{padding:0 12px;gap:8px}
@@ -823,6 +837,7 @@ svg{display:block;flex-shrink:0}
   .sidebar:hover{width:264px;box-shadow:12px 0 40px rgba(5,10,20,.35)}
   .sidebar:not(:hover) .brand{padding:18px 17px;justify-content:center}
   .sidebar:not(:hover) .brand-text,.sidebar:not(:hover) .side-ver{display:none}
+  .sidebar:not(:hover) .foot-group{padding:4px;background:none;border-color:transparent}
   .sidebar:not(:hover) .nav-label{font-size:0;height:1px;padding:0;margin:12px 10px;background:rgba(255,255,255,.08)}
   .sidebar:not(:hover) .nav-item,.sidebar:not(:hover) .sidebar-foot-btn{font-size:0;gap:0;justify-content:center;padding:12px 0}
   .sidebar:not(:hover) .nav-item .nav-badge{position:absolute;top:6px;right:14px;width:8px;min-width:8px;height:8px;padding:0;font-size:0}
@@ -965,15 +980,15 @@ svg{display:block;flex-shrink:0}
     </button>
   </nav>
   <div class="sidebar-footer">
+    <div class="foot-group">
     <button class="sidebar-foot-btn" id="themeToggleSide">
       <span data-icon="moon"></span><span class="theme-label">Dark Mode</span>
     </button>
     <button class="sidebar-foot-btn" id="sidebarPrintBtn">
       <span data-icon="printer"></span><span>Pratinjau Cetak</span>
     </button>
-    <div class="side-ver" style="font-size:10.5px;color:rgba(232,238,251,.4);text-align:center;padding-top:4px;font-weight:500">
-      v1.0 · Offline Ready
     </div>
+    <div class="side-ver"><span class="ver-dot" aria-hidden="true"></span>v1.0 · Offline Ready</div>
   </div>
 </aside>
 <div class="sidebar-scrim" id="sidebarScrim"></div>
