@@ -701,6 +701,39 @@ body.mode-preview .sidebar{display:none}
 @supports (height:100dvh){.app-main{height:calc(100dvh - var(--header-h))}}
 @media (pointer:coarse){.icon-btn{width:38px;height:38px}.btn-sm{min-height:38px}.tab-btn{min-height:40px}}
 @media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+/* ============ MOBILE REFINEMENTS ============ */
+html{overflow-x:hidden}
+@media (pointer:coarse){*{scrollbar-width:none}*::-webkit-scrollbar{display:none}}
+@media (max-width:900px){
+  .app-header{gap:8px;padding:0 max(10px,env(safe-area-inset-right)) 0 max(10px,env(safe-area-inset-left))}
+  .brand{margin-right:0}
+  .hdr-spacer{min-width:0}
+  .save-dot{padding:0 2px}
+  .sidebar-body{padding:16px max(16px,env(safe-area-inset-right)) 124px 16px}
+  .sidebar-foot{display:none}
+  .preview-stage{padding:14px 8px 124px}
+  .mobile-nav{
+    left:10px;right:10px;bottom:calc(20px + env(safe-area-inset-bottom,0px));
+    padding:6px;border:1px solid var(--border);border-radius:22px;
+    background:color-mix(in srgb,var(--panel) 92%,transparent);
+    -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+    box-shadow:0 10px 30px rgba(15,39,68,.22);
+  }
+  .mobile-nav button{border-radius:16px;padding:8px 2px 6px;font-size:10px}
+  .mobile-nav button.active{box-shadow:inset 0 0 0 1px rgba(201,169,97,.35)}
+  .back-to-top{bottom:112px;right:16px}
+}
+@media (max-width:520px){
+  .save-dot span{display:none}
+  .hdr-seg button{padding:7px 10px}
+}
+@media (max-width:389px){.brand-name{display:none}}
+input[type=range]{accent-color:var(--accent)}
+@media (max-width:520px){
+  .preview-toolbar{padding:8px 10px;gap:6px;justify-content:center}
+  .preview-toolbar .pt-label{display:none}
+  .preview-toolbar .pt-sp{display:none}
+}
 </style>
 </head>
 <body data-theme="light" class="mode-edit">
@@ -744,7 +777,7 @@ body.mode-preview .sidebar{display:none}
 
   <div class="hdr-spacer"></div>
 
-  <div class="save-dot" id="saveDot"><i></i><span>Auto-save aktif</span></div>
+  <div class="save-dot" id="saveDot" title="Auto-save aktif"><i></i><span>Auto-save aktif</span></div>
 
   <button class="hdr-btn" id="btnTheme" title="Ganti tema">
     <svg id="iconTheme" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
