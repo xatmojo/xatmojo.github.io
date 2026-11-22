@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content">
 <title>Daftar MAC Perangkat</title>
 <meta name="description" content="Daftar perangkat jaringan rumah beserta alamat MAC dan pemiliknya.">
 <meta name="robots" content="noindex">
@@ -76,6 +76,9 @@ dialog p{margin:0 0 var(--s4)}
 .err{color:#b3261e;min-height:1.4em;font-size:.9rem;margin:0 0 var(--s3)!important}
 :root[data-theme="dark"] .err{color:#ff8a80}
 .row{display:flex;gap:var(--s2);justify-content:flex-end;flex-wrap:wrap}
+dialog{max-height:calc(100dvh - 2rem);overflow:auto}
+.tools .btn{align-self:flex-end}
+@media (max-width:40rem){dialog{margin:var(--s4) auto auto}}
 @media (max-width:40rem){
   thead{display:none}
   table,tbody,tr,td{display:block;width:100%}
@@ -97,6 +100,9 @@ dialog p{margin:0 0 var(--s4)}
     </div>
     <div style="display:flex;gap:var(--s2);flex-wrap:wrap">
       <button class="btn primary" id="add" type="button">Tambah perangkat</button>
+      <button class="btn danger" id="reset" type="button">Reset data</button>
+      <button class="btn" id="imp" type="button">Impor CSV</button>
+      <input type="file" id="file" accept=".csv,text/csv,text/plain" hidden>
       <button class="btn" id="csv" type="button">Ekspor CSV</button>
       <button class="btn" id="theme" type="button" aria-pressed="false">Mode gelap</button>
     </div>
@@ -112,6 +118,7 @@ dialog p{margin:0 0 var(--s4)}
         <label for="user">Filter pengguna</label>
         <select id="user"><option value="">Semua pengguna</option></select>
       </div>
+      <button class="btn" id="clear" type="button">Reset filter</button>
     </div>
 
     <p class="stats" id="stats" aria-live="polite"></p>
@@ -133,8 +140,7 @@ dialog p{margin:0 0 var(--s4)}
     </div>
 
     <p class="note">Label “MAC acak” berarti bit locally-administered aktif: perangkat memakai alamat privat yang bisa berubah per jaringan, jadi MAC ini mungkin tidak tetap.</p>
-    <p class="note"><button class="btn" id="reset" type="button">Kembalikan data awal</button></p>
-    <p class="note">Data tersimpan di browser ini saja (localStorage). Data tidak ikut berpindah ke perangkat atau browser lain, dan hilang jika data situs dihapus. Gunakan Ekspor CSV untuk cadangan.</p>
+    <p class="note">Data tersimpan di browser ini saja (localStorage). Data tidak ikut berpindah ke perangkat atau browser lain, dan hilang jika data situs dihapus. Gunakan Ekspor CSV untuk cadangan sebelum Reset data.</p>
   </main>
 </div>
 
@@ -158,6 +164,17 @@ dialog p{margin:0 0 var(--s4)}
     <div class="row">
       <button class="btn" value="cancel">Batal</button>
       <button class="btn danger" value="ok" id="cok">Hapus</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="idlg" aria-labelledby="imsg">
+  <form method="dialog">
+    <p id="imsg" style="white-space:pre-line"></p>
+    <div class="row">
+      <button class="btn" value="cancel">Batal</button>
+      <button class="btn" value="merge" id="imerge">Gabungkan</button>
+      <button class="btn danger" value="replace">Ganti semua</button>
     </div>
   </form>
 </dialog>
@@ -189,7 +206,7 @@ dialog p{margin:0 0 var(--s4)}
   const $ = (id) => document.getElementById(id);
   const els = {
     rows: $('rows'), q: $('q'), user: $('user'), stats: $('stats'), empty: $('empty'),
-    theme: $('theme'), csv: $('csv'), toast: $('toast'), add: $('add'), reset: $('reset'),
+    theme: $('theme'), csv: $('csv'), toast: $('toast'), add: $('add'), reset: $('reset'), clear: $('clear'), imp: $('imp'), file: $('file'), idlg: $('idlg'), imsg: $('imsg'), imerge: $('imerge'),
     dlg: $('dlg'), form: $('form'), title: $('dlgTitle'), fName: $('fName'), fMac: $('fMac'),
     fUser: $('fUser'), err: $('err'), fCancel: $('fCancel'), cdlg: $('cdlg'), cmsg: $('cmsg'), cok: $('cok')
   };
@@ -322,7 +339,7 @@ dialog p{margin:0 0 var(--s4)}
     const b2 = document.createElement('b'); b2.textContent = users;
     els.stats.append(b1, ` dari ${devices.length} perangkat · `, b2, ' pengguna');
 
-    document.querySelectorAll('thead th').forEach((th) => {
+    document.querySelectorAll('thead th[aria-sort]').forEach((th) => {
       const k = th.querySelector('button').dataset.key;
       const on = state.key === k;
       th.setAttribute('aria-sort', on ? (state.dir === 1 ? 'ascending' : 'descending') : 'none');
@@ -368,6 +385,7 @@ dialog p{margin:0 0 var(--s4)}
     else if (devices.some((d) => d.mac === mac && d.id !== editingId)) msg = 'MAC ini sudah ada di daftar.';
     if (msg) { els.err.textContent = msg; return; }
 
+    els.dlg.close();
     if (editingId) {
       const d = devices.find((x) => x.id === editingId);
       if (d) Object.assign(d, { name, mac, user });
@@ -376,7 +394,6 @@ dialog p{margin:0 0 var(--s4)}
       devices.push({ id: uid(), name, mac, user });
       commit('Perangkat ditambahkan');
     }
-    els.dlg.close();
   }
 
   function askConfirm(message, okLabel) {
@@ -396,10 +413,17 @@ dialog p{margin:0 0 var(--s4)}
     }
   }
 
+  function clearFilters() {
+    Object.assign(state, { query: '', user: '', key: null, dir: 1 });
+    els.q.value = ''; els.user.value = '';
+    render();
+    toast('Filter direset');
+  }
+
   async function resetData() {
-    if (await askConfirm('Semua perubahan akan diganti dengan 14 perangkat awal. Lanjutkan?', 'Kembalikan')) {
+    if (await askConfirm('Semua perubahan akan dihapus dan daftar kembali ke 14 perangkat awal. Lanjutkan?', 'Reset data')) {
       devices = seed();
-      commit('Data awal dikembalikan');
+      clearFilters(); commit('Data direset ke 14 perangkat awal');
     }
   }
 
@@ -416,6 +440,81 @@ dialog p{margin:0 0 var(--s4)}
     document.body.append(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
     toast('CSV diekspor');
+  }
+
+  // ---- Impor CSV ----
+  function parseCsv(text, delim) {
+    const rows = []; let row = [], cell = '', q = false;
+    const flush = () => { row.push(cell); cell = ''; if (row.some((x) => x.trim() !== '')) rows.push(row); row = []; };
+    for (let i = 0; i < text.length; i++) {
+      const c = text[i];
+      if (q) {
+        if (c === '"') { if (text[i + 1] === '"') { cell += '"'; i++; } else q = false; }
+        else cell += c;
+      } else if (c === '"') q = true;
+      else if (c === delim) { row.push(cell); cell = ''; }
+      else if (c === '\n' || c === '\r') { if (c === '\r' && text[i + 1] === '\n') i++; flush(); }
+      else cell += c;
+    }
+    flush();
+    return rows;
+  }
+
+  function askImport(message, canMerge) {
+    return new Promise((resolve) => {
+      els.imsg.textContent = message;
+      els.imerge.disabled = !canMerge;
+      els.idlg.returnValue = '';
+      els.idlg.addEventListener('close', () => resolve(els.idlg.returnValue), { once: true });
+      els.idlg.showModal();
+    });
+  }
+
+  async function importFile(file) {
+    if (!file) return;
+    if (file.size > 1048576) { toast('File terlalu besar (maks. 1 MB)'); return; }
+    let text;
+    try { text = (await file.text()).replace(/^\ufeff/, ''); }
+    catch (_) { toast('File tidak bisa dibaca'); return; }
+
+    const first = text.split(/\r?\n/, 1)[0] || '';
+    const delim = [';', '\t', ','].map((d) => [d, first.split(d).length]).sort((a, b) => b[1] - a[1])[0][0];
+    const rows = parseCsv(text, delim);
+    if (!rows.length) { toast('File kosong'); return; }
+
+    let ix = { name: 0, mac: 1, user: 2 };
+    const head = rows[0].map((h) => h.trim().toLowerCase());
+    if (head.includes('mac')) {
+      rows.shift();
+      ix = {
+        name: head.findIndex((h) => h === 'name' || h === 'nama'),
+        mac: head.indexOf('mac'),
+        user: head.findIndex((h) => h === 'user' || h === 'pengguna')
+      };
+      if (Object.values(ix).some((v) => v < 0)) { toast('Header CSV harus berisi kolom Name, MAC, dan User'); return; }
+    }
+    if (rows.length > 5000) { toast('Terlalu banyak baris (maks. 5000)'); return; }
+
+    const clean = (v) => String(v ?? '').trim().replace(/^'(?=[=+\-@\t\r])/, '');
+    const seen = new Set(); const good = []; let invalid = 0, dupes = 0;
+    for (const r of rows) {
+      const name = clean(r[ix.name]), user = clean(r[ix.user]), mac = normMac(clean(r[ix.mac]));
+      if (!name || !user || name.length > 60 || user.length > 40 || !/^[0-9a-f]{12}$/.test(mac)) { invalid++; continue; }
+      if (seen.has(mac)) { dupes++; continue; }
+      seen.add(mac);
+      good.push({ id: uid(), name, mac, user });
+    }
+    if (!good.length) { toast(`Tidak ada baris valid (${invalid} baris dilewati)`); return; }
+
+    const have = new Set(devices.map((d) => d.mac));
+    const fresh = good.filter((d) => !have.has(d.mac));
+    const msg = `${good.length} perangkat valid ditemukan.\n` +
+      `• ${fresh.length} baru, ${good.length - fresh.length} MAC sudah ada\n` +
+      `• ${invalid + dupes} baris dilewati (tidak valid atau MAC ganda)\n\n` +
+      `Gabungkan: tambah yang baru saja. Ganti semua: hapus ${devices.length} perangkat saat ini dan pakai isi file.`;
+    const choice = await askImport(msg, fresh.length > 0);
+    if (choice === 'merge') { devices.push(...fresh); commit(`${fresh.length} perangkat diimpor`); }
+    else if (choice === 'replace') { devices = good; commit(`Daftar diganti: ${good.length} perangkat`); }
   }
 
   function setTheme(mode, persist) {
@@ -438,6 +537,13 @@ dialog p{margin:0 0 var(--s4)}
     els.csv.addEventListener('click', exportCsv);
     els.add.addEventListener('click', () => openForm(null));
     els.reset.addEventListener('click', resetData);
+    els.clear.addEventListener('click', clearFilters);
+    els.imp.addEventListener('click', () => els.file.click());
+    els.file.addEventListener('change', async () => {
+      try { await importFile(els.file.files[0]); }
+      catch (err) { console.error(err); toast('Impor gagal'); }
+      els.file.value = '';
+    });
     els.form.addEventListener('submit', submitForm);
     els.fCancel.addEventListener('click', () => els.dlg.close());
     document.querySelector('thead').addEventListener('click', (e) => {
