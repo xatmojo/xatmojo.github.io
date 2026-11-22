@@ -1,67 +1,257 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go-Food</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tutorial Voucher GO-FOOD 50% | Cara Redeem dan Pakai</title>
+<meta name="description" content="Tutorial memakai voucher resto GO-FOOD 50%: cek akun, redeem kode di aplikasi Gojek, dan cara pakai di resto. Kode voucher redeem tersedia lewat WhatsApp.">
+<meta name="theme-color" content="#00a31b">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="id_ID">
+<meta property="og:title" content="Tutorial Voucher GO-FOOD 50%">
+<meta property="og:description" content="Cek akun, redeem kode, dan pakai voucher resto GO-FOOD 50% langkah demi langkah.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%2300a31b'/%3E%3Ctext x='50' y='68' font-size='56' font-weight='800' text-anchor='middle' fill='white' font-family='sans-serif'%3E%25%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f4f7f2; --surface:#fff; --ink:#13241a; --muted:#52645a; --line:#d5ded6;
+  --green:#00a31b; --green-deep:#006f13; --on-green:#fff; --red:#c62121; --red-soft:#fdeaea;
+  --ok-soft:#e6f6e8; --shadow:0 1px 2px rgba(19,36,26,.06),0 8px 24px rgba(19,36,26,.06);
+  --r-lg:20px; --r-md:12px; --r-sm:8px;
+  --s1:.25rem; --s2:.5rem; --s3:1rem; --s4:1.5rem; --s5:2.5rem; --s6:4rem;
+  --font:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{--bg:#0e1710; --surface:#162219; --ink:#e8f1ea; --muted:#9db0a3; --line:#2a3a2e;
+    --green:#2fd24a; --green-deep:#7be58e; --on-green:#06210c; --red:#ff7b7b; --red-soft:#341a1a; --ok-soft:#14301a;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px rgba(0,0,0,.35)}
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:5rem;-webkit-text-size-adjust:100%}
+body{margin:0;font:1rem/1.65 var(--font);color:var(--ink);background:var(--bg);overflow-x:hidden}
+img{max-width:100%;height:auto;display:block}
+a{color:var(--green-deep);text-underline-offset:3px}
+:focus-visible{outline:3px solid var(--green);outline-offset:3px;border-radius:4px}
+.wrap{width:min(100% - 2rem,68rem);margin-inline:auto}
+.skip{position:absolute;left:-999px;top:0;background:var(--green);color:var(--on-green);padding:.75rem 1rem;z-index:100}
+.skip:focus{left:var(--s3);top:var(--s3)}
 
+/* Header */
+.site-header{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;gap:var(--s3);min-height:3.5rem;flex-wrap:wrap;padding-block:var(--s2)}
+.brand{font-weight:800;letter-spacing:-.01em;color:var(--ink);text-decoration:none;margin-right:auto}
+.brand span{color:var(--green)}
+.nav{display:flex;gap:var(--s3);flex-wrap:wrap}
+.nav a{color:var(--muted);text-decoration:none;font-size:.9rem;font-weight:600;padding:.4rem .2rem;min-height:44px;display:inline-flex;align-items:center}
+.nav a:hover{color:var(--ink)}
+
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:48px;padding:.7rem 1.4rem;border-radius:999px;border:2px solid transparent;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;transition:transform .15s,background .15s}
+.btn-primary{background:var(--green);color:var(--on-green)}
+.btn-primary:hover{background:var(--green-deep);color:#fff;transform:translateY(-1px)}
+.btn-primary:active{transform:none}
+.btn-sm{min-height:44px;padding:.4rem 1rem;font-size:.9rem}
+
+/* Hero: voucher ticket */
+.hero{padding-block:var(--s5) var(--s6)}
+.hero-grid{display:grid;gap:var(--s5);align-items:center}
+.hero h1{font-size:clamp(2.2rem,7vw,4rem);line-height:1.05;letter-spacing:-.03em;margin:0 0 var(--s3);font-weight:800}
+.hero p{color:var(--muted);max-width:34rem;margin:0 0 var(--s4);font-size:1.1rem}
+.ticket{position:relative;background:var(--green);color:var(--on-green);border-radius:var(--r-lg);padding:var(--s4);display:grid;grid-template-columns:1fr auto;gap:var(--s3);align-items:center;box-shadow:var(--shadow);animation:land .7s cubic-bezier(.2,.8,.2,1) both}
+.ticket::before,.ticket::after{content:"";position:absolute;left:68%;width:28px;height:28px;border-radius:50%;background:var(--bg)}
+.ticket::before{top:-14px}.ticket::after{bottom:-14px}
+.ticket .pct{font-size:clamp(3.5rem,14vw,6rem);font-weight:900;line-height:.9;letter-spacing:-.05em}
+.ticket .lbl{font-weight:700;font-size:1.1rem}
+.ticket .lbl small{display:block;font-weight:500;opacity:.85}
+.ticket .cut{border-left:3px dashed color-mix(in srgb,var(--on-green) 45%,transparent);padding-left:var(--s3);font-weight:800;font-size:1.25rem;writing-mode:vertical-rl;transform:rotate(180deg);text-align:center}
+@keyframes land{from{opacity:0;transform:translateY(16px) rotate(-2deg)}to{opacity:1;transform:none}}
+
+/* Sections */
+section{padding-block:var(--s5)}
+h2{font-size:clamp(1.5rem,4vw,2.1rem);letter-spacing:-.02em;line-height:1.2;margin:0 0 var(--s2)}
+.lead{color:var(--muted);margin:0 0 var(--s4);max-width:40rem}
+.compare{display:grid;gap:var(--s3)}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s4);box-shadow:var(--shadow)}
+.card h3{margin:0 0 var(--s2);font-size:1.15rem}
+.card p{margin:0 0 var(--s3);color:var(--muted)}
+.tag{display:inline-block;font-weight:800;padding:.15rem .7rem;border-radius:999px;font-size:.95rem}
+.tag-ok{background:var(--ok-soft);color:var(--green-deep)}
+.tag-bad{background:var(--red-soft);color:var(--red)}
+.card-ok{border-top:5px solid var(--green)}
+.card-bad{border-top:5px solid var(--red)}
+.zoom{font-weight:700}
+
+.steps{list-style:none;margin:0;padding:0;counter-reset:s;display:grid;gap:var(--s3);max-width:44rem}
+.steps li{counter-increment:s;position:relative;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:var(--s3) var(--s3) var(--s3) 4rem}
+.steps li::before{content:counter(s);position:absolute;left:var(--s3);top:50%;transform:translateY(-50%);width:2.25rem;height:2.25rem;border-radius:50%;background:var(--green);color:var(--on-green);display:grid;place-items:center;font-weight:800}
+.note{color:var(--red);font-weight:700}
+
+.cta{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:var(--s5) var(--s4);text-align:center;box-shadow:var(--shadow)}
+.cta p{color:var(--muted);margin:0 auto var(--s4);max-width:30rem}
+
+.gallery{display:grid;gap:var(--s3);grid-template-columns:repeat(auto-fill,minmax(min(100%,17rem),1fr))}
+.shot{margin:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+.shot a{display:block;aspect-ratio:3/4;background:var(--line)}
+.shot img{width:100%;height:100%;object-fit:cover;object-position:top}
+.shot figcaption{padding:var(--s2) var(--s3);font-size:.9rem;color:var(--muted)}
+
+footer{border-top:1px solid var(--line);padding-block:var(--s4);color:var(--muted);font-size:.9rem}
+
+/* Lightbox */
+dialog{border:0;padding:0;background:transparent;max-width:min(96vw,60rem);max-height:94vh;overflow:visible}
+dialog::backdrop{background:rgba(0,0,0,.8)}
+dialog img{max-height:86vh;margin:auto;border-radius:var(--r-sm);background:var(--surface)}
+.lb-msg{color:#fff;text-align:center;padding:var(--s4)}
+.lb-close{position:absolute;top:-3rem;right:0;background:var(--surface);color:var(--ink);border:0;border-radius:999px;min-width:44px;min-height:44px;padding:0 1rem;font:inherit;font-weight:700;cursor:pointer}
+
+@media (min-width:48rem){
+  .hero-grid{grid-template-columns:1.1fr 1fr}
+  .compare{grid-template-columns:1fr 1fr}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{animation:none!important;transition:none!important}
+}
+</style>
 </head>
-
 <body>
-    <!-- <style>
-        img {
-            width: 50%;
-        }
-    </style> -->
-    <center>
-        <h1>Tutorial main voucher</h1>
-        <h1>GO-FOOD</h1>
-    </center>
-    <hr>
-    <h3>Pastikan akun anda tidak sakit</h3>
+<a class="skip" href="#main">Lewati ke konten</a>
 
-    <ul>
-        <li>Akun <span style="color: red;"><b>NORMAL</b></span> memiliki voucher resto. <a href="normal.jpeg">lihat
-                gambar</a></li>
-        <li>Akun <span style="color: red;"><b>SAKIT</b></span> tidak memiliki voucher resto. <a href="sakit.jpeg">lihat
-                gambar</a></li>
-    </ul>
-    <h3>Cara redem kode voucher</h3>
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="#top">GO-<span>FOOD</span> voucher</a>
+    <nav class="nav" aria-label="Navigasi utama">
+      <a href="#cek-akun">Cek akun</a>
+      <a href="#redeem">Redeem</a>
+      <a href="#cara-pakai">Cara pakai</a>
+      <a href="#riwayat">Riwayat</a>
+    </nav>
+    <a class="btn btn-primary btn-sm" href="https://wa.me/6289668262520" target="_blank" rel="noopener noreferrer">Beli via WhatsApp</a>
+  </div>
+</header>
 
-    <ul>
-        <li>Buka aplikasi gojek</li>
+<main id="main">
+  <div class="hero" id="top">
+    <div class="wrap hero-grid">
+      <div>
+        <h1>Tutorial memakai voucher GO-FOOD</h1>
+        <p>Cek akun, redeem kode voucher di aplikasi Gojek, lalu pakai di resto yang mendukung diskon 50%.</p>
+        <a class="btn btn-primary" href="#cek-akun">Mulai dari cek akun</a>
+      </div>
+      <div class="ticket" role="img" aria-label="Voucher resto diskon 50 persen">
+        <div>
+          <div class="pct">50%</div>
+          <div class="lbl">Voucher resto<small>GO-FOOD · aplikasi Gojek</small></div>
+        </div>
+        <div class="cut" aria-hidden="true">GO-FOOD</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="cek-akun" aria-labelledby="h-akun">
+    <div class="wrap">
+      <h2 id="h-akun">Pastikan akun Anda tidak sakit</h2>
+      <p class="lead">Voucher hanya muncul di akun yang normal. Bandingkan akun Anda dengan dua contoh ini.</p>
+      <div class="compare">
+        <article class="card card-ok">
+          <h3>Akun <span class="tag tag-ok">NORMAL</span></h3>
+          <p>Memiliki voucher resto.</p>
+          <a class="zoom" href="normal.jpeg" data-zoom data-alt="Contoh akun normal dengan voucher resto">Lihat gambar</a>
+        </article>
+        <article class="card card-bad">
+          <h3>Akun <span class="tag tag-bad">SAKIT</span></h3>
+          <p>Tidak memiliki voucher resto.</p>
+          <a class="zoom" href="sakit.jpeg" data-zoom data-alt="Contoh akun sakit tanpa voucher resto">Lihat gambar</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="redeem" aria-labelledby="h-redeem">
+    <div class="wrap">
+      <h2 id="h-redeem">Cara redeem kode voucher</h2>
+      <ol class="steps">
+        <li>Buka aplikasi Gojek</li>
         <li>Masuk ke menu promo</li>
-        <li><a href="redem.jpeg">lihat gambar</a></li>
-    </ul>
-    <h3>Cara pakai</h3>
-    <ul>
-        <li>Cari resto yang ada diskon</li>
-        <li>Pastikan resto mendukung voucher 50% <span style="color: red;">(90% resto mendukung)</span></li>
-        <li>Baca ketentuan promo resto <span style="color: red;">(minimal pembelian, metode pembayaran)</span></li>
-        <li>Kebanyakan promo mengharuskan pembayaran GO-PAY maka isi GO-PAY dengan nominal <span style="color: red">minimal</span> sebesar ketentuan minimal pembelian.</li>
-        <li><a href="cp.jpeg">lihat gambar</a></li>
-    </ul>
-    <h3>Minat?</h3>
-    <p>Saya menjual vocer redem, dibawah ini kontak saya</p>
-    <a href="https://wa.me/6289668262520">whatsapp</a>
-    <br>
-    <hr>
-    <h1>Beberapa riwayat orderan saya</h1>
-    <center>
-        <table border="solid">
-            <tr>
-                <td><img src="1.jpeg" alt=""></td>
-            </tr>
-            <tr>
-                <td><img src="2.jpeg" alt=""></td>
-            </tr>
-            <tr>
-                <td><img src="3.jpeg" alt=""></td>
-            </tr>
-        </table>
-    </center>
-</body>
+        <li><a href="redem.jpeg" data-zoom data-alt="Contoh tampilan menu redeem kode voucher">Lihat gambar</a></li>
+      </ol>
+    </div>
+  </section>
 
+  <section id="cara-pakai" aria-labelledby="h-pakai">
+    <div class="wrap">
+      <h2 id="h-pakai">Cara pakai</h2>
+      <ol class="steps">
+        <li>Cari resto yang ada diskon</li>
+        <li>Pastikan resto mendukung voucher 50% <span class="note">(90% resto mendukung)</span></li>
+        <li>Baca ketentuan promo resto <span class="note">(minimal pembelian, metode pembayaran)</span></li>
+        <li>Kebanyakan promo mengharuskan pembayaran GO-PAY. Isi GO-PAY dengan nominal <span class="note">minimal</span> sebesar ketentuan minimal pembelian.</li>
+        <li><a href="cp.jpeg" data-zoom data-alt="Contoh ketentuan promo resto">Lihat gambar</a></li>
+      </ol>
+    </div>
+  </section>
+
+  <section id="minat" aria-labelledby="h-minat">
+    <div class="wrap">
+      <div class="cta">
+        <h2 id="h-minat">Minat?</h2>
+        <p>Saya menjual voucher redeem. Hubungi saya lewat WhatsApp.</p>
+        <a class="btn btn-primary" href="https://wa.me/6289668262520" target="_blank" rel="noopener noreferrer">Chat WhatsApp</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="riwayat" aria-labelledby="h-riwayat">
+    <div class="wrap">
+      <h2 id="h-riwayat">Beberapa riwayat orderan saya</h2>
+      <p class="lead">Ketuk gambar untuk memperbesar.</p>
+      <div class="gallery">
+        <figure class="shot"><a href="1.jpeg" data-zoom data-alt="Riwayat orderan 1"><img src="1.jpeg" alt="Riwayat orderan 1" loading="lazy" decoding="async"></a><figcaption>Riwayat 1</figcaption></figure>
+        <figure class="shot"><a href="2.jpeg" data-zoom data-alt="Riwayat orderan 2"><img src="2.jpeg" alt="Riwayat orderan 2" loading="lazy" decoding="async"></a><figcaption>Riwayat 2</figcaption></figure>
+        <figure class="shot"><a href="3.jpeg" data-zoom data-alt="Riwayat orderan 3"><img src="3.jpeg" alt="Riwayat orderan 3" loading="lazy" decoding="async"></a><figcaption>Riwayat 3</figcaption></figure>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">Situs tutorial independen, bukan situs resmi Gojek atau GO-FOOD.</div>
+</footer>
+
+<dialog id="lightbox" aria-label="Pratinjau gambar">
+  <button class="lb-close" type="button" id="lbClose">Tutup</button>
+  <img id="lbImg" alt="">
+  <p class="lb-msg" id="lbMsg" hidden>Gambar tidak dapat dimuat. Pastikan file gambar ada di folder yang sama dengan index.html.</p>
+</dialog>
+
+<script>
+(() => {
+  'use strict';
+  const dlg = document.getElementById('lightbox');
+  const img = document.getElementById('lbImg');
+  const msg = document.getElementById('lbMsg');
+  if (!dlg || typeof dlg.showModal !== 'function') return; // tanpa dialog, tautan membuka gambar langsung
+
+  const open = (src, alt) => {
+    msg.hidden = true;
+    img.hidden = false;
+    img.alt = alt || '';
+    img.src = src;
+    dlg.showModal();
+  };
+  img.addEventListener('error', () => { img.hidden = true; msg.hidden = false; });
+
+  document.addEventListener('click', e => {
+    const a = e.target.closest('a[data-zoom]');
+    if (a && !e.metaKey && !e.ctrlKey && !e.shiftKey) {
+      e.preventDefault();
+      open(a.getAttribute('href'), a.dataset.alt);
+    } else if (e.target === dlg) {
+      dlg.close();
+    }
+  });
+  document.getElementById('lbClose').addEventListener('click', () => dlg.close());
+  dlg.addEventListener('close', () => { img.removeAttribute('src'); });
+})();
+</script>
+</body>
 </html>
