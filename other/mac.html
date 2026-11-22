@@ -1,104 +1,460 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MAC</title>
-    <style>
-        table {
-          border-collapse: collapse;
-          width: 100%;
-        }
-        
-        th, td {
-          padding: 8px;
-          text-align: left;
-          border-bottom: 1px solid #ddd;
-        }
-        
-        tr:hover {background-color: coral;}
-        </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Daftar MAC Perangkat</title>
+<meta name="description" content="Daftar perangkat jaringan rumah beserta alamat MAC dan pemiliknya.">
+<meta name="robots" content="noindex">
+<meta name="color-scheme" content="light dark">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E📶%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#f3f5f4; --surface:#fff; --ink:#15211d; --muted:#5a6b65; --line:#dbe2df;
+  --accent:#0b6e5a; --accent-ink:#fff; --hover:#e6f2ee; --warn:#8a5a00; --warn-bg:#fdf1d8;
+  --radius:10px; --s1:.25rem; --s2:.5rem; --s3:.75rem; --s4:1rem; --s5:1.5rem; --s6:2.5rem;
+  --font:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+:root[data-theme="dark"]{
+  --bg:#0f1715; --surface:#17211e; --ink:#e7f0ec; --muted:#9db0a8; --line:#2a3834;
+  --accent:#4fd1b0; --accent-ink:#06211a; --hover:#1f2f2a; --warn:#f2c86b; --warn-bg:#3a2f12;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--font);
+  padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.wrap{max-width:60rem;margin:0 auto;padding:var(--s5) var(--s4) var(--s6)}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:var(--s4);flex-wrap:wrap}
+h1{margin:0;font-size:clamp(1.6rem,4vw,2.25rem);letter-spacing:-.02em;line-height:1.15}
+.sub{margin:var(--s1) 0 0;color:var(--muted)}
+button,select,input{font:inherit;color:inherit}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:var(--radius);padding:var(--s2) var(--s3);
+  min-height:44px;cursor:pointer;transition:background .15s,border-color .15s}
+.btn:hover{background:var(--hover);border-color:var(--accent)}
+.btn:active{transform:translateY(1px)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.tools{display:flex;gap:var(--s3);flex-wrap:wrap;margin:var(--s5) 0 var(--s3)}
+.field{flex:1 1 14rem;min-width:0}
+.field input,.field select{width:100%;min-height:44px;padding:var(--s2) var(--s3);border:1px solid var(--line);
+  border-radius:var(--radius);background:var(--surface)}
+.field label{display:block;font-size:.85rem;color:var(--muted);margin-bottom:var(--s1)}
+.stats{display:flex;gap:var(--s2);flex-wrap:wrap;margin-bottom:var(--s4);color:var(--muted);font-size:.9rem}
+.stats b{color:var(--ink)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+table{border-collapse:collapse;width:100%}
+th,td{padding:var(--s3) var(--s4);text-align:left;border-bottom:1px solid var(--line);vertical-align:middle}
+thead th{background:var(--bg);font-weight:600;font-size:.9rem;white-space:nowrap}
+thead button{all:unset;cursor:pointer;display:inline-flex;gap:var(--s2);align-items:center;border-radius:6px;padding:2px 4px}
+thead button:focus-visible{outline:3px solid var(--accent)}
+tbody tr{transition:background .12s}
+tbody tr:hover{background:var(--hover)}
+tbody tr:last-child td{border-bottom:0}
+.mac{font-family:var(--mono);font-size:.95rem;display:inline-flex;align-items:center;gap:var(--s2);flex-wrap:wrap}
+.copy{border:1px solid var(--line);background:transparent;border-radius:6px;padding:2px var(--s2);min-height:32px;cursor:pointer;font-size:.8rem}
+.copy:hover{border-color:var(--accent);color:var(--accent)}
+.tag{font-size:.75rem;padding:1px var(--s2);border-radius:99px;background:var(--warn-bg);color:var(--warn);white-space:nowrap}
+.dim{color:var(--muted)}
+.empty{padding:var(--s6) var(--s4);text-align:center;color:var(--muted)}
+.note{margin-top:var(--s4);font-size:.85rem;color:var(--muted)}
+#toast{position:fixed;left:50%;bottom:calc(var(--s5) + env(safe-area-inset-bottom));transform:translate(-50%,20px);
+  background:var(--ink);color:var(--bg);padding:var(--s2) var(--s4);border-radius:99px;opacity:0;pointer-events:none;
+  transition:opacity .2s,transform .2s}
+#toast.show{opacity:1;transform:translate(-50%,0)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.btn.primary{background:var(--accent);color:var(--accent-ink);border-color:var(--accent);font-weight:600}
+.btn.primary:hover{filter:brightness(1.1)}
+.btn.danger{border-color:#b3261e;color:#b3261e}
+:root[data-theme="dark"] .btn.danger{border-color:#ff8a80;color:#ff8a80}
+.acts{display:inline-flex;gap:var(--s2)}
+.copy.danger:hover{border-color:#b3261e;color:#b3261e}
+dialog{border:1px solid var(--line);border-radius:var(--radius);background:var(--surface);color:var(--ink);padding:var(--s5);width:min(26rem,calc(100vw - 2rem))}
+dialog::backdrop{background:rgb(0 0 0/.5)}
+dialog h2{margin:0 0 var(--s4);font-size:1.2rem}
+dialog .field{margin-bottom:var(--s3)}
+dialog p{margin:0 0 var(--s4)}
+.err{color:#b3261e;min-height:1.4em;font-size:.9rem;margin:0 0 var(--s3)!important}
+:root[data-theme="dark"] .err{color:#ff8a80}
+.row{display:flex;gap:var(--s2);justify-content:flex-end;flex-wrap:wrap}
+@media (max-width:40rem){
+  thead{display:none}
+  table,tbody,tr,td{display:block;width:100%}
+  tr{padding:var(--s3) var(--s4);border-bottom:1px solid var(--line)}
+  tbody tr:last-child{border-bottom:0}
+  td{border:0;padding:var(--s1) 0;display:flex;justify-content:space-between;gap:var(--s3);align-items:center}
+  td::before{content:attr(data-label);color:var(--muted);font-size:.85rem;flex:none}
+  td:first-child{font-weight:600}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
 </head>
 <body>
-    <center><h1>MAC</h1>
-    <table>
-        <tr style="background-color: red;">
-            <th>Name</th>
-            <th>MAC</th>
-            <th>User</th>
-        </tr>
-        <tr>
-            <td>OPPO-A7</td>
-            <td>885a0662f36f</td>
-            <td>Bu Lis</td>
-        </tr>
-        <tr>
-            <td>kiwkiw</td>
-            <td>c28fb9b249fb</td>
-            <td>Nahya</td>
-        </tr>
-        <tr>
-            <td>OPPO-A3s</td>
-            <td>489507949b0d</td>
-            <td>Ghani</td>
-        </tr>
-        <tr>
-            <td>OPPO-Reno5-F</td>
-            <td>e646d9f11aae</td>
-            <td>Mbk Titik</td>
-        </tr>
-        <tr>
-            <td>Unknown</td>
-            <td>28c13c6c791f</td>
-            <td>TV Depan</td>
-        </tr>
-        <tr>
-            <td>android-1379f444665efa93</td>
-            <td>a81b5adc8832</td>
-            <td>?</td>
-        </tr>
-        <tr>
-            <td>OPPO-A3s</td>
-            <td>58c6f03acd21</td>
-            <td>Zehan</td>
-        </tr>
-        <tr>
-            <td>OPPO-A53</td>
-            <td>a2925fb127aa</td>
-            <td>Mbk Sari</td>
-        </tr>
-        <tr>
-            <td>OPPO-Reno6-5G</td>
-            <td>862b514cc6a6</td>
-            <td>Mbk Sari</td>
-        </tr>
-        <tr>
-            <td>Galaxy-A31</td>
-            <td>0e364958d826</td>
-            <td>Kakang</td>
-        </tr>
-        <tr>
-            <td>Galaxy-A02</td>
-            <td>d6d94cfb54a1</td>
-            <td>Rafa</td>
-        </tr>
-        <tr>
-            <td>OPPO-A15s</td>
-            <td>3293cf0f9a52</td>
-            <td>Zehan</td>
-        </tr>
-        <tr>
-            <td>OPPO-A9-2020</td>
-            <td>02b2027f55c8</td>
-            <td>Nahya</td>
-        </tr>
-        <tr>
-            <td>A12-milik-Samsung</td>
-            <td>36e8ecccfdbe</td>
-            <td>Priyok?</td>
-        </tr>
-    </table>
-    </center>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>MAC</h1>
+      <p class="sub">Perangkat yang terhubung ke jaringan dan pemiliknya.</p>
+    </div>
+    <div style="display:flex;gap:var(--s2);flex-wrap:wrap">
+      <button class="btn primary" id="add" type="button">Tambah perangkat</button>
+      <button class="btn" id="csv" type="button">Ekspor CSV</button>
+      <button class="btn" id="theme" type="button" aria-pressed="false">Mode gelap</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="tools" role="search">
+      <div class="field">
+        <label for="q">Cari nama, MAC, atau pengguna</label>
+        <input id="q" type="search" autocomplete="off" placeholder="mis. OPPO, zehan, 885a">
+      </div>
+      <div class="field">
+        <label for="user">Filter pengguna</label>
+        <select id="user"><option value="">Semua pengguna</option></select>
+      </div>
+    </div>
+
+    <p class="stats" id="stats" aria-live="polite"></p>
+
+    <div class="panel">
+      <table>
+        <caption class="sr">Daftar perangkat, alamat MAC, dan pengguna</caption>
+        <thead>
+          <tr>
+            <th scope="col" aria-sort="none"><button type="button" data-key="name">Name <span aria-hidden="true"></span></button></th>
+            <th scope="col" aria-sort="none"><button type="button" data-key="mac">MAC <span aria-hidden="true"></span></button></th>
+            <th scope="col" aria-sort="none"><button type="button" data-key="user">User <span aria-hidden="true"></span></button></th>
+            <th scope="col">Aksi</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+      <div class="empty" id="empty" hidden>Tidak ada perangkat yang cocok. Ubah kata kunci atau reset filter.</div>
+    </div>
+
+    <p class="note">Label “MAC acak” berarti bit locally-administered aktif: perangkat memakai alamat privat yang bisa berubah per jaringan, jadi MAC ini mungkin tidak tetap.</p>
+    <p class="note"><button class="btn" id="reset" type="button">Kembalikan data awal</button></p>
+    <p class="note">Data tersimpan di browser ini saja (localStorage). Data tidak ikut berpindah ke perangkat atau browser lain, dan hilang jika data situs dihapus. Gunakan Ekspor CSV untuk cadangan.</p>
+  </main>
+</div>
+
+<dialog id="dlg" aria-labelledby="dlgTitle">
+  <form id="form" novalidate>
+    <h2 id="dlgTitle">Tambah perangkat</h2>
+    <div class="field"><label for="fName">Nama perangkat</label><input id="fName" maxlength="60" required autocomplete="off"></div>
+    <div class="field"><label for="fMac">Alamat MAC (12 digit hex)</label><input id="fMac" maxlength="17" required autocomplete="off" spellcheck="false" placeholder="mis. 88:5a:06:62:f3:6f"></div>
+    <div class="field"><label for="fUser">Pengguna</label><input id="fUser" maxlength="40" required autocomplete="off"></div>
+    <p class="err" id="err" role="alert"></p>
+    <div class="row">
+      <button class="btn" type="button" id="fCancel">Batal</button>
+      <button class="btn primary" type="submit">Simpan</button>
+    </div>
+  </form>
+</dialog>
+
+<dialog id="cdlg" aria-labelledby="cmsg">
+  <form method="dialog">
+    <p id="cmsg"></p>
+    <div class="row">
+      <button class="btn" value="cancel">Batal</button>
+      <button class="btn danger" value="ok" id="cok">Hapus</button>
+    </div>
+  </form>
+</dialog>
+
+<div id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+  'use strict';
+
+  // Data awal (14 perangkat) dipakai saat browser belum menyimpan data.
+  const DEFAULTS = [
+    { name: 'OPPO-A7',                  mac: '885a0662f36f', user: 'Bu Lis' },
+    { name: 'kiwkiw',                   mac: 'c28fb9b249fb', user: 'Nahya' },
+    { name: 'OPPO-A3s',                 mac: '489507949b0d', user: 'Ghani' },
+    { name: 'OPPO-Reno5-F',             mac: 'e646d9f11aae', user: 'Mbk Titik' },
+    { name: 'Unknown',                  mac: '28c13c6c791f', user: 'TV Depan' },
+    { name: 'android-1379f444665efa93', mac: 'a81b5adc8832', user: '?' },
+    { name: 'OPPO-A3s',                 mac: '58c6f03acd21', user: 'Zehan' },
+    { name: 'OPPO-A53',                 mac: 'a2925fb127aa', user: 'Mbk Sari' },
+    { name: 'OPPO-Reno6-5G',            mac: '862b514cc6a6', user: 'Mbk Sari' },
+    { name: 'Galaxy-A31',               mac: '0e364958d826', user: 'Kakang' },
+    { name: 'Galaxy-A02',               mac: 'd6d94cfb54a1', user: 'Rafa' },
+    { name: 'OPPO-A15s',                mac: '3293cf0f9a52', user: 'Zehan' },
+    { name: 'OPPO-A9-2020',             mac: '02b2027f55c8', user: 'Nahya' },
+    { name: 'A12-milik-Samsung',        mac: '36e8ecccfdbe', user: 'Priyok?' }
+  ];
+
+  const $ = (id) => document.getElementById(id);
+  const els = {
+    rows: $('rows'), q: $('q'), user: $('user'), stats: $('stats'), empty: $('empty'),
+    theme: $('theme'), csv: $('csv'), toast: $('toast'), add: $('add'), reset: $('reset'),
+    dlg: $('dlg'), form: $('form'), title: $('dlgTitle'), fName: $('fName'), fMac: $('fMac'),
+    fUser: $('fUser'), err: $('err'), fCancel: $('fCancel'), cdlg: $('cdlg'), cmsg: $('cmsg'), cok: $('cok')
+  };
+
+  // ---- Penyimpanan (localStorage) ----
+  const KEY = 'mac-devices-v1';
+  const uid = () => (crypto.randomUUID ? crypto.randomUUID() : 'id' + Date.now().toString(36) + Math.random().toString(36).slice(2));
+  const normMac = (v) => String(v).replace(/[:\-.\s]/g, '').toLowerCase();
+  const seed = () => DEFAULTS.map((d) => ({ ...d, id: uid() }));
+
+  function load() {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const arr = JSON.parse(raw);
+        if (Array.isArray(arr)) {
+          return arr
+            .filter((d) => d && typeof d.name === 'string' && typeof d.user === 'string' && /^[0-9a-f]{12}$/.test(normMac(d.mac)))
+            .map((d) => ({ id: String(d.id || uid()), name: d.name, mac: normMac(d.mac), user: d.user }));
+        }
+      }
+    } catch (_) { /* data rusak: pakai data awal */ }
+    return seed();
+  }
+  let devices = load();
+
+  function save() {
+    try { localStorage.setItem(KEY, JSON.stringify(devices)); return true; }
+    catch (_) { toast('Penyimpanan browser tidak tersedia. Perubahan hilang saat halaman ditutup.'); return false; }
+  }
+  function commit(msg) { const ok = save(); populateUsers(); render(); if (msg && ok) toast(msg); }
+  const state = { query: '', user: '', key: null, dir: 1 };
+
+  const fmtMac = (m) => m.match(/.{2}/g).join(':');
+  const isRandom = (m) => (parseInt(m.slice(0, 2), 16) & 0x02) !== 0;
+  const collator = new Intl.Collator('id', { numeric: true, sensitivity: 'base' });
+
+  function toast(msg) {
+    els.toast.textContent = msg;
+    els.toast.classList.add('show');
+    clearTimeout(toast.t);
+    toast.t = setTimeout(() => els.toast.classList.remove('show'), 1800);
+  }
+
+  async function copy(text) {
+    try {
+      await navigator.clipboard.writeText(text);
+      toast('MAC disalin: ' + text);
+    } catch (_) {
+      const ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); toast('MAC disalin: ' + text); }
+      catch (e) { toast('Gagal menyalin. Salin manual.'); }
+      ta.remove();
+    }
+  }
+
+  function visible() {
+    const q = state.query.trim().toLowerCase();
+    const qRaw = q.replace(/[:\-.]/g, '');
+    let list = devices.filter((d) =>
+      (!state.user || d.user === state.user) &&
+      (!q || d.name.toLowerCase().includes(q) || d.user.toLowerCase().includes(q) ||
+        d.mac.includes(qRaw || q))
+    );
+    if (state.key) list = [...list].sort((a, b) => state.dir * collator.compare(a[state.key], b[state.key]));
+    return list;
+  }
+
+  function cell(label, child) {
+    const td = document.createElement('td');
+    td.dataset.label = label;
+    td.append(child);
+    return td;
+  }
+
+  function render() {
+    const list = visible();
+    const frag = document.createDocumentFragment();
+    for (const d of list) {
+      const tr = document.createElement('tr');
+
+      const mac = document.createElement('span');
+      mac.className = 'mac';
+      const code = document.createElement('span');
+      code.textContent = fmtMac(d.mac);
+      mac.append(code);
+      if (isRandom(d.mac)) {
+        const tag = document.createElement('span');
+        tag.className = 'tag'; tag.textContent = 'MAC acak';
+        mac.append(tag);
+      }
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'copy'; btn.textContent = 'Salin';
+      btn.setAttribute('aria-label', 'Salin MAC ' + fmtMac(d.mac));
+      btn.addEventListener('click', () => copy(fmtMac(d.mac)));
+      mac.append(btn);
+
+      const user = document.createElement('span');
+      user.textContent = d.user;
+      if (d.user.includes('?')) user.className = 'dim';
+
+      const name = document.createElement('span');
+      name.textContent = d.name;
+
+      const acts = document.createElement('span');
+      acts.className = 'acts';
+      const eb = document.createElement('button');
+      eb.type = 'button'; eb.className = 'copy'; eb.textContent = 'Ubah';
+      eb.setAttribute('aria-label', 'Ubah ' + d.name);
+      eb.addEventListener('click', () => openForm(d));
+      const db = document.createElement('button');
+      db.type = 'button'; db.className = 'copy danger'; db.textContent = 'Hapus';
+      db.setAttribute('aria-label', 'Hapus ' + d.name);
+      db.addEventListener('click', () => removeDevice(d));
+      acts.append(eb, db);
+
+      tr.append(cell('Name', name), cell('MAC', mac), cell('User', user), cell('Aksi', acts));
+      frag.append(tr);
+    }
+    els.rows.replaceChildren(frag);
+    els.empty.hidden = list.length > 0;
+    els.empty.textContent = devices.length
+      ? 'Tidak ada perangkat yang cocok. Ubah kata kunci atau reset filter.'
+      : 'Belum ada perangkat. Pilih “Tambah perangkat” untuk memulai.';
+    const users = new Set(list.map((d) => d.user)).size;
+    els.stats.innerHTML = '';
+    const b1 = document.createElement('b'); b1.textContent = list.length;
+    const b2 = document.createElement('b'); b2.textContent = users;
+    els.stats.append(b1, ` dari ${devices.length} perangkat · `, b2, ' pengguna');
+
+    document.querySelectorAll('thead th').forEach((th) => {
+      const k = th.querySelector('button').dataset.key;
+      const on = state.key === k;
+      th.setAttribute('aria-sort', on ? (state.dir === 1 ? 'ascending' : 'descending') : 'none');
+      th.querySelector('span').textContent = on ? (state.dir === 1 ? '▲' : '▼') : '';
+    });
+  }
+
+  function populateUsers() {
+    const names = [...new Set(devices.map((d) => d.user))].sort(collator.compare);
+    els.user.length = 1;
+    for (const n of names) {
+      const o = document.createElement('option');
+      o.value = n; o.textContent = n;
+      els.user.append(o);
+    }
+    if (state.user && !names.includes(state.user)) state.user = '';
+    els.user.value = state.user;
+  }
+
+  // ---- CRUD ----
+  let editingId = null;
+
+  function openForm(dev) {
+    editingId = dev ? dev.id : null;
+    els.title.textContent = dev ? 'Ubah perangkat' : 'Tambah perangkat';
+    els.fName.value = dev ? dev.name : '';
+    els.fMac.value = dev ? fmtMac(dev.mac) : '';
+    els.fUser.value = dev ? dev.user : '';
+    els.err.textContent = '';
+    els.dlg.showModal();
+    els.fName.focus();
+  }
+
+  function submitForm(e) {
+    e.preventDefault();
+    const name = els.fName.value.trim();
+    const user = els.fUser.value.trim();
+    const mac = normMac(els.fMac.value);
+    let msg = '';
+    if (!name) msg = 'Nama perangkat wajib diisi.';
+    else if (!/^[0-9a-f]{12}$/.test(mac)) msg = 'MAC harus 12 digit hex (0-9, a-f), boleh dengan pemisah : atau -.';
+    else if (!user) msg = 'Pengguna wajib diisi. Isi “?” jika belum diketahui.';
+    else if (devices.some((d) => d.mac === mac && d.id !== editingId)) msg = 'MAC ini sudah ada di daftar.';
+    if (msg) { els.err.textContent = msg; return; }
+
+    if (editingId) {
+      const d = devices.find((x) => x.id === editingId);
+      if (d) Object.assign(d, { name, mac, user });
+      commit('Perubahan disimpan');
+    } else {
+      devices.push({ id: uid(), name, mac, user });
+      commit('Perangkat ditambahkan');
+    }
+    els.dlg.close();
+  }
+
+  function askConfirm(message, okLabel) {
+    return new Promise((resolve) => {
+      els.cmsg.textContent = message;
+      els.cok.textContent = okLabel;
+      els.cdlg.returnValue = '';
+      els.cdlg.addEventListener('close', () => resolve(els.cdlg.returnValue === 'ok'), { once: true });
+      els.cdlg.showModal();
+    });
+  }
+
+  async function removeDevice(d) {
+    if (await askConfirm(`Hapus ${d.name} (${fmtMac(d.mac)}) dari daftar?`, 'Hapus')) {
+      devices = devices.filter((x) => x.id !== d.id);
+      commit('Perangkat dihapus');
+    }
+  }
+
+  async function resetData() {
+    if (await askConfirm('Semua perubahan akan diganti dengan 14 perangkat awal. Lanjutkan?', 'Kembalikan')) {
+      devices = seed();
+      commit('Data awal dikembalikan');
+    }
+  }
+
+  function exportCsv() {
+    const esc = (s) => {
+      let v = String(s);
+      if (/^[=+\-@\t\r]/.test(v)) v = "'" + v; // cegah formula injection di spreadsheet
+      return '"' + v.replace(/"/g, '""') + '"';
+    };
+    const lines = ['Name,MAC,User', ...visible().map((d) => [d.name, fmtMac(d.mac), d.user].map(esc).join(','))];
+    const blob = new Blob(['\ufeff' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'daftar-mac.csv';
+    document.body.append(a); a.click(); a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('CSV diekspor');
+  }
+
+  function setTheme(mode, persist) {
+    document.documentElement.dataset.theme = mode;
+    els.theme.setAttribute('aria-pressed', String(mode === 'dark'));
+    els.theme.textContent = mode === 'dark' ? 'Mode terang' : 'Mode gelap';
+    if (persist) { try { localStorage.setItem('theme', mode); } catch (_) {} }
+  }
+
+  function init() {
+    let saved = null;
+    try { saved = localStorage.getItem('theme'); } catch (_) {}
+    setTheme(saved || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'), false);
+
+    populateUsers();
+    els.q.addEventListener('input', (e) => { state.query = e.target.value; render(); });
+    els.user.addEventListener('change', (e) => { state.user = e.target.value; render(); });
+    els.theme.addEventListener('click', () =>
+      setTheme(document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark', true));
+    els.csv.addEventListener('click', exportCsv);
+    els.add.addEventListener('click', () => openForm(null));
+    els.reset.addEventListener('click', resetData);
+    els.form.addEventListener('submit', submitForm);
+    els.fCancel.addEventListener('click', () => els.dlg.close());
+    document.querySelector('thead').addEventListener('click', (e) => {
+      const b = e.target.closest('button[data-key]');
+      if (!b) return;
+      const k = b.dataset.key;
+      if (state.key === k) state.dir *= -1; else { state.key = k; state.dir = 1; }
+      render();
+    });
+    window.addEventListener('storage', (e) => {
+      if (e.key === KEY) { devices = load(); populateUsers(); render(); }
+    });
+    render();
+  }
+
+  try { init(); } catch (err) { console.error('Gagal memuat daftar MAC:', err); }
+})();
+</script>
 </body>
 </html>
