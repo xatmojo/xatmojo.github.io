@@ -3,951 +3,1076 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Identity Card Studio | Simulasi</title>
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <!-- jsPDF for PDF Export -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    
+    <title>Indonesian Identity Card Simulator</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         :root {
-            --primary: #4F46E5;
-            --primary-hover: #4338CA;
-            --bg-app: #F3F4F6;
-            --bg-panel: #FFFFFF;
+            /* Light Theme */
+            --bg-body: #f3f4f6;
+            --bg-surface: #ffffff;
+            --bg-sidebar: #ffffff;
             --text-main: #111827;
-            --text-muted: #6B7280;
-            --border: #E5E7EB;
-            --danger: #EF4444;
-            --success: #10B981;
-            --radius: 12px;
-            --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+            --text-muted: #6b7280;
+            --border-color: #e5e7eb;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --danger: #ef4444;
+            --danger-hover: #dc2626;
+            --success: #10b981;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
             --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            --radius: 12px;
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-surface: #1e293b;
+            --bg-sidebar: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --primary: #6366f1;
+            --primary-hover: #818cf8;
         }
 
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-app);
+            background-color: var(--bg-body);
             color: var(--text-main);
-            line-height: 1.5;
-            min-height: 100vh;
             display: flex;
-            flex-direction: column;
+            min-height: 100vh;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
         }
 
-        /* Navbar */
-        header {
-            background: var(--bg-panel);
-            border-bottom: 1px solid var(--border);
-            padding: 1rem 2rem;
+        /* Sidebar */
+        .sidebar {
+            width: 280px;
+            background-color: var(--bg-sidebar);
+            border-right: 1px solid var(--border-color);
+            padding: 24px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            flex-direction: column;
+            gap: 24px;
+            height: 100vh;
+            position: fixed;
+            overflow-y: auto;
             z-index: 10;
+            transition: transform 0.3s;
         }
-        
+
         .logo {
-            font-weight: 700;
             font-size: 1.25rem;
+            font-weight: 700;
             color: var(--primary);
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 10px;
         }
 
-        .logo span {
-            color: var(--text-main);
-        }
-
-        /* Main Layout */
-        .app-container {
-            display: flex;
-            flex: 1;
-            overflow: hidden;
-            height: calc(100vh - 65px);
-        }
-
-        /* Sidebar / Form Panel */
-        .sidebar {
-            width: 400px;
-            background: var(--bg-panel);
-            border-right: 1px solid var(--border);
-            overflow-y: auto;
-            padding: 1.5rem;
+        .sidebar-section {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            flex-shrink: 0;
+            gap: 12px;
         }
 
-        .sidebar::-webkit-scrollbar {
-            width: 6px;
-        }
-        .sidebar::-webkit-scrollbar-thumb {
-            background: #CBD5E1;
-            border-radius: 4px;
-        }
-
-        /* Preview Panel */
-        .preview-area {
-            flex: 1;
-            padding: 2rem;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow-y: auto;
-            background: radial-gradient(circle at center, #E2E8F0 0%, var(--bg-app) 100%);
-        }
-
-        /* Form Elements */
-        .form-group {
-            margin-bottom: 1rem;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 0.25rem;
-            color: var(--text-main);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.5rem 0.75rem;
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            font-family: inherit;
-            font-size: 0.875rem;
-            transition: all 0.2s ease;
-            background: #F9FAFB;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
-            background: #FFF;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-        }
-
-        .section-title {
+        .sidebar-title {
             font-size: 0.75rem;
             text-transform: uppercase;
             letter-spacing: 0.05em;
             font-weight: 600;
             color: var(--text-muted);
-            margin-bottom: 0.75rem;
-            padding-bottom: 0.25rem;
-            border-bottom: 1px solid var(--border);
-            margin-top: 0.5rem;
         }
 
-        /* Buttons */
         .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 0.5rem 1rem;
+            padding: 10px 16px;
             border-radius: 8px;
+            border: none;
             font-weight: 500;
             font-size: 0.875rem;
             cursor: pointer;
-            border: none;
-            transition: all 0.2s ease;
-            gap: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s;
+            width: 100%;
         }
 
-        .btn:active {
-            transform: translateY(1px);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
+        .btn-primary { background: var(--primary); color: white; }
         .btn-primary:hover { background: var(--primary-hover); }
+        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
+        .btn-outline:hover { background: var(--bg-body); }
+        .btn-danger { background: var(--danger); color: white; }
+        .btn-danger:hover { background: var(--danger-hover); }
+        .btn-sm { padding: 6px 12px; font-size: 0.75rem; }
 
-        .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text-main);
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            flex: 1;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            max-width: 1400px;
         }
-        .btn-outline:hover { background: #F9FAFB; border-color: #D1D5DB; }
 
-        .btn-danger {
-            background: #FEE2E2;
-            color: var(--danger);
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
-        .btn-danger:hover { background: #FECACA; }
 
-        .action-grid {
+        .header h1 { font-size: 1.5rem; font-weight: 600; }
+
+        .grid-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
+            gap: 32px;
+            align-items: start;
         }
 
-        .action-grid .btn {
-            width: 100%;
+        /* Form Styles */
+        .card {
+            background: var(--bg-surface);
+            border-radius: var(--radius);
+            padding: 24px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border-color);
         }
 
-        /* Canvas Container */
-        .canvas-container {
+        .form-group { margin-bottom: 16px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+        
+        label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 500;
+            margin-bottom: 6px;
+            color: var(--text-muted);
+        }
+
+        input[type="text"], input[type="date"], select {
             width: 100%;
-            max-width: 850px;
-            position: relative;
+            padding: 10px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-family: inherit;
+            font-size: 0.875rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+
+        /* Image Upload */
+        .upload-area {
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius);
+            padding: 32px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: var(--bg-body);
+        }
+        .upload-area:hover { border-color: var(--primary); background: var(--bg-surface); }
+        .upload-area p { color: var(--text-muted); font-size: 0.875rem; margin-top: 8px; }
+        
+        .image-controls {
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            margin-top: 16px;
+        }
+        .image-controls.active { display: flex; }
+        .control-row { display: flex; align-items: center; gap: 12px; }
+        .control-row input[type="range"] { flex: 1; }
+        .control-row span { font-size: 0.75rem; width: 40px; text-align: right; }
+
+        /* Canvas Preview */
+        .preview-container {
+            position: sticky;
+            top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .canvas-wrapper {
+            width: 100%;
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: var(--shadow-lg);
-            background: #fff;
-            aspect-ratio: 1.585; /* Standard ID card ratio */
-            margin-bottom: 2rem;
+            box-shadow: var(--shadow-md);
+            background: #e5e7eb; /* Fallback */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 16px;
+            position: relative;
+            min-height: 300px;
         }
 
         canvas {
-            width: 100%;
-            height: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: var(--shadow-lg);
             display: block;
         }
 
-        /* File Upload Area */
-        .upload-area {
-            border: 2px dashed #CBD5E1;
-            border-radius: 8px;
-            padding: 1.5rem;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            background: #F8FAFC;
-        }
-
-        .upload-area:hover {
-            border-color: var(--primary);
-            background: #EEF2FF;
-        }
-
-        .upload-area input[type="file"] {
-            display: none;
-        }
-
-        .photo-controls {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            margin-top: 1rem;
-            display: none; /* Hidden until photo uploaded */
-        }
-        
-        .slider-group {
-            margin-top: 0.5rem;
-        }
-        .slider-group label {
+        .export-actions {
             display: flex;
-            justify-content: space-between;
-            font-size: 0.75rem;
-        }
-        input[type="range"] {
-            width: 100%;
-            margin-top: 0.25rem;
+            gap: 12px;
         }
 
-        /* Toast Notifications */
-        #toast-container {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .toast {
-            background: #1E293B;
-            color: white;
-            padding: 0.75rem 1.25rem;
-            border-radius: 8px;
-            font-size: 0.875rem;
-            box-shadow: var(--shadow-lg);
+        /* Color Picker */
+        .color-picker-wrap {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            animation: slideIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            gap: 8px;
+        }
+        input[type="color"] {
+            -webkit-appearance: none;
+            border: none;
+            width: 32px;
+            height: 32px;
+            padding: 0;
+            border-radius: 50%;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
+        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
+
+        /* Mobile */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-main);
+            cursor: pointer;
         }
 
-        .toast.success { border-left: 4px solid var(--success); }
-        .toast.error { border-left: 4px solid var(--danger); }
-
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
-        }
-
-        /* Responsive */
         @media (max-width: 1024px) {
-            .app-container {
-                flex-direction: column;
-                height: auto;
-                overflow: visible;
-            }
+            .grid-layout { grid-template-columns: 1fr; }
+            .preview-container { position: relative; top: 0; }
+        }
+
+        @media (max-width: 768px) {
             .sidebar {
-                width: 100%;
-                border-right: none;
-                border-bottom: 1px solid var(--border);
-                height: auto;
-                overflow: visible;
+                transform: translateX(-100%);
+                box-shadow: var(--shadow-lg);
             }
-            .preview-area {
-                padding: 1rem;
-                min-height: 500px;
-            }
-            .canvas-container {
-                width: 95%;
-            }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; padding: 16px; }
+            .mobile-menu-btn { display: block; }
+            .form-row, .form-row-3 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
-<body>
+<body data-theme="light">
 
-    <header>
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
         <div class="logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            Identity Card <span>Studio</span>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="7" y1="15" x2="7" y2="15"></line><line x1="11" y1="15" x2="11" y2="15"></line><line x1="15" y1="15" x2="15" y2="15"></line></svg>
+            ID Simulator
         </div>
-        <div style="font-size: 0.75rem; color: var(--danger); font-weight: 600; border: 1px solid var(--danger); padding: 4px 8px; border-radius: 4px;">
-            MODE SIMULASI
+
+        <div class="sidebar-section">
+            <span class="sidebar-title">Pengaturan Desain</span>
+            <div class="form-group">
+                <label>Warna Tema Kartu</label>
+                <div class="color-picker-wrap">
+                    <input type="color" id="cardColor" value="#0284c7" title="Warna Utama">
+                    <span style="font-size: 0.875rem; color: var(--text-muted);">Ubah Warna Dasar</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Orientasi Kartu</label>
+                <select id="orientation">
+                    <option value="landscape">Landscape (Mendatar)</option>
+                    <option value="portrait">Portrait (Tegak)</option>
+                </select>
+            </div>
+            <button class="btn btn-outline btn-sm" onclick="app.resetDesign()">Reset Desain</button>
         </div>
-    </header>
 
-    <div class="app-container">
-        <!-- Form Sidebar -->
-        <aside class="sidebar">
-            <div>
-                <div class="section-title">Informasi Utama</div>
-                <div class="form-group">
-                    <label>Provinsi (Header 1)</label>
-                    <input type="text" id="in-provinsi" class="form-control" value="PROVINSI DKI JAKARTA" oninput="updateState('provinsi', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Kabupaten/Kota (Header 2)</label>
-                    <input type="text" id="in-kabupaten" class="form-control" value="JAKARTA BARAT" oninput="updateState('kabupaten', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>NIK (Simulasi)</label>
-                    <input type="text" id="in-nik" class="form-control" value="3171234567890123" maxlength="16" oninput="updateState('nik', this.value)">
-                </div>
-                <div class="form-group">
-                    <label>Nama Lengkap</label>
-                    <input type="text" id="in-nama" class="form-control" value="MIRA SETIAWAN" oninput="updateState('nama', this.value)">
-                </div>
-                <div class="form-row">
+        <div class="sidebar-section">
+            <span class="sidebar-title">Manajemen Data</span>
+            <button class="btn btn-outline" onclick="app.saveProject()">💾 Simpan Project</button>
+            <button class="btn btn-outline" onclick="app.loadProject()">📂 Load Project</button>
+            <div style="display: flex; gap: 8px;">
+                <button class="btn btn-outline btn-sm" onclick="app.exportJSON()">Export JSON</button>
+                <button class="btn btn-outline btn-sm" onclick="document.getElementById('importJson').click()">Import JSON</button>
+            </div>
+            <input type="file" id="importJson" accept=".json" style="display: none;" onchange="app.importJSON(event)">
+            <button class="btn btn-danger btn-sm" onclick="app.clearAll()">🗑️ Clear Data</button>
+        </div>
+
+        <div class="sidebar-section" style="margin-top: auto;">
+            <button class="btn btn-outline" onclick="app.toggleTheme()" id="themeToggle">🌙 Mode Gelap</button>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <header class="header">
+            <div style="display: flex; align-items: center; gap: 16px;">
+                <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
+                <h1>KTP Simulator</h1>
+            </div>
+            <div style="font-size: 0.875rem; color: var(--text-muted);">*Data disimpan lokal di browser</div>
+        </header>
+
+        <div class="grid-layout">
+            <!-- Kolom Kiri: Form -->
+            <div style="display: flex; flex-direction: column; gap: 24px;">
+                
+                <!-- Form Identitas -->
+                <div class="card">
+                    <h2 style="font-size: 1.125rem; margin-bottom: 20px;">Data Identitas</h2>
+                    
                     <div class="form-group">
-                        <label>Tempat Lahir</label>
-                        <input type="text" id="in-tempat" class="form-control" value="JAKARTA" oninput="updateState('tempatLahir', this.value)">
+                        <label for="nik">NIK (Simulasi)</label>
+                        <input type="text" id="nik" maxlength="16" placeholder="16 Digit Angka" oninput="app.updateState('nik', this.value)">
                     </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" id="nama" placeholder="Sesuai KTP" oninput="app.updateState('nama', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="jenisKelamin">Jenis Kelamin</label>
+                            <select id="jenisKelamin" onchange="app.updateState('jenisKelamin', this.value)">
+                                <option value="LAKI-LAKI">LAKI-LAKI</option>
+                                <option value="PEREMPUAN">PEREMPUAN</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tempatLahir">Tempat Lahir</label>
+                            <input type="text" id="tempatLahir" placeholder="Kota/Kabupaten" oninput="app.updateState('tempatLahir', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="tanggalLahir">Tanggal Lahir</label>
+                            <input type="date" id="tanggalLahir" onchange="app.updateState('tanggalLahir', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="golonganDarah">Golongan Darah</label>
+                            <select id="golonganDarah" onchange="app.updateState('golonganDarah', this.value)">
+                                <option value="-">-</option>
+                                <option value="A">A</option>
+                                <option value="B">B</option>
+                                <option value="AB">AB</option>
+                                <option value="O">O</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="agama">Agama</label>
+                            <select id="agama" onchange="app.updateState('agama', this.value)">
+                                <option value="ISLAM">ISLAM</option>
+                                <option value="KRISTEN">KRISTEN</option>
+                                <option value="KATOLIK">KATOLIK</option>
+                                <option value="HINDU">HINDU</option>
+                                <option value="BUDHA">BUDHA</option>
+                                <option value="KONGHUCU">KONGHUCU</option>
+                            </select>
+                        </div>
+                    </div>
+
                     <div class="form-group">
-                        <label>Tanggal Lahir</label>
-                        <input type="text" id="in-tgl" class="form-control" value="18-02-1986" oninput="updateState('tanggalLahir', this.value)">
+                        <label for="alamat">Alamat Lengkap</label>
+                        <input type="text" id="alamat" placeholder="Jalan, No. Rumah" oninput="app.updateState('alamat', this.value)">
+                    </div>
+
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label for="rt">RT</label>
+                            <input type="text" id="rt" maxlength="3" placeholder="001" oninput="app.updateState('rt', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="rw">RW</label>
+                            <input type="text" id="rw" maxlength="3" placeholder="002" oninput="app.updateState('rw', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="kelurahan">Kelurahan/Desa</label>
+                            <input type="text" id="kelurahan" placeholder="Nama Kelurahan" oninput="app.updateState('kelurahan', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="kecamatan">Kecamatan</label>
+                            <input type="text" id="kecamatan" placeholder="Nama Kecamatan" oninput="app.updateState('kecamatan', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="kota">Kota/Kabupaten</label>
+                            <input type="text" id="kota" placeholder="Nama Kota" oninput="app.updateState('kota', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="provinsi">Provinsi</label>
+                            <input type="text" id="provinsi" placeholder="Nama Provinsi" oninput="app.updateState('provinsi', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="kodePos">Kode Pos</label>
+                            <input type="text" id="kodePos" maxlength="5" placeholder="12345" oninput="app.updateState('kodePos', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="form-row-3">
+                        <div class="form-group">
+                            <label for="statusPerkawinan">Status Perkawinan</label>
+                            <select id="statusPerkawinan" onchange="app.updateState('statusPerkawinan', this.value)">
+                                <option value="BELUM KAWIN">BELUM KAWIN</option>
+                                <option value="KAWIN">KAWIN</option>
+                                <option value="CERAI HIDUP">CERAI HIDUP</option>
+                                <option value="CERAI MATI">CERAI MATI</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="pekerjaan">Pekerjaan</label>
+                            <input type="text" id="pekerjaan" placeholder="Pekerjaan" oninput="app.updateState('pekerjaan', this.value)">
+                        </div>
+                        <div class="form-group">
+                            <label for="kewarganegaraan">Kewarganegaraan</label>
+                            <input type="text" id="kewarganegaraan" value="WNI" oninput="app.updateState('kewarganegaraan', this.value)">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="berlakuHingga">Berlaku Hingga</label>
+                        <input type="text" id="berlakuHingga" value="SEUMUR HIDUP" oninput="app.updateState('berlakuHingga', this.value)">
                     </div>
                 </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Jenis Kelamin</label>
-                        <select id="in-jk" class="form-control" onchange="updateState('jenisKelamin', this.value)">
-                            <option value="LAKI-LAKI">LAKI-LAKI</option>
-                            <option value="PEREMPUAN" selected>PEREMPUAN</option>
-                        </select>
+
+                <!-- Foto Upload -->
+                <div class="card">
+                    <h2 style="font-size: 1.125rem; margin-bottom: 20px;">Foto Identitas</h2>
+                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
+                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                        <h3 style="font-size: 1rem; margin-bottom: 4px;">Klik atau Drag & Drop</h3>
+                        <p>Format JPG, PNG, WEBP</p>
                     </div>
-                    <div class="form-group">
-                        <label>Gol. Darah</label>
-                        <input type="text" id="in-goldar" class="form-control" value="B" oninput="updateState('golDarah', this.value)">
+                    <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp" style="display: none;" onchange="app.handleImageUpload(event)">
+                    
+                    <div class="image-controls" id="imageControls">
+                        <div class="form-row">
+                            <div class="control-row">
+                                <label style="margin:0; width: 40px;">Zoom</label>
+                                <input type="range" id="imgZoom" min="1" max="3" step="0.1" value="1" oninput="app.updateImageTransform('zoom', this.value)">
+                                <span id="zoomVal">1x</span>
+                            </div>
+                            <div class="control-row">
+                                <label style="margin:0; width: 40px;">Rotate</label>
+                                <input type="range" id="imgRotate" min="-180" max="180" step="1" value="0" oninput="app.updateImageTransform('rotate', this.value)">
+                                <span id="rotateVal">0°</span>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="control-row">
+                                <label style="margin:0; width: 40px;">Pos X</label>
+                                <input type="range" id="imgPosX" min="-100" max="100" step="1" value="0" oninput="app.updateImageTransform('posX', this.value)">
+                            </div>
+                            <div class="control-row">
+                                <label style="margin:0; width: 40px;">Pos Y</label>
+                                <input type="range" id="imgPosY" min="-100" max="100" step="1" value="0" oninput="app.updateImageTransform('posY', this.value)">
+                            </div>
+                        </div>
+                        <button class="btn btn-outline btn-sm" onclick="app.removeImage()">Hapus Foto</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Kolom Kanan: Preview & Export -->
+            <div class="preview-container">
+                <div class="card" style="padding: 16px;">
+                    <div class="canvas-wrapper" id="canvasWrapper">
+                        <canvas id="previewCanvas" width="856" height="540"></canvas>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h3 style="font-size: 1rem; margin-bottom: 16px;">Export & Print</h3>
+                    <div class="export-actions">
+                        <button class="btn btn-primary" onclick="app.downloadImage('png')">Download PNG</button>
+                        <button class="btn btn-outline" onclick="app.downloadImage('jpeg')">Download JPG</button>
+                    </div>
+                    <div style="margin-top: 12px;">
+                        <button class="btn btn-outline" onclick="app.printCard()">🖨️ Print Preview</button>
                     </div>
                 </div>
             </div>
-
-            <div>
-                <div class="section-title">Alamat</div>
-                <div class="form-group">
-                    <label>Alamat</label>
-                    <input type="text" id="in-alamat" class="form-control" value="JL. PASTI CEPAT A7/66" oninput="updateState('alamat', this.value)">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>RT</label>
-                        <input type="text" id="in-rt" class="form-control" value="007" oninput="updateState('rt', this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>RW</label>
-                        <input type="text" id="in-rw" class="form-control" value="008" oninput="updateState('rw', this.value)">
-                    </div>
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Kel/Desa</label>
-                        <input type="text" id="in-kel" class="form-control" value="PEGADUNGAN" oninput="updateState('kelDesa', this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Kecamatan</label>
-                        <input type="text" id="in-kec" class="form-control" value="KALIDERES" oninput="updateState('kecamatan', this.value)">
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="section-title">Lainnya</div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Agama</label>
-                        <input type="text" id="in-agama" class="form-control" value="ISLAM" oninput="updateState('agama', this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Status Kawin</label>
-                        <input type="text" id="in-status" class="form-control" value="KAWIN" oninput="updateState('status', this.value)">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label>Pekerjaan</label>
-                    <input type="text" id="in-pekerjaan" class="form-control" value="PEGAWAI SWASTA" oninput="updateState('pekerjaan', this.value)">
-                </div>
-                <div class="form-row">
-                    <div class="form-group">
-                        <label>Kewarganegaraan</label>
-                        <input type="text" id="in-warga" class="form-control" value="WNI" oninput="updateState('kewarganegaraan', this.value)">
-                    </div>
-                    <div class="form-group">
-                        <label>Berlaku Hingga</label>
-                        <input type="text" id="in-berlaku" class="form-control" value="22-02-2017" oninput="updateState('berlaku', this.value)">
-                    </div>
-                </div>
-            </div>
-
-            <div>
-                <div class="section-title">Foto & Desain</div>
-                <!-- Photo Upload -->
-                <div class="upload-area" id="drop-zone" onclick="document.getElementById('file-input').click()">
-                    <input type="file" id="file-input" accept="image/jpeg, image/png, image/webp">
-                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 8px; color: var(--primary);"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                    <p style="font-size: 0.875rem; font-weight: 500;">Klik atau Drop Foto di Sini</p>
-                    <p style="font-size: 0.75rem; color: var(--text-muted); margin-top: 4px;">JPG, PNG, WEBP (Max 2MB)</p>
-                </div>
-
-                <div class="photo-controls" id="photo-controls">
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label>Zoom Foto</label>
-                        <input type="range" id="photo-zoom" min="0.5" max="3" step="0.1" value="1" oninput="updatePhotoTransform()">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label>Geser X</label>
-                        <input type="range" id="photo-x" min="-100" max="100" step="1" value="0" oninput="updatePhotoTransform()">
-                    </div>
-                    <div class="form-group" style="margin-bottom: 0;">
-                        <label>Geser Y</label>
-                        <input type="range" id="photo-y" min="-100" max="100" step="1" value="0" oninput="updatePhotoTransform()">
-                    </div>
-                    <button class="btn btn-outline" onclick="removePhoto()" style="height: 100%;">Hapus Foto</button>
-                </div>
-
-                <div class="form-group" style="margin-top: 1rem;">
-                    <label>Warna Tema Latar</label>
-                    <select id="theme-color" class="form-control" onchange="updateState('theme', this.value); renderCard();">
-                        <option value="#D6EAF8">Biru Muda (Default)</option>
-                        <option value="#E8F8F5">Hijau Mint</option>
-                        <option value="#FEF9E7">Kuning Lembut</option>
-                        <option value="#FADBD8">Merah Muda</option>
-                        <option value="#EBF5FB">Biru Sangat Muda</option>
-                    </select>
-                </div>
-            </div>
-
-            <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid var(--border);">
-                <div class="action-grid">
-                    <button class="btn btn-outline" onclick="saveDraft()">Simpan Draft</button>
-                    <button class="btn btn-outline" onclick="loadDraft()">Muat Draft</button>
-                    <button class="btn btn-primary" onclick="exportImage('png')">Download PNG</button>
-                    <button class="btn btn-primary" onclick="exportImage('jpg')">Download JPG</button>
-                    <button class="btn btn-outline" onclick="exportPDF()" style="grid-column: span 2;">Export PDF</button>
-                </div>
-                <button class="btn btn-danger" onclick="resetForm()" style="width: 100%;">Reset Form</button>
-            </div>
-        </aside>
-
-        <!-- Canvas Preview Area -->
-        <main class="preview-area">
-            <div class="canvas-container">
-                <canvas id="id-card-canvas" width="1000" height="630"></canvas>
-            </div>
-            <p style="color: var(--text-muted); font-size: 0.875rem; text-align: center; max-width: 600px;">
-                <strong>Catatan Keamanan:</strong> Aplikasi ini hanya untuk simulasi. Gambar yang dihasilkan dilengkapi dengan watermark permanen dan tidak dapat digunakan sebagai dokumen resmi.
-            </p>
-        </main>
-    </div>
-
-    <div id="toast-container"></div>
+        </div>
+    </main>
 
     <script>
-        // --- State Management ---
-        const state = {
-            provinsi: 'PROVINSI DKI JAKARTA',
-            kabupaten: 'JAKARTA BARAT',
-            nik: '3171234567890123',
-            nama: 'MIRA SETIAWAN',
-            tempatLahir: 'JAKARTA',
-            tanggalLahir: '18-02-1986',
-            jenisKelamin: 'PEREMPUAN',
-            golDarah: 'B',
-            alamat: 'JL. PASTI CEPAT A7/66',
-            rt: '007',
-            rw: '008',
-            kelDesa: 'PEGADUNGAN',
-            kecamatan: 'KALIDERES',
-            agama: 'ISLAM',
-            status: 'KAWIN',
-            pekerjaan: 'PEGAWAI SWASTA',
-            kewarganegaraan: 'WNI',
-            berlaku: '22-02-2017',
-            theme: '#D6EAF8'
-        };
-
-        let photoImage = null;
-        let photoTransform = { zoom: 1, x: 0, y: 0 };
-        
-        const canvas = document.getElementById('id-card-canvas');
-        const ctx = canvas.getContext('2d');
-
-        // --- Core Functions ---
-
-        function updateState(key, value) {
-            state[key] = value;
-            renderCard();
-        }
-
-        // Toast Notification System
-        function showToast(message, type = 'success') {
-            const container = document.getElementById('toast-container');
-            const toast = document.createElement('div');
-            toast.className = `toast ${type}`;
-            toast.innerHTML = `
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    ${type === 'success' ? '<path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline>' : '<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line>'}
-                </svg>
-                ${message}
-            `;
-            container.appendChild(toast);
-            setTimeout(() => {
-                toast.style.animation = 'slideIn 0.3s reverse forwards';
-                setTimeout(() => toast.remove(), 300);
-            }, 3000);
-        }
-
-        // --- Canvas Rendering ---
-
-        function renderCard() {
-            // Clear Canvas
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // 1. Draw Background Base
-            ctx.fillStyle = state.theme;
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // 2. Draw Decorative Background Elements (Subtle Waves/Lines)
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.4)';
-            ctx.lineWidth = 2;
-            for (let i = 0; i < 10; i++) {
-                ctx.beginPath();
-                ctx.moveTo(0, 100 + (i * 60));
-                ctx.bezierCurveTo(300, 50 + (i * 60), 700, 200 + (i * 60), 1000, 100 + (i * 60));
-                ctx.stroke();
-            }
-
-            // 3. Draw Headers
-            ctx.fillStyle = '#111827';
-            ctx.textAlign = 'center';
-            
-            ctx.font = 'bold 32px Inter, sans-serif';
-            ctx.fillText(state.provinsi, 500, 60);
-            
-            ctx.font = 'bold 28px Inter, sans-serif';
-            ctx.fillText(state.kabupaten, 500, 100);
-
-            // 4. Draw Text Fields (Left Side)
-            const startXLabel = 60;
-            const startXValue = 260;
-            let startY = 160;
-            const lineHeight = 32;
-
-            ctx.textAlign = 'left';
-            ctx.fillStyle = '#111827';
-
-            // NIK (Special formatting)
-            ctx.font = 'bold 24px Inter, sans-serif';
-            ctx.fillText('NIK', startXLabel, startY);
-            ctx.fillText(':', 230, startY);
-            ctx.fillText(state.nik, startXValue, startY);
-            startY += lineHeight + 8;
-
-            // Standard Fields
-            ctx.font = '16px Inter, sans-serif';
-            
-            const drawField = (label, value, y) => {
-                ctx.fillText(label, startXLabel, y);
-                ctx.fillText(':', 230, y);
-                ctx.fillText(value, startXValue, y);
+        const app = (function() {
+            // State Management
+            const defaultState = {
+                nik: '3174081708790014',
+                nama: 'AGUS PUJIYONO',
+                tempatLahir: 'SEMARANG',
+                tanggalLahir: '1979-08-17',
+                jenisKelamin: 'LAKI-LAKI',
+                golonganDarah: '-',
+                alamat: 'JL SWADARMA 2 BLOK B NO 22',
+                rt: '001',
+                rw: '008',
+                kelurahan: 'KALIBATA',
+                kecamatan: 'PANCORAN',
+                kota: 'JAKARTA SELATAN',
+                provinsi: 'DKI JAKARTA',
+                kodePos: '12740',
+                agama: 'ISLAM',
+                statusPerkawinan: 'KAWIN',
+                pekerjaan: 'KARYAWAN SWASTA',
+                kewarganegaraan: 'WNI',
+                berlakuHingga: 'SEUMUR HIDUP',
+                cardColor: '#0284c7',
+                orientation: 'landscape'
             };
 
-            drawField('Nama', state.nama, startY);
-            drawField('Tempat/Tgl Lahir', `${state.tempatLahir}, ${state.tanggalLahir}`, startY + lineHeight);
-            drawField('Jenis Kelamin', state.jenisKelamin, startY + lineHeight * 2);
-            
-            // Gol Darah (Right aligned of gender)
-            ctx.fillText('Gol. Darah : ' + state.golDarah, 550, startY + lineHeight * 2);
-            
-            drawField('Alamat', state.alamat, startY + lineHeight * 3);
-            
-            // Address indentation
-            const addrIndent = startXValue;
-            ctx.fillText(`RT/RW      : ${state.rt}/${state.rw}`, addrIndent, startY + lineHeight * 4);
-            ctx.fillText(`Kel/Desa   : ${state.kelDesa}`, addrIndent, startY + lineHeight * 5);
-            ctx.fillText(`Kecamatan  : ${state.kecamatan}`, addrIndent, startY + lineHeight * 6);
-            
-            drawField('Agama', state.agama, startY + lineHeight * 7);
-            drawField('Status Perkawinan', state.status, startY + lineHeight * 8);
-            drawField('Pekerjaan', state.pekerjaan, startY + lineHeight * 9);
-            drawField('Kewarganegaraan', state.kewarganegaraan, startY + lineHeight * 10);
-            drawField('Berlaku Hingga', state.berlaku, startY + lineHeight * 11);
+            let state = { ...defaultState };
+            let imageObj = null;
+            let imageTransform = {
+                zoom: 1,
+                rotate: 0,
+                posX: 0,
+                posY: 0
+            };
 
-            // 5. Draw Photo Area
-            const photoX = 680;
-            const photoY = 150;
-            const photoW = 230;
-            const photoH = 320;
+            // DOM Elements
+            const canvas = document.getElementById('previewCanvas');
+            const ctx = canvas.getContext('2d');
+            const fileInput = document.getElementById('fileInput');
+            const uploadArea = document.getElementById('uploadArea');
+            const imageControls = document.getElementById('imageControls');
 
-            // Photo Background (Red)
-            ctx.fillStyle = '#991B1B';
-            ctx.fillRect(photoX, photoY, photoW, photoH);
-
-            if (photoImage) {
-                ctx.save();
-                // Clip to photo box
-                ctx.beginPath();
-                ctx.rect(photoX, photoY, photoW, photoH);
-                ctx.clip();
-
-                // Calculate aspect ratio and center image with transforms
-                const imgAspect = photoImage.width / photoImage.height;
-                const boxAspect = photoW / photoH;
+            // --- Core Rendering ---
+            function draw() {
+                // Handle orientation
+                const isPortrait = state.orientation === 'portrait';
+                const width = isPortrait ? 540 : 856;
+                const height = isPortrait ? 856 : 540;
                 
-                let drawW = photoW;
-                let drawH = photoH;
+                canvas.width = width;
+                canvas.height = height;
 
-                if (imgAspect > boxAspect) {
-                    drawW = photoH * imgAspect;
-                } else {
-                    drawH = photoW / imgAspect;
+                // Background
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, width, height);
+
+                // Card Base Background (Gradient / Pattern)
+                const gradient = ctx.createLinearGradient(0, 0, width, height);
+                gradient.addColorStop(0, '#f0f9ff');
+                gradient.addColorStop(1, '#e0f2fe');
+                ctx.fillStyle = gradient;
+                ctx.fillRect(0, 0, width, height);
+
+                // Decorative Shapes (Simulating security pattern)
+                ctx.fillStyle = 'rgba(2, 132, 199, 0.05)';
+                ctx.beginPath();
+                for(let i=0; i<width; i+=50) {
+                    ctx.arc(i, height, 100, 0, Math.PI, true);
                 }
+                ctx.fill();
 
-                // Apply zoom & pan
-                drawW *= photoTransform.zoom;
-                drawH *= photoTransform.zoom;
+                // Header Background (Dynamic Color)
+                ctx.fillStyle = state.cardColor;
+                ctx.fillRect(0, 0, width, isPortrait ? 100 : 80);
 
-                const offsetX = (photoW - drawW) / 2 + photoTransform.x;
-                const offsetY = (photoH - drawH) / 2 + photoTransform.y;
-
-                ctx.drawImage(photoImage, photoX + offsetX, photoY + offsetY, drawW, drawH);
-                ctx.restore();
-            } else {
-                // Placeholder text if no photo
-                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                // Header Text
+                ctx.fillStyle = '#ffffff';
                 ctx.textAlign = 'center';
-                ctx.font = '16px Inter, sans-serif';
-                ctx.fillText('FOTO 3x4', photoX + photoW/2, photoY + photoH/2);
-            }
+                ctx.font = 'bold 24px "Inter", Arial, sans-serif';
+                ctx.fillText(`PROVINSI ${state.provinsi.toUpperCase()}`, width / 2, isPortrait ? 40 : 35);
+                ctx.font = 'bold 20px "Inter", Arial, sans-serif';
+                ctx.fillText(`${state.kota.toUpperCase()}`, width / 2, isPortrait ? 70 : 65);
 
-            // Photo Border
-            ctx.strokeStyle = '#FFF';
-            ctx.lineWidth = 2;
-            ctx.strokeRect(photoX, photoY, photoW, photoH);
+                // NIK
+                ctx.textAlign = 'left';
+                ctx.fillStyle = '#000000';
+                ctx.font = 'bold 32px "Inter", Arial, sans-serif';
+                ctx.fillText('NIK', 40, isPortrait ? 140 : 130);
+                ctx.fillText(':', 120, isPortrait ? 140 : 130);
+                ctx.font = 'bold 32px "Courier New", monospace'; // Monospace for numbers
+                ctx.letterSpacing = "2px";
+                ctx.fillText(state.nik, 150, isPortrait ? 140 : 130);
+                ctx.letterSpacing = "0px";
 
-            // Photo Footer Text
-            ctx.fillStyle = '#111827';
-            ctx.textAlign = 'center';
-            ctx.font = 'bold 14px Inter, sans-serif';
-            ctx.fillText(state.kabupaten, photoX + photoW/2, photoY + photoH + 30);
-            ctx.font = '12px Inter, sans-serif';
-            ctx.fillText('02-12-2012', photoX + photoW/2, photoY + photoH + 50);
+                // Photo Box
+                const photoWidth = isPortrait ? 200 : 160;
+                const photoHeight = isPortrait ? 266 : 213; // 3:4 ratio
+                const photoX = width - photoWidth - 40;
+                const photoY = isPortrait ? 170 : 150;
+                
+                // Photo Frame
+                ctx.fillStyle = '#e5e7eb';
+                ctx.fillRect(photoX - 2, photoY - 2, photoWidth + 4, photoHeight + 4);
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(photoX, photoY, photoWidth, photoHeight);
 
-            // Fake Signature (Stylized curve)
-            ctx.beginPath();
-            ctx.moveTo(photoX + 50, photoY + photoH + 80);
-            ctx.bezierCurveTo(photoX + 80, photoY + photoH + 40, photoX + 120, photoY + photoH + 100, photoX + 150, photoY + photoH + 60);
-            ctx.bezierCurveTo(photoX + 170, photoY + photoH + 40, photoX + 180, photoY + photoH + 80, photoX + 190, photoY + photoH + 70);
-            ctx.lineWidth = 2;
-            ctx.strokeStyle = '#111827';
-            ctx.stroke();
+                // Draw Image
+                if (imageObj) {
+                    ctx.save();
+                    // Clip to photo box
+                    ctx.beginPath();
+                    ctx.rect(photoX, photoY, photoWidth, photoHeight);
+                    ctx.clip();
 
-            // 6. Draw Watermark (Permanent)
-            ctx.save();
-            ctx.translate(canvas.width / 2, canvas.height / 2);
-            ctx.rotate(-Math.PI / 6); // Rotate -30 degrees
-            
-            // Big background watermark
-            ctx.fillStyle = 'rgba(239, 68, 68, 0.15)'; // Red with low opacity
-            ctx.textAlign = 'center';
-            ctx.font = 'bold 90px Inter, sans-serif';
-            ctx.fillText('SIMULASI', 0, 0);
-            
-            ctx.font = 'bold 30px Inter, sans-serif';
-            ctx.fillText('BUKAN DOKUMEN RESMI', 0, 50);
-            ctx.restore();
-
-            // Foreground watermark border
-            ctx.strokeStyle = 'rgba(239, 68, 68, 0.5)';
-            ctx.lineWidth = 4;
-            ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
-            
-            // Foreground text
-            ctx.fillStyle = 'rgba(239, 68, 68, 0.8)';
-            ctx.font = 'bold 20px Inter, sans-serif';
-            ctx.textAlign = 'right';
-            ctx.fillText('SIMULASI - BUKAN DOKUMEN RESMI', canvas.width - 30, canvas.height - 20);
-        }
-
-        // --- Photo Handling ---
-
-        const fileInput = document.getElementById('file-input');
-        const dropZone = document.getElementById('drop-zone');
-        const photoControls = document.getElementById('photo-controls');
-
-        dropZone.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = 'var(--primary)';
-            dropZone.style.background = '#EEF2FF';
-        });
-
-        dropZone.addEventListener('dragleave', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = '#CBD5E1';
-            dropZone.style.background = '#F8FAFC';
-        });
-
-        dropZone.addEventListener('drop', (e) => {
-            e.preventDefault();
-            dropZone.style.borderColor = '#CBD5E1';
-            dropZone.style.background = '#F8FAFC';
-            const file = e.dataTransfer.files[0];
-            if (file) handleFile(file);
-        });
-
-        fileInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) handleFile(file);
-        });
-
-        function handleFile(file) {
-            // Validation
-            if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type)) {
-                showToast('Format file tidak didukung. Gunakan JPG, PNG, atau WEBP.', 'error');
-                return;
-            }
-            if (file.size > 2 * 1024 * 1024) { // 2MB limit
-                showToast('Ukuran file terlalu besar (Maksimal 2MB).', 'error');
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = new Image();
-                img.onload = () => {
-                    photoImage = img;
-                    // Reset transforms
-                    photoTransform = { zoom: 1, x: 0, y: 0 };
-                    document.getElementById('photo-zoom').value = 1;
-                    document.getElementById('photo-x').value = 0;
-                    document.getElementById('photo-y').value = 0;
+                    // Calculate transformation
+                    const imgAspect = imageObj.width / imageObj.height;
+                    const boxAspect = photoWidth / photoHeight;
                     
-                    photoControls.style.display = 'grid';
-                    renderCard();
-                    showToast('Foto berhasil diunggah!');
-                };
-                img.onerror = () => showToast('Gagal memuat gambar.', 'error');
-                img.src = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        }
+                    let drawWidth = photoWidth;
+                    let drawHeight = photoHeight;
+                    
+                    if (imgAspect > boxAspect) {
+                        drawHeight = photoHeight;
+                        drawWidth = photoHeight * imgAspect;
+                    } else {
+                        drawWidth = photoWidth;
+                        drawHeight = photoWidth / imgAspect;
+                    }
 
-        function updatePhotoTransform() {
-            if (!photoImage) return;
-            photoTransform.zoom = parseFloat(document.getElementById('photo-zoom').value);
-            photoTransform.x = parseInt(document.getElementById('photo-x').value);
-            photoTransform.y = parseInt(document.getElementById('photo-y').value);
-            renderCard();
-        }
+                    // Apply zoom
+                    drawWidth *= imageTransform.zoom;
+                    drawHeight *= imageTransform.zoom;
 
-        function removePhoto() {
-            photoImage = null;
-            photoControls.style.display = 'none';
-            fileInput.value = '';
-            renderCard();
-            showToast('Foto dihapus.');
-        }
+                    // Center and apply pos offset
+                    const centerX = photoX + (photoWidth / 2);
+                    const centerY = photoY + (photoHeight / 2);
+                    
+                    const offsetX = (imageTransform.posX / 100) * (photoWidth / 2);
+                    const offsetY = (imageTransform.posY / 100) * (photoHeight / 2);
 
-        // --- Export & Utilities ---
-
-        function exportImage(format) {
-            try {
-                // Create a temporary canvas to add white background if exporting JPG (Canvas defaults to transparent)
-                const tempCanvas = document.createElement('canvas');
-                tempCanvas.width = canvas.width;
-                tempCanvas.height = canvas.height;
-                const tCtx = tempCanvas.getContext('2d');
-                
-                if (format === 'jpg') {
-                    tCtx.fillStyle = '#FFFFFF';
-                    tCtx.fillRect(0, 0, tempCanvas.width, tempCanvas.height);
+                    ctx.translate(centerX + offsetX, centerY + offsetY);
+                    ctx.rotate(imageTransform.rotate * Math.PI / 180);
+                    
+                    ctx.drawImage(
+                        imageObj,
+                        -drawWidth / 2,
+                        -drawHeight / 2,
+                        drawWidth,
+                        drawHeight
+                    );
+                    ctx.restore();
+                } else {
+                    // Placeholder text
+                    ctx.fillStyle = '#9ca3af';
+                    ctx.font = '14px "Inter", sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText('FOTO', photoX + photoWidth / 2, photoY + photoHeight / 2);
                 }
-                
-                tCtx.drawImage(canvas, 0, 0);
 
-                const dataURL = tempCanvas.toDataURL(`image/${format === 'jpg' ? 'jpeg' : 'png'}`, 1.0);
-                const link = document.createElement('a');
-                link.download = `SIMULASI_ID_CARD_${Date.now()}.${format}`;
-                link.href = dataURL;
-                link.click();
-                showToast(`Berhasil mengunduh ${format.toUpperCase()}`);
-            } catch (error) {
-                console.error(error);
-                showToast('Gagal mengunduh gambar.', 'error');
-            }
-        }
+                // Text Data Fields
+                const fields = [
+                    { label: 'Nama', value: state.nama },
+                    { label: 'Tempat/Tgl Lahir', value: `${state.tempatLahir}, ${formatDate(state.tanggalLahir)}` },
+                    { label: 'Jenis Kelamin', value: state.jenisKelamin, extra: `Gol. Darah: ${state.golonganDarah}` },
+                    { label: 'Alamat', value: state.alamat },
+                    { label: 'RT/RW', value: `${state.rt}/${state.rw}` },
+                    { label: 'Kel/Desa', value: state.kelurahan },
+                    { label: 'Kecamatan', value: state.kecamatan },
+                    { label: 'Agama', value: state.agama },
+                    { label: 'Status Perkawinan', value: state.statusPerkawinan },
+                    { label: 'Pekerjaan', value: state.pekerjaan },
+                    { label: 'Kewarganegaraan', value: state.kewarganegaraan },
+                    { label: 'Berlaku Hingga', value: state.berlakuHingga }
+                ];
 
-        function exportPDF() {
-            try {
-                const { jsPDF } = window.jspdf;
-                // ID Card standard size 85.6 x 53.98 mm, but we use a custom landscape format
-                const doc = new jsPDF({
-                    orientation: 'landscape',
-                    unit: 'px',
-                    format: [canvas.width, canvas.height]
-                });
+                let startY = isPortrait ? 200 : 180;
+                const lineHeight = 28;
+                const labelX = 40;
+                const valueX = 200;
+                const maxTextWidth = photoX - valueX - 20; // Ensure text doesn't overlap photo
 
-                const imgData = canvas.toDataURL('image/jpeg', 1.0);
-                doc.addImage(imgData, 'JPEG', 0, 0, canvas.width, canvas.height);
-                doc.save(`SIMULASI_ID_CARD_${Date.now()}.pdf`);
-                showToast('Berhasil mengekspor PDF.');
-            } catch (error) {
-                console.error(error);
-                showToast('Gagal mengekspor PDF.', 'error');
-            }
-        }
+                ctx.textAlign = 'left';
+                ctx.fillStyle = '#000000';
 
-        // --- Local Storage (Draft) ---
+                fields.forEach((field, index) => {
+                    const y = startY + (index * lineHeight);
+                    
+                    // Skip Alamat label for RT/RW, Kel, Kec (they are indented)
+                    if (['RT/RW', 'Kel/Desa', 'Kecamatan'].includes(field.label)) {
+                        // Do nothing to label, draw at x=40
+                    }
 
-        function saveDraft() {
-            try {
-                const draft = {
-                    state: state,
-                    photo: photoImage ? photoImage.src : null,
-                    transform: photoTransform
-                };
-                localStorage.setItem('idCardDraft', JSON.stringify(draft));
-                showToast('Draft berhasil disimpan.');
-            } catch (e) {
-                showToast('Gagal menyimpan draft (Penyimpanan penuh).', 'error');
-            }
-        }
+                    ctx.font = '14px "Inter", Arial, sans-serif';
+                    ctx.fillStyle = '#4b5563';
+                    ctx.fillText(field.label, labelX, y);
 
-        function loadDraft() {
-            const saved = localStorage.getItem('idCardDraft');
-            if (!saved) {
-                showToast('Tidak ada draft tersimpan.', 'error');
-                return;
-            }
+                    ctx.fillStyle = '#000000';
+                    ctx.fillText(':', labelX + 130, y);
 
-            try {
-                const draft = JSON.parse(saved);
-                
-                // Restore State
-                Object.keys(draft.state).forEach(key => {
-                    state[key] = draft.state[key];
-                    // Update DOM inputs
-                    const inputMap = {
-                        provinsi: 'in-provinsi', kabupaten: 'in-kabupaten', nik: 'in-nik',
-                        nama: 'in-nama', tempatLahir: 'in-tempat', tanggalLahir: 'in-tgl',
-                        jenisKelamin: 'in-jk', golDarah: 'in-goldar', alamat: 'in-alamat',
-                        rt: 'in-rt', rw: 'in-rw', kelDesa: 'in-kel', kecamatan: 'in-kec',
-                        agama: 'in-agama', status: 'in-status', pekerjaan: 'in-pekerjaan',
-                        kewarganegaraan: 'in-warga', berlaku: 'in-berlaku', theme: 'theme-color'
-                    };
-                    if (inputMap[key]) {
-                        document.getElementById(inputMap[key]).value = draft.state[key];
+                    // Handle long text (wrap if needed, though KTP usually single line, we'll just truncate or shrink font)
+                    let fontSize = 14;
+                    ctx.font = `bold ${fontSize}px "Inter", Arial, sans-serif`;
+                    
+                    // Simple text truncation if too long
+                    let text = field.value;
+                    while (ctx.measureText(text).width > maxTextWidth && text.length > 0) {
+                        text = text.slice(0, -1);
+                    }
+                    if (text !== field.value) text += '...';
+
+                    ctx.fillText(text, valueX, y);
+
+                    if (field.extra) {
+                        ctx.font = '14px "Inter", Arial, sans-serif';
+                        ctx.fillText(field.extra, valueX + 150, y);
                     }
                 });
 
-                // Restore Photo
-                if (draft.photo) {
+                // City and Date at bottom right
+                const today = new Date();
+                const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getFullYear()}`;
+                
+                ctx.textAlign = 'center';
+                ctx.font = '14px "Inter", Arial, sans-serif';
+                ctx.fillText(state.kota.toUpperCase(), photoX + photoWidth / 2, photoY + photoHeight + 30);
+                ctx.fillText(dateStr, photoX + photoWidth / 2, photoY + photoHeight + 50);
+
+                // Signature Placeholder (Simulation)
+                ctx.font = 'italic 24px "Brush Script MT", cursive';
+                ctx.fillText('Ttd Simulasi', photoX + photoWidth / 2, photoY + photoHeight + 90);
+
+                // --- MANDATORY WATERMARK ---
+                ctx.save();
+                ctx.translate(width / 2, height / 2);
+                ctx.rotate(-Math.PI / 4);
+                ctx.textAlign = 'center';
+                ctx.fillStyle = 'rgba(220, 38, 38, 0.4)'; // Red, semi-transparent
+                ctx.font = 'bold 80px "Inter", Arial, sans-serif';
+                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, 0);
+                // Add multiple watermarks for coverage
+                ctx.font = 'bold 40px "Inter", Arial, sans-serif';
+                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, 100);
+                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, -100);
+                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, 200);
+                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, -200);
+                ctx.restore();
+            }
+
+            function formatDate(dateString) {
+                if (!dateString) return '';
+                const parts = dateString.split('-');
+                if (parts.length !== 3) return dateString;
+                return `${parts[2]}-${parts[1]}-${parts[0]}`;
+            }
+
+            // --- Event Handlers & Controllers ---
+            function updateState(key, value) {
+                state[key] = value;
+                draw();
+                autoSave();
+            }
+
+            function updateImageTransform(key, value) {
+                imageTransform[key] = parseFloat(value);
+                
+                // Update labels
+                if (key === 'zoom') document.getElementById('zoomVal').textContent = `${value}x`;
+                if (key === 'rotate') document.getElementById('rotateVal').textContent = `${value}°`;
+                
+                draw();
+            }
+
+            function handleImageUpload(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+
+                const reader = new FileReader();
+                reader.onload = function(event) {
                     const img = new Image();
-                    img.onload = () => {
-                        photoImage = img;
-                        photoTransform = draft.transform;
+                    img.onload = function() {
+                        imageObj = img;
+                        imageControls.classList.add('active');
+                        uploadArea.style.display = 'none';
                         
-                        document.getElementById('photo-zoom').value = photoTransform.zoom;
-                        document.getElementById('photo-x').value = photoTransform.x;
-                        document.getElementById('photo-y').value = photoTransform.y;
-                        photoControls.style.display = 'grid';
+                        // Reset transforms
+                        imageTransform = { zoom: 1, rotate: 0, posX: 0, posY: 0 };
+                        document.getElementById('imgZoom').value = 1;
+                        document.getElementById('imgRotate').value = 0;
+                        document.getElementById('imgPosX').value = 0;
+                        document.getElementById('imgPosY').value = 0;
+                        document.getElementById('zoomVal').textContent = '1x';
+                        document.getElementById('rotateVal').textContent = '0°';
                         
-                        renderCard();
+                        draw();
+                        autoSave();
                     };
-                    img.src = draft.photo;
+                    img.src = event.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+
+            function removeImage() {
+                imageObj = null;
+                imageControls.classList.remove('active');
+                uploadArea.style.display = 'block';
+                fileInput.value = '';
+                draw();
+                autoSave();
+            }
+
+            // --- Data Management ---
+            function autoSave() {
+                const dataToSave = { ...state, _image: imageObj ? imageObj.src : null, _transform: imageTransform };
+                localStorage.setItem('ktp_sim_data', JSON.stringify(dataToSave));
+            }
+
+            function saveProject() {
+                autoSave();
+                alert('Project berhasil disimpan di LocalStorage browser!');
+            }
+
+            function loadProject() {
+                const saved = localStorage.getItem('ktp_sim_data');
+                if (saved) {
+                    const data = JSON.parse(saved);
+                    loadData(data);
+                    alert('Project berhasil dimuat!');
                 } else {
-                    photoImage = null;
-                    photoControls.style.display = 'none';
-                    renderCard();
+                    alert('Tidak ada project tersimpan.');
+                }
+            }
+
+            function clearAll() {
+                if (confirm('Apakah Anda yakin ingin menghapus semua data dan mereset aplikasi?')) {
+                    localStorage.removeItem('ktp_sim_data');
+                    state = { ...defaultState };
+                    imageObj = null;
+                    imageTransform = { zoom: 1, rotate: 0, posX: 0, posY: 0 };
+                    imageControls.classList.remove('active');
+                    uploadArea.style.display = 'block';
+                    fileInput.value = '';
+                    
+                    // Reset form inputs
+                    document.querySelectorAll('input, select').forEach(el => {
+                        if (el.id && state[el.id] !== undefined) {
+                            el.value = state[el.id];
+                        }
+                    });
+                    document.getElementById('cardColor').value = state.cardColor;
+                    document.getElementById('orientation').value = state.orientation;
+                    
+                    draw();
+                }
+            }
+
+            function exportJSON() {
+                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
+                const downloadAnchorNode = document.createElement('a');
+                downloadAnchorNode.setAttribute("href", dataStr);
+                downloadAnchorNode.setAttribute("download", "ktp_simulasi_data.json");
+                document.body.appendChild(downloadAnchorNode);
+                downloadAnchorNode.click();
+                downloadAnchorNode.remove();
+            }
+
+            function importJSON(event) {
+                const file = event.target.files[0];
+                if (!file) return;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = JSON.parse(e.target.result);
+                        loadData(data);
+                        alert('Data berhasil diimport!');
+                    } catch (err) {
+                        alert('Format JSON tidak valid.');
+                    }
+                };
+                reader.readAsText(file);
+            }
+
+            function loadData(data) {
+                // Extract state keys only
+                for (let key in defaultState) {
+                    if (data[key] !== undefined) {
+                        state[key] = data[key];
+                        // Update form UI
+                        const el = document.getElementById(key);
+                        if (el) el.value = data[key];
+                    }
+                }
+                
+                // Update design UI
+                document.getElementById('cardColor').value = state.cardColor;
+                document.getElementById('orientation').value = state.orientation;
+                
+                draw();
+            }
+
+            // --- Export & Print ---
+            function downloadImage(format) {
+                // Create a temporary high-res canvas (2x)
+                const tempCanvas = document.createElement('canvas');
+                const tempCtx = tempCanvas.getContext('2d');
+                
+                const scale = 2;
+                tempCanvas.width = canvas.width * scale;
+                tempCanvas.height = canvas.height * scale;
+                
+                // Scale context to draw at high res
+                tempCtx.scale(scale, scale);
+                
+                // Draw the current canvas onto the temp canvas
+                tempCtx.drawImage(canvas, 0, 0);
+                
+                const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
+                const quality = format === 'jpeg' ? 0.9 : undefined;
+                const dataURL = tempCanvas.toDataURL(mimeType, quality);
+                
+                const link = document.createElement('a');
+                link.download = `SIMULASI_KTP_${state.nama.replace(/\s+/g, '_')}.${format}`;
+                link.href = dataURL;
+                link.click();
+            }
+
+            function printCard() {
+                const dataURL = canvas.toDataURL('image/png');
+                const printWindow = window.open('', '_blank');
+                printWindow.document.write(`
+                    <html>
+                        <head><title>Print KTP Simulasi</title></head>
+                        <body style="display:flex; justify-content:center; align-items:center; height:100vh; margin:0; background:#fff;">
+                            <img src="${dataURL}" style="max-width: 100%; height: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onload="window.print();window.close();">
+                        </body>
+                    </html>
+                `);
+                printWindow.document.close();
+            }
+
+            // --- UI Theming & Settings ---
+            function toggleTheme() {
+                const body = document.body;
+                const isDark = body.getAttribute('data-theme') === 'dark';
+                body.setAttribute('data-theme', isDark ? 'light' : 'dark');
+                document.getElementById('themeToggle').textContent = isDark ? '🌙 Mode Gelap' : '☀️ Mode Terang';
+            }
+
+            function resetDesign() {
+                state.cardColor = defaultState.cardColor;
+                state.orientation = defaultState.orientation;
+                document.getElementById('cardColor').value = state.cardColor;
+                document.getElementById('orientation').value = state.orientation;
+                draw();
+                autoSave();
+            }
+
+            // --- Initialization ---
+            function init() {
+                // Event Listeners for design
+                document.getElementById('cardColor').addEventListener('input', (e) => {
+                    updateState('cardColor', e.target.value);
+                });
+                document.getElementById('orientation').addEventListener('change', (e) => {
+                    updateState('orientation', e.target.value);
+                });
+
+                // Drag and drop for upload
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.style.borderColor = 'var(--primary)';
+                });
+                uploadArea.addEventListener('dragleave', (e) => {
+                    e.preventDefault();
+                    uploadArea.style.borderColor = 'var(--border-color)';
+                });
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.style.borderColor = 'var(--border-color)';
+                    if (e.dataTransfer.files.length) {
+                        fileInput.files = e.dataTransfer.files;
+                        handleImageUpload({ target: fileInput });
+                    }
+                });
+
+                // Load initial data (LocalStorage or Default)
+                const saved = localStorage.getItem('ktp_sim_data');
+                if (saved) {
+                    try {
+                        const data = JSON.parse(saved);
+                        loadData(data);
+                        if (data._image) {
+                            const img = new Image();
+                            img.onload = () => {
+                                imageObj = img;
+                                if (data._transform) imageTransform = data._transform;
+                                imageControls.classList.add('active');
+                                uploadArea.style.display = 'none';
+                                draw();
+                            };
+                            img.src = data._image;
+                        } else {
+                            draw();
+                        }
+                    } catch (e) {
+                        console.error("Failed to load local data", e);
+                        draw();
+                    }
+                } else {
+                    // Populate defaults
+                    for (let key in defaultState) {
+                        const el = document.getElementById(key);
+                        if (el) el.value = defaultState[key];
+                    }
+                    draw();
                 }
 
-                showToast('Draft berhasil dimuat.');
-            } catch (e) {
-                showToast('Gagal memuat draft.', 'error');
+                // Auto-resize canvas wrapper for mobile
+                function checkScreen() {
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebar').classList.remove('open');
+                    }
+                }
+                window.addEventListener('resize', checkScreen);
             }
-        }
 
-        function resetForm() {
-            if (!confirm('Apakah Anda yakin ingin mereset semua data dan foto?')) return;
-            
-            // Reset state
-            state.provinsi = 'PROVINSI DKI JAKARTA';
-            state.kabupaten = 'JAKARTA BARAT';
-            state.nik = '3171234567890123';
-            state.nama = 'MIRA SETIAWAN';
-            // ... (other defaults)
-            
-            // Hard reload approach for simplicity in resetting DOM
-            location.reload();
-        }
+            return {
+                updateState,
+                updateImageTransform,
+                handleImageUpload,
+                removeImage,
+                saveProject,
+                loadProject,
+                clearAll,
+                exportJSON,
+                importJSON,
+                downloadImage,
+                printCard,
+                toggleTheme,
+                resetDesign,
+                init
+            };
+        })();
 
-        // --- Initialization ---
-        window.onload = () => {
-            renderCard();
-        };
-
-        // Prevent default drag behaviors on window
-        window.addEventListener('dragover', (e) => e.preventDefault());
-        window.addEventListener('drop', (e) => e.preventDefault());
-
+        // Start app
+        document.addEventListener('DOMContentLoaded', app.init);
     </script>
 </body>
 </html>
