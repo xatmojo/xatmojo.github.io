@@ -15,18 +15,18 @@
 
 <style>
   /* =====================================================================
-     CSS KHUSUS KARTU KTP (Disesuaikan dengan Background Gambar)
+     CSS KHUSUS KARTU KTP (Presisi Tinggi & Anti-Distortion)
      ===================================================================== */
   .ktp{
     position: relative;
-    width: 640px;               /* Rasio KTP standar */
+    width: 640px;               
     height: 403px;
     overflow: hidden;
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,.15);
     
-    /* MENGGUNAKAN GAMBAR SEBAGAI BACKGROUND */
-    background-image: url('img/ktp.png');
+    /* Ganti URL ini dengan path gambar background Anda */
+    background-image: url('img/ktp.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -38,137 +38,151 @@
     user-select: none;
   }
 
-  /* ---------- Konten kartu ---------- */
   .ktp-inner{
-    position: relative; z-index: 1;
-    display: flex; flex-direction: column;
+    position: relative; 
+    z-index: 1;
+    display: flex; 
+    flex-direction: column;
     height: 100%;
-    padding: 16px 25px 12px 22px;
+    padding: 14px 20px 12px 20px;
   }
 
-  /* ---------- Header (Judul) ---------- */
+  /* ---------- Header ---------- */
   .ktp-head{ 
     text-align: center; 
-    line-height: 1.2; 
-    margin-bottom: 12px;
-    margin-top: 4px;
+    margin-bottom: 8px;
+    margin-top: 2px;
   }
   .ktp-head .line{
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    font-size: 19px; /* Setara 8-9pt pada skala fisik */
-    letter-spacing: 1px;
+    font-size: 19px; 
+    line-height: 1.2;
+    letter-spacing: 0.5px;
     white-space: pre;
     color: #000;
   }
 
-  /* ---------- Baris NIK (Gaya Digital/OCR-B) ---------- */
+  /* ---------- Baris NIK ---------- */
   .ktp-nik{
-    display: flex; align-items: center;
-    margin: 0 0 10px 0;
+    display: flex; 
+    align-items: center;
+    height: 36px; /* Dikunci tingginya */
+    margin-bottom: 6px;
   }
   .ktp-nik .label { 
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 22px; /* Lebih besar sesuai referensi */
+    font-size: 22px; 
     font-weight: bold; 
     letter-spacing: 2px;
-    flex: 0 0 65px; 
+    width: 60px; 
   }
   .ktp-nik .colon { 
-    font-family: Arial, Helvetica, sans-serif;
     font-size: 22px;
-    flex: 0 0 20px; 
+    width: 25px; 
     text-align: center; 
     font-weight: bold;
   }
   .ktp-nik .value { 
     flex: 1; 
-    font-family: 'Share Tech Mono', 'Courier New', Courier, monospace; /* Font bergaya digital */
-    font-size: 26px; /* Lebih besar dan tebal */
-    font-weight: normal; 
-    letter-spacing: 2px; 
+    font-family: 'Share Tech Mono', monospace; 
+    font-size: 26px; 
+    letter-spacing: 1px; 
+    line-height: 1;
   }
 
-  /* ---------- Body: data kiri + foto kanan ---------- */
-  .ktp-body{ display: flex; gap: 12px; flex: 1; min-height: 0; }
+  /* ---------- Body: Layout Kaku (Grid) ---------- */
+  .ktp-body{ 
+    display: grid; 
+    grid-template-columns: 1fr 135px; /* Kiri data, Kanan foto (fixed 135px) */
+    gap: 15px; 
+    flex: 1; 
+  }
 
-  .ktp-data{ flex: 1; min-width: 0; padding-right: 0px; }
+  .ktp-data { 
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* Menyebar rata agar rapi */
+    padding-bottom: 2px;
+  }
 
-  /* Blok Data */
+  /* Baris Data */
   .row{
-    display: flex; align-items: baseline;
+    display: flex; 
+    align-items: center; /* Center lebih stabil dari baseline */
+    height: 21.5px; /* Tinggi dikunci agar tidak terpotong */
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 13.5px; /* Setara 6-7pt pada skala fisik */
-    line-height: 1.38; /* Spasi antarbaris rapat dan rapi */
-    letter-spacing: 0px;
+    font-size: 13.5px; 
+    line-height: 21.5px; 
     color: #000;
   }
-  .row .lbl{ flex: 0 0 120px; font-weight: normal;} /* Arial Regular untuk label */
-  .row .sep{ flex: 0 0 15px; text-align: center; font-weight: normal;}
+  .row .lbl{ width: 120px; font-weight: normal;}
+  .row .sep{ width: 15px; text-align: center; font-weight: normal;}
   .row .val{
-    flex: 1; min-width: 0;
+    flex: 1; 
     text-transform: uppercase;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    font-weight: bold; /* Nilai dibuat bold agar kontras */
+    font-weight: bold; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis;
   }
 
-  /* Indentasi Khusus untuk RT/RW, Kel/Desa, Kecamatan */
-  .row.indent .lbl {
-    padding-left: 35px; 
-  }
+  /* Indentasi */
+  .row.indent .lbl { padding-left: 35px; }
 
-  /* Baris gabungan: Jenis Kelamin + Golongan Darah */
-  .row-split { display: flex; width: 100%; }
+  /* Gabungan Jenis Kelamin & Gol Darah */
+  .row-split { display: flex; width: 100%; height: 21.5px; line-height: 21.5px;}
   .row-split .left { display: flex; flex: 1; }
-  .row-split .right { display: flex; flex: 0 0 140px; } 
-  .row-split .lbl-gol{ flex: 0 0 70px; font-weight: normal;}
+  .row-split .right { display: flex; width: 145px; } 
+  .row-split .lbl-gol{ width: 70px; font-weight: normal;}
   .row-split .val-gol{ flex: 1; font-weight: bold; text-transform: uppercase; }
 
-  /* ---------- Kolom foto ---------- */
+  /* ---------- Kolom Foto ---------- */
   .ktp-photo-col{
-    flex: 0 0 135px; width: 135px;
-    display: flex; flex-direction: column; align-items: center;
-    margin-top: 0px;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
   }
+  
   .photo-box{
-    width: 135px; height: 175px;
-    display: flex; align-items: center; justify-content: center;
-    overflow: hidden;
-    background: #d92c2c; 
+    width: 135px; 
+    height: 175px;
     border: 1px solid #000;
-    color: #fff;
-    font-size: 11px; font-weight: bold;
-    text-align: center; line-height: 1.35;
-    letter-spacing: .5px;
+    background-color: #d92c2c; 
+    
+    /* Metode Background Image anti-gepeng untuk html2canvas */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    position: relative;
+    overflow: hidden;
   }
-  .photo-box img{
-    width: 100%; height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+  
+  /* Jika ada gambar yg di-upload, JS akan mengubah background-image div ini */
+
   .photo-meta{
-    margin-top: 6px;
+    margin-top: 5px;
     text-align: center;
     font-size: 12px;
     line-height: 1.3;
     font-weight: normal;
-    letter-spacing: .2px;
     font-family: Arial, Helvetica, sans-serif;
+    width: 100%;
   }
   .photo-meta .kota{ text-transform: uppercase; }
   
   /* Tanda Tangan */
   .sign{ 
-    width: 110px; height: 45px; 
-    margin-top: 4px;
-    margin-bottom: -10px;
+    width: 100px; 
+    height: 40px; 
+    margin-top: 2px;
   }
 
-  /* ---------- Stage / scaler responsif ---------- */
+  /* ---------- Stage / scaler ---------- */
   .ktp-stage{ width: 100%; overflow: hidden; }
   #ktpScaler{ transform-origin: top left; }
 
-  /* ---------- Loader overlay ---------- */
+  /* ---------- Loader ---------- */
   #loader{ position: fixed; inset: 0; z-index: 60; }
   .spinner{
     width: 42px; height: 42px;
@@ -197,9 +211,7 @@
 <main class="mx-auto max-w-7xl px-4 pb-16">
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 
-    <!-- ============================================================
-         KOLOM KIRI : FORM INPUT
-         ============================================================ -->
+    <!-- KOLOM KIRI : FORM INPUT -->
     <section class="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
       <div class="mb-5 flex items-center gap-2">
         <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">1</span>
@@ -208,58 +220,37 @@
 
       <form id="ktpForm" autocomplete="off" class="space-y-4">
         <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-          <!-- Provinsi -->
+          <!-- Input fields... (Sama seperti sebelumnya) -->
           <div>
             <label for="provinsi" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Provinsi</label>
-            <input id="provinsi" data-field="provinsi" type="text" value="PROVINSI CONTOH"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="provinsi" data-field="provinsi" type="text" value="PROVINSI JAWA TENGAH" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Kabupaten / Kota -->
           <div>
             <label for="kabupaten" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kabupaten / Kota</label>
-            <input id="kabupaten" data-field="kabupaten" type="text" value="KOTA CONTOH"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="kabupaten" data-field="kabupaten" type="text" value="PURWOREJO" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- NIK -->
           <div class="sm:col-span-2">
             <label for="nik" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">NIK (16 digit)</label>
-            <input id="nik" data-field="nik" type="text" inputmode="numeric" maxlength="16"
-                   value="0000000000000000" placeholder="0000000000000000"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm tracking-widest shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="nik" data-field="nik" type="text" inputmode="numeric" maxlength="16" value="0896682625200000" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm tracking-widest shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Nama -->
           <div class="sm:col-span-2">
             <label for="nama" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Nama Lengkap</label>
-            <input id="nama" data-field="nama" type="text" value="NAMA CONTOH"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="nama" data-field="nama" type="text" value="NAMA CONTOH" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Tempat / Tgl Lahir -->
           <div class="sm:col-span-2">
             <label for="ttl" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Tempat / Tanggal Lahir</label>
-            <input id="ttl" data-field="ttl" type="text" value="KOTA CONTOH, 01-01-1990"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="ttl" data-field="ttl" type="text" value="PURWOREJO, 01-01-2000" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Jenis Kelamin -->
           <div>
             <label for="jenisKelamin" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Jenis Kelamin</label>
-            <select id="jenisKelamin" data-field="jenisKelamin"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+            <select id="jenisKelamin" data-field="jenisKelamin" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
               <option value="LAKI-LAKI" selected>Laki-laki</option>
               <option value="PEREMPUAN">Perempuan</option>
             </select>
           </div>
-
-          <!-- Golongan Darah -->
           <div>
             <label for="golDarah" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Golongan Darah</label>
-            <select id="golDarah" data-field="golDarah"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+            <select id="golDarah" data-field="golDarah" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
               <option value="-" selected>-</option>
               <option value="A">A</option>
               <option value="B">B</option>
@@ -267,110 +258,63 @@
               <option value="O">O</option>
             </select>
           </div>
-
-          <!-- Alamat -->
           <div class="sm:col-span-2">
             <label for="alamat" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Alamat</label>
-            <input id="alamat" data-field="alamat" type="text" value="JL. CONTOH NO. 123"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="alamat" data-field="alamat" type="text" value="JL. CONTOH NO. 123" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- RT/RW -->
           <div>
             <label for="rtRw" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">RT / RW</label>
-            <input id="rtRw" data-field="rtRw" type="text" value="001/002"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="rtRw" data-field="rtRw" type="text" value="001/002" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Kel / Desa -->
           <div>
             <label for="kelDesa" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kelurahan / Desa</label>
-            <input id="kelDesa" data-field="kelDesa" type="text" value="KELURAHAN CONTOH"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="kelDesa" data-field="kelDesa" type="text" value="PURWOREJO" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Kecamatan -->
           <div>
             <label for="kecamatan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kecamatan</label>
-            <input id="kecamatan" data-field="kecamatan" type="text" value="KECAMATAN CONTOH"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="kecamatan" data-field="kecamatan" type="text" value="PURWOREJO" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Agama -->
           <div>
             <label for="agama" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Agama</label>
-            <select id="agama" data-field="agama"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-              <option selected>ISLAM</option>
-              <option>KRISTEN</option>
-              <option>KATOLIK</option>
-              <option>HINDU</option>
-              <option>BUDDHA</option>
-              <option>KONGHUCU</option>
+            <select id="agama" data-field="agama" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <option selected>ISLAM</option><option>KRISTEN</option><option>KATOLIK</option><option>HINDU</option><option>BUDDHA</option><option>KONGHUCU</option>
             </select>
           </div>
-
-          <!-- Status Perkawinan -->
           <div>
             <label for="statusPerkawinan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Status Perkawinan</label>
-            <select id="statusPerkawinan" data-field="statusPerkawinan"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-              <option>BELUM KAWIN</option>
-              <option selected>KAWIN</option>
-              <option>CERAI HIDUP</option>
-              <option>CERAI MATI</option>
+            <select id="statusPerkawinan" data-field="statusPerkawinan" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <option>BELUM KAWIN</option><option selected>KAWIN</option><option>CERAI HIDUP</option><option>CERAI MATI</option>
             </select>
           </div>
-
-          <!-- Pekerjaan -->
           <div>
             <label for="pekerjaan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Pekerjaan</label>
-            <input id="pekerjaan" data-field="pekerjaan" type="text" value="PEKERJAAN CONTOH"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="pekerjaan" data-field="pekerjaan" type="text" value="PENGANGGURAN" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Kewarganegaraan -->
           <div>
             <label for="kewarganegaraan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kewarganegaraan</label>
-            <input id="kewarganegaraan" data-field="kewarganegaraan" type="text" value="WNI"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="kewarganegaraan" data-field="kewarganegaraan" type="text" value="WNI" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Berlaku Hingga -->
           <div>
             <label for="berlakuHingga" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Berlaku Hingga</label>
-            <input id="berlakuHingga" data-field="berlakuHingga" type="text" value="SEUMUR HIDUP"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <input id="berlakuHingga" data-field="berlakuHingga" type="text" value="SEUMUR HIDUP" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
-
-          <!-- Foto -->
           <div class="sm:col-span-2">
             <label for="foto" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Foto (Rasio 3&times;4)</label>
-            <input id="foto" type="file" accept="image/*"
-                   class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200" />
+            <input id="foto" type="file" accept="image/*" class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200" />
           </div>
         </div>
 
-        <!-- Tombol Aksi -->
         <div class="flex flex-col gap-3 pt-2 sm:flex-row">
-          <button id="btnDownload" type="button"
-                  class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:cursor-not-allowed disabled:opacity-60">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
-            </svg>
+          <button id="btnDownload" type="button" class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:cursor-not-allowed disabled:opacity-60">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" /></svg>
             Generate / Download KTP
           </button>
-          <button id="btnReset" type="button"
-                  class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200">
-            Reset
-          </button>
+          <button id="btnReset" type="button" class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200">Reset</button>
         </div>
       </form>
     </section>
 
-    <!-- ============================================================
-         KOLOM KANAN : LIVE PREVIEW KTP
-         ============================================================ -->
+    <!-- KOLOM KANAN : LIVE PREVIEW KTP -->
     <section class="lg:sticky lg:top-6 lg:self-start">
       <div class="mb-3 flex items-center gap-2">
         <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-sm font-bold text-white">2</span>
@@ -381,140 +325,78 @@
       </div>
 
       <div class="rounded-2xl bg-white p-4 shadow-xl ring-1 ring-slate-200 sm:p-6 flex justify-center">
-        <!-- Stage tempat kartu di-scale agar responsif -->
         <div class="ktp-stage" id="ktpStage">
           <div id="ktpScaler">
-
             <!-- ================== KARTU KTP ================== -->
             <div class="ktp" id="ktpCard">
               <div class="ktp-inner">
-
-                <!-- Header Provinsi / Kabupaten -->
+                <!-- Header -->
                 <div class="ktp-head">
-                  <div class="line"><span id="p-provinsi">PROVINSI CONTOH</span></div>
-                  <div class="line"><span id="p-kab-prefix"></span><span id="p-kabupaten">KOTA CONTOH</span></div>
+                  <div class="line"><span id="p-provinsi">PROVINSI JAWA TENGAH</span></div>
+                  <div class="line"><span id="p-kabupaten">PURWOREJO</span></div>
                 </div>
 
                 <!-- NIK -->
                 <div class="ktp-nik">
                   <span class="label">NIK</span>
                   <span class="colon">:</span>
-                  <span class="value" id="p-nik">0000000000000000</span>
+                  <span class="value" id="p-nik">0896682625200000</span>
                 </div>
 
                 <!-- Body -->
                 <div class="ktp-body">
-
-                  <!-- Data kiri -->
+                  <!-- Data Kiri -->
                   <div class="ktp-data">
-                    <div class="row">
-                      <span class="lbl">Nama</span><span class="sep">:</span>
-                      <span class="val" id="p-nama">NAMA CONTOH</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Tempat/Tgl Lahir</span><span class="sep">:</span>
-                      <span class="val" id="p-ttl">KOTA CONTOH, 01-01-1990</span>
-                    </div>
-
-                    <!-- Baris Gabungan Jenis Kelamin & Gol Darah -->
+                    <div class="row"><span class="lbl">Nama</span><span class="sep">:</span><span class="val" id="p-nama">NAMA CONTOH</span></div>
+                    <div class="row"><span class="lbl">Tempat/Tgl Lahir</span><span class="sep">:</span><span class="val" id="p-ttl">PURWOREJO, 01-01-2000</span></div>
+                    
                     <div class="row-split">
                       <div class="left row">
-                        <span class="lbl">Jenis kelamin</span><span class="sep">:</span>
-                        <span class="val" id="p-jenisKelamin">LAKI-LAKI</span>
+                        <span class="lbl">Jenis kelamin</span><span class="sep">:</span><span class="val" id="p-jenisKelamin">LAKI-LAKI</span>
                       </div>
                       <div class="right row">
-                        <span class="lbl-gol">Gol. Darah</span><span class="sep">:</span>
-                        <span class="val-gol" id="p-golDarah">-</span>
+                        <span class="lbl-gol">Gol. Darah</span><span class="sep">:</span><span class="val-gol" id="p-golDarah">-</span>
                       </div>
                     </div>
 
-                    <div class="row">
-                      <span class="lbl">Alamat</span><span class="sep">:</span>
-                      <span class="val" id="p-alamat">JL. CONTOH NO. 123</span>
-                    </div>
-
-                    <!-- Baris yang di-indentasi -->
-                    <div class="row indent">
-                      <span class="lbl">RT/RW</span><span class="sep">:</span>
-                      <span class="val" id="p-rtRw">001/002</span>
-                    </div>
-
-                    <div class="row indent">
-                      <span class="lbl">Kel/Desa</span><span class="sep">:</span>
-                      <span class="val" id="p-kelDesa">KELURAHAN CONTOH</span>
-                    </div>
-
-                    <div class="row indent">
-                      <span class="lbl">Kecamatan</span><span class="sep">:</span>
-                      <span class="val" id="p-kecamatan">KECAMATAN CONTOH</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Agama</span><span class="sep">:</span>
-                      <span class="val" id="p-agama">ISLAM</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Status Perkawinan</span><span class="sep">:</span>
-                      <span class="val" id="p-statusPerkawinan">KAWIN</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Pekerjaan</span><span class="sep">:</span>
-                      <span class="val" id="p-pekerjaan">PEKERJAAN CONTOH</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Kewarganegaraan</span><span class="sep">:</span>
-                      <span class="val" id="p-kewarganegaraan">WNI</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Berlaku Hingga</span><span class="sep">:</span>
-                      <span class="val" id="p-berlakuHingga">SEUMUR HIDUP</span>
-                    </div>
+                    <div class="row"><span class="lbl">Alamat</span><span class="sep">:</span><span class="val" id="p-alamat">JL. CONTOH NO. 123</span></div>
+                    <div class="row indent"><span class="lbl">RT/RW</span><span class="sep">:</span><span class="val" id="p-rtRw">001/002</span></div>
+                    <div class="row indent"><span class="lbl">Kel/Desa</span><span class="sep">:</span><span class="val" id="p-kelDesa">PURWOREJO</span></div>
+                    <div class="row indent"><span class="lbl">Kecamatan</span><span class="sep">:</span><span class="val" id="p-kecamatan">PURWOREJO</span></div>
+                    <div class="row"><span class="lbl">Agama</span><span class="sep">:</span><span class="val" id="p-agama">ISLAM</span></div>
+                    <div class="row"><span class="lbl">Status Perkawinan</span><span class="sep">:</span><span class="val" id="p-statusPerkawinan">KAWIN</span></div>
+                    <div class="row"><span class="lbl">Pekerjaan</span><span class="sep">:</span><span class="val" id="p-pekerjaan">PENGANGGURAN</span></div>
+                    <div class="row"><span class="lbl">Kewarganegaraan</span><span class="sep">:</span><span class="val" id="p-kewarganegaraan">WNI</span></div>
+                    <div class="row"><span class="lbl">Berlaku Hingga</span><span class="sep">:</span><span class="val" id="p-berlakuHingga">SEUMUR HIDUP</span></div>
                   </div>
 
-                  <!-- Foto + tanda tangan -->
+                  <!-- Foto Kanan -->
                   <div class="ktp-photo-col">
-                    <div class="photo-box" id="photoBox">
-                      <span id="photoPlaceholder" style="display:none;">FOTO<br>3 &times; 4</span>
-                      <img id="photoImg" alt="Foto" style="display:none;" />
-                    </div>
+                    <!-- Div ini menggunakan background-image agar aman dari html2canvas -->
+                    <div class="photo-box" id="photoBox"></div>
 
                     <div class="photo-meta">
-                      <div class="kota" id="p-kota">KOTA CONTOH</div>
+                      <div class="kota" id="p-kota">PURWOREJO</div>
                       <div class="tgl" id="p-tanggal">01-01-2024</div>
-
-                      <!-- Tanda tangan SVG -->
                       <svg class="sign" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M10 30 C 20 10, 25 15, 30 25 C 35 35, 25 35, 32 22 C 38 10, 45 15, 48 25 C 52 35, 42 35, 50 22 C 55 12, 65 10, 68 25 C 70 35, 65 35, 72 20 C 78 8, 85 10, 88 25 C 90 32, 85 35, 95 15" 
-                              fill="none" stroke="#000" stroke-width="2" 
-                              stroke-linecap="round" stroke-linejoin="round"/>
+                        <path d="M10 30 C 20 10, 25 15, 30 25 C 35 35, 25 35, 32 22 C 38 10, 45 15, 48 25 C 52 35, 42 35, 50 22 C 55 12, 65 10, 68 25 C 70 35, 65 35, 72 20 C 78 8, 85 10, 88 25 C 90 32, 85 35, 95 15" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                         <path d="M45 28 C 55 20, 60 30, 65 20" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
                       </svg>
                     </div>
                   </div>
-
-                </div><!-- /ktp-body -->
-              </div><!-- /ktp-inner -->
-            </div><!-- /ktp -->
-            <!-- ================== /KARTU KTP ================== -->
-
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       <p class="mt-4 text-center text-[11px] leading-relaxed text-slate-400">
-        Hasil unduhan beresolusi tinggi (1920 &times; 1209 px).<br>
-        Kartu ini hanya untuk keperluan demo / desain.
+        Hasil unduhan beresolusi tinggi (1920 &times; 1209 px).<br>Kartu ini hanya untuk keperluan demo / desain.
       </p>
     </section>
-
   </div>
 </main>
 
-<!-- ================= LOADER OVERLAY ================= -->
 <div id="loader" class="hidden items-center justify-center bg-slate-900/70 backdrop-blur-sm">
   <div class="flex flex-col items-center gap-4">
     <div class="spinner"></div>
@@ -523,9 +405,6 @@
 </div>
 
 <script>
-/* =========================================================================
-   SCRIPT GENERATOR KTP
-   ========================================================================= */
 (function () {
   'use strict';
 
@@ -533,8 +412,6 @@
   const nikEl          = document.getElementById('nik');
   const fotoEl         = document.getElementById('foto');
   const photoBox       = document.getElementById('photoBox');
-  const photoImg       = document.getElementById('photoImg');
-  const photoPlaceholder = document.getElementById('photoPlaceholder');
   const btnDownload    = document.getElementById('btnDownload');
   const btnReset       = document.getElementById('btnReset');
   const loader         = document.getElementById('loader');
@@ -546,9 +423,6 @@
   const CARD_W = 640;
   const CARD_H = 403;
 
-  // Set tanggal default placeholder
-  document.getElementById('p-tanggal').textContent = "01-01-2024";
-
   function setPreviewText(id, value) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -559,13 +433,11 @@
   function syncField(el) {
     const key = el.dataset.field;
     if (!key) return;
-
     setPreviewText('p-' + key, el.value);
 
     if (key === 'kabupaten') {
       const upper = el.value.trim().toUpperCase();
-      document.getElementById('p-kab-prefix').textContent = '';
-      let kotaText = upper.replace('KOTA ', '').replace('KABUPATEN ADMINISTRASI ', '').replace('KABUPATEN ', '');
+      // Teks di bawah foto menyesuaikan nama kabupaten
       document.getElementById('p-kota').textContent = upper || 'KOTA CONTOH';
     }
   }
@@ -580,6 +452,7 @@
     syncField(el); 
   });
 
+  /* Upload Foto -> Ubah menjadi background-image agar tidak gepeng */
   fotoEl.addEventListener('change', function () {
     const file = this.files && this.files[0];
     if (!file) return;
@@ -592,9 +465,8 @@
 
     const reader = new FileReader();
     reader.onload = function (e) {
-      photoImg.src = e.target.result;
-      photoImg.style.display = 'block';
-      photoPlaceholder.style.display = 'none';
+      // Terapkan ke background div
+      photoBox.style.backgroundImage = `url(${e.target.result})`;
     };
     reader.readAsDataURL(file);
   });
@@ -616,6 +488,11 @@
     loader.classList.add('flex');
     btnDownload.disabled = true;
 
+    // Pastikan semua font (termasuk Google Fonts) selesai dimuat
+    if (document.fonts) {
+      await document.fonts.ready;
+    }
+
     const prevTransform = ktpScaler.style.transform;
     const prevHeight    = ktpScaler.style.height;
     ktpScaler.style.transform = 'none';
@@ -624,11 +501,16 @@
     try {
       const canvas = await html2canvas(ktpCard, {
         scale: 3, 
-        backgroundColor: '#ffffff',
+        backgroundColor: null, // Biarkan transparan (menghindari kotak putih)
         useCORS: true,
         logging: false,
         width: CARD_W,
-        height: CARD_H
+        height: CARD_H,
+        onclone: function(clonedDoc) {
+            // Pastikan foto dan layout di dokumen kloning (html2canvas) tetap konsisten
+            const clonedCard = clonedDoc.getElementById('ktpCard');
+            clonedCard.style.transform = 'none';
+        }
       });
 
       const rawName = (document.getElementById('nama').value || 'Tanpa_Nama').trim();
@@ -648,7 +530,6 @@
       ktpScaler.style.transform = prevTransform;
       ktpScaler.style.height    = prevHeight;
       fitCard();
-
       loader.classList.add('hidden');
       loader.classList.remove('flex');
       btnDownload.disabled = false;
@@ -658,22 +539,18 @@
 
   btnReset.addEventListener('click', function () {
     form.reset();
+    photoBox.style.backgroundImage = 'none';
     
-    // Set nilai default placeholder sesuai instruksi
-    document.getElementById('provinsi').value = "PROVINSI CONTOH";
-    document.getElementById('kabupaten').value = "KOTA CONTOH";
-    document.getElementById('nik').value = "0000000000000000";
+    document.getElementById('provinsi').value = "PROVINSI JAWA TENGAH";
+    document.getElementById('kabupaten').value = "PURWOREJO";
+    document.getElementById('nik').value = "0896682625200000";
     document.getElementById('nama').value = "NAMA CONTOH";
-    document.getElementById('ttl').value = "KOTA CONTOH, 01-01-1990";
+    document.getElementById('ttl').value = "PURWOREJO, 01-01-2000";
     document.getElementById('alamat').value = "JL. CONTOH NO. 123";
     document.getElementById('rtRw').value = "001/002";
-    document.getElementById('kelDesa').value = "KELURAHAN CONTOH";
-    document.getElementById('kecamatan').value = "KECAMATAN CONTOH";
-    document.getElementById('pekerjaan').value = "PEKERJAAN CONTOH";
-
-    photoImg.src = '';
-    photoImg.style.display = 'none';
-    photoPlaceholder.style.display = 'none';
+    document.getElementById('kelDesa').value = "PURWOREJO";
+    document.getElementById('kecamatan').value = "PURWOREJO";
+    document.getElementById('pekerjaan').value = "PENGANGGURAN";
 
     fields.forEach(function (el) { syncField(el); });
   });
