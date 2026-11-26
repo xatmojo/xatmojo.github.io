@@ -11,6 +11,17 @@
 
 <style>
   /* =====================================================================
+     CUSTOM FONT (Memanggil file font lokal Anda)
+     ===================================================================== */
+  @font-face {
+    font-family: 'OCR A Extended';
+    src: url('font/OCRAEXT.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* =====================================================================
      CSS KHUSUS KARTU KTP (Presisi Tinggi)
      ===================================================================== */
   .ktp {
@@ -78,9 +89,9 @@
   }
   .ktp-nik .value { 
     flex: 1; 
-    /* Font OCR-A Extended jika tersedia, fallback ke Courier New */
+    /* Menggunakan font OCR A Extended yang sudah dideklarasikan di @font-face */
     font-family: 'OCR A Extended', 'Courier New', Courier, monospace; 
-    font-weight: 900; 
+    font-weight: normal; /* Dibuat normal karena font TTF asli sudah tebal */
     letter-spacing: 1.5px; /* Jarak antar angka NIK */
   }
 
