@@ -11,7 +11,7 @@
 
 <style>
   /* =====================================================================
-     CSS KHUSUS KARTU KTP (Didesain Ulang Menyerupai Aslinya)
+     CSS KHUSUS KARTU KTP (Disesuaikan dengan Background Gambar)
      ===================================================================== */
   .ktp{
     position: relative;
@@ -20,58 +20,37 @@
     overflow: hidden;
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,.15);
-    /* Background biru muda dengan efek gelombang/security pattern */
-    background: 
-      repeating-linear-gradient(45deg, transparent, transparent 8px, rgba(255,255,255,0.15) 8px, rgba(255,255,255,0.15) 16px),
-      radial-gradient(circle at 50% 50%, #dcebf7 0%, #b5d9f2 100%);
+    
+    /* MENGGUNAKAN GAMBAR SEBAGAI BACKGROUND */
+    background-image: url('img/ktp.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-color: #b5d9f2; /* Fallback color jika gambar gagal dimuat */
+    
     font-family: Arial, Helvetica, sans-serif;
     color: #000;
     box-shadow: 0 10px 25px -5px rgba(0,0,0,.3);
     user-select: none;
   }
 
-  /* Efek Security Pattern Tambahan (Lingkaran Samar) */
-  .ktp::before {
-    content: '';
-    position: absolute;
-    top: -50px; left: -50px; right: -50px; bottom: -50px;
-    background-image: radial-gradient(circle, rgba(30,64,175,0.06) 2px, transparent 2px);
-    background-size: 24px 24px;
-    z-index: 0;
-    pointer-events: none;
-  }
-
-  /* ---------- Watermark diagonal ---------- */
-  .ktp-watermark{
-    position: absolute;
-    top: -200px; left: -200px;
-    width: 1100px; height: 900px;
-    display: flex; flex-wrap: wrap;
-    gap: 20px 25px;
-    align-content: center; justify-content: center;
-    transform: rotate(-22deg);
-    pointer-events: none;
-    opacity: .05;
-    color: #1e3a8a;
-    font-size: 15px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    z-index: 0;
-  }
-  .ktp-watermark span{ white-space: nowrap; }
-
   /* ---------- Konten kartu ---------- */
   .ktp-inner{
     position: relative; z-index: 1;
     display: flex; flex-direction: column;
     height: 100%;
-    padding: 12px 18px 10px;
+    padding: 16px 22px 12px; /* Penyesuaian padding agar pas di background */
   }
 
   /* ---------- Header ---------- */
-  .ktp-head{ text-align: center; line-height: 1.25; margin-bottom: 8px;}
+  .ktp-head{ 
+    text-align: center; 
+    line-height: 1.2; 
+    margin-bottom: 12px;
+    margin-top: 4px;
+  }
   .ktp-head .line{
-    font-size: 16.5px;
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: .5px;
     white-space: pre;
@@ -81,29 +60,34 @@
   /* ---------- Baris NIK ---------- */
   .ktp-nik{
     display: flex; align-items: center;
-    margin: 2px 0 6px 0;
-    font-size: 17px;
+    margin: 0 0 10px 0;
+    font-size: 20px; /* NIK dibuat lebih besar sesuai gambar */
     font-weight: bold;
-    letter-spacing: 1.5px;
+    letter-spacing: 1px;
   }
-  .ktp-nik .label { flex: 0 0 70px; font-weight: bold;}
-  .ktp-nik .colon { flex: 0 0 15px; text-align: center; font-weight: bold;}
-  .ktp-nik .value { flex: 1; font-family: 'Courier New', Courier, monospace; font-weight: 900; letter-spacing: 1px;}
+  .ktp-nik .label { flex: 0 0 60px; font-weight: bold; letter-spacing: 2px;}
+  .ktp-nik .colon { flex: 0 0 20px; text-align: center; font-weight: bold;}
+  .ktp-nik .value { 
+    flex: 1; 
+    font-family: 'Courier New', Courier, monospace; 
+    font-weight: 900; 
+    letter-spacing: 3px; /* Jarak antar angka NIK */
+  }
 
   /* ---------- Body: data kiri + foto kanan ---------- */
-  .ktp-body{ display: flex; gap: 10px; flex: 1; min-height: 0; }
+  .ktp-body{ display: flex; gap: 15px; flex: 1; min-height: 0; }
 
   .ktp-data{ flex: 1; min-width: 0; padding-right: 5px; }
 
   .row{
     display: flex; align-items: baseline;
-    font-size: 12.5px;
-    line-height: 1.55; /* Lebih padat */
+    font-size: 13px; /* Ukuran font data disesuaikan */
+    line-height: 1.6; 
     letter-spacing: 0px;
     color: #000;
   }
-  .row .lbl{ flex: 0 0 115px; font-weight: normal;}
-  .row .sep{ flex: 0 0 12px; text-align: center;}
+  .row .lbl{ flex: 0 0 120px; font-weight: normal;}
+  .row .sep{ flex: 0 0 15px; text-align: center;}
   .row .val{
     flex: 1; min-width: 0;
     text-transform: uppercase;
@@ -113,24 +97,24 @@
 
   /* Indentasi Khusus untuk RT/RW, Kel/Desa, Kecamatan */
   .row.indent .lbl {
-    padding-left: 38px; /* Menggeser teks ke kanan */
+    padding-left: 35px; 
   }
 
   /* Baris gabungan: Jenis Kelamin + Golongan Darah */
   .row-split { display: flex; width: 100%; }
   .row-split .left { display: flex; flex: 1; }
-  .row-split .right { display: flex; flex: 0 0 125px; }
-  .row-split .lbl-gol{ flex: 0 0 70px; font-weight: normal;}
+  .row-split .right { display: flex; flex: 0 0 130px; }
+  .row-split .lbl-gol{ flex: 0 0 65px; font-weight: normal;}
   .row-split .val-gol{ flex: 1; font-weight: bold; text-transform: uppercase; }
 
   /* ---------- Kolom foto ---------- */
   .ktp-photo-col{
-    flex: 0 0 132px; width: 132px;
+    flex: 0 0 135px; width: 135px;
     display: flex; flex-direction: column; align-items: center;
-    margin-top: 2px;
+    margin-top: 0px;
   }
   .photo-box{
-    width: 132px; height: 174px;
+    width: 135px; height: 175px;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
     background: #d92c2c; /* Merah khas KTP */
@@ -146,10 +130,10 @@
     display: block;
   }
   .photo-meta{
-    margin-top: 4px;
+    margin-top: 6px;
     text-align: center;
-    font-size: 11px;
-    line-height: 1.25;
+    font-size: 12px;
+    line-height: 1.3;
     font-weight: normal;
     letter-spacing: .2px;
   }
@@ -157,9 +141,9 @@
   
   /* Tanda Tangan */
   .sign{ 
-    width: 100px; height: 40px; 
-    margin-top: 2px;
-    margin-bottom: -8px;
+    width: 110px; height: 45px; 
+    margin-top: 4px;
+    margin-bottom: -10px;
   }
 
   /* ---------- Stage / scaler responsif ---------- */
@@ -385,10 +369,6 @@
 
             <!-- ================== KARTU KTP ================== -->
             <div class="ktp" id="ktpCard">
-
-              <!-- Watermark -->
-              <div class="ktp-watermark" id="watermark" aria-hidden="true"></div>
-
               <div class="ktp-inner">
 
                 <!-- Header Provinsi / Kabupaten -->
@@ -451,7 +431,6 @@
                       <span class="lbl">Kecamatan</span><span class="sep">:</span>
                       <span class="val" id="p-kecamatan">PANCORAN</span>
                     </div>
-                    <!-- ================================== -->
 
                     <div class="row">
                       <span class="lbl">Agama</span><span class="sep">:</span>
@@ -482,7 +461,6 @@
                   <!-- Foto + tanda tangan -->
                   <div class="ktp-photo-col">
                     <div class="photo-box" id="photoBox">
-                      <!-- Tulisan dihilangkan karena di gambar aslinya warna solid -->
                       <span id="photoPlaceholder" style="display:none;">FOTO<br>3 &times; 4</span>
                       <img id="photoImg" alt="Foto" style="display:none;" />
                     </div>
@@ -491,7 +469,7 @@
                       <div class="kota" id="p-kota">JAKARTA</div>
                       <div class="tgl" id="p-tanggal">05-10-2018</div>
 
-                      <!-- Tanda tangan SVG (Dibuat lebih menyerupai aslinya) -->
+                      <!-- Tanda tangan SVG -->
                       <svg class="sign" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
                         <path d="M10 30 C 20 10, 25 15, 30 25 C 35 35, 25 35, 32 22 C 38 10, 45 15, 48 25 C 52 35, 42 35, 50 22 C 55 12, 65 10, 68 25 C 70 35, 65 35, 72 20 C 78 8, 85 10, 88 25 C 90 32, 85 35, 95 15" 
                               fill="none" stroke="#000" stroke-width="2" 
@@ -552,26 +530,12 @@
   const CARD_H = 403;
 
   /* =======================================================================
-     1. WATERMARK (Teks berulang diagonal)
-     ======================================================================= */
-  (function buildWatermark() {
-    const wm = document.getElementById('watermark');
-    const frag = document.createDocumentFragment();
-    for (let i = 0; i < 150; i++) {
-      const span = document.createElement('span');
-      span.textContent = 'KARTU TANDA PENDUDUK';
-      frag.appendChild(span);
-    }
-    wm.appendChild(frag);
-  })();
-
-  /* =======================================================================
-     2. SET TANGGAL PEMBUATAN (Sesuai Gambar)
+     1. SET TANGGAL PEMBUATAN (Sesuai Gambar)
      ======================================================================= */
   document.getElementById('p-tanggal').textContent = "05-10-2018";
 
   /* =======================================================================
-     3. HELPER: menulis teks ke elemen preview
+     2. HELPER: menulis teks ke elemen preview
      ======================================================================= */
   function setPreviewText(id, value) {
     const el = document.getElementById(id);
@@ -581,7 +545,7 @@
   }
 
   /* =======================================================================
-     4. SINKRONISASI SATU FIELD -> PREVIEW
+     3. SINKRONISASI SATU FIELD -> PREVIEW
      ======================================================================= */
   function syncField(el) {
     const key = el.dataset.field;
@@ -593,7 +557,7 @@
     if (key === 'kabupaten') {
       const upper = el.value.trim().toUpperCase();
       
-      // Di gambar aslinya hanya tertulis "JAKARTA SELATAN", tanpa "KOTA" atau "KABUPATEN"
+      // Menghilangkan prefix KOTA/KABUPATEN pada judul atas
       document.getElementById('p-kab-prefix').textContent = '';
       
       // Teks di bawah foto (Kota penerbit)
@@ -603,7 +567,7 @@
   }
 
   /* =======================================================================
-     5. FORMAT NIK (Hanya angka, tanpa spasi otomatis)
+     4. FORMAT NIK (Hanya angka, tanpa spasi otomatis)
      ======================================================================= */
   nikEl.addEventListener('input', function () {
     // Hanya menerima angka, maksimal 16 digit
@@ -611,7 +575,7 @@
   });
 
   /* =======================================================================
-     6. TWO-WAY BINDING
+     5. TWO-WAY BINDING
      ======================================================================= */
   fields.forEach(function (el) {
     el.addEventListener('input', function () { syncField(el); });
@@ -620,7 +584,7 @@
   });
 
   /* =======================================================================
-     7. UPLOAD FOTO
+     6. UPLOAD FOTO
      ======================================================================= */
   fotoEl.addEventListener('change', function () {
     const file = this.files && this.files[0];
@@ -642,7 +606,7 @@
   });
 
   /* =======================================================================
-     8. RESPONSIVE SCALING KARTU
+     7. RESPONSIVE SCALING KARTU
      ======================================================================= */
   function fitCard() {
     const available = ktpStage.clientWidth || CARD_W;
@@ -656,7 +620,7 @@
   fitCard();
 
   /* =======================================================================
-     9. DOWNLOAD KTP PNG
+     8. DOWNLOAD KTP PNG
      ======================================================================= */
   btnDownload.addEventListener('click', async function () {
     const originalHTML = btnDownload.innerHTML;
@@ -706,7 +670,7 @@
   });
 
   /* =======================================================================
-     10. RESET FORM
+     9. RESET FORM
      ======================================================================= */
   btnReset.addEventListener('click', function () {
     form.reset();
