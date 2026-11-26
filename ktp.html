@@ -11,9 +11,9 @@
 
 <style>
   /* =====================================================================
-     CSS KHUSUS KARTU KTP (Disesuaikan dengan Background Gambar)
+     CSS KHUSUS KARTU KTP (Presisi Tinggi)
      ===================================================================== */
-  .ktp{
+  .ktp {
     position: relative;
     width: 640px;               /* Rasio KTP standar */
     height: 403px;
@@ -35,64 +35,79 @@
   }
 
   /* ---------- Konten kartu ---------- */
-  .ktp-inner{
+  .ktp-inner {
     position: relative; z-index: 1;
     display: flex; flex-direction: column;
     height: 100%;
-    padding: 16px 22px 12px; /* Penyesuaian padding agar pas di background */
+    padding: 18px 24px 14px; /* Penyesuaian padding */
   }
 
-  /* ---------- Header ---------- */
-  .ktp-head{ 
+  /* ---------- Header (Provinsi & Kabupaten) ---------- */
+  .ktp-head { 
     text-align: center; 
-    line-height: 1.2; 
+    line-height: 1.15; 
     margin-bottom: 12px;
-    margin-top: 4px;
+    margin-top: 2px;
   }
-  .ktp-head .line{
-    font-size: 18px;
+  .ktp-head .line {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 17px; /* ~12.75pt */
     font-weight: bold;
-    letter-spacing: .5px;
+    letter-spacing: 0.5px;
     white-space: pre;
     color: #000;
   }
 
   /* ---------- Baris NIK ---------- */
-  .ktp-nik{
+  .ktp-nik {
     display: flex; align-items: center;
     margin: 0 0 10px 0;
-    font-size: 20px; /* NIK dibuat lebih besar sesuai gambar */
+    font-size: 19px; /* ~14pt */
     font-weight: bold;
-    letter-spacing: 1px;
   }
-  .ktp-nik .label { flex: 0 0 60px; font-weight: bold; letter-spacing: 2px;}
-  .ktp-nik .colon { flex: 0 0 20px; text-align: center; font-weight: bold;}
+  .ktp-nik .label { 
+    flex: 0 0 65px; 
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 900; 
+    letter-spacing: 3px;
+  }
+  .ktp-nik .colon { 
+    flex: 0 0 25px; 
+    text-align: center; 
+    font-weight: 900;
+  }
   .ktp-nik .value { 
     flex: 1; 
-    font-family: 'Courier New', Courier, monospace; 
+    /* Font OCR-A Extended jika tersedia, fallback ke Courier New */
+    font-family: 'OCR A Extended', 'Courier New', Courier, monospace; 
     font-weight: 900; 
-    letter-spacing: 3px; /* Jarak antar angka NIK */
+    letter-spacing: 1.5px; /* Jarak antar angka NIK */
   }
 
   /* ---------- Body: data kiri + foto kanan ---------- */
-  .ktp-body{ display: flex; gap: 15px; flex: 1; min-height: 0; }
+  .ktp-body { display: flex; gap: 12px; flex: 1; min-height: 0; }
 
-  .ktp-data{ flex: 1; min-width: 0; padding-right: 5px; }
+  .ktp-data { flex: 1; min-width: 0; padding-right: 5px; }
 
-  .row{
+  /* ---------- Baris Data Diri ---------- */
+  .row {
     display: flex; align-items: baseline;
-    font-size: 13px; /* Ukuran font data disesuaikan */
-    line-height: 1.6; 
-    letter-spacing: 0px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10.5px; /* ~7.8pt */
+    line-height: 1.48; 
+    letter-spacing: 0.2px;
     color: #000;
+    margin-bottom: 1px;
   }
-  .row .lbl{ flex: 0 0 120px; font-weight: normal;}
-  .row .sep{ flex: 0 0 15px; text-align: center;}
-  .row .val{
+  
+  /* Label tidak di-bold, Value di-bold (sesuai gambar referensi) */
+  .row .lbl { flex: 0 0 125px; font-weight: normal;}
+  .row .sep { flex: 0 0 15px; text-align: center;}
+  .row .val {
     flex: 1; min-width: 0;
     text-transform: uppercase;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    font-weight: bold;
+    font-weight: bold; /* Data diri menggunakan Arial Bold */
   }
 
   /* Indentasi Khusus untuk RT/RW, Kel/Desa, Kecamatan */
@@ -101,19 +116,19 @@
   }
 
   /* Baris gabungan: Jenis Kelamin + Golongan Darah */
-  .row-split { display: flex; width: 100%; }
+  .row-split { display: flex; width: 100%; margin-bottom: 1px;}
   .row-split .left { display: flex; flex: 1; }
-  .row-split .right { display: flex; flex: 0 0 130px; }
-  .row-split .lbl-gol{ flex: 0 0 65px; font-weight: normal;}
-  .row-split .val-gol{ flex: 1; font-weight: bold; text-transform: uppercase; }
+  .row-split .right { display: flex; flex: 0 0 140px; }
+  .row-split .lbl-gol { flex: 0 0 65px; font-weight: normal;}
+  .row-split .val-gol { flex: 1; font-weight: bold; text-transform: uppercase; }
 
   /* ---------- Kolom foto ---------- */
-  .ktp-photo-col{
+  .ktp-photo-col {
     flex: 0 0 135px; width: 135px;
     display: flex; flex-direction: column; align-items: center;
-    margin-top: 0px;
+    margin-top: 2px;
   }
-  .photo-box{
+  .photo-box {
     width: 135px; height: 175px;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
@@ -124,42 +139,46 @@
     text-align: center; line-height: 1.35;
     letter-spacing: .5px;
   }
-  .photo-box img{
+  .photo-box img {
     width: 100%; height: 100%;
     object-fit: cover;
     display: block;
   }
-  .photo-meta{
-    margin-top: 6px;
+  
+  /* Meta Foto (Kota & Tanggal) */
+  .photo-meta {
+    margin-top: 5px;
     text-align: center;
-    font-size: 12px;
-    line-height: 1.3;
-    font-weight: normal;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11.5px; /* ~8.6pt */
+    line-height: 1.25;
+    font-weight: bold;
     letter-spacing: .2px;
   }
-  .photo-meta .kota{ text-transform: uppercase; }
+  .photo-meta .kota { text-transform: uppercase; }
+  .photo-meta .tgl { font-weight: normal; }
   
   /* Tanda Tangan */
-  .sign{ 
-    width: 110px; height: 45px; 
-    margin-top: 4px;
-    margin-bottom: -10px;
+  .sign { 
+    width: 100px; height: 40px; 
+    margin-top: 2px;
+    margin-bottom: -8px;
   }
 
   /* ---------- Stage / scaler responsif ---------- */
-  .ktp-stage{ width: 100%; overflow: hidden; }
-  #ktpScaler{ transform-origin: top left; }
+  .ktp-stage { width: 100%; overflow: hidden; }
+  #ktpScaler { transform-origin: top left; }
 
   /* ---------- Loader overlay ---------- */
-  #loader{ position: fixed; inset: 0; z-index: 60; }
-  .spinner{
+  #loader { position: fixed; inset: 0; z-index: 60; }
+  .spinner {
     width: 42px; height: 42px;
     border: 4px solid rgba(255,255,255,.25);
     border-top-color: #fff;
     border-radius: 50%;
     animation: spin .8s linear infinite;
   }
-  @keyframes spin{ to{ transform: rotate(360deg); } }
+  @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 
@@ -374,7 +393,7 @@
                 <!-- Header Provinsi / Kabupaten -->
                 <div class="ktp-head">
                   <div class="line">PROVINSI <span id="p-provinsi">DKI JAKARTA</span></div>
-                  <div class="line"><span id="p-kab-prefix"></span><span id="p-kabupaten">JAKARTA SELATAN</span></div>
+                  <div class="line"><span id="p-kabupaten">JAKARTA SELATAN</span></div>
                 </div>
 
                 <!-- NIK -->
@@ -406,7 +425,7 @@
                         <span class="val" id="p-jenisKelamin">LAKI-LAKI</span>
                       </div>
                       <div class="right row">
-                        <span class="lbl-gol">Gol. Darah</span><span class="sep">:</span>
+                        <span class="lbl-gol">Gol.Darah</span><span class="sep">:</span>
                         <span class="val-gol" id="p-golDarah">-</span>
                       </div>
                     </div>
@@ -461,7 +480,7 @@
                   <!-- Foto + tanda tangan -->
                   <div class="ktp-photo-col">
                     <div class="photo-box" id="photoBox">
-                      <span id="photoPlaceholder" style="display:none;">FOTO<br>3 &times; 4</span>
+                      <span id="photoPlaceholder">FOTO<br>3 &times; 4</span>
                       <img id="photoImg" alt="Foto" style="display:none;" />
                     </div>
 
@@ -515,7 +534,6 @@
   const fields         = document.querySelectorAll('[data-field]');
   const nikEl          = document.getElementById('nik');
   const fotoEl         = document.getElementById('foto');
-  const photoBox       = document.getElementById('photoBox');
   const photoImg       = document.getElementById('photoImg');
   const photoPlaceholder = document.getElementById('photoPlaceholder');
   const btnDownload    = document.getElementById('btnDownload');
@@ -557,9 +575,6 @@
     if (key === 'kabupaten') {
       const upper = el.value.trim().toUpperCase();
       
-      // Menghilangkan prefix KOTA/KABUPATEN pada judul atas
-      document.getElementById('p-kab-prefix').textContent = '';
-      
       // Teks di bawah foto (Kota penerbit)
       let kotaText = upper.replace('KOTA ', '').replace('KABUPATEN ADMINISTRASI ', '').replace('KABUPATEN ', '');
       document.getElementById('p-kota').textContent = kotaText || 'JAKARTA';
@@ -570,7 +585,6 @@
      4. FORMAT NIK (Hanya angka, tanpa spasi otomatis)
      ======================================================================= */
   nikEl.addEventListener('input', function () {
-    // Hanya menerima angka, maksimal 16 digit
     this.value = this.value.replace(/\D/g, '').slice(0, 16);
   });
 
@@ -687,10 +701,11 @@
     document.getElementById('kecamatan').value = "PANCORAN";
     document.getElementById('pekerjaan').value = "KARYAWAN SWASTA";
 
-    // Hapus foto
+    // Hapus foto & kembalikan placeholder
+    fotoEl.value = ''; 
     photoImg.src = '';
     photoImg.style.display = 'none';
-    photoPlaceholder.style.display = 'none'; // Tetap sembunyikan karena background merah solid
+    photoPlaceholder.style.display = 'block';
 
     fields.forEach(function (el) { syncField(el); });
   });
