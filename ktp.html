@@ -1,1078 +1,703 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Indonesian Identity Card Simulator</title>
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Generator KTP Interaktif — Preview & Download</title>
 
-        :root {
-            /* Light Theme */
-            --bg-body: #f3f4f6;
-            --bg-surface: #ffffff;
-            --bg-sidebar: #ffffff;
-            --text-main: #111827;
-            --text-muted: #6b7280;
-            --border-color: #e5e7eb;
-            --primary: #4f46e5;
-            --primary-hover: #4338ca;
-            --danger: #ef4444;
-            --danger-hover: #dc2626;
-            --success: #10b981;
-            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-            --radius: 12px;
-        }
+<!-- ============ LIBRARY CDN ============ -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
 
-        [data-theme="dark"] {
-            --bg-body: #0f172a;
-            --bg-surface: #1e293b;
-            --bg-sidebar: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --border-color: #334155;
-            --primary: #6366f1;
-            --primary-hover: #818cf8;
-        }
+<style>
+  /* =====================================================================
+     CSS KHUSUS KARTU KTP
+     (sengaja dipisah dari Tailwind agar render html2canvas 100% konsisten)
+     ===================================================================== */
+  .ktp{
+    position: relative;
+    width: 640px;               /* rasio 1.586 : 1  ->  640 x 403 */
+    height: 403px;
+    overflow: hidden;
+    border-radius: 8px;
+    border: 1px solid rgba(30,64,175,.20);
+    background: linear-gradient(150deg,#eaf3fd 0%, #d5e7f8 45%, #e4f1fd 100%);
+    font-family: Arial, Helvetica, "Segoe UI", sans-serif;
+    color: #111827;
+    box-shadow: 0 18px 40px -14px rgba(15,23,42,.45);
+    user-select: none;
+  }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            display: flex;
-            min-height: 100vh;
-            transition: background-color 0.3s, color 0.3s;
-            overflow-x: hidden;
-        }
+  /* ---------- Watermark diagonal "KARTU TANDA PENDUDUK" ---------- */
+  .ktp-watermark{
+    position: absolute;
+    top: -170px; left: -150px;
+    width: 1000px; height: 760px;
+    display: flex; flex-wrap: wrap;
+    gap: 16px 20px;
+    align-content: center; justify-content: center;
+    transform: rotate(-28deg);
+    pointer-events: none;
+    opacity: .055;
+    color: #1e40af;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    z-index: 0;
+  }
+  .ktp-watermark span{ white-space: nowrap; }
 
-        /* Sidebar */
-        .sidebar {
-            width: 280px;
-            background-color: var(--bg-sidebar);
-            border-right: 1px solid var(--border-color);
-            padding: 24px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            height: 100vh;
-            position: fixed;
-            overflow-y: auto;
-            z-index: 10;
-            transition: transform 0.3s;
-        }
+  /* ---------- Konten kartu ---------- */
+  .ktp-inner{
+    position: relative; z-index: 1;
+    display: flex; flex-direction: column;
+    height: 100%;
+    padding: 12px 18px 10px;
+  }
 
-        .logo {
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+  /* ---------- Header ---------- */
+  .ktp-head{ text-align: center; line-height: 1.25; }
+  .ktp-head .line{
+    font-size: 15.5px;
+    font-weight: 800;
+    letter-spacing: .6px;
+    white-space: pre;
+  }
 
-        .sidebar-section {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+  /* ---------- Baris NIK ---------- */
+  .ktp-nik{
+    display: flex; align-items: baseline; gap: 8px;
+    margin: 6px 0 5px;
+    font-size: 15px;
+    font-weight: 800;
+    letter-spacing: .6px;
+  }
 
-        .sidebar-title {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            font-weight: 600;
-            color: var(--text-muted);
-        }
+  /* ---------- Body: data kiri + foto kanan ---------- */
+  .ktp-body{ display: flex; gap: 16px; flex: 1; min-height: 0; }
 
-        .btn {
-            padding: 10px 16px;
-            border-radius: 8px;
-            border: none;
-            font-weight: 500;
-            font-size: 0.875rem;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: all 0.2s;
-            width: 100%;
-        }
+  .ktp-data{ flex: 1; min-width: 0; padding-right: 4px; }
 
-        .btn-primary { background: var(--primary); color: white; }
-        .btn-primary:hover { background: var(--primary-hover); }
-        .btn-outline { background: transparent; border: 1px solid var(--border-color); color: var(--text-main); }
-        .btn-outline:hover { background: var(--bg-body); }
-        .btn-danger { background: var(--danger); color: white; }
-        .btn-danger:hover { background: var(--danger-hover); }
-        .btn-sm { padding: 6px 12px; font-size: 0.75rem; }
+  .row{
+    display: flex; align-items: baseline;
+    font-size: 12.5px;
+    line-height: 1.9;
+    letter-spacing: .15px;
+  }
+  .row .lbl{ flex: 0 0 108px; color: #1f2937; }
+  .row .sep{ flex: 0 0 12px; }
+  .row .val{
+    flex: 1; min-width: 0;
+    text-transform: uppercase;
+    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  /* baris gabungan: Jenis Kelamin + Golongan Darah */
+  .row .lbl-gol{ flex: 0 0 84px; margin-left: 10px; color: #1f2937; }
+  .row .val-gol{ flex: 0 0 22px; font-weight: 800; text-transform: uppercase; }
 
-        /* Main Content */
-        .main-content {
-            margin-left: 280px;
-            flex: 1;
-            padding: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 24px;
-            max-width: 1400px;
-        }
+  /* ---------- Kolom foto ---------- */
+  .ktp-photo-col{
+    flex: 0 0 126px; width: 126px;
+    display: flex; flex-direction: column; align-items: center;
+  }
+  .photo-box{
+    width: 126px; height: 168px;            /* rasio 3 : 4 */
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+    background: #d92c2c;                    /* merah saat belum ada foto */
+    border: 1px solid rgba(0,0,0,.20);
+    box-shadow: 2px 3px 7px rgba(15,23,42,.35);
+    color: #fff;
+    font-size: 11px; font-weight: 700;
+    text-align: center; line-height: 1.35;
+    letter-spacing: .5px;
+  }
+  .photo-box img{
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .photo-meta{
+    margin-top: 4px;
+    text-align: center;
+    font-size: 9.5px;
+    line-height: 1.4;
+    letter-spacing: .4px;
+  }
+  .photo-meta .kota{ font-weight: 700; text-transform: uppercase; }
+  .sign{ width: 96px; height: 34px; margin-top: 1px; }
 
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+  /* ---------- Stage / scaler responsif ---------- */
+  .ktp-stage{ width: 100%; overflow: hidden; }
+  #ktpScaler{ transform-origin: top left; }
 
-        .header h1 { font-size: 1.5rem; font-weight: 600; }
+  /* ---------- Loader overlay ---------- */
+  #loader{ position: fixed; inset: 0; z-index: 60; }
 
-        .grid-layout {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 32px;
-            align-items: start;
-        }
-
-        /* Form Styles */
-        .card {
-            background: var(--bg-surface);
-            border-radius: var(--radius);
-            padding: 24px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border-color);
-        }
-
-        .form-group { margin-bottom: 16px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-        .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
-        
-        label {
-            display: block;
-            font-size: 0.875rem;
-            font-weight: 500;
-            margin-bottom: 6px;
-            color: var(--text-muted);
-        }
-
-        input[type="text"], input[type="date"], select {
-            width: 100%;
-            padding: 10px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-body);
-            color: var(--text-main);
-            font-family: inherit;
-            font-size: 0.875rem;
-            transition: border-color 0.2s;
-        }
-
-        input:focus, select:focus {
-            outline: none;
-            border-color: var(--primary);
-        }
-
-        /* Image Upload */
-        .upload-area {
-            border: 2px dashed var(--border-color);
-            border-radius: var(--radius);
-            padding: 32px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s;
-            background: var(--bg-body);
-        }
-        .upload-area:hover { border-color: var(--primary); background: var(--bg-surface); }
-        .upload-area p { color: var(--text-muted); font-size: 0.875rem; margin-top: 8px; }
-        
-        .image-controls {
-            display: none;
-            flex-direction: column;
-            gap: 12px;
-            margin-top: 16px;
-        }
-        .image-controls.active { display: flex; }
-        .control-row { display: flex; align-items: center; gap: 12px; }
-        .control-row input[type="range"] { flex: 1; }
-        .control-row span { font-size: 0.75rem; width: 40px; text-align: right; }
-
-        /* Canvas Preview */
-        .preview-container {
-            position: sticky;
-            top: 32px;
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-        }
-
-        .canvas-wrapper {
-            width: 100%;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-md);
-            background: #e5e7eb; /* Fallback */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 16px;
-            position: relative;
-            min-height: 300px;
-        }
-
-        canvas {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: var(--shadow-lg);
-            display: block;
-        }
-
-        .export-actions {
-            display: flex;
-            gap: 12px;
-        }
-
-        /* Color Picker */
-        .color-picker-wrap {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        input[type="color"] {
-            -webkit-appearance: none;
-            border: none;
-            width: 32px;
-            height: 32px;
-            padding: 0;
-            border-radius: 50%;
-            overflow: hidden;
-            cursor: pointer;
-        }
-        input[type="color"]::-webkit-color-swatch-wrapper { padding: 0; }
-        input[type="color"]::-webkit-color-swatch { border: none; border-radius: 50%; }
-
-        /* Mobile */
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-main);
-            cursor: pointer;
-        }
-
-        @media (max-width: 1024px) {
-            .grid-layout { grid-template-columns: 1fr; }
-            .preview-container { position: relative; top: 0; }
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-                box-shadow: var(--shadow-lg);
-            }
-            .sidebar.open { transform: translateX(0); }
-            .main-content { margin-left: 0; padding: 16px; }
-            .mobile-menu-btn { display: block; }
-            .form-row, .form-row-3 { grid-template-columns: 1fr; }
-        }
-    </style>
+  /* ---------- Spinner ---------- */
+  .spinner{
+    width: 42px; height: 42px;
+    border: 4px solid rgba(255,255,255,.25);
+    border-top-color: #fff;
+    border-radius: 50%;
+    animation: spin .8s linear infinite;
+  }
+  @keyframes spin{ to{ transform: rotate(360deg); } }
+</style>
 </head>
-<body data-theme="light">
 
-    <!-- Sidebar -->
-    <aside class="sidebar" id="sidebar">
-        <div class="logo">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="16" rx="2" ry="2"></rect><line x1="3" y1="10" x2="21" y2="10"></line><line x1="7" y1="15" x2="7" y2="15"></line><line x1="11" y1="15" x2="11" y2="15"></line><line x1="15" y1="15" x2="15" y2="15"></line></svg>
-            ID Simulator
+<body class="min-h-screen bg-gradient-to-br from-slate-100 via-blue-50 to-slate-200 text-slate-800 antialiased">
+
+<!-- ================= HEADER HALAMAN ================= -->
+<header class="mx-auto max-w-7xl px-4 pt-8 pb-4 text-center">
+  <h1 class="text-2xl font-extrabold tracking-tight text-slate-800 sm:text-3xl">
+    Generator <span class="text-blue-600">KTP</span> Interaktif
+  </h1>
+  <p class="mt-2 text-sm text-slate-500">
+    Isi data identitas &rarr; preview KTP ter-update real-time &rarr; unduh sebagai gambar PNG.
+  </p>
+</header>
+
+<!-- ================= KONTEN UTAMA ================= -->
+<main class="mx-auto max-w-7xl px-4 pb-16">
+  <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
+
+    <!-- ============================================================
+         KOLOM KIRI : FORM INPUT
+         ============================================================ -->
+    <section class="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+      <div class="mb-5 flex items-center gap-2">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">1</span>
+        <h2 class="text-lg font-bold text-slate-800">Data Identitas</h2>
+      </div>
+
+      <form id="ktpForm" autocomplete="off" class="space-y-4">
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+          <!-- Provinsi -->
+          <div>
+            <label for="provinsi" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Provinsi</label>
+            <input id="provinsi" data-field="provinsi" type="text" value="JAWA BARAT"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Kabupaten / Kota -->
+          <div>
+            <label for="kabupaten" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kabupaten / Kota</label>
+            <input id="kabupaten" data-field="kabupaten" type="text" value="CIANJUR"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- NIK -->
+          <div class="sm:col-span-2">
+            <label for="nik" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">NIK (16 digit)</label>
+            <input id="nik" data-field="nik" type="text" inputmode="numeric" maxlength="19"
+                   value="3203 0125 0377 0011" placeholder="3203 0125 0377 0011"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm tracking-widest text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            <p class="mt-1 text-[11px] text-slate-400">Spasi otomatis setiap 4 digit.</p>
+          </div>
+
+          <!-- Nama -->
+          <div class="sm:col-span-2">
+            <label for="nama" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Nama Lengkap</label>
+            <input id="nama" data-field="nama" type="text" value="BUDI SANTOSO"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Tempat / Tgl Lahir -->
+          <div class="sm:col-span-2">
+            <label for="ttl" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Tempat / Tanggal Lahir</label>
+            <input id="ttl" data-field="ttl" type="text" value="CIANJUR, 12-05-1995"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Jenis Kelamin -->
+          <div>
+            <label for="jenisKelamin" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Jenis Kelamin</label>
+            <select id="jenisKelamin" data-field="jenisKelamin"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <option value="LAKI-LAKI">Laki-laki</option>
+              <option value="PEREMPUAN">Perempuan</option>
+            </select>
+          </div>
+
+          <!-- Golongan Darah -->
+          <div>
+            <label for="golDarah" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Golongan Darah</label>
+            <select id="golDarah" data-field="golDarah"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <option value="-">-</option>
+              <option value="A">A</option>
+              <option value="B">B</option>
+              <option value="AB">AB</option>
+              <option value="O" selected>O</option>
+            </select>
+          </div>
+
+          <!-- Alamat -->
+          <div class="sm:col-span-2">
+            <label for="alamat" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Alamat</label>
+            <input id="alamat" data-field="alamat" type="text" value="JL. MERDEKA NO. 12"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- RT/RW -->
+          <div>
+            <label for="rtRw" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">RT / RW</label>
+            <input id="rtRw" data-field="rtRw" type="text" value="001/002"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Kel / Desa -->
+          <div>
+            <label for="kelDesa" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kelurahan / Desa</label>
+            <input id="kelDesa" data-field="kelDesa" type="text" value="SUKAMAJU"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Kecamatan -->
+          <div>
+            <label for="kecamatan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kecamatan</label>
+            <input id="kecamatan" data-field="kecamatan" type="text" value="CIANJUR"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Agama -->
+          <div>
+            <label for="agama" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Agama</label>
+            <select id="agama" data-field="agama"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <option>ISLAM</option>
+              <option>KRISTEN</option>
+              <option>KATOLIK</option>
+              <option>HINDU</option>
+              <option>BUDDHA</option>
+              <option>KONGHUCU</option>
+            </select>
+          </div>
+
+          <!-- Status Perkawinan -->
+          <div>
+            <label for="statusPerkawinan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Status Perkawinan</label>
+            <select id="statusPerkawinan" data-field="statusPerkawinan"
+                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+              <option>BELUM KAWIN</option>
+              <option>KAWIN</option>
+              <option>CERAI HIDUP</option>
+              <option>CERAI MATI</option>
+            </select>
+          </div>
+
+          <!-- Pekerjaan -->
+          <div>
+            <label for="pekerjaan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Pekerjaan</label>
+            <input id="pekerjaan" data-field="pekerjaan" type="text" value="KARYAWAN SWASTA"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Kewarganegaraan -->
+          <div>
+            <label for="kewarganegaraan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kewarganegaraan</label>
+            <input id="kewarganegaraan" data-field="kewarganegaraan" type="text" value="WNI"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Berlaku Hingga -->
+          <div>
+            <label for="berlakuHingga" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Berlaku Hingga</label>
+            <input id="berlakuHingga" data-field="berlakuHingga" type="text" value="SEUMUR HIDUP"
+                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm text-slate-800 shadow-sm outline-none transition placeholder:text-slate-400 focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+          </div>
+
+          <!-- Foto -->
+          <div class="sm:col-span-2">
+            <label for="foto" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Foto (rasio 3&times;4)</label>
+            <input id="foto" type="file" accept="image/*"
+                   class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200" />
+            <p class="mt-1 text-[11px] text-slate-400">Format JPG / PNG. Foto akan otomatis menyesuaikan kotak.</p>
+          </div>
         </div>
 
-        <div class="sidebar-section">
-            <span class="sidebar-title">Pengaturan Desain</span>
-            <div class="form-group">
-                <label>Warna Tema Kartu</label>
-                <div class="color-picker-wrap">
-                    <input type="color" id="cardColor" value="#0284c7" title="Warna Utama">
-                    <span style="font-size: 0.875rem; color: var(--text-muted);">Ubah Warna Dasar</span>
+        <!-- Tombol Aksi -->
+        <div class="flex flex-col gap-3 pt-2 sm:flex-row">
+          <button id="btnDownload" type="button"
+                  class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:cursor-not-allowed disabled:opacity-60">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
+            </svg>
+            Generate / Download KTP
+          </button>
+          <button id="btnReset" type="button"
+                  class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200">
+            Reset
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <!-- ============================================================
+         KOLOM KANAN : LIVE PREVIEW KTP
+         ============================================================ -->
+    <section class="lg:sticky lg:top-6 lg:self-start">
+      <div class="mb-3 flex items-center gap-2">
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-sm font-bold text-white">2</span>
+        <h2 class="text-lg font-bold text-slate-800">Live Preview</h2>
+        <span class="ml-auto inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-200">
+          <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500"></span> Real-time
+        </span>
+      </div>
+
+      <div class="rounded-2xl bg-white p-4 shadow-xl ring-1 ring-slate-200 sm:p-6">
+        <!-- Stage tempat kartu di-scale agar responsif -->
+        <div class="ktp-stage" id="ktpStage">
+          <div id="ktpScaler">
+
+            <!-- ================== KARTU KTP ================== -->
+            <div class="ktp" id="ktpCard">
+
+              <!-- Watermark (diisi otomatis oleh JS) -->
+              <div class="ktp-watermark" id="watermark" aria-hidden="true"></div>
+
+              <div class="ktp-inner">
+
+                <!-- Header Provinsi / Kabupaten -->
+                <div class="ktp-head">
+                  <div class="line">PROVINSI <span id="p-provinsi">JAWA BARAT</span></div>
+                  <div class="line"><span id="p-kab-prefix">KABUPATEN </span><span id="p-kabupaten">CIANJUR</span></div>
                 </div>
-            </div>
-            <div class="form-group">
-                <label>Orientasi Kartu</label>
-                <select id="orientation">
-                    <option value="landscape">Landscape (Mendatar)</option>
-                    <option value="portrait">Portrait (Tegak)</option>
-                </select>
-            </div>
-            <button class="btn btn-outline btn-sm" onclick="app.resetDesign()">Reset Desain</button>
+
+                <!-- NIK -->
+                <div class="ktp-nik">
+                  <span>NIK</span>
+                  <span>:</span>
+                  <span id="p-nik">3203 0125 0377 0011</span>
+                </div>
+
+                <!-- Body -->
+                <div class="ktp-body">
+
+                  <!-- Data kiri -->
+                  <div class="ktp-data">
+                    <div class="row">
+                      <span class="lbl">Nama</span><span class="sep">:</span>
+                      <span class="val" id="p-nama">BUDI SANTOSO</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Tempat/Tgl Lahir</span><span class="sep">:</span>
+                      <span class="val" id="p-ttl">CIANJUR, 12-05-1995</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Jenis Kelamin</span><span class="sep">:</span>
+                      <span class="val" id="p-jenisKelamin">LAKI-LAKI</span>
+                      <span class="lbl-gol">Golongan Darah</span><span class="sep">:</span>
+                      <span class="val-gol" id="p-golDarah">O</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Alamat</span><span class="sep">:</span>
+                      <span class="val" id="p-alamat">JL. MERDEKA NO. 12</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">RT/RW</span><span class="sep">:</span>
+                      <span class="val" id="p-rtRw">001/002</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Kel/Desa</span><span class="sep">:</span>
+                      <span class="val" id="p-kelDesa">SUKAMAJU</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Kecamatan</span><span class="sep">:</span>
+                      <span class="val" id="p-kecamatan">CIANJUR</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Agama</span><span class="sep">:</span>
+                      <span class="val" id="p-agama">ISLAM</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Status Perkawinan</span><span class="sep">:</span>
+                      <span class="val" id="p-statusPerkawinan">BELUM KAWIN</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Pekerjaan</span><span class="sep">:</span>
+                      <span class="val" id="p-pekerjaan">KARYAWAN SWASTA</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Kewarganegaraan</span><span class="sep">:</span>
+                      <span class="val" id="p-kewarganegaraan">WNI</span>
+                    </div>
+
+                    <div class="row">
+                      <span class="lbl">Berlaku Hingga</span><span class="sep">:</span>
+                      <span class="val" id="p-berlakuHingga">SEUMUR HIDUP</span>
+                    </div>
+                  </div>
+
+                  <!-- Foto + tanda tangan -->
+                  <div class="ktp-photo-col">
+                    <div class="photo-box" id="photoBox">
+                      <span id="photoPlaceholder">FOTO<br>3 &times; 4</span>
+                      <img id="photoImg" alt="Foto" style="display:none;" />
+                    </div>
+
+                    <div class="photo-meta">
+                      <div class="kota" id="p-kota">CIANJUR</div>
+                      <div class="tgl" id="p-tanggal">01-01-2025</div>
+
+                      <!-- Tanda tangan palsu (opsional) -->
+                      <svg class="sign" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M8 31 C 20 6, 30 6, 32 20 C 34 31, 25 35, 30 25 C 37 10, 48 9, 52 22 C 55 32, 47 34, 54 23 C 62 8, 74 11, 78 24 C 81 33, 73 34, 80 21 C 88 6, 100 13, 106 27"
+                              fill="none" stroke="#1d4ed8" stroke-width="2"
+                              stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </div>
+                  </div>
+
+                </div><!-- /ktp-body -->
+              </div><!-- /ktp-inner -->
+            </div><!-- /ktp -->
+            <!-- ================== /KARTU KTP ================== -->
+
+          </div>
         </div>
 
-        <div class="sidebar-section">
-            <span class="sidebar-title">Manajemen Data</span>
-            <button class="btn btn-outline" onclick="app.saveProject()">💾 Simpan Project</button>
-            <button class="btn btn-outline" onclick="app.loadProject()">📂 Load Project</button>
-            <div style="display: flex; gap: 8px;">
-                <button class="btn btn-outline btn-sm" onclick="app.exportJSON()">Export JSON</button>
-                <button class="btn btn-outline btn-sm" onclick="document.getElementById('importJson').click()">Import JSON</button>
-            </div>
-            <input type="file" id="importJson" accept=".json" style="display: none;" onchange="app.importJSON(event)">
-            <button class="btn btn-danger btn-sm" onclick="app.clearAll()">🗑️ Clear Data</button>
-        </div>
-
-        <div class="sidebar-section" style="margin-top: auto;">
-            <button class="btn btn-outline" onclick="app.toggleTheme()" id="themeToggle">🌙 Mode Gelap</button>
-        </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="main-content">
-        <header class="header">
-            <div style="display: flex; align-items: center; gap: 16px;">
-                <button class="mobile-menu-btn" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button>
-                <h1>KTP Simulator</h1>
-            </div>
-            <div style="font-size: 0.875rem; color: var(--text-muted);">*Data disimpan lokal di browser</div>
-        </header>
-
-        <div class="grid-layout">
-            <!-- Kolom Kiri: Form -->
-            <div style="display: flex; flex-direction: column; gap: 24px;">
-                
-                <!-- Form Identitas -->
-                <div class="card">
-                    <h2 style="font-size: 1.125rem; margin-bottom: 20px;">Data Identitas</h2>
-                    
-                    <div class="form-group">
-                        <label for="nik">NIK (Simulasi)</label>
-                        <input type="text" id="nik" maxlength="16" placeholder="16 Digit Angka" oninput="app.updateState('nik', this.value)">
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="nama">Nama Lengkap</label>
-                            <input type="text" id="nama" placeholder="Sesuai KTP" oninput="app.updateState('nama', this.value)">
-                        </div>
-                        <div class="form-group">
-                            <label for="jenisKelamin">Jenis Kelamin</label>
-                            <select id="jenisKelamin" onchange="app.updateState('jenisKelamin', this.value)">
-                                <option value="LAKI-LAKI">LAKI-LAKI</option>
-                                <option value="PEREMPUAN">PEREMPUAN</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="tempatLahir">Tempat Lahir</label>
-                            <input type="text" id="tempatLahir" placeholder="Kota/Kabupaten" oninput="app.updateState('tempatLahir', this.value)">
-                        </div>
-                        <div class="form-group">
-                            <label for="tanggalLahir">Tanggal Lahir</label>
-                            <input type="date" id="tanggalLahir" onchange="app.updateState('tanggalLahir', this.value)">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="golonganDarah">Golongan Darah</label>
-                            <select id="golonganDarah" onchange="app.updateState('golonganDarah', this.value)">
-                                <option value="-">-</option>
-                                <option value="A">A</option>
-                                <option value="B">B</option>
-                                <option value="AB">AB</option>
-                                <option value="O">O</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="agama">Agama</label>
-                            <select id="agama" onchange="app.updateState('agama', this.value)">
-                                <option value="ISLAM">ISLAM</option>
-                                <option value="KRISTEN">KRISTEN</option>
-                                <option value="KATOLIK">KATOLIK</option>
-                                <option value="HINDU">HINDU</option>
-                                <option value="BUDHA">BUDHA</option>
-                                <option value="KONGHUCU">KONGHUCU</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="alamat">Alamat Lengkap</label>
-                        <input type="text" id="alamat" placeholder="Jalan, No. Rumah" oninput="app.updateState('alamat', this.value)">
-                    </div>
-
-                    <div class="form-row-3">
-                        <div class="form-group">
-                            <label for="rt">RT</label>
-                            <input type="text" id="rt" maxlength="3" placeholder="001" oninput="app.updateState('rt', this.value)">
-                        </div>
-                        <div class="form-group">
-                            <label for="rw">RW</label>
-                            <input type="text" id="rw" maxlength="3" placeholder="002" oninput="app.updateState('rw', this.value)">
-                        </div>
-                        <div class="form-group">
-                            <label for="kelurahan">Kelurahan/Desa</label>
-                            <input type="text" id="kelurahan" placeholder="Nama Kelurahan" oninput="app.updateState('kelurahan', this.value)">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="kecamatan">Kecamatan</label>
-                            <input type="text" id="kecamatan" placeholder="Nama Kecamatan" oninput="app.updateState('kecamatan', this.value)">
-                        </div>
-                        <div class="form-group">
-                            <label for="kota">Kota/Kabupaten</label>
-                            <input type="text" id="kota" placeholder="Nama Kota" oninput="app.updateState('kota', this.value)">
-                        </div>
-                    </div>
-
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="provinsi">Provinsi</label>
-                            <input type="text" id="provinsi" placeholder="Nama Provinsi" oninput="app.updateState('provinsi', this.value)">
-                        </div>
-                        <div class="form-group">
-                            <label for="kodePos">Kode Pos</label>
-                            <input type="text" id="kodePos" maxlength="5" placeholder="12345" oninput="app.updateState('kodePos', this.value)">
-                        </div>
-                    </div>
-
-                    <div class="form-row-3">
-                        <div class="form-group">
-                            <label for="statusPerkawinan">Status Perkawinan</label>
-                            <select id="statusPerkawinan" onchange="app.updateState('statusPerkawinan', this.value)">
-                                <option value="BELUM KAWIN">BELUM KAWIN</option>
-                                <option value="KAWIN">KAWIN</option>
-                                <option value="CERAI HIDUP">CERAI HIDUP</option>
-                                <option value="CERAI MATI">CERAI MATI</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label for="pekerjaan">Pekerjaan</label>
-                            <input type="text" id="pekerjaan" placeholder="Pekerjaan" oninput="app.updateState('pekerjaan', this.value)">
-                        </div>
-                        <div class="form-group">
-                            <label for="kewarganegaraan">Kewarganegaraan</label>
-                            <input type="text" id="kewarganegaraan" value="WNI" oninput="app.updateState('kewarganegaraan', this.value)">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="berlakuHingga">Berlaku Hingga</label>
-                        <input type="text" id="berlakuHingga" value="SEUMUR HIDUP" oninput="app.updateState('berlakuHingga', this.value)">
-                    </div>
-                </div>
-
-                <!-- Foto Upload -->
-                <div class="card">
-                    <h2 style="font-size: 1.125rem; margin-bottom: 20px;">Foto Identitas</h2>
-                    <div class="upload-area" id="uploadArea" onclick="document.getElementById('fileInput').click()">
-                        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="var(--text-muted)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom: 12px;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-                        <h3 style="font-size: 1rem; margin-bottom: 4px;">Klik atau Drag & Drop</h3>
-                        <p>Format JPG, PNG, WEBP</p>
-                    </div>
-                    <input type="file" id="fileInput" accept="image/jpeg, image/png, image/webp" style="display: none;" onchange="app.handleImageUpload(event)">
-                    
-                    <div class="image-controls" id="imageControls">
-                        <div class="form-row">
-                            <div class="control-row">
-                                <label style="margin:0; width: 40px;">Zoom</label>
-                                <input type="range" id="imgZoom" min="1" max="3" step="0.1" value="1" oninput="app.updateImageTransform('zoom', this.value)">
-                                <span id="zoomVal">1x</span>
-                            </div>
-                            <div class="control-row">
-                                <label style="margin:0; width: 40px;">Rotate</label>
-                                <input type="range" id="imgRotate" min="-180" max="180" step="1" value="0" oninput="app.updateImageTransform('rotate', this.value)">
-                                <span id="rotateVal">0°</span>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="control-row">
-                                <label style="margin:0; width: 40px;">Pos X</label>
-                                <input type="range" id="imgPosX" min="-100" max="100" step="1" value="0" oninput="app.updateImageTransform('posX', this.value)">
-                            </div>
-                            <div class="control-row">
-                                <label style="margin:0; width: 40px;">Pos Y</label>
-                                <input type="range" id="imgPosY" min="-100" max="100" step="1" value="0" oninput="app.updateImageTransform('posY', this.value)">
-                            </div>
-                        </div>
-                        <button class="btn btn-outline btn-sm" onclick="app.removeImage()">Hapus Foto</button>
-                    </div>
-                </div>
-
-            </div>
-
-            <!-- Kolom Kanan: Preview & Export -->
-            <div class="preview-container">
-                <div class="card" style="padding: 16px;">
-                    <div class="canvas-wrapper" id="canvasWrapper">
-                        <canvas id="previewCanvas" width="856" height="540"></canvas>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <h3 style="font-size: 1rem; margin-bottom: 16px;">Export & Print</h3>
-                    <div class="export-actions">
-                        <button class="btn btn-primary" onclick="app.downloadImage('png')">Download PNG</button>
-                        <button class="btn btn-outline" onclick="app.downloadImage('jpeg')">Download JPG</button>
-                    </div>
-                    <div style="margin-top: 12px;">
-                        <button class="btn btn-outline" onclick="app.printCard()">🖨️ Print Preview</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
-
-    <script>
-        const app = (function() {
-            // State Management
-            const defaultState = {
-                nik: '3174081708790014',
-                nama: 'AGUS PUJIYONO',
-                tempatLahir: 'SEMARANG',
-                tanggalLahir: '1979-08-17',
-                jenisKelamin: 'LAKI-LAKI',
-                golonganDarah: '-',
-                alamat: 'JL SWADARMA 2 BLOK B NO 22',
-                rt: '001',
-                rw: '008',
-                kelurahan: 'KALIBATA',
-                kecamatan: 'PANCORAN',
-                kota: 'JAKARTA SELATAN',
-                provinsi: 'DKI JAKARTA',
-                kodePos: '12740',
-                agama: 'ISLAM',
-                statusPerkawinan: 'KAWIN',
-                pekerjaan: 'KARYAWAN SWASTA',
-                kewarganegaraan: 'WNI',
-                berlakuHingga: 'SEUMUR HIDUP',
-                cardColor: '#0284c7',
-                orientation: 'landscape'
-            };
-
-            let state = { ...defaultState };
-            let imageObj = null;
-            let imageTransform = {
-                zoom: 1,
-                rotate: 0,
-                posX: 0,
-                posY: 0
-            };
-
-            // DOM Elements
-            const canvas = document.getElementById('previewCanvas');
-            const ctx = canvas.getContext('2d');
-            const fileInput = document.getElementById('fileInput');
-            const uploadArea = document.getElementById('uploadArea');
-            const imageControls = document.getElementById('imageControls');
-
-            // --- Core Rendering ---
-            function draw() {
-                // Handle orientation
-                const isPortrait = state.orientation === 'portrait';
-                const width = isPortrait ? 540 : 856;
-                const height = isPortrait ? 856 : 540;
-                
-                canvas.width = width;
-                canvas.height = height;
-
-                // Background
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(0, 0, width, height);
-
-                // Card Base Background (Gradient / Pattern)
-                const gradient = ctx.createLinearGradient(0, 0, width, height);
-                gradient.addColorStop(0, '#f0f9ff');
-                gradient.addColorStop(1, '#e0f2fe');
-                ctx.fillStyle = gradient;
-                ctx.fillRect(0, 0, width, height);
-
-                // Decorative Shapes (Simulating security pattern)
-                ctx.fillStyle = 'rgba(2, 132, 199, 0.05)';
-                ctx.beginPath();
-                for(let i=0; i<width; i+=50) {
-                    ctx.arc(i, height, 100, 0, Math.PI, true);
-                }
-                ctx.fill();
-
-                // Header Background (Dynamic Color)
-                ctx.fillStyle = state.cardColor;
-                ctx.fillRect(0, 0, width, isPortrait ? 100 : 80);
-
-                // Header Text
-                ctx.fillStyle = '#ffffff';
-                ctx.textAlign = 'center';
-                ctx.font = 'bold 24px "Inter", Arial, sans-serif';
-                ctx.fillText(`PROVINSI ${state.provinsi.toUpperCase()}`, width / 2, isPortrait ? 40 : 35);
-                ctx.font = 'bold 20px "Inter", Arial, sans-serif';
-                ctx.fillText(`${state.kota.toUpperCase()}`, width / 2, isPortrait ? 70 : 65);
-
-                // NIK
-                ctx.textAlign = 'left';
-                ctx.fillStyle = '#000000';
-                ctx.font = 'bold 32px "Inter", Arial, sans-serif';
-                ctx.fillText('NIK', 40, isPortrait ? 140 : 130);
-                ctx.fillText(':', 120, isPortrait ? 140 : 130);
-                ctx.font = 'bold 32px "Courier New", monospace'; // Monospace for numbers
-                ctx.letterSpacing = "2px";
-                ctx.fillText(state.nik, 150, isPortrait ? 140 : 130);
-                ctx.letterSpacing = "0px";
-
-                // Photo Box
-                const photoWidth = isPortrait ? 200 : 160;
-                const photoHeight = isPortrait ? 266 : 213; // 3:4 ratio
-                const photoX = width - photoWidth - 40;
-                const photoY = isPortrait ? 170 : 150;
-                
-                // Photo Frame
-                ctx.fillStyle = '#e5e7eb';
-                ctx.fillRect(photoX - 2, photoY - 2, photoWidth + 4, photoHeight + 4);
-                ctx.fillStyle = '#ffffff';
-                ctx.fillRect(photoX, photoY, photoWidth, photoHeight);
-
-                // Draw Image
-                if (imageObj) {
-                    ctx.save();
-                    // Clip to photo box
-                    ctx.beginPath();
-                    ctx.rect(photoX, photoY, photoWidth, photoHeight);
-                    ctx.clip();
-
-                    // Calculate transformation
-                    const imgAspect = imageObj.width / imageObj.height;
-                    const boxAspect = photoWidth / photoHeight;
-                    
-                    let drawWidth = photoWidth;
-                    let drawHeight = photoHeight;
-                    
-                    if (imgAspect > boxAspect) {
-                        drawHeight = photoHeight;
-                        drawWidth = photoHeight * imgAspect;
-                    } else {
-                        drawWidth = photoWidth;
-                        drawHeight = photoWidth / imgAspect;
-                    }
-
-                    // Apply zoom
-                    drawWidth *= imageTransform.zoom;
-                    drawHeight *= imageTransform.zoom;
-
-                    // Center and apply pos offset
-                    const centerX = photoX + (photoWidth / 2);
-                    const centerY = photoY + (photoHeight / 2);
-                    
-                    const offsetX = (imageTransform.posX / 100) * (photoWidth / 2);
-                    const offsetY = (imageTransform.posY / 100) * (photoHeight / 2);
-
-                    ctx.translate(centerX + offsetX, centerY + offsetY);
-                    ctx.rotate(imageTransform.rotate * Math.PI / 180);
-                    
-                    ctx.drawImage(
-                        imageObj,
-                        -drawWidth / 2,
-                        -drawHeight / 2,
-                        drawWidth,
-                        drawHeight
-                    );
-                    ctx.restore();
-                } else {
-                    // Placeholder text
-                    ctx.fillStyle = '#9ca3af';
-                    ctx.font = '14px "Inter", sans-serif';
-                    ctx.textAlign = 'center';
-                    ctx.fillText('FOTO', photoX + photoWidth / 2, photoY + photoHeight / 2);
-                }
-
-                // Text Data Fields
-                const fields = [
-                    { label: 'Nama', value: state.nama },
-                    { label: 'Tempat/Tgl Lahir', value: `${state.tempatLahir}, ${formatDate(state.tanggalLahir)}` },
-                    { label: 'Jenis Kelamin', value: state.jenisKelamin, extra: `Gol. Darah: ${state.golonganDarah}` },
-                    { label: 'Alamat', value: state.alamat },
-                    { label: 'RT/RW', value: `${state.rt}/${state.rw}` },
-                    { label: 'Kel/Desa', value: state.kelurahan },
-                    { label: 'Kecamatan', value: state.kecamatan },
-                    { label: 'Agama', value: state.agama },
-                    { label: 'Status Perkawinan', value: state.statusPerkawinan },
-                    { label: 'Pekerjaan', value: state.pekerjaan },
-                    { label: 'Kewarganegaraan', value: state.kewarganegaraan },
-                    { label: 'Berlaku Hingga', value: state.berlakuHingga }
-                ];
-
-                let startY = isPortrait ? 200 : 180;
-                const lineHeight = 28;
-                const labelX = 40;
-                const valueX = 200;
-                const maxTextWidth = photoX - valueX - 20; // Ensure text doesn't overlap photo
-
-                ctx.textAlign = 'left';
-                ctx.fillStyle = '#000000';
-
-                fields.forEach((field, index) => {
-                    const y = startY + (index * lineHeight);
-                    
-                    // Skip Alamat label for RT/RW, Kel, Kec (they are indented)
-                    if (['RT/RW', 'Kel/Desa', 'Kecamatan'].includes(field.label)) {
-                        // Do nothing to label, draw at x=40
-                    }
-
-                    ctx.font = '14px "Inter", Arial, sans-serif';
-                    ctx.fillStyle = '#4b5563';
-                    ctx.fillText(field.label, labelX, y);
-
-                    ctx.fillStyle = '#000000';
-                    ctx.fillText(':', labelX + 130, y);
-
-                    // Handle long text (wrap if needed, though KTP usually single line, we'll just truncate or shrink font)
-                    let fontSize = 14;
-                    ctx.font = `bold ${fontSize}px "Inter", Arial, sans-serif`;
-                    
-                    // Simple text truncation if too long
-                    let text = field.value;
-                    while (ctx.measureText(text).width > maxTextWidth && text.length > 0) {
-                        text = text.slice(0, -1);
-                    }
-                    if (text !== field.value) text += '...';
-
-                    ctx.fillText(text, valueX, y);
-
-                    if (field.extra) {
-                        ctx.font = '14px "Inter", Arial, sans-serif';
-                        ctx.fillText(field.extra, valueX + 150, y);
-                    }
-                });
-
-                // City and Date at bottom right
-                const today = new Date();
-                const dateStr = `${today.getDate().toString().padStart(2, '0')}-${(today.getMonth()+1).toString().padStart(2, '0')}-${today.getFullYear()}`;
-                
-                ctx.textAlign = 'center';
-                ctx.font = '14px "Inter", Arial, sans-serif';
-                ctx.fillText(state.kota.toUpperCase(), photoX + photoWidth / 2, photoY + photoHeight + 30);
-                ctx.fillText(dateStr, photoX + photoWidth / 2, photoY + photoHeight + 50);
-
-                // Signature Placeholder (Simulation)
-                ctx.font = 'italic 24px "Brush Script MT", cursive';
-                ctx.fillText('Ttd Simulasi', photoX + photoWidth / 2, photoY + photoHeight + 90);
-
-                // --- MANDATORY WATERMARK ---
-                ctx.save();
-                ctx.translate(width / 2, height / 2);
-                ctx.rotate(-Math.PI / 4);
-                ctx.textAlign = 'center';
-                ctx.fillStyle = 'rgba(220, 38, 38, 0.4)'; // Red, semi-transparent
-                ctx.font = 'bold 80px "Inter", Arial, sans-serif';
-                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, 0);
-                // Add multiple watermarks for coverage
-                ctx.font = 'bold 40px "Inter", Arial, sans-serif';
-                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, 100);
-                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, -100);
-                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, 200);
-                ctx.fillText('SIMULASI — BUKAN KTP RESMI', 0, -200);
-                ctx.restore();
-            }
-
-            function formatDate(dateString) {
-                if (!dateString) return '';
-                const parts = dateString.split('-');
-                if (parts.length !== 3) return dateString;
-                return `${parts[2]}-${parts[1]}-${parts[0]}`;
-            }
-
-            // --- Event Handlers & Controllers ---
-            function updateState(key, value) {
-                state[key] = value;
-                draw();
-                autoSave();
-            }
-
-            function updateImageTransform(key, value) {
-                imageTransform[key] = parseFloat(value);
-                
-                // Update labels
-                if (key === 'zoom') document.getElementById('zoomVal').textContent = `${value}x`;
-                if (key === 'rotate') document.getElementById('rotateVal').textContent = `${value}°`;
-                
-                draw();
-            }
-
-            function handleImageUpload(e) {
-                const file = e.target.files[0];
-                if (!file) return;
-
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    const img = new Image();
-                    img.onload = function() {
-                        imageObj = img;
-                        imageControls.classList.add('active');
-                        uploadArea.style.display = 'none';
-                        
-                        // Reset transforms
-                        imageTransform = { zoom: 1, rotate: 0, posX: 0, posY: 0 };
-                        document.getElementById('imgZoom').value = 1;
-                        document.getElementById('imgRotate').value = 0;
-                        document.getElementById('imgPosX').value = 0;
-                        document.getElementById('imgPosY').value = 0;
-                        document.getElementById('zoomVal').textContent = '1x';
-                        document.getElementById('rotateVal').textContent = '0°';
-                        
-                        draw();
-                        autoSave();
-                    };
-                    img.src = event.target.result;
-                };
-                reader.readAsDataURL(file);
-            }
-
-            function removeImage() {
-                imageObj = null;
-                imageControls.classList.remove('active');
-                uploadArea.style.display = 'block';
-                fileInput.value = '';
-                draw();
-                autoSave();
-            }
-
-            // --- Data Management ---
-            function autoSave() {
-                const dataToSave = { ...state, _image: imageObj ? imageObj.src : null, _transform: imageTransform };
-                localStorage.setItem('ktp_sim_data', JSON.stringify(dataToSave));
-            }
-
-            function saveProject() {
-                autoSave();
-                alert('Project berhasil disimpan di LocalStorage browser!');
-            }
-
-            function loadProject() {
-                const saved = localStorage.getItem('ktp_sim_data');
-                if (saved) {
-                    const data = JSON.parse(saved);
-                    loadData(data);
-                    alert('Project berhasil dimuat!');
-                } else {
-                    alert('Tidak ada project tersimpan.');
-                }
-            }
-
-            function clearAll() {
-                if (confirm('Apakah Anda yakin ingin menghapus semua data dan mereset aplikasi?')) {
-                    localStorage.removeItem('ktp_sim_data');
-                    state = { ...defaultState };
-                    imageObj = null;
-                    imageTransform = { zoom: 1, rotate: 0, posX: 0, posY: 0 };
-                    imageControls.classList.remove('active');
-                    uploadArea.style.display = 'block';
-                    fileInput.value = '';
-                    
-                    // Reset form inputs
-                    document.querySelectorAll('input, select').forEach(el => {
-                        if (el.id && state[el.id] !== undefined) {
-                            el.value = state[el.id];
-                        }
-                    });
-                    document.getElementById('cardColor').value = state.cardColor;
-                    document.getElementById('orientation').value = state.orientation;
-                    
-                    draw();
-                }
-            }
-
-            function exportJSON() {
-                const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state, null, 2));
-                const downloadAnchorNode = document.createElement('a');
-                downloadAnchorNode.setAttribute("href", dataStr);
-                downloadAnchorNode.setAttribute("download", "ktp_simulasi_data.json");
-                document.body.appendChild(downloadAnchorNode);
-                downloadAnchorNode.click();
-                downloadAnchorNode.remove();
-            }
-
-            function importJSON(event) {
-                const file = event.target.files[0];
-                if (!file) return;
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    try {
-                        const data = JSON.parse(e.target.result);
-                        loadData(data);
-                        alert('Data berhasil diimport!');
-                    } catch (err) {
-                        alert('Format JSON tidak valid.');
-                    }
-                };
-                reader.readAsText(file);
-            }
-
-            function loadData(data) {
-                // Extract state keys only
-                for (let key in defaultState) {
-                    if (data[key] !== undefined) {
-                        state[key] = data[key];
-                        // Update form UI
-                        const el = document.getElementById(key);
-                        if (el) el.value = data[key];
-                    }
-                }
-                
-                // Update design UI
-                document.getElementById('cardColor').value = state.cardColor;
-                document.getElementById('orientation').value = state.orientation;
-                
-                draw();
-            }
-
-            // --- Export & Print ---
-            function downloadImage(format) {
-                // Create a temporary high-res canvas (2x)
-                const tempCanvas = document.createElement('canvas');
-                const tempCtx = tempCanvas.getContext('2d');
-                
-                const scale = 2;
-                tempCanvas.width = canvas.width * scale;
-                tempCanvas.height = canvas.height * scale;
-                
-                // Scale context to draw at high res
-                tempCtx.scale(scale, scale);
-                
-                // Draw the current canvas onto the temp canvas
-                tempCtx.drawImage(canvas, 0, 0);
-                
-                const mimeType = format === 'png' ? 'image/png' : 'image/jpeg';
-                const quality = format === 'jpeg' ? 0.9 : undefined;
-                const dataURL = tempCanvas.toDataURL(mimeType, quality);
-                
-                const link = document.createElement('a');
-                link.download = `SIMULASI_KTP_${state.nama.replace(/\s+/g, '_')}.${format}`;
-                link.href = dataURL;
-                link.click();
-            }
-
-            function printCard() {
-                const dataURL = canvas.toDataURL('image/png');
-                const printWindow = window.open('', '_blank');
-                printWindow.document.write(`
-                    <html>
-                        <head><title>Print KTP Simulasi</title></head>
-                        <body style="display:flex; justify-content:center; align-items:center; height:100vh; margin:0; background:#fff;">
-                            <img src="${dataURL}" style="max-width: 100%; height: auto; box-shadow: 0 4px 6px rgba(0,0,0,0.1);" onload="window.print();window.close();">
-                        </body>
-                    </html>
-                `);
-                printWindow.document.close();
-            }
-
-            // --- UI Theming & Settings ---
-            function toggleTheme() {
-                const body = document.body;
-                const isDark = body.getAttribute('data-theme') === 'dark';
-                body.setAttribute('data-theme', isDark ? 'light' : 'dark');
-                document.getElementById('themeToggle').textContent = isDark ? '🌙 Mode Gelap' : '☀️ Mode Terang';
-            }
-
-            function resetDesign() {
-                state.cardColor = defaultState.cardColor;
-                state.orientation = defaultState.orientation;
-                document.getElementById('cardColor').value = state.cardColor;
-                document.getElementById('orientation').value = state.orientation;
-                draw();
-                autoSave();
-            }
-
-            // --- Initialization ---
-            function init() {
-                // Event Listeners for design
-                document.getElementById('cardColor').addEventListener('input', (e) => {
-                    updateState('cardColor', e.target.value);
-                });
-                document.getElementById('orientation').addEventListener('change', (e) => {
-                    updateState('orientation', e.target.value);
-                });
-
-                // Drag and drop for upload
-                uploadArea.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    uploadArea.style.borderColor = 'var(--primary)';
-                });
-                uploadArea.addEventListener('dragleave', (e) => {
-                    e.preventDefault();
-                    uploadArea.style.borderColor = 'var(--border-color)';
-                });
-                uploadArea.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    uploadArea.style.borderColor = 'var(--border-color)';
-                    if (e.dataTransfer.files.length) {
-                        fileInput.files = e.dataTransfer.files;
-                        handleImageUpload({ target: fileInput });
-                    }
-                });
-
-                // Load initial data (LocalStorage or Default)
-                const saved = localStorage.getItem('ktp_sim_data');
-                if (saved) {
-                    try {
-                        const data = JSON.parse(saved);
-                        loadData(data);
-                        if (data._image) {
-                            const img = new Image();
-                            img.onload = () => {
-                                imageObj = img;
-                                if (data._transform) imageTransform = data._transform;
-                                imageControls.classList.add('active');
-                                uploadArea.style.display = 'none';
-                                draw();
-                            };
-                            img.src = data._image;
-                        } else {
-                            draw();
-                        }
-                    } catch (e) {
-                        console.error("Failed to load local data", e);
-                        draw();
-                    }
-                } else {
-                    // Populate defaults
-                    for (let key in defaultState) {
-                        const el = document.getElementById(key);
-                        if (el) el.value = defaultState[key];
-                    }
-                    draw();
-                }
-
-                // Auto-resize canvas wrapper for mobile
-                function checkScreen() {
-                    if (window.innerWidth <= 768) {
-                        document.getElementById('sidebar').classList.remove('open');
-                    }
-                }
-                window.addEventListener('resize', checkScreen);
-            }
-
-            return {
-                updateState,
-                updateImageTransform,
-                handleImageUpload,
-                removeImage,
-                saveProject,
-                loadProject,
-                clearAll,
-                exportJSON,
-                importJSON,
-                downloadImage,
-                printCard,
-                toggleTheme,
-                resetDesign,
-                init
-            };
-        })();
-
-        // Start app
-        document.addEventListener('DOMContentLoaded', app.init);
-    </script>
+        <p class="mt-4 text-center text-[11px] leading-relaxed text-slate-400">
+          Hasil unduhan beresolusi tinggi (1920 &times; 1209 px).<br>
+          Kartu ini hanya untuk keperluan demo / desain, bukan dokumen resmi.
+        </p>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<!-- ================= LOADER OVERLAY ================= -->
+<div id="loader" class="hidden items-center justify-center bg-slate-900/70 backdrop-blur-sm">
+  <div class="flex flex-col items-center gap-4">
+    <div class="spinner"></div>
+    <p class="text-sm font-semibold text-white">Membuat gambar KTP...</p>
+  </div>
+</div>
+
+<script>
+/* =========================================================================
+   GENERATOR KTP INTERAKTIF — Vanilla JavaScript
+   ========================================================================= */
+(function () {
+  'use strict';
+
+  /* ----------------------------- Referensi DOM ----------------------------- */
+  const fields         = document.querySelectorAll('[data-field]');
+  const nikEl          = document.getElementById('nik');
+  const fotoEl         = document.getElementById('foto');
+  const photoBox       = document.getElementById('photoBox');
+  const photoImg       = document.getElementById('photoImg');
+  const photoPlaceholder = document.getElementById('photoPlaceholder');
+  const btnDownload    = document.getElementById('btnDownload');
+  const btnReset       = document.getElementById('btnReset');
+  const loader         = document.getElementById('loader');
+  const ktpCard        = document.getElementById('ktpCard');
+  const ktpScaler      = document.getElementById('ktpScaler');
+  const ktpStage       = document.getElementById('ktpStage');
+  const form           = document.getElementById('ktpForm');
+
+  const CARD_W = 640;
+  const CARD_H = 403;
+
+  /* =======================================================================
+     1. WATERMARK — teks "KARTU TANDA PENDUDUK" berulang diagonal
+     ======================================================================= */
+  (function buildWatermark() {
+    const wm = document.getElementById('watermark');
+    const frag = document.createDocumentFragment();
+    for (let i = 0; i < 170; i++) {
+      const span = document.createElement('span');
+      span.textContent = 'KARTU TANDA PENDUDUK';
+      frag.appendChild(span);
+    }
+    wm.appendChild(frag);
+  })();
+
+  /* =======================================================================
+     2. TANGGAL PEMBUATAN (di bawah foto)
+     ======================================================================= */
+  (function setTodayDate() {
+    const d = new Date();
+    const pad = (n) => String(n).padStart(2, '0');
+    document.getElementById('p-tanggal').textContent =
+      pad(d.getDate()) + '-' + pad(d.getMonth() + 1) + '-' + d.getFullYear();
+  })();
+
+  /* =======================================================================
+     3. HELPER: menulis teks ke elemen preview
+     ======================================================================= */
+  function setPreviewText(id, value) {
+    const el = document.getElementById(id);
+    if (!el) return;
+    const v = (value === undefined || value === null) ? '' : String(value).trim();
+    el.textContent = v === '' ? '-' : v;
+  }
+
+  /* =======================================================================
+     4. SINKRONISASI SATU FIELD -> PREVIEW
+     ======================================================================= */
+  function syncField(el) {
+    const key = el.dataset.field;
+    if (!key) return;
+
+    setPreviewText('p-' + key, el.value);
+
+    /* --- Turunan khusus --- */
+    if (key === 'kabupaten') {
+      const upper = el.value.trim().toUpperCase();
+
+      // Teks di bawah foto mengikuti nama kabupaten/kota
+      document.getElementById('p-kota').textContent = upper || 'CIANJUR';
+
+      // Jika user mengetik "KOTA ...", prefix "KABUPATEN" dihilangkan
+      document.getElementById('p-kab-prefix').textContent =
+        upper.startsWith('KOTA') ? '' : 'KABUPATEN ';
+    }
+  }
+
+  /* =======================================================================
+     5. FORMAT NIK OTOMATIS (spasi tiap 4 digit)
+        Didaftarkan SEBELUM listener umum agar urutan eksekusi benar.
+     ======================================================================= */
+  nikEl.addEventListener('input', function () {
+    const digits = this.value.replace(/\D/g, '').slice(0, 16);   // hanya angka, maks 16
+    this.value = digits.replace(/(\d{4})(?=\d)/g, '$1 ');        // 3203 0125 0377 0011
+  });
+
+  /* =======================================================================
+     6. TWO-WAY BINDING — semua field
+     ======================================================================= */
+  fields.forEach(function (el) {
+    el.addEventListener('input', function () { syncField(el); });
+    el.addEventListener('change', function () { syncField(el); });
+    syncField(el); // inisialisasi awal
+  });
+
+  /* =======================================================================
+     7. UPLOAD FOTO (FileReader -> preview)
+     ======================================================================= */
+  fotoEl.addEventListener('change', function () {
+    const file = this.files && this.files[0];
+    if (!file) return;
+
+    if (!file.type.startsWith('image/')) {
+      alert('File yang dipilih harus berupa gambar (JPG / PNG).');
+      this.value = '';
+      return;
+    }
+
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      photoImg.src = e.target.result;
+      photoImg.style.display = 'block';
+      photoPlaceholder.style.display = 'none';
+      photoBox.style.background = '#ffffff';
+    };
+    reader.readAsDataURL(file);
+  });
+
+  /* =======================================================================
+     8. RESPONSIVE SCALING KARTU (agar pas di layar HP)
+     ======================================================================= */
+  function fitCard() {
+    const available = ktpStage.clientWidth || CARD_W;
+    const scale = Math.min(1, available / CARD_W);
+    ktpScaler.style.transform = 'scale(' + scale + ')';
+    ktpScaler.style.height = (CARD_H * scale) + 'px';
+    ktpStage.style.height  = (CARD_H * scale) + 'px';
+  }
+  window.addEventListener('resize', fitCard);
+  window.addEventListener('load', fitCard);
+  fitCard();
+
+  /* =======================================================================
+     9. DOWNLOAD KTP SEBAGAI PNG (html2canvas)
+     ======================================================================= */
+  btnDownload.addEventListener('click', async function () {
+    const originalHTML = btnDownload.innerHTML;
+
+    // UI state
+    loader.classList.remove('hidden');
+    loader.classList.add('flex');
+    btnDownload.disabled = true;
+
+    // Simpan & netralkan transform scaler supaya html2canvas
+    // menangkap kartu pada ukuran aslinya (640 x 403)
+    const prevTransform = ktpScaler.style.transform;
+    const prevHeight    = ktpScaler.style.height;
+    ktpScaler.style.transform = 'none';
+    ktpScaler.style.height    = CARD_H + 'px';
+
+    try {
+      const canvas = await html2canvas(ktpCard, {
+        scale: 3,                 // 640 x 3 = 1920 px (crisp)
+        backgroundColor: '#ffffff',
+        useCORS: true,
+        logging: false,
+        width: CARD_W,
+        height: CARD_H
+      });
+
+      // Nama file: KTP_[Nama_User].png
+      const rawName = (document.getElementById('nama').value || 'Tanpa_Nama').trim();
+      const safeName = rawName
+        .replace(/\s+/g, '_')
+        .replace(/[^\w\-]/g, '') || 'Tanpa_Nama';
+
+      const link = document.createElement('a');
+      link.download = 'KTP_' + safeName + '.png';
+      link.href = canvas.toDataURL('image/png');
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+    } catch (err) {
+      console.error(err);
+      alert('Gagal membuat gambar KTP: ' + err.message);
+    } finally {
+      // Kembalikan tampilan semula
+      ktpScaler.style.transform = prevTransform;
+      ktpScaler.style.height    = prevHeight;
+      fitCard();
+
+      loader.classList.add('hidden');
+      loader.classList.remove('flex');
+      btnDownload.disabled = false;
+      btnDownload.innerHTML = originalHTML;
+    }
+  });
+
+  /* =======================================================================
+     10. RESET FORM
+     ======================================================================= */
+  btnReset.addEventListener('click', function () {
+    form.reset();
+
+    // Bersihkan foto
+    photoImg.src = '';
+    photoImg.style.display = 'none';
+    photoPlaceholder.style.display = 'block';
+    photoBox.style.background = '#d92c2c';
+
+    // Sinkronkan ulang seluruh preview
+    fields.forEach(function (el) { syncField(el); });
+  });
+
+})();
+</script>
 </body>
 </html>
