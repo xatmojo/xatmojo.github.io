@@ -3,28 +3,27 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Generator KTP Interaktif — Presisi Tinggi</title>
+<title>Generator KTP Interaktif — Pro Edition</title>
 
 <!-- ============ LIBRARY CDN ============ -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
-<!-- Library untuk Tanda Tangan -->
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
 <style>
   /* =====================================================================
-     CUSTOM FONT (Memanggil file OCR-A_Regular.otf lokal Anda)
+     CUSTOM FONT (Sesuai Permintaan: OCRAEXT.TTF)
      ===================================================================== */
   @font-face {
-    font-family: 'OCR-A';
-    src: url('font/OCR-A_Regular.otf') format('opentype');
+    font-family: 'OCR A Extended';
+    src: url('font/OCRAEXT.TTF') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
   }
 
   /* =====================================================================
-     CSS KHUSUS KARTU KTP (Presisi Tinggi - Semua Bold)
+     CSS KHUSUS KARTU KTP (Presisi Tinggi & Line Spacing Ketat)
      ===================================================================== */
   .ktp {
     position: relative;
@@ -48,79 +47,70 @@
     position: relative; z-index: 1;
     display: flex; flex-direction: column;
     height: 100%;
-    padding: 18px 24px 14px;
+    padding: 14px 22px 12px; /* Padding luar disesuaikan */
   }
 
   /* ---------- Header ---------- */
   .ktp-head { 
     text-align: center; 
-    line-height: 1.15; 
-    margin-bottom: 10px; /* Sedikit dirapatkan ke atas */
-    margin-top: 2px;
+    line-height: 1.1; 
+    margin-bottom: 8px; /* Jarak ke NIK dirapatkan */
+    margin-top: 0px;
   }
   .ktp-head .line {
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 18px;
+    font-size: 17px;
     font-weight: bold;
     letter-spacing: 0.5px;
     white-space: pre;
-    color: #000;
   }
 
   /* =======================================================
-     BARIS NIK (Fokus Utama Penyesuaian)
+     BARIS NIK (Fokus Utama Penyesuaian Spacing & Font)
      ======================================================= */
   .ktp-nik {
     display: flex; 
     align-items: center;
-    margin: 6px 0 12px 0; /* Jarak atas dan bawah diseimbangkan */
-    font-size: 24px; /* Ukuran diperbesar agar gagah */
+    margin: 0 0 8px 0; /* Jarak bawah dirapatkan */
+    font-size: 22px; 
   }
   
-  /* Label "NIK" */
   .ktp-nik .label { 
-    flex: 0 0 65px; /* Lebar tetap agar konsisten */
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: 900; /* Sangat tebal */
-    letter-spacing: 2px;
-    font-size: 22px;
+    flex: 0 0 60px;
+    font-weight: 900; 
+    letter-spacing: 1.5px;
   }
   
-  /* Titik Dua ":" */
   .ktp-nik .colon { 
-    flex: 0 0 20px; /* Jarak yang pas */
+    flex: 0 0 25px;
     text-align: center; 
     font-weight: 900;
     font-size: 22px;
   }
   
-  /* Angka NIK */
   .ktp-nik .value { 
     flex: 1; 
-    font-family: 'OCR-A', 'Courier New', Courier, monospace; 
-    font-weight: bold;
-    font-size: 24px; /* Angka NIK paling besar */
-    letter-spacing: 2px; /* Spasi antar angka */
-    margin-left: 8px; /* Jarak ekstra antara titik dua dan angka NIK */
+    font-family: 'OCR A Extended', 'Courier New', Courier, monospace; 
+    font-weight: normal; /* Dibiarkan normal karena font TTF asli sudah tebal */
+    font-size: 24px; 
+    letter-spacing: 1px;
+    margin-left: 5px;
   }
   /* ======================================================= */
 
   /* ---------- Body ---------- */
-  .ktp-body { display: flex; gap: 12px; flex: 1; min-height: 0; }
+  .ktp-body { display: flex; gap: 10px; flex: 1; min-height: 0; }
   .ktp-data { flex: 1; min-width: 0; padding-right: 5px; }
 
-  /* ---------- Baris Data Diri ---------- */
+  /* ---------- Baris Data Diri (LINE SPACING KETAT) ---------- */
   .row {
     display: flex; align-items: baseline;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11px;
-    line-height: 1.45; 
-    letter-spacing: 0.2px;
-    color: #000;
-    margin-bottom: 1px;
+    font-size: 10.5px; /* Ukuran disesuaikan */
+    line-height: 1.35; /* SANGAT PENTING: Line spacing dirapatkan maksimal */
+    letter-spacing: 0px;
+    margin-bottom: 0px; /* Hilangkan margin bawaan */
   }
   
-  .row .lbl { flex: 0 0 135px; font-weight: bold;}
+  .row .lbl { flex: 0 0 120px; font-weight: bold;}
   .row .sep { flex: 0 0 15px; text-align: center; font-weight: bold;}
   .row .val {
     flex: 1; min-width: 0;
@@ -129,89 +119,88 @@
     font-weight: bold; 
   }
 
-  .row.indent .lbl { padding-left: 38px; }
+  .row.indent .lbl { padding-left: 35px; }
 
   /* Baris gabungan */
-  .row-split { display: flex; width: 100%; margin-bottom: 1px;}
+  .row-split { display: flex; width: 100%; margin-bottom: 0px; line-height: 1.35; font-size: 10.5px;}
   .row-split .left { display: flex; flex: 1; }
   .row-split .right { display: flex; flex: 0 0 140px; }
-  .row-split .lbl-gol { flex: 0 0 65px; font-weight: bold;}
+  .row-split .lbl-gol { flex: 0 0 60px; font-weight: bold;}
   .row-split .val-gol { flex: 1; font-weight: bold; text-transform: uppercase; }
-  .row-split .sep { font-weight: bold; }
+  .row-split .sep { font-weight: bold; text-align: center; width: 15px;}
 
   /* ---------- Kolom foto & Tanda Tangan ---------- */
   .ktp-photo-col {
-    flex: 0 0 135px; width: 135px;
+    flex: 0 0 130px; width: 130px;
     display: flex; flex-direction: column; align-items: center;
-    margin-top: 2px;
+    margin-top: 0px;
   }
   .photo-box {
-    width: 135px; height: 175px;
+    width: 130px; height: 170px;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
     background: #d92c2c;
     border: 1px solid #000;
     color: #fff;
     font-size: 11px; font-weight: bold;
-    text-align: center; line-height: 1.35;
+    text-align: center; line-height: 1.2;
   }
   .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
   
   .photo-meta {
-    margin-top: 6px;
+    margin-top: 4px;
     text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 11.5px;
-    line-height: 1.25;
+    font-size: 11px;
+    line-height: 1.15;
     font-weight: bold;
   }
   .photo-meta .kota { text-transform: uppercase; }
   
-  /* Area Tanda Tangan di KTP */
   .sign-area {
-    width: 110px; 
-    height: 45px;
-    margin-top: 4px;
+    width: 100px; 
+    height: 40px;
+    margin-top: 2px;
     margin-bottom: -5px;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .sign-area img, .sign-area svg {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
+  .sign-area img, .sign-area svg { max-width: 100%; max-height: 100%; object-fit: contain; }
 
   /* ---------- Stage / scaler responsif ---------- */
   .ktp-stage { width: 100%; overflow: hidden; }
   #ktpScaler { transform-origin: top left; }
 
-  /* ---------- Kustomisasi Canvas Tanda Tangan ---------- */
+  /* ---------- Kustomisasi UI ---------- */
   #signature-pad { touch-action: none; }
+  .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+  .custom-scrollbar::-webkit-scrollbar-track { background: #f1f5f9; border-radius: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 4px; }
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
 
-  /* ---------- Loader overlay ---------- */
+  /* Toast Notification */
+  #toast { visibility: hidden; min-width: 250px; background-color: #333; color: #fff; text-align: center; border-radius: 8px; padding: 12px; position: fixed; z-index: 100; left: 50%; bottom: 30px; transform: translateX(-50%); font-size: 14px; font-weight: bold; opacity: 0; transition: opacity 0.3s, bottom 0.3s; }
+  #toast.show { visibility: visible; opacity: 1; bottom: 50px; }
+
+  /* Loader overlay */
   #loader { position: fixed; inset: 0; z-index: 60; }
-  .spinner {
-    width: 42px; height: 42px;
-    border: 4px solid rgba(255,255,255,.25);
-    border-top-color: #fff;
-    border-radius: 50%;
-    animation: spin .8s linear infinite;
-  }
+  .spinner { width: 42px; height: 42px; border: 4px solid rgba(255,255,255,.25); border-top-color: #fff; border-radius: 50%; animation: spin .8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
 </style>
 </head>
 
-<body class="min-h-screen bg-slate-100 text-slate-800 antialiased">
+<body class="min-h-screen bg-slate-100 text-slate-800 antialiased relative">
+
+<!-- Toast Notification -->
+<div id="toast">Data berhasil disimpan!</div>
 
 <!-- ================= HEADER HALAMAN ================= -->
 <header class="mx-auto max-w-7xl px-4 pt-8 pb-4 text-center">
   <h1 class="text-2xl font-extrabold tracking-tight text-slate-800 sm:text-3xl">
-    Generator <span class="text-blue-600">KTP</span> Interaktif
+    Generator <span class="text-blue-600">KTP</span> Pro Edition
   </h1>
   <p class="mt-2 text-sm text-slate-500">
-    Desain presisi tinggi. Isi data &rarr; preview real-time &rarr; unduh PNG.
+    Sistem Database Lokal (CRUD) & Preview Real-time.
   </p>
 </header>
 
@@ -220,197 +209,155 @@
   <div class="grid grid-cols-1 gap-8 lg:grid-cols-2">
 
     <!-- ============================================================
-         KOLOM KIRI : FORM INPUT
+         KOLOM KIRI : FORM INPUT & DATABASE
          ============================================================ -->
-    <section class="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
-      <div class="mb-5 flex items-center gap-2">
-        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">1</span>
-        <h2 class="text-lg font-bold text-slate-800">Data Identitas</h2>
-      </div>
-
-      <form id="ktpForm" autocomplete="off" class="space-y-4">
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-
-          <!-- Provinsi -->
-          <div>
-            <label for="provinsi" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Provinsi</label>
-            <input id="provinsi" data-field="provinsi" type="text" value="DKI JAKARTA"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+    <section class="space-y-6">
+      
+      <!-- CARD FORM INPUT -->
+      <div class="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+        <div class="mb-5 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-blue-600 text-sm font-bold text-white">1</span>
+            <h2 class="text-lg font-bold text-slate-800">Data Identitas</h2>
           </div>
+          <button id="btnClearForm" type="button" class="text-xs font-semibold text-red-500 hover:text-red-700 transition">Kosongkan Form</button>
+        </div>
 
-          <!-- Kabupaten / Kota -->
-          <div>
-            <label for="kabupaten" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kabupaten / Kota</label>
-            <input id="kabupaten" data-field="kabupaten" type="text" value="JAKARTA SELATAN"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- NIK -->
-          <div class="sm:col-span-2">
-            <label for="nik" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">NIK (16 digit)</label>
-            <input id="nik" data-field="nik" type="text" inputmode="numeric" maxlength="16"
-                   value="3174081708790014" placeholder="3174081708790014"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm tracking-widest shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Nama -->
-          <div class="sm:col-span-2">
-            <label for="nama" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Nama Lengkap</label>
-            <input id="nama" data-field="nama" type="text" value="AGUS PUJIYONO"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Tempat / Tgl Lahir -->
-          <div class="sm:col-span-2">
-            <label for="ttl" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Tempat / Tanggal Lahir</label>
-            <input id="ttl" data-field="ttl" type="text" value="SEMARANG, 17-08-1979"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Jenis Kelamin -->
-          <div>
-            <label for="jenisKelamin" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Jenis Kelamin</label>
-            <select id="jenisKelamin" data-field="jenisKelamin"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-              <option value="LAKI-LAKI" selected>Laki-laki</option>
-              <option value="PEREMPUAN">Perempuan</option>
-            </select>
-          </div>
-
-          <!-- Golongan Darah -->
-          <div>
-            <label for="golDarah" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Golongan Darah</label>
-            <select id="golDarah" data-field="golDarah"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-              <option value="-" selected>-</option>
-              <option value="A">A</option>
-              <option value="B">B</option>
-              <option value="AB">AB</option>
-              <option value="O">O</option>
-            </select>
-          </div>
-
-          <!-- Alamat -->
-          <div class="sm:col-span-2">
-            <label for="alamat" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Alamat</label>
-            <input id="alamat" data-field="alamat" type="text" value="JL SWADARMA 2 BLOK B NO 22"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- RT/RW -->
-          <div>
-            <label for="rtRw" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">RT / RW</label>
-            <input id="rtRw" data-field="rtRw" type="text" value="001/008"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Kel / Desa -->
-          <div>
-            <label for="kelDesa" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kelurahan / Desa</label>
-            <input id="kelDesa" data-field="kelDesa" type="text" value="KALIBATA"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Kecamatan -->
-          <div>
-            <label for="kecamatan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kecamatan</label>
-            <input id="kecamatan" data-field="kecamatan" type="text" value="PANCORAN"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Agama -->
-          <div>
-            <label for="agama" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Agama</label>
-            <select id="agama" data-field="agama"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-              <option selected>ISLAM</option>
-              <option>KRISTEN</option>
-              <option>KATOLIK</option>
-              <option>HINDU</option>
-              <option>BUDDHA</option>
-              <option>KONGHUCU</option>
-            </select>
-          </div>
-
-          <!-- Status Perkawinan -->
-          <div>
-            <label for="statusPerkawinan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Status Perkawinan</label>
-            <select id="statusPerkawinan" data-field="statusPerkawinan"
-                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
-              <option>BELUM KAWIN</option>
-              <option selected>KAWIN</option>
-              <option>CERAI HIDUP</option>
-              <option>CERAI MATI</option>
-            </select>
-          </div>
-
-          <!-- Pekerjaan -->
-          <div>
-            <label for="pekerjaan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Pekerjaan</label>
-            <input id="pekerjaan" data-field="pekerjaan" type="text" value="KARYAWAN SWASTA"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Kewarganegaraan -->
-          <div>
-            <label for="kewarganegaraan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kewarganegaraan</label>
-            <input id="kewarganegaraan" data-field="kewarganegaraan" type="text" value="WNI"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Berlaku Hingga -->
-          <div>
-            <label for="berlakuHingga" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Berlaku Hingga</label>
-            <input id="berlakuHingga" data-field="berlakuHingga" type="text" value="SEUMUR HIDUP"
-                   class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- Foto -->
-          <div class="sm:col-span-2">
-            <label for="foto" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Foto Utama (Rasio 3&times;4)</label>
-            <input id="foto" type="file" accept="image/*"
-                   class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200" />
-          </div>
-
-          <!-- ================= FITUR TANDA TANGAN ================= -->
-          <div class="sm:col-span-2 mt-2 border-t border-slate-200 pt-4">
-            <label class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-700">Tanda Tangan Digital</label>
+        <form id="ktpForm" autocomplete="off" class="space-y-4">
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
             
-            <!-- Canvas Menggambar -->
-            <div class="rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 p-2">
-              <canvas id="signature-pad" class="h-32 w-full cursor-crosshair rounded bg-white shadow-inner"></canvas>
-              <div class="mt-2 flex items-center justify-between px-1">
-                <span class="text-[11px] text-slate-500 italic">Gambar tanda tangan Anda di kotak atas.</span>
-                <button type="button" id="clear-signature" class="rounded bg-red-100 px-3 py-1 text-xs font-bold text-red-600 transition hover:bg-red-200">Hapus</button>
+            <!-- Input Fields (Sama seperti sebelumnya, namun dipersingkat tampilannya di kode ini) -->
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Provinsi</label>
+              <input id="provinsi" data-field="provinsi" type="text" value="DKI JAKARTA" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kabupaten / Kota</label>
+              <input id="kabupaten" data-field="kabupaten" type="text" value="JAKARTA SELATAN" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">NIK (16 digit)</label>
+              <input id="nik" data-field="nik" type="text" inputmode="numeric" maxlength="16" value="3174081708790014" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm tracking-widest focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Nama Lengkap</label>
+              <input id="nama" data-field="nama" type="text" value="AGUS PUJIYONO" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div class="sm:col-span-2">
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Tempat / Tanggal Lahir</label>
+              <input id="ttl" data-field="ttl" type="text" value="SEMARANG, 17-08-1979" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Jenis Kelamin</label>
+              <select id="jenisKelamin" data-field="jenisKelamin" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                <option value="LAKI-LAKI" selected>Laki-laki</option>
+                <option value="PEREMPUAN">Perempuan</option>
+              </select>
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Golongan Darah</label>
+              <select id="golDarah" data-field="golDarah" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                <option value="-" selected>-</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="AB">AB</option>
+                <option value="O">O</option>
+              </select>
+            </div>
+            <div class="sm:col-span-2">
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Alamat</label>
+              <input id="alamat" data-field="alamat" type="text" value="JL SWADARMA 2 BLOK B NO 22" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">RT / RW</label>
+              <input id="rtRw" data-field="rtRw" type="text" value="001/008" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kelurahan / Desa</label>
+              <input id="kelDesa" data-field="kelDesa" type="text" value="KALIBATA" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kecamatan</label>
+              <input id="kecamatan" data-field="kecamatan" type="text" value="PANCORAN" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Agama</label>
+              <select id="agama" data-field="agama" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                <option selected>ISLAM</option><option>KRISTEN</option><option>KATOLIK</option><option>HINDU</option><option>BUDDHA</option><option>KONGHUCU</option>
+              </select>
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Status Perkawinan</label>
+              <select id="statusPerkawinan" data-field="statusPerkawinan" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200">
+                <option>BELUM KAWIN</option><option selected>KAWIN</option><option>CERAI HIDUP</option><option>CERAI MATI</option>
+              </select>
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Pekerjaan</label>
+              <input id="pekerjaan" data-field="pekerjaan" type="text" value="KARYAWAN SWASTA" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kewarganegaraan</label>
+              <input id="kewarganegaraan" data-field="kewarganegaraan" type="text" value="WNI" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            <div>
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Berlaku Hingga</label>
+              <input id="berlakuHingga" data-field="berlakuHingga" type="text" value="SEUMUR HIDUP" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
+            
+            <!-- Foto -->
+            <div class="sm:col-span-2 mt-2">
+              <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500">Foto Utama (Rasio 3&times;4)</label>
+              <input id="foto" type="file" accept="image/*" class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none" />
+            </div>
+
+            <!-- Tanda Tangan -->
+            <div class="sm:col-span-2 mt-2 border-t border-slate-200 pt-4">
+              <label class="mb-2 block text-xs font-bold uppercase tracking-wide text-slate-700">Tanda Tangan Digital</label>
+              <div class="rounded-lg border-2 border-dashed border-slate-300 bg-slate-50 p-2">
+                <canvas id="signature-pad" class="h-32 w-full cursor-crosshair rounded bg-white shadow-inner"></canvas>
+                <div class="mt-2 flex items-center justify-between px-1">
+                  <span class="text-[11px] text-slate-500 italic">Gambar ttd di sini</span>
+                  <button type="button" id="clear-signature" class="rounded bg-red-100 px-3 py-1 text-xs font-bold text-red-600 transition hover:bg-red-200">Hapus TTD</button>
+                </div>
+              </div>
+              <div class="mt-3">
+                <label for="sign-upload" class="mb-1 block text-[11px] font-semibold text-slate-500">Atau Upload Gambar TTD (PNG)</label>
+                <input id="sign-upload" type="file" accept="image/*" class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-xs text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-slate-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white hover:file:bg-slate-700 focus:outline-none" />
               </div>
             </div>
-            
-            <!-- Alternatif Upload -->
-            <div class="mt-3">
-              <label for="sign-upload" class="mb-1 block text-[11px] font-semibold text-slate-500">Atau Upload Gambar Tanda Tangan (PNG Transparan direkomendasikan)</label>
-              <input id="sign-upload" type="file" accept="image/*"
-                     class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-xs text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-slate-600 file:px-3 file:py-1.5 file:text-xs file:font-semibold file:text-white hover:file:bg-slate-700 focus:outline-none" />
-            </div>
+
           </div>
-          <!-- ======================================================= -->
 
-        </div>
+          <!-- Tombol Aksi Form -->
+          <div class="flex flex-col gap-3 pt-4 border-t border-slate-200 mt-4 sm:flex-row">
+            <button id="btnDownload" type="button" class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:opacity-60">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" /></svg>
+              Download KTP
+            </button>
+            <button id="btnSaveData" type="button" class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-emerald-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-emerald-600/25 transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-300">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4" /></svg>
+              Simpan Data
+            </button>
+          </div>
+        </form>
+      </div>
 
-        <!-- Tombol Aksi -->
-        <div class="flex flex-col gap-3 pt-4 border-t border-slate-200 mt-4 sm:flex-row">
-          <button id="btnDownload" type="button"
-                  class="inline-flex flex-1 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 py-3 text-sm font-bold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 disabled:cursor-not-allowed disabled:opacity-60">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5m0 0l5-5m-5 5V3" />
-            </svg>
-            Generate / Download KTP
-          </button>
-          <button id="btnReset" type="button"
-                  class="inline-flex items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 py-3 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-slate-50 focus:outline-none focus:ring-4 focus:ring-slate-200">
-            Reset Form
-          </button>
+      <!-- CARD DATABASE LOKAL (CRUD) -->
+      <div class="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
+        <div class="mb-4 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-purple-600 text-sm font-bold text-white"><svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4m0 5c0 2.21-3.582 4-8 4s-8-1.79-8-4" /></svg></span>
+            <h2 class="text-lg font-bold text-slate-800">Database Lokal</h2>
+          </div>
+          <button id="btnClearDb" class="text-xs font-semibold text-red-500 hover:text-red-700 transition">Hapus Semua</button>
         </div>
-      </form>
+        <div id="savedDataList" class="max-h-60 overflow-y-auto custom-scrollbar space-y-2 pr-2">
+          <!-- List data akan dirender via JS -->
+          <p class="text-sm text-slate-400 italic text-center py-4">Belum ada data tersimpan.</p>
+        </div>
+      </div>
+
     </section>
 
     <!-- ============================================================
@@ -418,140 +365,66 @@
          ============================================================ -->
     <section class="lg:sticky lg:top-6 lg:self-start">
       <div class="mb-3 flex items-center gap-2">
-        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-emerald-600 text-sm font-bold text-white">2</span>
+        <span class="flex h-8 w-8 items-center justify-center rounded-lg bg-slate-800 text-sm font-bold text-white">2</span>
         <h2 class="text-lg font-bold text-slate-800">Live Preview</h2>
         <span class="ml-auto inline-flex items-center gap-1.5 rounded-full bg-emerald-50 px-2.5 py-1 text-[11px] font-semibold text-emerald-700 ring-1 ring-emerald-200">
           <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-emerald-500"></span> Real-time
         </span>
       </div>
 
-      <div class="rounded-2xl bg-white p-4 shadow-xl ring-1 ring-slate-200 sm:p-6 flex justify-center">
-        <!-- Stage tempat kartu di-scale agar responsif -->
+      <div class="rounded-2xl bg-slate-200 p-4 shadow-inner ring-1 ring-slate-300 sm:p-6 flex justify-center overflow-hidden">
         <div class="ktp-stage" id="ktpStage">
           <div id="ktpScaler">
-
-            <!-- ================== KARTU KTP ================== -->
+            <!-- KARTU KTP -->
             <div class="ktp" id="ktpCard">
               <div class="ktp-inner">
-
-                <!-- Header Provinsi / Kabupaten -->
                 <div class="ktp-head">
                   <div class="line">PROVINSI <span id="p-provinsi">DKI JAKARTA</span></div>
                   <div class="line"><span id="p-kabupaten">JAKARTA SELATAN</span></div>
                 </div>
-
-                <!-- NIK -->
                 <div class="ktp-nik">
-                  <span class="label">NIK</span>
-                  <span class="colon">:</span>
+                  <span class="label">NIK</span><span class="colon">:</span>
                   <span class="value" id="p-nik">3174081708790014</span>
                 </div>
-
-                <!-- Body -->
                 <div class="ktp-body">
-
-                  <!-- Data kiri -->
                   <div class="ktp-data">
-                    <div class="row">
-                      <span class="lbl">Nama</span><span class="sep">:</span>
-                      <span class="val" id="p-nama">AGUS PUJIYONO</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Tempat/Tgl Lahir</span><span class="sep">:</span>
-                      <span class="val" id="p-ttl">SEMARANG, 17-08-1979</span>
-                    </div>
-
-                    <!-- Baris Gabungan Jenis Kelamin & Gol Darah -->
+                    <div class="row"><span class="lbl">Nama</span><span class="sep">:</span><span class="val" id="p-nama">AGUS PUJIYONO</span></div>
+                    <div class="row"><span class="lbl">Tempat/Tgl Lahir</span><span class="sep">:</span><span class="val" id="p-ttl">SEMARANG, 17-08-1979</span></div>
                     <div class="row-split">
-                      <div class="left row">
-                        <span class="lbl">Jenis kelamin</span><span class="sep">:</span>
-                        <span class="val" id="p-jenisKelamin">LAKI-LAKI</span>
-                      </div>
-                      <div class="right row">
-                        <span class="lbl-gol">Gol.Darah</span><span class="sep">:</span>
-                        <span class="val-gol" id="p-golDarah">-</span>
-                      </div>
+                      <div class="left row"><span class="lbl">Jenis kelamin</span><span class="sep">:</span><span class="val" id="p-jenisKelamin">LAKI-LAKI</span></div>
+                      <div class="right row"><span class="lbl-gol">Gol.Darah</span><span class="sep">:</span><span class="val-gol" id="p-golDarah">-</span></div>
                     </div>
-
-                    <div class="row">
-                      <span class="lbl">Alamat</span><span class="sep">:</span>
-                      <span class="val" id="p-alamat">JL SWADARMA 2 BLOK B NO 22</span>
-                    </div>
-
-                    <!-- Baris yang di-indentasi -->
-                    <div class="row indent">
-                      <span class="lbl">RT/RW</span><span class="sep">:</span>
-                      <span class="val" id="p-rtRw">001/008</span>
-                    </div>
-
-                    <div class="row indent">
-                      <span class="lbl">Kel/Desa</span><span class="sep">:</span>
-                      <span class="val" id="p-kelDesa">KALIBATA</span>
-                    </div>
-
-                    <div class="row indent">
-                      <span class="lbl">Kecamatan</span><span class="sep">:</span>
-                      <span class="val" id="p-kecamatan">PANCORAN</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Agama</span><span class="sep">:</span>
-                      <span class="val" id="p-agama">ISLAM</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Status Perkawinan</span><span class="sep">:</span>
-                      <span class="val" id="p-statusPerkawinan">KAWIN</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Pekerjaan</span><span class="sep">:</span>
-                      <span class="val" id="p-pekerjaan">KARYAWAN SWASTA</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Kewarganegaraan</span><span class="sep">:</span>
-                      <span class="val" id="p-kewarganegaraan">WNI</span>
-                    </div>
-
-                    <div class="row">
-                      <span class="lbl">Berlaku Hingga</span><span class="sep">:</span>
-                      <span class="val" id="p-berlakuHingga">SEUMUR HIDUP</span>
-                    </div>
+                    <div class="row"><span class="lbl">Alamat</span><span class="sep">:</span><span class="val" id="p-alamat">JL SWADARMA 2 BLOK B NO 22</span></div>
+                    <div class="row indent"><span class="lbl">RT/RW</span><span class="sep">:</span><span class="val" id="p-rtRw">001/008</span></div>
+                    <div class="row indent"><span class="lbl">Kel/Desa</span><span class="sep">:</span><span class="val" id="p-kelDesa">KALIBATA</span></div>
+                    <div class="row indent"><span class="lbl">Kecamatan</span><span class="sep">:</span><span class="val" id="p-kecamatan">PANCORAN</span></div>
+                    <div class="row"><span class="lbl">Agama</span><span class="sep">:</span><span class="val" id="p-agama">ISLAM</span></div>
+                    <div class="row"><span class="lbl">Status Perkawinan</span><span class="sep">:</span><span class="val" id="p-statusPerkawinan">KAWIN</span></div>
+                    <div class="row"><span class="lbl">Pekerjaan</span><span class="sep">:</span><span class="val" id="p-pekerjaan">KARYAWAN SWASTA</span></div>
+                    <div class="row"><span class="lbl">Kewarganegaraan</span><span class="sep">:</span><span class="val" id="p-kewarganegaraan">WNI</span></div>
+                    <div class="row"><span class="lbl">Berlaku Hingga</span><span class="sep">:</span><span class="val" id="p-berlakuHingga">SEUMUR HIDUP</span></div>
                   </div>
-
-                  <!-- Foto + tanda tangan -->
                   <div class="ktp-photo-col">
                     <div class="photo-box" id="photoBox">
                       <span id="photoPlaceholder">FOTO<br>3 &times; 4</span>
                       <img id="photoImg" alt="Foto" style="display:none;" />
                     </div>
-
                     <div class="photo-meta">
                       <div class="kota" id="p-kota">JAKARTA</div>
                       <div class="tgl" id="p-tanggal">05-10-2018</div>
-
-                      <!-- Area Tanda Tangan (Canvas/Image) -->
                       <div class="sign-area" id="ktpSignArea">
-                        <!-- Default SVG Tanda Tangan (Akan disembunyikan jika user menggambar) -->
                         <svg id="default-sign" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
-                          <path d="M10 30 C 20 10, 25 15, 30 25 C 35 35, 25 35, 32 22 C 38 10, 45 15, 48 25 C 52 35, 42 35, 50 22 C 55 12, 65 10, 68 25 C 70 35, 65 35, 72 20 C 78 8, 85 10, 88 25 C 90 32, 85 35, 95 15" 
-                                fill="none" stroke="#000" stroke-width="2" 
-                                stroke-linecap="round" stroke-linejoin="round"/>
+                          <path d="M10 30 C 20 10, 25 15, 30 25 C 35 35, 25 35, 32 22 C 38 10, 45 15, 48 25 C 52 35, 42 35, 50 22 C 55 12, 65 10, 68 25 C 70 35, 65 35, 72 20 C 78 8, 85 10, 88 25 C 90 32, 85 35, 95 15" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
                           <path d="M45 28 C 55 20, 60 30, 65 20" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"/>
                         </svg>
-                        <!-- Gambar Tanda Tangan Baru -->
                         <img id="p-signature" alt="Tanda Tangan" style="display:none;" />
                       </div>
                     </div>
                   </div>
-
-                </div><!-- /ktp-body -->
-              </div><!-- /ktp-inner -->
-            </div><!-- /ktp -->
-            <!-- ================== /KARTU KTP ================== -->
-
+                </div>
+              </div>
+            </div>
+            <!-- /KARTU KTP -->
           </div>
         </div>
       </div>
@@ -568,32 +441,36 @@
 <div id="loader" class="hidden items-center justify-center bg-slate-900/70 backdrop-blur-sm">
   <div class="flex flex-col items-center gap-4">
     <div class="spinner"></div>
-    <p class="text-sm font-semibold text-white">Membuat gambar KTP...</p>
+    <p class="text-sm font-semibold text-white">Memproses...</p>
   </div>
 </div>
 
 <script>
 /* =========================================================================
-   SCRIPT GENERATOR KTP
+   SCRIPT GENERATOR KTP & CRUD (LOCAL STORAGE)
    ========================================================================= */
 (function () {
   'use strict';
 
-  /* ----------------------------- Referensi DOM ----------------------------- */
+  // DOM Elements
   const fields         = document.querySelectorAll('[data-field]');
   const nikEl          = document.getElementById('nik');
   const fotoEl         = document.getElementById('foto');
   const photoImg       = document.getElementById('photoImg');
   const photoPlaceholder = document.getElementById('photoPlaceholder');
   const btnDownload    = document.getElementById('btnDownload');
-  const btnReset       = document.getElementById('btnReset');
+  const btnSaveData    = document.getElementById('btnSaveData');
+  const btnClearForm   = document.getElementById('btnClearForm');
+  const btnClearDb     = document.getElementById('btnClearDb');
   const loader         = document.getElementById('loader');
   const ktpCard        = document.getElementById('ktpCard');
   const ktpScaler      = document.getElementById('ktpScaler');
   const ktpStage       = document.getElementById('ktpStage');
   const form           = document.getElementById('ktpForm');
+  const savedDataList  = document.getElementById('savedDataList');
+  const toast          = document.getElementById('toast');
 
-  // Elemen Tanda Tangan
+  // Signature Elements
   const canvas         = document.getElementById('signature-pad');
   const clearSignBtn   = document.getElementById('clear-signature');
   const signUpload     = document.getElementById('sign-upload');
@@ -602,15 +479,18 @@
 
   const CARD_W = 640;
   const CARD_H = 403;
+  const STORAGE_KEY = 'ktp_generator_data_v1';
 
-  /* =======================================================================
-     1. SET TANGGAL PEMBUATAN
-     ======================================================================= */
   document.getElementById('p-tanggal').textContent = "05-10-2018";
 
-  /* =======================================================================
-     2. HELPER: menulis teks ke elemen preview
-     ======================================================================= */
+  /* ================= HELPERS ================= */
+  function showToast(msg, isError = false) {
+    toast.textContent = msg;
+    toast.style.backgroundColor = isError ? '#ef4444' : '#10b981';
+    toast.className = "show";
+    setTimeout(function(){ toast.className = toast.className.replace("show", ""); }, 3000);
+  }
+
   function setPreviewText(id, value) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -618,15 +498,10 @@
     el.textContent = v === '' ? '-' : v;
   }
 
-  /* =======================================================================
-     3. SINKRONISASI SATU FIELD -> PREVIEW
-     ======================================================================= */
   function syncField(el) {
     const key = el.dataset.field;
     if (!key) return;
-
     setPreviewText('p-' + key, el.value);
-
     if (key === 'kabupaten') {
       const upper = el.value.trim().toUpperCase();
       let kotaText = upper.replace('KOTA ', '').replace('KABUPATEN ADMINISTRASI ', '').replace('KABUPATEN ', '');
@@ -634,35 +509,18 @@
     }
   }
 
-  /* =======================================================================
-     4. FORMAT NIK
-     ======================================================================= */
-  nikEl.addEventListener('input', function () {
-    this.value = this.value.replace(/\D/g, '').slice(0, 16);
-  });
-
-  /* =======================================================================
-     5. TWO-WAY BINDING
-     ======================================================================= */
+  /* ================= FORM BINDING ================= */
+  nikEl.addEventListener('input', function () { this.value = this.value.replace(/\D/g, '').slice(0, 16); });
   fields.forEach(function (el) {
     el.addEventListener('input', function () { syncField(el); });
     el.addEventListener('change', function () { syncField(el); });
     syncField(el);
   });
 
-  /* =======================================================================
-     6. UPLOAD FOTO UTAMA
-     ======================================================================= */
+  /* ================= UPLOAD FOTO ================= */
   fotoEl.addEventListener('change', function () {
     const file = this.files && this.files[0];
     if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      alert('File harus berupa gambar (JPG / PNG).');
-      this.value = '';
-      return;
-    }
-
     const reader = new FileReader();
     reader.onload = function (e) {
       photoImg.src = e.target.result;
@@ -672,33 +530,21 @@
     reader.readAsDataURL(file);
   });
 
-  /* =======================================================================
-     7. FITUR TANDA TANGAN (SIGNATURE PAD)
-     ======================================================================= */
+  /* ================= SIGNATURE PAD ================= */
   let signaturePad;
-
   function initSignaturePad() {
     const ratio =  Math.max(window.devicePixelRatio || 1, 1);
     canvas.width = canvas.offsetWidth * ratio;
     canvas.height = canvas.offsetHeight * ratio;
     canvas.getContext("2d").scale(ratio, ratio);
-
-    signaturePad = new SignaturePad(canvas, {
-      backgroundColor: 'rgba(255, 255, 255, 0)',
-      penColor: 'black',
-      minWidth: 1,
-      maxWidth: 2.5
-    });
-
+    signaturePad = new SignaturePad(canvas, { backgroundColor: 'rgba(255,255,255,0)', penColor: 'black', minWidth: 1, maxWidth: 2.5 });
     signaturePad.addEventListener("endStroke", () => {
-      const dataURL = signaturePad.toDataURL();
-      pSignatureImg.src = dataURL;
+      pSignatureImg.src = signaturePad.toDataURL();
       pSignatureImg.style.display = 'block';
       defaultSignSvg.style.display = 'none';
       signUpload.value = ''; 
     });
   }
-
   initSignaturePad();
   
   window.addEventListener("resize", () => {
@@ -708,29 +554,18 @@
     canvas.height = canvas.offsetHeight * ratio;
     canvas.getContext("2d").scale(ratio, ratio);
     signaturePad.clear();
-    if(data.length > 0) {
-        signaturePad.fromData(data);
-    }
+    if(data.length > 0) signaturePad.fromData(data);
   });
 
   clearSignBtn.addEventListener('click', () => {
     signaturePad.clear();
-    pSignatureImg.src = '';
-    pSignatureImg.style.display = 'none';
-    defaultSignSvg.style.display = 'block';
-    signUpload.value = '';
+    pSignatureImg.src = ''; pSignatureImg.style.display = 'none';
+    defaultSignSvg.style.display = 'block'; signUpload.value = '';
   });
 
   signUpload.addEventListener('change', function () {
     const file = this.files && this.files[0];
     if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      alert('File harus berupa gambar (PNG direkomendasikan).');
-      this.value = '';
-      return;
-    }
-
     const reader = new FileReader();
     reader.onload = function (e) {
       pSignatureImg.src = e.target.result;
@@ -741,9 +576,7 @@
     reader.readAsDataURL(file);
   });
 
-  /* =======================================================================
-     8. RESPONSIVE SCALING KARTU
-     ======================================================================= */
+  /* ================= RESPONSIVE SCALING ================= */
   function fitCard() {
     const available = ktpStage.clientWidth || CARD_W;
     const scale = Math.min(1, available / CARD_W);
@@ -751,93 +584,172 @@
     ktpScaler.style.height = (CARD_H * scale) + 'px';
     ktpStage.style.height  = (CARD_H * scale) + 'px';
   }
-  window.addEventListener('resize', fitCard);
-  window.addEventListener('load', fitCard);
-  fitCard();
+  window.addEventListener('resize', fitCard); fitCard();
 
-  /* =======================================================================
-     9. DOWNLOAD KTP PNG
-     ======================================================================= */
+  /* ================= DOWNLOAD KTP ================= */
   btnDownload.addEventListener('click', async function () {
-    const originalHTML = btnDownload.innerHTML;
-
-    loader.classList.remove('hidden');
-    loader.classList.add('flex');
+    loader.classList.remove('hidden'); loader.classList.add('flex');
     btnDownload.disabled = true;
-
     const prevTransform = ktpScaler.style.transform;
     const prevHeight    = ktpScaler.style.height;
-    ktpScaler.style.transform = 'none';
-    ktpScaler.style.height    = CARD_H + 'px';
+    ktpScaler.style.transform = 'none'; ktpScaler.style.height = CARD_H + 'px';
 
     try {
-      const canvasHtml = await html2canvas(ktpCard, {
-        scale: 3, // HD
-        backgroundColor: '#ffffff',
-        useCORS: true,
-        logging: false,
-        width: CARD_W,
-        height: CARD_H
-      });
-
+      const canvasHtml = await html2canvas(ktpCard, { scale: 3, backgroundColor: '#ffffff', useCORS: true, width: CARD_W, height: CARD_H });
       const rawName = (document.getElementById('nama').value || 'Tanpa_Nama').trim();
-      const safeName = rawName.replace(/\s+/g, '_').replace(/[^\w\-]/g, '') || 'Tanpa_Nama';
-
+      const safeName = rawName.replace(/\s+/g, '_').replace(/[^\w\-]/g, '');
       const link = document.createElement('a');
       link.download = 'KTP_' + safeName + '.png';
       link.href = canvasHtml.toDataURL('image/png');
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-
+      document.body.appendChild(link); link.click(); document.body.removeChild(link);
+      showToast('Berhasil diunduh!');
     } catch (err) {
-      console.error(err);
-      alert('Gagal: ' + err.message);
+      showToast('Gagal mengunduh: ' + err.message, true);
     } finally {
-      ktpScaler.style.transform = prevTransform;
-      ktpScaler.style.height    = prevHeight;
-      fitCard();
-
-      loader.classList.add('hidden');
-      loader.classList.remove('flex');
+      ktpScaler.style.transform = prevTransform; ktpScaler.style.height = prevHeight;
+      fitCard(); loader.classList.add('hidden'); loader.classList.remove('flex');
       btnDownload.disabled = false;
-      btnDownload.innerHTML = originalHTML;
     }
   });
 
-  /* =======================================================================
-     10. RESET FORM
-     ======================================================================= */
-  btnReset.addEventListener('click', function () {
-    form.reset();
+  /* ================= CRUD (LOCAL STORAGE) ================= */
+  function getRecords() { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'); }
+  function setRecords(data) { localStorage.setItem(STORAGE_KEY, JSON.stringify(data)); }
+
+  // RENDER LIST
+  function renderSavedData() {
+    const records = getRecords();
+    savedDataList.innerHTML = '';
     
-    // Set nilai default
-    document.getElementById('provinsi').value = "DKI JAKARTA";
-    document.getElementById('kabupaten').value = "JAKARTA SELATAN";
-    document.getElementById('nik').value = "3174081708790014";
-    document.getElementById('nama').value = "AGUS PUJIYONO";
-    document.getElementById('ttl').value = "SEMARANG, 17-08-1979";
-    document.getElementById('alamat').value = "JL SWADARMA 2 BLOK B NO 22";
-    document.getElementById('rtRw').value = "001/008";
-    document.getElementById('kelDesa').value = "KALIBATA";
-    document.getElementById('kecamatan').value = "PANCORAN";
-    document.getElementById('pekerjaan').value = "KARYAWAN SWASTA";
+    if (records.length === 0) {
+      savedDataList.innerHTML = '<p class="text-sm text-slate-400 italic text-center py-4">Belum ada data tersimpan.</p>';
+      return;
+    }
 
-    // Reset Foto
-    fotoEl.value = ''; 
-    photoImg.src = '';
-    photoImg.style.display = 'none';
-    photoPlaceholder.style.display = 'block';
+    records.forEach((rec, index) => {
+      const div = document.createElement('div');
+      div.className = "flex items-center justify-between rounded-lg border border-slate-200 bg-slate-50 p-3 hover:bg-slate-100 transition";
+      div.innerHTML = `
+        <div>
+          <p class="text-sm font-bold text-slate-800">${rec.data.nama || 'Tanpa Nama'}</p>
+          <p class="text-xs text-slate-500">NIK: ${rec.data.nik || '-'}</p>
+        </div>
+        <div class="flex gap-2">
+          <button onclick="loadRecord(${rec.id})" class="rounded bg-blue-100 px-2 py-1 text-xs font-bold text-blue-700 hover:bg-blue-200">Load</button>
+          <button onclick="deleteRecord(${rec.id})" class="rounded bg-red-100 px-2 py-1 text-xs font-bold text-red-700 hover:bg-red-200">Hapus</button>
+        </div>
+      `;
+      savedDataList.appendChild(div);
+    });
+  }
 
-    // Reset Tanda Tangan
-    signaturePad.clear();
-    signUpload.value = '';
-    pSignatureImg.src = '';
-    pSignatureImg.style.display = 'none';
-    defaultSignSvg.style.display = 'block';
-
-    fields.forEach(function (el) { syncField(el); });
+  // CREATE / SAVE
+  btnSaveData.addEventListener('click', () => {
+    const records = getRecords();
+    const newRecord = {
+      id: Date.now(),
+      data: {
+        provinsi: document.getElementById('provinsi').value,
+        kabupaten: document.getElementById('kabupaten').value,
+        nik: document.getElementById('nik').value,
+        nama: document.getElementById('nama').value,
+        ttl: document.getElementById('ttl').value,
+        jenisKelamin: document.getElementById('jenisKelamin').value,
+        golDarah: document.getElementById('golDarah').value,
+        alamat: document.getElementById('alamat').value,
+        rtRw: document.getElementById('rtRw').value,
+        kelDesa: document.getElementById('kelDesa').value,
+        kecamatan: document.getElementById('kecamatan').value,
+        agama: document.getElementById('agama').value,
+        statusPerkawinan: document.getElementById('statusPerkawinan').value,
+        pekerjaan: document.getElementById('pekerjaan').value,
+        kewarganegaraan: document.getElementById('kewarganegaraan').value,
+        berlakuHingga: document.getElementById('berlakuHingga').value,
+        fotoBase64: photoImg.src ? photoImg.src : '',
+        ttdBase64: pSignatureImg.src ? pSignatureImg.src : ''
+      }
+    };
+    
+    records.push(newRecord);
+    try {
+      setRecords(records);
+      renderSavedData();
+      showToast('Data berhasil disimpan ke browser!');
+    } catch (e) {
+      showToast('Gagal menyimpan: Memori browser penuh (Terlalu banyak foto).', true);
+    }
   });
+
+  // READ / LOAD
+  window.loadRecord = function(id) {
+    const records = getRecords();
+    const rec = records.find(r => r.id === id);
+    if (!rec) return;
+
+    const d = rec.data;
+    document.getElementById('provinsi').value = d.provinsi || '';
+    document.getElementById('kabupaten').value = d.kabupaten || '';
+    document.getElementById('nik').value = d.nik || '';
+    document.getElementById('nama').value = d.nama || '';
+    document.getElementById('ttl').value = d.ttl || '';
+    document.getElementById('jenisKelamin').value = d.jenisKelamin || 'LAKI-LAKI';
+    document.getElementById('golDarah').value = d.golDarah || '-';
+    document.getElementById('alamat').value = d.alamat || '';
+    document.getElementById('rtRw').value = d.rtRw || '';
+    document.getElementById('kelDesa').value = d.kelDesa || '';
+    document.getElementById('kecamatan').value = d.kecamatan || '';
+    document.getElementById('agama').value = d.agama || 'ISLAM';
+    document.getElementById('statusPerkawinan').value = d.statusPerkawinan || 'KAWIN';
+    document.getElementById('pekerjaan').value = d.pekerjaan || '';
+    document.getElementById('kewarganegaraan').value = d.kewarganegaraan || '';
+    document.getElementById('berlakuHingga').value = d.berlakuHingga || '';
+
+    // Handle Images
+    if (d.fotoBase64) {
+      photoImg.src = d.fotoBase64; photoImg.style.display = 'block'; photoPlaceholder.style.display = 'none';
+    } else {
+      photoImg.src = ''; photoImg.style.display = 'none'; photoPlaceholder.style.display = 'block';
+    }
+
+    if (d.ttdBase64) {
+      pSignatureImg.src = d.ttdBase64; pSignatureImg.style.display = 'block'; defaultSignSvg.style.display = 'none';
+      signaturePad.clear();
+    } else {
+      pSignatureImg.src = ''; pSignatureImg.style.display = 'none'; defaultSignSvg.style.display = 'block';
+    }
+
+    fields.forEach(el => syncField(el));
+    showToast('Data berhasil dimuat!');
+  };
+
+  // DELETE
+  window.deleteRecord = function(id) {
+    if(!confirm('Hapus data ini dari browser?')) return;
+    let records = getRecords();
+    records = records.filter(r => r.id !== id);
+    setRecords(records);
+    renderSavedData();
+    showToast('Data dihapus.');
+  };
+
+  btnClearDb.addEventListener('click', () => {
+    if(!confirm('Hapus SEMUA data KTP dari browser?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    renderSavedData();
+    showToast('Semua data dihapus.');
+  });
+
+  btnClearForm.addEventListener('click', () => { form.reset(); updateEmptyPreview(); });
+
+  function updateEmptyPreview() {
+    fields.forEach(el => syncField(el));
+    photoImg.src = ''; photoImg.style.display = 'none'; photoPlaceholder.style.display = 'block';
+    signaturePad.clear(); pSignatureImg.src = ''; pSignatureImg.style.display = 'none'; defaultSignSvg.style.display = 'block';
+    signUpload.value = '';
+  }
+
+  // Initialize Database View
+  renderSavedData();
 
 })();
 </script>
