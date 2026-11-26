@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VCF & Contact Manager</title>
+<style>
+:root{--bg:#f6f7fb;--c:#fff;--t:#1b2030;--m:#6b7280;--b:#e5e7ee;--p:#4f46e5;--pt:#fff;--dg:#dc2626}
+[data-t=dark]{--bg:#0f1220;--c:#171a2b;--t:#e7e9f3;--m:#9aa1b8;--b:#2a2f47;--p:#818cf8;--pt:#0f1220}
+*{box-sizing:border-box}body{margin:0;font:14px/1.5 Inter,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;background:var(--bg);color:var(--t)}
+#app{display:flex;min-height:100vh}aside{width:240px;background:var(--c);border-right:1px solid var(--b);position:sticky;top:0;height:100vh;overflow:auto;transition:.2s;flex:none}
+.col aside{width:64px}.col .nl,.col .lg0 b{display:none}.lg0{padding:18px 20px;font-size:16px}
+nav button{display:flex;gap:12px;align-items:center;width:calc(100% - 16px);margin:2px 8px;padding:9px 12px;border:0;background:none;color:var(--m);border-radius:8px;cursor:pointer;font:inherit;text-align:left}
+nav button:hover{background:var(--bg)}nav button.on{background:var(--p);color:var(--pt)}nav i{font-style:normal;width:18px;text-align:center}
+.mn{flex:1;min-width:0}header{position:sticky;top:0;z-index:5;display:flex;gap:10px;align-items:center;padding:10px 20px;background:var(--c);border-bottom:1px solid var(--b)}
+header #gs{flex:1;max-width:480px}main{padding:20px}h2{margin:0 0 16px}h3{margin:0 0 10px}
+input,select,textarea,.b{font:inherit;color:var(--t);background:var(--c);border:1px solid var(--b);border-radius:8px;padding:7px 10px}
+input[type=checkbox],input[type=radio]{padding:0}textarea{width:100%}
+.b{cursor:pointer}.b:hover{border-color:var(--p)}.b.pr{background:var(--p);color:var(--pt);border-color:var(--p)}.b.dg{background:var(--dg);color:#fff;border-color:var(--dg)}.b:disabled{opacity:.4}
+.ic{border:0;background:none;cursor:pointer;color:var(--t);font-size:16px;padding:4px 6px;border-radius:6px}.ic:hover{background:var(--bg)}
+.av0{width:34px;height:34px;border-radius:50%;border:0;background:var(--p);color:var(--pt);font-weight:600;cursor:pointer}
+:focus-visible{outline:2px solid var(--p);outline-offset:1px}
+.card{background:var(--c);border:1px solid var(--b);border-radius:12px;padding:16px;margin-bottom:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px;margin-bottom:16px}.st{margin:0}.st span{color:var(--m);display:block}.st b{font-size:26px}
+.two{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.bar{display:flex;align-items:center;gap:8px;margin:6px 0;cursor:pointer;position:relative}.bar span{width:110px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.bar i{display:block;height:14px;background:var(--p);border-radius:7px;min-width:4px;transition:width .4s}.bar em{font-style:normal;color:var(--m)}
+.tb{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}.tb #q{flex:1;min-width:200px}
+.tw{padding:0;overflow:auto}table{width:100%;border-collapse:collapse}th,td{padding:9px 12px;text-align:left;border-bottom:1px solid var(--b);vertical-align:top}th{color:var(--m);font-weight:600;cursor:pointer;white-space:nowrap}
+.lk{cursor:pointer;color:var(--p)}.nw{white-space:nowrap}.tag{background:var(--bg);border:1px solid var(--b);border-radius:20px;padding:0 8px;margin-right:4px;font-size:12px}
+.pg{display:flex;gap:8px;align-items:center;padding:10px 12px}.bk{display:flex;gap:8px;align-items:center;flex-wrap:wrap;padding:10px 14px}
+.empty{padding:28px;text-align:center;color:var(--m)}.lg{padding:6px 0;border-bottom:1px solid var(--b)}.lg small{display:block;color:var(--m)}
+.dz{border:2px dashed var(--b);border-radius:12px;padding:30px;text-align:center;color:var(--m)}.dz.ov2{border-color:var(--p);background:var(--bg)}
+.ov{position:fixed;inset:0;background:#0008;display:flex;align-items:center;justify-content:center;z-index:20;padding:12px}
+.md{background:var(--c);border-radius:14px;width:640px;max-width:100%;max-height:92vh;display:flex;flex-direction:column;animation:pop .15s}@keyframes pop{from{transform:scale(.97);opacity:0}}
+.mh,.mf{display:flex;justify-content:space-between;gap:8px;padding:14px 18px}.mf{justify-content:flex-end;border-top:1px solid var(--b)}.mh{border-bottom:1px solid var(--b)}.mb{padding:16px 18px;overflow:auto}
+.fm{display:grid;grid-template-columns:1fr 1fr;gap:10px}.fm label{display:flex;flex-direction:column;gap:3px;color:var(--m)}.fm .w{grid-column:1/-1}.fm input,.fm textarea{width:100%}
+.av{width:72px;height:72px;border-radius:50%;object-fit:cover}.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+pre{background:var(--bg);padding:10px;border-radius:8px;overflow:auto;max-height:260px;font-size:12px;white-space:pre-wrap;word-break:break-all}
+#toasts{position:fixed;right:16px;bottom:16px;z-index:30;display:flex;flex-direction:column;gap:8px}.ts{background:var(--t);color:var(--bg);padding:10px 14px;border-radius:8px;animation:pop .2s;max-width:340px}.ts.er{background:var(--dg);color:#fff}
+#ld{position:fixed;top:0;left:0;height:3px;width:0;background:var(--p);z-index:40;transition:width .3s}progress{width:100%}
+@media(max-width:800px){aside{position:fixed;z-index:15;transform:translateX(-100%);height:100%}aside.open{transform:none}.fm{grid-template-columns:1fr}main{padding:12px}}
+</style></head><body>
+<div id="app"><aside id="sb"><div class="lg0">☎ <b>VCF Manager</b></div><nav id="nav"></nav></aside>
+<div class="mn"><header><button class="ic" id="mb" aria-label="Menu">☰</button><input id="gs" type="search" placeholder="Pencarian global…" aria-label="Pencarian global"><button class="ic" id="th" aria-label="Ganti tema">◐</button><button class="av0" data-a="nav" data-id="settings" aria-label="Pengaturan">VM</button></header>
+<main><h2 id="ttl"></h2><div id="v"></div></main></div></div>
+<div id="modal"></div><div id="toasts" aria-live="polite"></div><div id="ld"></div>
+<script>
+'use strict';
+const $=(s,e=document)=>e.querySelector(s),$$=(s,e=document)=>[...e.querySelectorAll(s)];
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,8);
+const S={contacts:[],files:[],log:[]},U={q:'',cat:'',file:'',cc:'',flt:'',from:'',sort:'fn',dir:1,page:0};
+let CFG={theme:matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light',cc:'62',ps:100},SEL=new Set(),route='dashboard',DC=null,LAST=[],MEM=false;
+try{Object.assign(CFG,JSON.parse(localStorage.getItem('vcfm.cfg')||'{}'))}catch{}
+const setCfg=()=>{try{localStorage.setItem('vcfm.cfg',JSON.stringify(CFG))}catch{}document.documentElement.dataset.t=CFG.theme};
+/* ---------- storage (IndexedDB) ---------- */
+const DB={db:null,init:()=>new Promise((res,rej)=>{const r=indexedDB.open('vcfm',1);r.onupgradeneeded=()=>r.result.createObjectStore('kv');r.onsuccess=()=>{DB.db=r.result;res()};r.onerror=()=>rej(r.error)}),
+get:k=>new Promise(r=>{const q=DB.db.transaction('kv').objectStore('kv').get(k);q.onsuccess=()=>r(q.result);q.onerror=()=>r()}),
+set:(k,v)=>new Promise(r=>{const t=DB.db.transaction('kv','readwrite');t.objectStore('kv').put(v,k);t.oncomplete=r;t.onerror=r})};
+let st;const save=()=>{clearTimeout(st);st=setTimeout(async()=>{if(MEM)return;await DB.set('contacts',S.contacts);await DB.set('files',S.files);await DB.set('log',S.log)},300)};
+const H=new Map();const mut=()=>{H.clear();DC=null;save()};
+const log=(a,d)=>{S.log.unshift({t:Date.now(),a,d});if(S.log.length>500)S.log.length=500};
+/* ---------- ui helpers ---------- */
+function toast(m,t){const e=document.createElement('div');e.className='ts '+(t||'');e.textContent=m;$('#toasts').append(e);setTimeout(()=>e.remove(),3500)}
+function modal(t,b,f=''){$('#modal').innerHTML=`<div class="ov"><div class="md" role="dialog" aria-modal="true"><div class="mh"><b>${t}</b><button class="ic" data-a="close" aria-label="Tutup">✕</button></div><div class="mb">${b}</div><div class="mf">${f}</div></div></div>`}
+const closeM=()=>{$('#modal').innerHTML=''};
+const ask=(m,ok='Ya, lanjutkan',dg)=>new Promise(r=>{modal('Konfirmasi',`<p>${m}</p>`,`<button class="b" id="cn">Batal</button><button class="b ${dg?'dg':'pr'}" id="ok">${ok}</button>`);$('#cn').onclick=()=>{closeM();r(false)};$('#ok').onclick=()=>{closeM();r(true)}});
+const busy=p=>{$('#ld').style.width=p==null?'0':Math.round(p*100)+'%'};
+const empty=m=>`<div class="empty">${m}</div>`;
+const logList=n=>S.log.slice(0,n).map(l=>`<div class="lg"><b>${esc(l.a)}</b> ${esc(l.d)}<small>${new Date(l.t).toLocaleString('id')}</small></div>`).join('')||empty('Belum ada aktivitas');
+const dn=c=>c.fn||[c.first,c.last].filter(Boolean).join(' ');
+const byId=id=>S.contacts.find(c=>c.id===id);
+const allCats=()=>[...new Set(S.contacts.flatMap(c=>c.cats))].sort();
+const fOpts=(sel)=>S.files.map(f=>`<option value="${f.id}" ${sel===f.id?'selected':''}>${esc(f.name)}</option>`).join('');
+function dl(blob,name){const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(a.href),2e4)}
+function mkBlob(t,enc,mime){if(enc==='utf-16le'){const u=new Uint16Array(t.length+1);u[0]=0xFEFF;for(let i=0;i<t.length;i++)u[i+1]=t.charCodeAt(i);return new Blob([u],{type:mime})}return new Blob([enc==='utf-8-bom'?'\uFEFF'+t:t],{type:mime+';charset=utf-8'})}
+const MIME={vcf:'text/vcard',csv:'text/csv',json:'application/json',txt:'text/plain'};
+/* ---------- phone ---------- */
+const CCS=['966','971','62','60','65','61','81','82','86','91','44','49','33','31','39','34','20','27','90','1','7'];
+const ccOf=n=>{if(n[0]!=='+')return'';const d=n.slice(1);return CCS.find(c=>d.startsWith(c))||''};
+function normPhone(p,cc){let d=String(p).replace(/[^\d+]/g,'');if(d.startsWith('00'))d='+'+d.slice(2);if(d[0]==='+')return'+'+d.replace(/\D/g,'');d=d.replace(/\D/g,'');if(!d)return'';if(d[0]==='0')return'+'+cc+d.slice(1);if(d.startsWith(cc)&&d.length>=cc.length+8)return'+'+d;return'+'+cc+d}
+const validPhone=n=>/^\+\d{8,15}$/.test(n)&&(!n.startsWith('+62')||/^\+62\d{8,12}$/.test(n));
+function fmtPhone(n,f,cc){if(f==='nat')return n.startsWith('+'+cc)?'0'+n.slice(cc.length+1):n;if(f==='intl'){const c=ccOf(n)||cc;return'+'+c+' '+n.slice(c.length+1).replace(/(\d{4})(?=\d)/g,'$1-')}return n}
+/* ---------- vCard parser ---------- */
+const un=v=>v.replace(/\\([nN,;\\:])/g,(m,x)=>/n/i.test(x)?'\n':x),sp=v=>v.split(/(?<!\\);/).map(un);
+function qp(s,cs){const b=[];for(let i=0;i<s.length;i++){if(s[i]==='='&&/^[0-9A-F]{2}$/i.test(s.substr(i+1,2))){b.push(parseInt(s.substr(i+1,2),16));i+=2}else b.push(s.charCodeAt(i)&255)}try{return new TextDecoder(cs).decode(new Uint8Array(b))}catch{return new TextDecoder().decode(new Uint8Array(b))}}
+function fin(c,fid){['fn','first','last','org','title','adr','url','bday','note','photo'].forEach(k=>c[k]=c[k]==null?'':String(c[k]));
+c.tels=(c.tels||[]).filter(t=>t&&t.v).map(t=>({v:String(t.v).trim(),t:t.t||'CELL'}));c.emails=(c.emails||[]).map(String).filter(Boolean);c.cats=(c.cats||[]).map(String).filter(Boolean);
+if(!c.fn)c.fn=[c.first,c.last].filter(Boolean).join(' ');if(!c.first&&!c.last&&c.fn){const p=c.fn.split(/\s+/);c.first=p.shift();c.last=p.join(' ')}
+c.id=uid();c.fileId=fid||'';c.added=Date.now();c.fav=!!c.fav;return c}
+function parseVCF(txt,fid){const L=[];for(const l of txt.replace(/^\uFEFF/,'').split(/\r\n|\r|\n/)){const p=L[L.length-1];
+ if(p!==undefined&&/QUOTED-PRINTABLE/i.test(p)&&p.endsWith('='))L[L.length-1]=p.slice(0,-1)+l;else if(p!==undefined&&/^[ \t]/.test(l))L[L.length-1]=p+l.slice(1);else L.push(l)}
+ const out=[];let c=null,bad=0,ver='';
+ const end=()=>{c.tels.sort((a,b)=>!!b.pref-!!a.pref);out.push(fin(c,fid))};
+ for(const l of L){const u=l.trim().toUpperCase();
+  if(u==='BEGIN:VCARD'){if(c){bad++;end()}c={tels:[],emails:[],cats:[]};continue}
+  if(u==='END:VCARD'){if(c)end();c=null;continue}
+  if(!c||!l.trim())continue;const i=l.indexOf(':');if(i<1)continue;
+  const[nm,...ps]=l.slice(0,i).split(';'),name=nm.split('.').pop().toUpperCase(),pj=ps.join(';').toUpperCase(),pr={};
+  ps.forEach(x=>{const k=x.indexOf('=');if(k<0)pr.TYPE=(pr.TYPE?pr.TYPE+',':'')+x.toUpperCase();else{const kk=x.slice(0,k).toUpperCase();pr[kk]=(pr[kk]?pr[kk]+',':'')+x.slice(k+1).replace(/"/g,'').toUpperCase()}});
+  let v=l.slice(i+1);if(/QUOTED-PRINTABLE/.test(pj))v=qp(v,(/CHARSET=([\w-]+)/i.exec(pj)||[])[1]||'utf-8');
+  switch(name){
+   case'VERSION':ver=v.trim();break;
+   case'FN':c.fn=un(v);break;
+   case'N':{const p=sp(v);c.last=p[0]||'';c.first=p[1]||'';break}
+   case'TEL':{const ty=(pr.TYPE||'').split(',').filter(x=>x&&x!=='PREF'&&x!=='VOICE');c.tels.push({v:v.replace(/^tel:/i,'').trim(),t:ty[0]||'CELL',pref:/PREF/.test(pr.TYPE||'')||!!pr.PREF});break}
+   case'EMAIL':c.emails.push(un(v).replace(/^mailto:/i,''));break;
+   case'ORG':c.org=sp(v).filter(Boolean).join(', ');break;
+   case'TITLE':c.title=un(v);break;case'URL':c.url=un(v);break;case'BDAY':c.bday=un(v);break;case'NOTE':c.note=un(v);break;
+   case'ADR':c.adr=sp(v).filter(Boolean).join(', ');break;
+   case'CATEGORIES':c.cats=v.split(/(?<!\\),/).map(un).filter(Boolean);break;
+   case'PHOTO':if(/^data:image\//i.test(v))c.photo=v;else if(/BASE64|ENCODING=B\b/.test(pj)){const t=((pr.TYPE||'JPEG').split(',').find(x=>/JPE?G|PNG|GIF/.test(x))||'JPEG').toLowerCase().replace('jpg','jpeg');c.photo='data:image/'+t+';base64,'+v.replace(/\s/g,'')}break}}
+ if(c){bad++;end()}return{c:out,bad,ver:ver||'3.0'}}
+/* ---------- writers ---------- */
+const ve=(s,v)=>{s=String(s??'').replace(/\\/g,'\\\\').replace(/\r?\n/g,'\\n').replace(/;/g,'\\;');return v==='2.1'?s:s.replace(/,/g,'\\,')};
+const fold=l=>{let o='';while(l.length>74){o+=l.slice(0,74)+'\r\n ';l=l.slice(74)}return o+l};
+function toVCF(list,v='3.0'){const cs=v==='2.1'?';CHARSET=UTF-8':'',tp=(t,p)=>v==='2.1'?';'+t:';TYPE='+t+(p&&v==='4.0'?';PREF=1':''),L=[];
+ for(const c of list){L.push('BEGIN:VCARD','VERSION:'+v,'FN'+cs+':'+ve(dn(c)||'No Name',v),'N'+cs+':'+[c.last,c.first,'','',''].map(x=>ve(x,v)).join(';'));
+  c.tels.forEach((t,i)=>L.push('TEL'+tp(String(t.t||'CELL').toUpperCase(),!i)+':'+t.v));
+  c.emails.forEach(e=>L.push('EMAIL'+(v==='2.1'?';INTERNET':';TYPE=INTERNET')+':'+e));
+  if(c.org)L.push('ORG'+cs+':'+ve(c.org,v));if(c.title)L.push('TITLE'+cs+':'+ve(c.title,v));
+  if(c.adr)L.push('ADR'+(v==='2.1'?';HOME'+cs:';TYPE=HOME')+':;;'+ve(c.adr,v)+';;;;');
+  if(c.url)L.push('URL:'+c.url);if(c.bday)L.push('BDAY:'+c.bday);if(c.note)L.push('NOTE'+cs+':'+ve(c.note,v));
+  if(c.cats.length)L.push('CATEGORIES'+cs+':'+c.cats.map(x=>ve(x,v)).join(','));
+  const m=/^data:image\/(\w+);base64,(.*)$/.exec(c.photo||'');if(m)L.push(v==='4.0'?'PHOTO:'+c.photo:'PHOTO;'+(v==='2.1'?'ENCODING=BASE64;':'ENCODING=b;')+(v==='2.1'?'':'TYPE=')+m[1].toUpperCase()+':'+m[2]);
+  L.push('END:VCARD')}
+ return L.map(fold).join('\r\n')+(L.length?'\r\n':'')}
+const cq=s=>{s=String(s??'');return/[",\n\r]/.test(s)?'"'+s.replace(/"/g,'""')+'"':s};
+const toCSV=l=>['Name','First Name','Last Name','Phone 1','Phone 2','Phone 3','Email','Organization','Title','Address','Website','Birthday','Notes','Categories'].join(',')+'\r\n'+l.map(c=>[dn(c),c.first,c.last,c.tels[0]?.v,c.tels[1]?.v,c.tels.slice(2).map(t=>t.v).join('; '),c.emails.join('; '),c.org,c.title,c.adr,c.url,c.bday,c.note,c.cats.join('; ')].map(cq).join(',')).join('\r\n');
+const conv=(l,f,v)=>f==='vcf'?toVCF(l,v):f==='csv'?toCSV(l):f==='json'?JSON.stringify(l.map(({id,fileId,...r})=>r),null,2):l.map(c=>(dn(c)||'-')+'\t'+c.tels.map(t=>t.v).join(', ')).join('\n');
+/* ---------- CSV / JSON import ---------- */
+function csv(t){t=t.replace(/^\uFEFF/,'');const h=t.split('\n')[0],d=h.split(';').length>h.split(',').length?';':',',r=[];let row=[],f='',q=false;
+ for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){f+='"';i++}else q=false}else f+=ch}else if(ch==='"')q=true;else if(ch===d){row.push(f);f=''}else if(ch==='\n'||ch==='\r'){if(ch==='\r'&&t[i+1]==='\n')i++;row.push(f);f='';if(row.some(x=>x))r.push(row);row=[]}else f+=ch}
+ row.push(f);if(row.some(x=>x))r.push(row);return r}
+function csvC(t,fid){const r=csv(t);if(r.length<2)return[];const Hd=r[0].map(x=>x.trim().toLowerCase()),ix=(re,ex)=>Hd.map((h,i)=>re.test(h)&&!(ex&&ex.test(h))?i:-1).filter(i=>i>=0);
+ const F={fn:ix(/^(full ?name|name|display name|nama|fn)$/),first:ix(/first|given|depan/),last:ix(/last|family|surname|belakang/),tel:ix(/phone|mobile|tel|^hp|whatsapp|telepon|nomor/,/type|label/),em:ix(/e-?mail/,/type|label/),org:ix(/org|company|perusahaan/,/type|label|title/),title:ix(/title|job|jabatan/),adr:ix(/address|alamat|street/),url:ix(/web|url/),bday:ix(/birth|bday|lahir/),note:ix(/note|catatan/),cats:ix(/^(categories|category|labels?|group|kategori)$/)};
+ const g=(row,k)=>F[k].map(i=>(row[i]||'').trim()).filter(Boolean);
+ return r.slice(1).map(row=>fin({fn:g(row,'fn')[0],first:g(row,'first')[0],last:g(row,'last')[0],tels:g(row,'tel').flatMap(x=>x.split(/\s*;\s*/)).map(v=>({v,t:'CELL'})),emails:g(row,'em').flatMap(x=>x.split(/\s*;\s*/)),org:g(row,'org')[0],title:g(row,'title')[0],adr:g(row,'adr').join(', '),url:g(row,'url')[0],bday:g(row,'bday')[0],note:g(row,'note')[0],cats:g(row,'cats').flatMap(x=>x.split(/\s*[;]+\s*/))},fid))}
+async function readFiles(fl,pg){const out=[];let n=0;for(const f of fl){pg&&busy(n++/fl.length);const ext=f.name.split('.').pop().toLowerCase(),r={name:f.name,size:f.size,contacts:[],bad:0,ver:'-',kind:ext,id:uid()};
+ if(f.size>300e6){r.err='Terlalu besar (>300MB)';out.push(r);continue}
+ try{const t=await f.text();if(t.includes('\u0000'))throw 0;
+  if(ext==='json'){const j=JSON.parse(t),a=Array.isArray(j)?j:j.contacts;if(!Array.isArray(a))throw 0;r.contacts=a.filter(o=>o&&typeof o==='object').map(o=>fin({...o},r.id))}
+  else if(ext==='csv')r.contacts=csvC(t,r.id);
+  else{if(!/BEGIN:VCARD/i.test(t))throw 0;const p=parseVCF(t,r.id);r.contacts=p.c;r.bad=p.bad;r.ver=p.ver}
+ }catch{r.err='File tidak valid, kosong, atau rusak'}
+ if(!r.err&&!r.contacts.length)r.err='Tidak ada kontak ditemukan';
+ out.push(r);await new Promise(x=>setTimeout(x))}busy(1);setTimeout(()=>busy(null),400);return out}
+/* ---------- duplicates ---------- */
+function groups(m){const mp=new Map(),add=(k,c)=>{if(!k)return;let a=mp.get(k);if(!a)mp.set(k,a=[]);if(!a.includes(c))a.push(c)},cc=CFG.cc;
+ for(const c of S.contacts){const nm=dn(c).toLowerCase().trim();
+  if(m==='phone')c.tels.forEach(t=>add(normPhone(t.v,cc),c));else if(m==='raw')c.tels.forEach(t=>add(t.v.trim(),c));
+  else if(m==='name')add(nm,c);else if(m==='email')c.emails.forEach(e=>add(e.toLowerCase().trim(),c));else if(nm)c.tels.forEach(t=>add(nm+' | '+normPhone(t.v,cc),c))}
+ return[...mp.entries()].filter(([,a])=>a.length>1)}
+function dupIds(){if(!DC){const s=new Set();groups('phone').forEach(([,a])=>a.forEach(c=>s.add(c.id)));DC=s}return DC}
+const score=c=>c.tels.length+c.emails.length+['org','title','adr','url','bday','note','photo'].filter(k=>c[k]).length;
+function mergeInto(p,os){for(const o of os){o.tels.forEach(t=>{const n=normPhone(t.v,CFG.cc);if(!p.tels.some(x=>normPhone(x.v,CFG.cc)===n))p.tels.push(t)});o.emails.forEach(e=>{if(!p.emails.some(x=>x.toLowerCase()===e.toLowerCase()))p.emails.push(e)});o.cats.forEach(k=>{if(!p.cats.includes(k))p.cats.push(k)});['fn','first','last','org','title','adr','url','bday','note','photo'].forEach(k=>{if(!p[k]&&o[k])p[k]=o[k]});if(o.fav)p.fav=true}}
+function removeIds(s){S.contacts=S.contacts.filter(c=>!s.has(c.id));s.forEach(i=>SEL.delete(i))}
+/* ---------- zip ---------- */
+const CT=(()=>{const t=[];for(let n=0;n<256;n++){let c=n;for(let k=0;k<8;k++)c=c&1?0xEDB88320^(c>>>1):c>>>1;t[n]=c>>>0}return t})();
+const crc=b=>{let c=-1;for(let i=0;i<b.length;i++)c=CT[(c^b[i])&255]^(c>>>8);return(c^-1)>>>0};
+function zip(files){const E=new TextEncoder(),P=[],C=[];let off=0;
+ for(const[n,s]of files){const nb=E.encode(n),d=E.encode(s),h=new DataView(new ArrayBuffer(30));h.setUint32(0,0x04034b50,true);h.setUint16(4,20,true);h.setUint16(6,0x800,true);h.setUint32(14,crc(d),true);h.setUint32(18,d.length,true);h.setUint32(22,d.length,true);h.setUint16(26,nb.length,true);P.push(h.buffer,nb,d);
+  const g=new DataView(new ArrayBuffer(46));g.setUint32(0,0x02014b50,true);g.setUint16(4,20,true);g.setUint16(6,20,true);g.setUint16(8,0x800,true);g.setUint32(16,crc(d),true);g.setUint32(20,d.length,true);g.setUint32(24,d.length,true);g.setUint16(28,nb.length,true);g.setUint32(42,off,true);C.push(g.buffer,nb);off+=30+nb.length+d.length}
+ const cs=C.reduce((a,x)=>a+x.byteLength,0),e=new DataView(new ArrayBuffer(22));e.setUint32(0,0x06054b50,true);e.setUint16(8,files.length,true);e.setUint16(10,files.length,true);e.setUint32(12,cs,true);e.setUint32(16,off,true);return new Blob([...P,...C,e.buffer],{type:'application/zip'})}
+/* ---------- contacts filtering ---------- */
+function hay(c){let h=H.get(c);if(!h){h={t:[c.fn,c.first,c.last,c.org,c.title,c.adr,c.note,...c.emails,...c.tels.map(t=>t.v)].join('\u0001').toLowerCase(),d:c.tels.map(t=>t.v.replace(/\D/g,'')).join(' ')};H.set(c,h)}return h}
+function filt(){const q=U.q.trim().toLowerCase(),qd=q.replace(/\D/g,''),dup=U.flt==='dup'?dupIds():null,from=U.from?new Date(U.from).getTime():0,cc=U.cc.replace(/\D/g,'');
+ const key=c=>U.sort==='phone'?c.tels[0]?.v||'':U.sort==='email'?c.emails[0]||'':U.sort==='org'?c.org:dn(c);
+ return S.contacts.filter(c=>{if(U.cat&&!c.cats.includes(U.cat))return false;if(U.file&&c.fileId!==U.file)return false;if(from&&c.added<from)return false;
+  if(cc&&!c.tels.some(t=>ccOf(normPhone(t.v,CFG.cc))===cc))return false;
+  if(U.flt==='dup'&&!dup.has(c.id))return false;if(U.flt==='inc'&&dn(c)&&c.tels.length)return false;if(U.flt==='nop'&&c.tels.length)return false;if(U.flt==='non'&&dn(c))return false;if(U.flt==='fav'&&!c.fav)return false;
+  if(q){const h=hay(c);if(!h.t.includes(q)&&!(qd.length>2&&h.d.includes(qd)))return false}return true}).sort((a,b)=>U.dir*key(a).localeCompare(key(b),'id',{sensitivity:'base'}))}
+/* ---------- views ---------- */
+const V={};
+V.dashboard=()=>{const C=S.contacts,wk=Date.now()-6048e5,cats={};C.forEach(c=>c.cats.forEach(k=>cats[k]=(cats[k]||0)+1));
+ const st=[['Total Kontak',C.length],['File VCF',S.files.length],['Nomor Telepon',C.reduce((a,c)=>a+c.tels.length,0)],['Kontak Duplikat',dupIds().size],['Tanpa Nomor',C.filter(c=>!c.tels.length).length],['Tanpa Nama',C.filter(c=>!dn(c)).length],['Baru (7 hari)',C.filter(c=>c.added>wk).length]],mx=Math.max(1,...Object.values(cats));
+ $('#v').innerHTML=`<div class="grid">${st.map(([k,v])=>`<div class="card st"><span>${k}</span><b>${v.toLocaleString('id')}</b></div>`).join('')}</div><div class="two"><div class="card"><h3>Statistik Kategori</h3>${Object.keys(cats).length?Object.entries(cats).sort((a,b)=>b[1]-a[1]).slice(0,12).map(([k,n])=>`<div class="bar" data-a="cat" data-id="${esc(k)}" title="Lihat kontak"><span>${esc(k)}</span><i style="width:${n/mx*60}%"></i><em>${n}</em></div>`).join(''):empty('Belum ada kategori')}</div><div class="card"><h3>Aktivitas Impor/Ekspor Terakhir</h3>${logList(6)}</div></div>`};
+V.contacts=()=>{const sel=(id,k,opts)=>`<select id="${id}">${opts.map(([v,l])=>`<option value="${esc(v)}" ${U[k]===v?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
+ $('#v').innerHTML=`<div class="tb"><input id="q" type="search" placeholder="Cari nama, nomor, email, perusahaan…" value="${esc(U.q)}" aria-label="Cari">${sel('fc','cat',[['','Semua kategori'],...allCats().map(k=>[k,k])])}${sel('ff','file',[['','Semua file'],...S.files.map(f=>[f.id,f.name])])}${sel('fl','flt',[['','Semua'],['dup','Duplikat'],['inc','Tidak lengkap'],['nop','Tanpa nomor'],['non','Tanpa nama'],['fav','Favorit']])}<input id="fcc" placeholder="Kode negara" size="9" value="${esc(U.cc)}"><input id="fd" type="date" value="${U.from}" title="Ditambahkan sejak"><button class="b pr" data-a="add">+ Kontak</button></div><div id="bulk"></div><div class="card tw" id="tbl"></div>`;
+ let t;$('#q').oninput=e=>{clearTimeout(t);t=setTimeout(()=>{U.q=e.target.value;U.page=0;draw()},200)};
+ [['fc','cat'],['ff','file'],['fl','flt'],['fcc','cc'],['fd','from']].forEach(([i,k])=>$('#'+i).onchange=e=>{U[k]=e.target.value;U.page=0;draw()});draw()};
+function draw(){LAST=filt();const ps=+CFG.ps||100,pages=Math.max(1,Math.ceil(LAST.length/ps));U.page=Math.min(U.page,pages-1);const rows=LAST.slice(U.page*ps,U.page*ps+ps),th=(k,l)=>`<th data-a="sort" data-id="${k}">${l}${U.sort===k?(U.dir>0?' ▲':' ▼'):''}</th>`;
+ $('#bulk').innerHTML=SEL.size?`<div class="card bk"><b>${SEL.size} dipilih</b><button class="b" data-a="bdel">Hapus</button><button class="b" data-a="bedit">Edit massal</button><button class="b" data-a="bfav">Favorit</button><button class="b" data-a="bexp">Ekspor</button><button class="b" data-a="bclr">Batal pilih</button></div>`:'';
+ $('#tbl').innerHTML=rows.length?`<table><thead><tr><th><input type="checkbox" data-a="selpg" aria-label="Pilih halaman"></th><th></th>${th('fn','Nama')}${th('phone','Telepon')}${th('email','Email')}${th('org','Perusahaan')}<th>Kategori</th><th></th></tr></thead><tbody>${rows.map(c=>`<tr><td><input type="checkbox" data-a="sel" data-id="${c.id}" ${SEL.has(c.id)?'checked':''} aria-label="Pilih"></td><td><button class="ic" data-a="fav" data-id="${c.id}" aria-label="Favorit">${c.fav?'★':'☆'}</button></td><td class="lk" data-a="view" data-id="${c.id}">${esc(dn(c))||'<i>(tanpa nama)</i>'}</td><td>${esc(c.tels.map(t=>t.v).join(', '))}</td><td>${esc(c.emails[0]||'')}</td><td>${esc(c.org)}</td><td>${c.cats.map(k=>`<span class="tag">${esc(k)}</span>`).join('')}</td><td class="nw"><button class="ic" data-a="edit" data-id="${c.id}" title="Edit">✎</button><button class="ic" data-a="dup" data-id="${c.id}" title="Duplikasi">⧉</button><button class="ic" data-a="del" data-id="${c.id}" title="Hapus">✕</button></td></tr>`).join('')}</tbody></table><div class="pg"><span>${LAST.length.toLocaleString('id')} kontak</span><button class="b" data-a="pp" ${U.page?'':'disabled'}>‹</button><span>${U.page+1}/${pages}</span><button class="b" data-a="np" ${U.page<pages-1?'':'disabled'}>›</button><button class="b" data-a="selall">Pilih semua hasil</button></div>`:empty('Tidak ada kontak. Impor file VCF atau tambah kontak baru.')}
+function form(c){const n=!c;c=c||{tels:[],emails:[],cats:[]};const f=(k,l,w)=>`<label class="${w?'w':''}">${l}<input name="${k}" value="${esc(c[k])}"></label>`;
+ modal(n?'Tambah Kontak':'Edit Kontak',`<form id="cf" class="fm" onsubmit="return false">${f('first','Nama depan')}${f('last','Nama belakang')}${f('fn','Nama lengkap',1)}<label class="w">Telepon (satu per baris: nomor atau nomor|TIPE)<textarea name="tels" rows="3">${esc(c.tels.map(t=>t.v+'|'+t.t).join('\n'))}</textarea></label><label class="w">Email (satu per baris)<textarea name="emails" rows="2">${esc(c.emails.join('\n'))}</textarea></label>${f('org','Perusahaan')}${f('title','Jabatan')}${f('adr','Alamat',1)}${f('url','Website')}${f('bday','Tanggal lahir (YYYY-MM-DD)')}<label class="w">Kategori (pisahkan koma)<input name="cats" value="${esc(c.cats.join(', '))}"></label><label class="w">Catatan<textarea name="note" rows="2">${esc(c.note)}</textarea></label><label class="w">Foto<input type="file" name="ph" accept="image/*"></label></form>`,`<button class="b" data-a="close">Batal</button><button class="b pr" id="sv">Simpan</button>`);
+ $('#sv').onclick=async()=>{const d=new FormData($('#cf')),g=k=>String(d.get(k)||'').trim(),lines=k=>g(k).split(/\n+/).map(x=>x.trim()).filter(Boolean);
+  const o={first:g('first'),last:g('last'),fn:g('fn'),tels:lines('tels').map(x=>{const[v,t]=x.split('|');return{v:v.trim(),t:(t||'CELL').trim().toUpperCase()}}).filter(t=>t.v),emails:lines('emails'),org:g('org'),title:g('title'),adr:g('adr'),url:g('url'),bday:g('bday'),note:g('note'),cats:g('cats').split(',').map(x=>x.trim()).filter(Boolean)};
+  if(!o.fn)o.fn=[o.first,o.last].filter(Boolean).join(' ');if(!o.fn&&!o.tels.length&&!o.emails.length){toast('Isi minimal nama, telepon, atau email','er');return}
+  const ph=d.get('ph');if(ph&&ph.size){try{const bm=await createImageBitmap(ph),cv=document.createElement('canvas'),s=Math.min(1,160/Math.max(bm.width,bm.height));cv.width=bm.width*s;cv.height=bm.height*s;cv.getContext('2d').drawImage(bm,0,0,cv.width,cv.height);o.photo=cv.toDataURL('image/jpeg',.8)}catch{toast('Foto tidak dapat dibaca','er')}}
+  if(n)S.contacts.push({id:uid(),added:Date.now(),fav:false,fileId:'',photo:'',...o});else Object.assign(c,o);
+  log(n?'Tambah kontak':'Edit kontak',o.fn);mut();closeM();toast('Kontak disimpan');render()}}
+V.files=()=>{$('#v').innerHTML=S.files.length?`<div class="card tw"><table><thead><tr><th>Nama</th><th>Kontak</th><th>Ukuran</th><th>Versi</th><th>Tanggal</th><th></th></tr></thead><tbody>${S.files.map(f=>`<tr><td>${esc(f.name)}</td><td>${S.contacts.filter(c=>c.fileId===f.id).length}</td><td>${(f.size/1024).toFixed(1)} KB</td><td>${f.ver}</td><td>${new Date(f.added).toLocaleString('id')}</td><td class="nw"><button class="b" data-a="fview" data-id="${f.id}">Lihat</button> <button class="b" data-a="fdl" data-id="${f.id}">Unduh</button> <button class="b" data-a="frn" data-id="${f.id}">Ganti nama</button> <button class="b dg" data-a="fdel" data-id="${f.id}">Hapus</button></td></tr>`).join('')}</tbody></table></div>`:`<div class="card">${empty('Belum ada file. Impor file di menu Import Contacts.')}</div>`};
+let PEND=[];
+V.import=()=>{PEND=[];$('#v').innerHTML=`<div class="card"><div id="dz" class="dz">Seret &amp; lepas file VCF / CSV / JSON di sini<br><br><button class="b pr" data-a="pk">Pilih file</button><input id="fi" type="file" multiple accept=".vcf,.vcard,.csv,.json" hidden></div></div><div id="pv"></div>`;
+ const go2=async fl=>{PEND=await readFiles([...fl],1);prevImp()},dz=$('#dz');$('#fi').onchange=e=>go2(e.target.files);
+ ['dragover','dragenter'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.add('ov2')}));['dragleave','drop'].forEach(ev=>dz.addEventListener(ev,e=>{e.preventDefault();dz.classList.remove('ov2')}));dz.addEventListener('drop',e=>go2(e.dataTransfer.files))};
+function prevImp(){const ok=PEND.filter(r=>!r.err);$('#pv').innerHTML=PEND.map(r=>`<div class="card"><b>${esc(r.name)}</b> · ${r.kind.toUpperCase()} · vCard ${r.ver} · ${(r.size/1024).toFixed(1)} KB<br>${r.err?`<span style="color:var(--dg)">${r.err}</span>`:`${r.contacts.length} kontak${r.bad?` · <span style="color:var(--dg)">${r.bad} kartu tidak lengkap</span>`:''}<div class="tw"><table><tbody>${r.contacts.slice(0,8).map(c=>`<tr><td>${esc(dn(c))}</td><td>${esc(c.tels.map(t=>t.v).join(', '))}</td><td>${esc(c.emails[0]||'')}</td></tr>`).join('')}</tbody></table></div>`}</div>`).join('')+(ok.length?`<div class="row"><label><input type="checkbox" id="sd" checked> Lewati kontak yang nomornya sudah ada</label><button class="b pr" data-a="impok">Impor ${ok.reduce((a,r)=>a+r.contacts.length,0)} kontak</button></div>`:'')}
+const EX={scope:'all',fmt:'vcf',ver:'3.0',enc:'utf-8',name:'kontak',cat:'',file:''};
+const exList=()=>{const s=EX.scope;return s==='sel'?S.contacts.filter(c=>SEL.has(c.id)):s==='cat'?S.contacts.filter(c=>c.cats.includes(EX.cat)):s==='flt'?filt():s==='file'?S.contacts.filter(c=>c.fileId===EX.file):S.contacts};
+V.export=()=>{const o=(k,a)=>`<select data-k="${k}">${a.map(([v,l])=>`<option value="${esc(v)}" ${EX[k]===v?'selected':''}>${esc(l)}</option>`).join('')}</select>`;
+ $('#v').innerHTML=`<div class="card"><div class="row">${o('scope',[['all','Semua kontak'],['sel','Terpilih ('+SEL.size+')'],['cat','Per kategori'],['flt','Hasil filter saat ini'],['file','Per file']])}${o('cat',allCats().map(k=>[k,k]))}<select data-k="file">${fOpts(EX.file)}</select>${o('fmt',[['vcf','VCF'],['csv','CSV'],['json','JSON'],['txt','TXT']])}${o('ver',[['2.1','vCard 2.1'],['3.0','vCard 3.0'],['4.0','vCard 4.0']])}${o('enc',[['utf-8','UTF-8'],['utf-8-bom','UTF-8 + BOM'],['utf-16le','UTF-16LE']])}<input data-k="name" value="${esc(EX.name)}" aria-label="Nama file"></div><div class="row"><button class="b pr" data-a="exdl">Unduh</button><span id="ec"></span></div><h3>Preview</h3><pre id="ep"></pre></div>`;
+ $$('[data-k]').forEach(e=>e.onchange=e.oninput=()=>{EX[e.dataset.k]=e.value;pvx()});EX.cat=EX.cat||allCats()[0]||'';EX.file=EX.file||S.files[0]?.id||'';pvx()};
+function pvx(){const l=exList();$('#ec').textContent=l.length.toLocaleString('id')+' kontak akan diekspor';const t=conv(l.slice(0,15),EX.fmt,EX.ver);$('#ep').textContent=l.length?t.slice(0,3000):'(kosong)'}
+V.dupes=()=>{const m=window._dm||'phone';$('#v').innerHTML=`<div class="row"><select id="dm">${[['phone','Nomor (setelah normalisasi)'],['raw','Nomor identik'],['name','Nama identik'],['email','Email identik'],['np','Nama + nomor']].map(([v,l])=>`<option value="${v}" ${m===v?'selected':''}>${l}</option>`).join('')}</select><button class="b pr" data-a="mgall">Gabungkan semua grup…</button></div><div id="dg"></div>`;$('#dm').onchange=e=>{window._dm=e.target.value;V.dupes()};
+ const G=groups(m);window._G=G;$('#dg').innerHTML=G.length?`<p>${G.length} grup duplikat${G.length>50?' (menampilkan 50 pertama)':''}</p>`+G.slice(0,50).map(([k,a],gi)=>{const best=a.reduce((x,y)=>score(y)>score(x)?y:x);return`<div class="card"><b>${esc(k)}</b><div class="tw"><table><tbody>${a.map(c=>`<tr><td><input type="radio" name="g${gi}" value="${c.id}" ${c===best?'checked':''} aria-label="Utama"></td><td>${esc(dn(c))}</td><td>${esc(c.tels.map(t=>t.v).join(', '))}</td><td>${esc(c.emails.join(', '))}</td><td>${esc(c.org)}</td></tr>`).join('')}</tbody></table></div><div class="row"><button class="b pr" data-a="mg" data-id="${gi}">Gabungkan ke kontak utama</button><button class="b" data-a="dg" data-id="${gi}">Hapus yang lain</button></div></div>`}).join(''):empty('Tidak ada duplikat ditemukan 🎉')};
+function phOpts(){return{cc:$('#pc').value.replace(/\D/g,'')||CFG.cc,fmt:$('#pf').value,act:$('#pa').value,pre:$('#pp').value.replace(/[^\d+]/g,'')}}
+function phCh(o){const ch=[],inv=[];S.contacts.forEach(c=>c.tels.forEach(t=>{if(o.pre&&!t.v.replace(/[^\d+]/g,'').startsWith(o.pre))return;if(o.act==='addcc'&&/^\s*(\+|00)/.test(t.v))return;const n=normPhone(t.v,o.cc);if(!validPhone(n)){inv.push({c,t});return}const nw=fmtPhone(n,o.fmt,o.cc);if(nw!==t.v)ch.push({c,t,nw})}));return{ch,inv}}
+V.phone=()=>{$('#v').innerHTML=`<div class="card"><div class="row"><label>Kode negara +<input id="pc" size="4" value="${CFG.cc}"></label><select id="pf"><option value="e164">E.164 (+628123…)</option><option value="intl">Internasional (+62 8123-…)</option><option value="nat">Nasional (08123…)</option></select><select id="pa"><option value="norm">Normalisasi semua nomor</option><option value="addcc">Hanya tambah kode negara</option></select><input id="pp" placeholder="Filter prefix (mis. 0812)" size="18"></div><div id="pr"></div></div>`;
+ const up=()=>{const o=phOpts(),{ch,inv}=phCh(o);$('#pr').innerHTML=`<p>${ch.length} nomor akan diubah · ${inv.length} nomor tidak valid (tidak diubah)</p>`+(ch.length?`<div class="tw"><table><tbody>${ch.slice(0,100).map(x=>`<tr><td>${esc(dn(x.c))}</td><td>${esc(x.t.v)}</td><td>→</td><td>${esc(x.nw)}</td></tr>`).join('')}</tbody></table></div>`:'')+`<div class="row" style="margin-top:10px"><button class="b pr" data-a="phap" ${ch.length?'':'disabled'}>Terapkan perubahan</button><button class="b" data-a="phcc">Kategori per kode negara</button></div>`+(inv.length?`<h3>Nomor tidak valid</h3><div class="tw"><table><tbody>${inv.slice(0,100).map(x=>`<tr><td>${esc(dn(x.c))}</td><td>${esc(x.t.v)}</td></tr>`).join('')}</tbody></table></div>`:'')};
+ $$('#pc,#pf,#pa,#pp').forEach(e=>e.oninput=up);up()};
+const fileBoxes=()=>S.files.map(f=>`<label class="row"><input type="checkbox" name="mf" value="${f.id}"> ${esc(f.name)} (${S.contacts.filter(c=>c.fileId===f.id).length})</label>`).join('')||empty('Belum ada file');
+V.merger=()=>{$('#v').innerHTML=`<div class="card"><h3>Pilih file untuk digabung</h3>${fileBoxes()}<div class="row"><input id="mn" value="gabungan" aria-label="Nama file"><label><input type="checkbox" id="md" checked> Hapus nomor duplikat</label><select id="mv"><option>3.0</option><option>4.0</option><option>2.1</option></select></div><div class="row"><button class="b pr" data-a="mgdl">Gabung &amp; unduh</button><button class="b" data-a="mgsv">Gabung &amp; simpan ke pustaka</button></div></div>`};
+V.splitter=()=>{$('#v').innerHTML=`<div class="card"><div class="row"><select id="ss"><option value="">Semua kontak</option>${fOpts()}</select><label>Kontak per file <input id="sn" type="number" min="1" value="500" style="width:90px"></label><input id="sb" value="kontak" aria-label="Nama dasar"><select id="sv"><option>3.0</option><option>4.0</option><option>2.1</option></select><button class="b pr" data-a="spl">Pisahkan &amp; unduh ZIP</button></div></div>`};
+V.converter=()=>{$('#v').innerHTML=`<div class="card"><div class="row"><input id="cf2" type="file" multiple accept=".vcf,.csv,.json"><select id="cfm"><option value="vcf">VCF</option><option value="csv">CSV</option><option value="json">JSON</option><option value="txt">TXT</option></select><select id="cvv"><option>3.0</option><option>4.0</option><option>2.1</option></select><button class="b pr" data-a="cv">Konversi &amp; unduh</button></div><p style="color:var(--m)">File dikonversi langsung tanpa diimpor ke pustaka.</p></div>`};
+const clOpts=()=>({trim:$('#c1').checked,dupn:$('#c2').checked,inv:$('#c3').checked,empty:$('#c4').checked});
+function clean(o,ap){let tr=0,em=0,dd=0,iv=0;const keep=[];for(const c of S.contacts){
+ if(o.trim)['fn','first','last','org','title'].forEach(k=>{const v=c[k].replace(/\s+/g,' ').trim();if(v!==c[k]){tr++;if(ap)c[k]=v}});
+ if(o.dupn){const s=new Set(),n=c.tels.filter(t=>{const k=normPhone(t.v,CFG.cc);if(s.has(k))return false;s.add(k);return true});dd+=c.tels.length-n.length;if(ap)c.tels=n}
+ if(o.inv){const n=c.tels.filter(t=>validPhone(normPhone(t.v,CFG.cc)));iv+=c.tels.length-n.length;if(ap)c.tels=n}
+ if(o.empty&&!dn(c)&&!c.tels.length&&!c.emails.length){em++;if(ap)continue}keep.push(c)}
+ if(ap)S.contacts=keep;return{tr,em,dd,iv}}
+V.cleaner=()=>{$('#v').innerHTML=`<div class="card"><label class="row"><input type="checkbox" id="c1" checked> Rapikan spasi pada nama &amp; perusahaan</label><label class="row"><input type="checkbox" id="c2" checked> Hapus nomor ganda dalam satu kontak</label><label class="row"><input type="checkbox" id="c3"> Hapus nomor tidak valid</label><label class="row"><input type="checkbox" id="c4" checked> Hapus kontak kosong (tanpa nama, nomor, email)</label><p id="cp"></p><button class="b pr" data-a="cln">Terapkan…</button></div>`;
+ const up=()=>{const r=clean(clOpts(),false);$('#cp').textContent=`Preview: ${r.tr} field dirapikan, ${r.dd} nomor ganda, ${r.iv} nomor tidak valid, ${r.em} kontak kosong akan dihapus.`};$$('#c1,#c2,#c3,#c4').forEach(e=>e.onchange=up);up()};
+V.backup=()=>{$('#v').innerHTML=`<div class="two"><div class="card"><h3>Backup</h3><p>Unduh seluruh data (kontak, file, riwayat) sebagai JSON.</p><button class="b pr" data-a="bk">Unduh backup</button></div><div class="card"><h3>Restore</h3><input id="rf" type="file" accept=".json"><div class="row"><select id="rm"><option value="merge">Gabungkan (lewati ID yang sudah ada)</option><option value="rep">Ganti seluruh data</option></select><button class="b" data-a="rs">Restore…</button></div></div></div>`};
+V.activity=()=>{$('#v').innerHTML=`<div class="card"><div class="row"><button class="b" data-a="logclr">Hapus riwayat</button></div>${logList(500)}</div>`};
+V.settings=()=>{$('#v').innerHTML=`<div class="card"><div class="fm"><label>Tema<select id="st1"><option value="light">Terang</option><option value="dark">Gelap</option></select></label><label>Kode negara default (+)<input id="st2" value="${CFG.cc}"></label><label>Baris per halaman<select id="st3">${[50,100,250,500].map(n=>`<option ${CFG.ps==n?'selected':''}>${n}</option>`).join('')}</select></label></div><p style="color:var(--m)">Semua data diproses &amp; disimpan lokal di browser (IndexedDB). Tidak ada data yang dikirim ke server.</p><button class="b dg" data-a="wipe">Hapus seluruh data aplikasi…</button></div>`;
+ $('#st1').value=CFG.theme;$('#st1').onchange=e=>{CFG.theme=e.target.value;setCfg()};$('#st2').onchange=e=>{CFG.cc=e.target.value.replace(/\D/g,'')||'62';setCfg();mut()};$('#st3').onchange=e=>{CFG.ps=+e.target.value;setCfg()}};
+/* ---------- actions ---------- */
+const A={close:closeM,nav:(e,id)=>go(id),pk:()=>$('#fi').click(),add:()=>form(),edit:(e,id)=>form(byId(id)),
+view:(e,id)=>{const c=byId(id);modal(esc(dn(c)||'Kontak'),(/^data:image\//.test(c.photo)?`<img class="av" src="${esc(c.photo)}" alt="">`:'')+[['Telepon',c.tels.map(t=>t.v+' ('+t.t+')').join('\n')],['Email',c.emails.join('\n')],['Perusahaan',c.org],['Jabatan',c.title],['Alamat',c.adr],['Website',c.url],['Lahir',c.bday],['Kategori',c.cats.join(', ')],['Catatan',c.note],['File',(S.files.find(f=>f.id===c.fileId)||{}).name]].filter(x=>x[1]).map(([k,v])=>`<p><small style="color:var(--m)">${k}</small><br>${esc(v).replace(/\n/g,'<br>')}</p>`).join(''),`<button class="b" data-a="edit" data-id="${id}">Edit</button><button class="b" data-a="close">Tutup</button>`)},
+del:async(e,id)=>{if(!await ask('Hapus kontak ini?','Hapus',1))return;removeIds(new Set([id]));log('Hapus kontak','1 kontak');mut();toast('Kontak dihapus');draw()},
+dup:(e,id)=>{const n=structuredClone(byId(id));n.id=uid();n.added=Date.now();n.fn=(dn(n)+' (salinan)').trim();S.contacts.push(n);mut();toast('Kontak diduplikasi');draw()},
+fav:(e,id)=>{const c=byId(id);c.fav=!c.fav;mut();draw()},
+sel:(e,id)=>{e.target.checked?SEL.add(id):SEL.delete(id);draw()},
+selpg:(e)=>{const ps=+CFG.ps||100;LAST.slice(U.page*ps,U.page*ps+ps).forEach(c=>e.target.checked?SEL.add(c.id):SEL.delete(c.id));draw()},
+selall:()=>{LAST.forEach(c=>SEL.add(c.id));draw()},bclr:()=>{SEL.clear();draw()},
+bdel:async()=>{if(!await ask(`Hapus ${SEL.size} kontak terpilih?`,'Hapus',1))return;const n=SEL.size;removeIds(new Set(SEL));log('Hapus massal',n+' kontak');mut();toast(n+' kontak dihapus');draw()},
+bfav:()=>{S.contacts.forEach(c=>{if(SEL.has(c.id))c.fav=true});mut();draw()},
+bexp:()=>{EX.scope='sel';go('export')},
+bedit:()=>{modal('Edit Massal',`<div class="fm"><label>Perusahaan (kosong = tidak diubah)<input id="be1"></label><label>Jabatan<input id="be2"></label><label>Tambah kategori<input id="be3"></label><label>Hapus kategori<input id="be4"></label></div>`,`<button class="b" data-a="close">Batal</button><button class="b pr" id="bs">Terapkan</button>`);
+ $('#bs').onclick=()=>{const v=i=>$('#be'+i).value.trim();S.contacts.forEach(c=>{if(!SEL.has(c.id))return;if(v(1))c.org=v(1);if(v(2))c.title=v(2);if(v(3)&&!c.cats.includes(v(3)))c.cats.push(v(3));if(v(4))c.cats=c.cats.filter(k=>k!==v(4))});log('Edit massal',SEL.size+' kontak');mut();closeM();toast('Perubahan diterapkan');render()}},
+sort:(e,id)=>{U.dir=U.sort===id?-U.dir:1;U.sort=id;draw()},pp:()=>{U.page--;draw()},np:()=>{U.page++;draw()},
+cat:(e,id)=>{Object.assign(U,{q:'',file:'',flt:'',cc:'',from:'',cat:id,page:0});go('contacts')},
+fview:(e,id)=>{Object.assign(U,{q:'',cat:'',flt:'',cc:'',from:'',file:id,page:0});go('contacts')},
+fdl:(e,id)=>{const f=S.files.find(x=>x.id===id);dl(mkBlob(toVCF(S.contacts.filter(c=>c.fileId===id),f.ver),'utf-8','text/vcard'),f.name.replace(/\.\w+$/,'')+'.vcf');log('Unduh file',f.name)},
+frn:(e,id)=>{const f=S.files.find(x=>x.id===id);modal('Ganti Nama File',`<input id="rn" value="${esc(f.name)}" style="width:100%">`,`<button class="b" data-a="close">Batal</button><button class="b pr" id="rs2">Simpan</button>`);$('#rs2').onclick=()=>{const v=$('#rn').value.trim();if(!v)return;log('Ganti nama file',f.name+' → '+v);f.name=v;mut();closeM();render()}},
+fdel:async(e,id)=>{const f=S.files.find(x=>x.id===id),n=S.contacts.filter(c=>c.fileId===id).length;if(!await ask(`Hapus file "${esc(f.name)}" beserta ${n} kontaknya?`,'Hapus',1))return;removeIds(new Set(S.contacts.filter(c=>c.fileId===id).map(c=>c.id)));S.files=S.files.filter(x=>x.id!==id);log('Hapus file',f.name);mut();render()},
+impok:()=>{const sk=$('#sd').checked,have=new Set(S.contacts.flatMap(c=>c.tels.map(t=>normPhone(t.v,CFG.cc)))),ok=PEND.filter(r=>!r.err);let add=0,skip=0;
+ for(const r of ok){const l=sk?r.contacts.filter(c=>!(c.tels.length&&c.tels.every(t=>have.has(normPhone(t.v,CFG.cc))))):r.contacts;skip+=r.contacts.length-l.length;l.forEach(c=>c.tels.forEach(t=>have.add(normPhone(t.v,CFG.cc))));
+  S.files.push({id:r.id,name:r.name,size:r.size,ver:r.ver==='-'?'3.0':r.ver,added:Date.now()});S.contacts.push(...l);add+=l.length;log('Impor',`${r.name}: ${l.length} kontak`)}
+ PEND=[];mut();toast(`${add} kontak diimpor${skip?`, ${skip} dilewati`:''}`);go('files')},
+exdl:()=>{const l=exList();if(!l.length){toast('Tidak ada kontak untuk diekspor','er');return}const nm=(EX.name||'kontak').replace(/[\\/:*?"<>|]/g,'_');dl(mkBlob(conv(l,EX.fmt,EX.ver),EX.enc,MIME[EX.fmt]),nm+'.'+EX.fmt);log('Ekspor',`${l.length} kontak (${EX.fmt.toUpperCase()})`);save();toast('File diunduh')},
+mg:(e,gi)=>{const a=window._G[gi][1].filter(c=>byId(c.id)),pid=(document.querySelector(`input[name=g${gi}]:checked`)||{}).value,p=a.find(c=>c.id===pid)||a[0],os=a.filter(c=>c!==p);mergeInto(p,os);removeIds(new Set(os.map(c=>c.id)));log('Gabung duplikat',os.length+1+' kontak → 1');mut();toast('Kontak digabung');V.dupes()},
+dg:async(e,gi)=>{const pid=(document.querySelector(`input[name=g${gi}]:checked`)||{}).value,os=window._G[gi][1].filter(c=>c.id!==pid);if(!await ask(`Hapus ${os.length} kontak lain (tanpa menggabungkan data)?`,'Hapus',1))return;removeIds(new Set(os.map(c=>c.id)));log('Hapus duplikat',os.length+' kontak');mut();V.dupes()},
+mgall:async()=>{const G=window._G;if(!G.length)return;if(!await ask(`Gabungkan otomatis ${G.length} grup duplikat? Kontak dengan data terlengkap dipertahankan; nomor, email, dan kategori dari duplikat digabung.`))return;const rm=new Set();
+ for(const[,a]of G){const l=a.filter(c=>!rm.has(c.id));if(l.length<2)continue;const p=l.reduce((x,y)=>score(y)>score(x)?y:x),os=l.filter(c=>c!==p);mergeInto(p,os);os.forEach(c=>rm.add(c.id))}
+ removeIds(rm);log('Gabung semua duplikat',rm.size+' kontak digabung');mut();toast(rm.size+' kontak digabung');V.dupes()},
+phap:async()=>{const{ch}=phCh(phOpts());if(!await ask(`Ubah ${ch.length} nomor telepon?`))return;ch.forEach(x=>x.t.v=x.nw);log('Format nomor',ch.length+' nomor');mut();toast(ch.length+' nomor diubah');V.phone()},
+phcc:async()=>{if(!await ask('Tambahkan kategori "Kode +XX" ke setiap kontak sesuai kode negara nomornya?'))return;let n=0;S.contacts.forEach(c=>c.tels.forEach(t=>{const k=ccOf(normPhone(t.v,CFG.cc));if(k&&!c.cats.includes('Kode +'+k)){c.cats.push('Kode +'+k);n++}}));log('Kategori kode negara',n+' label');mut();toast(n+' label ditambahkan')},
+mgdl:()=>mergeFiles(0),mgsv:()=>mergeFiles(1),
+spl:()=>{const src=$('#ss').value?S.contacts.filter(c=>c.fileId===$('#ss').value):S.contacts,n=Math.max(1,+$('#sn').value||500),b=$('#sb').value.trim()||'kontak',v=$('#sv').value;if(!src.length){toast('Tidak ada kontak','er');return}
+ const fs=[];for(let i=0;i<src.length;i+=n)fs.push([`${b}_${String(fs.length+1).padStart(3,'0')}.vcf`,toVCF(src.slice(i,i+n),v)]);dl(zip(fs),b+'.zip');log('Split',`${src.length} kontak → ${fs.length} file`);save();toast(fs.length+' file dibuat')},
+cv:async()=>{const fl=$('#cf2').files;if(!fl.length){toast('Pilih file dulu','er');return}const rs=await readFiles(fl,1),l=rs.flatMap(r=>r.contacts);rs.filter(r=>r.err).forEach(r=>toast(r.name+': '+r.err,'er'));if(!l.length)return;const f=$('#cfm').value;dl(mkBlob(conv(l,f,$('#cvv').value),'utf-8',MIME[f]),'konversi.'+f);log('Konversi',`${l.length} kontak → ${f.toUpperCase()}`);save()},
+cln:async()=>{const o=clOpts(),r=clean(o,false);if(!await ask(`Terapkan pembersihan? (${r.tr} rapikan, ${r.dd} nomor ganda, ${r.iv} nomor tidak valid, ${r.em} kontak kosong dihapus)`))return;clean(o,true);log('Contact Cleaner',JSON.stringify(r));mut();toast('Pembersihan selesai');V.cleaner()},
+bk:()=>{dl(new Blob([JSON.stringify({app:'vcf-manager',v:1,contacts:S.contacts,files:S.files,log:S.log},null,1)],{type:'application/json'}),'backup-kontak-'+new Date().toISOString().slice(0,10)+'.json');log('Backup',S.contacts.length+' kontak');save()},
+rs:async()=>{const f=$('#rf').files[0];if(!f){toast('Pilih file backup','er');return}let j;try{j=JSON.parse(await f.text());if(j.app!=='vcf-manager'||!Array.isArray(j.contacts))throw 0}catch{toast('File backup tidak valid','er');return}
+ const rep=$('#rm').value==='rep';if(!await ask(rep?'Seluruh data saat ini akan DIGANTI dengan backup.':`Gabungkan ${j.contacts.length} kontak dari backup?`,'Restore',rep))return;
+ if(rep){S.contacts=[];S.files=[]}const ids=new Set(S.contacts.map(c=>c.id)),fi=new Set(S.files.map(x=>x.id));j.contacts.forEach(c=>{if(!ids.has(c.id)){const{id,fileId,added,fav}=c;S.contacts.push({...fin({...c},fileId),id,added:added||Date.now(),fav:!!fav})}});(j.files||[]).forEach(x=>{if(!fi.has(x.id))S.files.push(x)});log('Restore',j.contacts.length+' kontak');mut();toast('Restore selesai')},
+logclr:()=>{S.log=[];save();V.activity()},
+wipe:async()=>{if(!await ask('Hapus SEMUA kontak, file, riwayat, dan pengaturan? Tindakan ini tidak dapat dibatalkan.','Hapus semua',1))return;S.contacts=[];S.files=[];S.log=[];SEL.clear();try{localStorage.removeItem('vcfm.cfg')}catch{}mut();toast('Semua data dihapus');render()}};
+function mergeFiles(saveLib){const ids=$$('[name=mf]:checked').map(e=>e.value);if(ids.length<2){toast('Pilih minimal 2 file','er');return}let l=S.contacts.filter(c=>ids.includes(c.fileId));
+ if($('#md').checked){const seen=new Set();l=l.filter(c=>{const k=c.tels.map(t=>normPhone(t.v,CFG.cc)).sort().join('|');if(!k)return true;if(seen.has(k))return false;seen.add(k);return true})}
+ const nm=($('#mn').value.trim()||'gabungan'),v=$('#mv').value;
+ if(saveLib){const fid=uid(),txt=toVCF(l,v);S.files.push({id:fid,name:nm+'.vcf',size:txt.length,ver:v,added:Date.now()});l.forEach(c=>{const n=structuredClone(c);n.id=uid();n.fileId=fid;S.contacts.push(n)});mut()}else dl(mkBlob(toVCF(l,v),'utf-8','text/vcard'),nm+'.vcf');
+ log('Merge file',`${ids.length} file → ${l.length} kontak`);save();toast(l.length+' kontak digabung')}
+document.addEventListener('click',async e=>{const el=e.target.closest('[data-a]');if(!el)return;const f=A[el.dataset.a];if(!f)return;try{await f(e,el.dataset.id)}catch(x){console.error(x);toast('Terjadi kesalahan: '+x.message,'er')}});
+/* ---------- shell ---------- */
+const NAV=[['dashboard','Dashboard','▦'],['contacts','All Contacts','☰'],['files','VCF Files','▤'],['import','Import Contacts','⇩'],['export','Export Contacts','⇧'],['dupes','Duplicate Finder','⧉'],['phone','Phone Number Tools','☎'],['merger','VCF Merger','⊕'],['splitter','VCF Splitter','✂'],['converter','VCF Converter','⇄'],['cleaner','Contact Cleaner','✦'],['backup','Backup & Restore','⛁'],['activity','Activity History','⏱'],['settings','Settings','⚙']];
+$('#nav').innerHTML=NAV.map(([id,l,i])=>`<button data-a="nav" data-id="${id}"><i>${i}</i><span class="nl">${l}</span></button>`).join('');
+const go=r=>{if(location.hash==='#'+r)render();else location.hash=r};
+function render(){route=(location.hash||'#dashboard').slice(1);if(!V[route])route='dashboard';$$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.id===route));$('#ttl').textContent=NAV.find(n=>n[0]===route)[1];$('#sb').classList.remove('open');closeM();V[route]()}
+window.addEventListener('hashchange',render);
+$('#mb').onclick=()=>innerWidth<=800?$('#sb').classList.toggle('open'):$('#app').classList.toggle('col');
+$('#th').onclick=()=>{CFG.theme=CFG.theme==='dark'?'light':'dark';setCfg()};
+{let t;$('#gs').oninput=e=>{clearTimeout(t);t=setTimeout(()=>{Object.assign(U,{q:e.target.value,cat:'',file:'',flt:'',cc:'',from:'',page:0});if(route==='contacts')V.contacts();else go('contacts')},250)}}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+(async()=>{setCfg();try{await DB.init();S.contacts=await DB.get('contacts')||[];S.files=await DB.get('files')||[];S.log=await DB.get('log')||[]}catch{MEM=true;toast('IndexedDB tidak tersedia — data tidak akan tersimpan','er')}render()})();
+</script></body></html>
