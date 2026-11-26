@@ -13,11 +13,11 @@
 
 <style>
   /* =====================================================================
-     CUSTOM FONT (Memanggil file font lokal Anda)
+     CUSTOM FONT (Memanggil file OCR-A_Regular.otf lokal Anda)
      ===================================================================== */
   @font-face {
-    font-family: 'OCR A Extended';
-    src: url('font/OCRAEXT.TTF') format('truetype');
+    font-family: 'OCR-A';
+    src: url('font/OCR-A_Regular.otf') format('opentype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;
@@ -55,7 +55,7 @@
   .ktp-head { 
     text-align: center; 
     line-height: 1.15; 
-    margin-bottom: 14px;
+    margin-bottom: 10px; /* Sedikit dirapatkan ke atas */
     margin-top: 2px;
   }
   .ktp-head .line {
@@ -67,32 +67,43 @@
     color: #000;
   }
 
-  /* ---------- Baris NIK ---------- */
+  /* =======================================================
+     BARIS NIK (Fokus Utama Penyesuaian)
+     ======================================================= */
   .ktp-nik {
-    display: flex; align-items: center;
-    margin: 0 0 12px 0;
-    font-size: 21px;
-    font-weight: bold;
+    display: flex; 
+    align-items: center;
+    margin: 6px 0 12px 0; /* Jarak atas dan bawah diseimbangkan */
+    font-size: 24px; /* Ukuran diperbesar agar gagah */
   }
+  
+  /* Label "NIK" */
   .ktp-nik .label { 
-    flex: 0 0 65px; 
+    flex: 0 0 65px; /* Lebar tetap agar konsisten */
     font-family: Arial, Helvetica, sans-serif;
-    font-weight: 900; 
-    letter-spacing: 3px;
+    font-weight: 900; /* Sangat tebal */
+    letter-spacing: 2px;
+    font-size: 22px;
   }
+  
+  /* Titik Dua ":" */
   .ktp-nik .colon { 
-    flex: 0 0 30px; 
+    flex: 0 0 20px; /* Jarak yang pas */
     text-align: center; 
     font-weight: 900;
     font-size: 22px;
   }
+  
+  /* Angka NIK */
   .ktp-nik .value { 
     flex: 1; 
-    font-family: 'OCR A Extended', 'Courier New', Courier, monospace; 
+    font-family: 'OCR-A', 'Courier New', Courier, monospace; 
     font-weight: bold;
-    font-size: 22px;
-    letter-spacing: 2.5px;
+    font-size: 24px; /* Angka NIK paling besar */
+    letter-spacing: 2px; /* Spasi antar angka */
+    margin-left: 8px; /* Jarak ekstra antara titik dua dan angka NIK */
   }
+  /* ======================================================= */
 
   /* ---------- Body ---------- */
   .ktp-body { display: flex; gap: 12px; flex: 1; min-height: 0; }
@@ -177,9 +188,7 @@
   #ktpScaler { transform-origin: top left; }
 
   /* ---------- Kustomisasi Canvas Tanda Tangan ---------- */
-  #signature-pad {
-    touch-action: none; /* Mencegah scroll saat menggambar di HP */
-  }
+  #signature-pad { touch-action: none; }
 
   /* ---------- Loader overlay ---------- */
   #loader { position: fixed; inset: 0; z-index: 60; }
@@ -331,7 +340,7 @@
               <option>BELUM KAWIN</option>
               <option selected>KAWIN</option>
               <option>CERAI HIDUP</option>
-              <option selected>CERAI MATI</option>
+              <option>CERAI MATI</option>
             </select>
           </div>
 
@@ -668,9 +677,7 @@
      ======================================================================= */
   let signaturePad;
 
-  // Konfigurasi & Inisialisasi Signature Pad
   function initSignaturePad() {
-    // Menyesuaikan resolusi canvas agar tidak pecah
     const ratio =  Math.max(window.devicePixelRatio || 1, 1);
     canvas.width = canvas.offsetWidth * ratio;
     canvas.height = canvas.offsetHeight * ratio;
@@ -683,20 +690,17 @@
       maxWidth: 2.5
     });
 
-    // Sinkronisasi ke preview KTP setiap selesai menggores
     signaturePad.addEventListener("endStroke", () => {
       const dataURL = signaturePad.toDataURL();
       pSignatureImg.src = dataURL;
       pSignatureImg.style.display = 'block';
       defaultSignSvg.style.display = 'none';
-      signUpload.value = ''; // Reset upload jika user menggambar manual
+      signUpload.value = ''; 
     });
   }
 
-  // Panggil inisialisasi
   initSignaturePad();
   
-  // Handle resize window agar canvas signature tetap responsif
   window.addEventListener("resize", () => {
     const data = signaturePad.toData();
     const ratio =  Math.max(window.devicePixelRatio || 1, 1);
@@ -709,16 +713,14 @@
     }
   });
 
-  // Tombol Hapus Tanda Tangan
   clearSignBtn.addEventListener('click', () => {
     signaturePad.clear();
     pSignatureImg.src = '';
     pSignatureImg.style.display = 'none';
-    defaultSignSvg.style.display = 'block'; // Munculkan SVG default
+    defaultSignSvg.style.display = 'block';
     signUpload.value = '';
   });
 
-  // Handle Upload Gambar Tanda Tangan
   signUpload.addEventListener('change', function () {
     const file = this.files && this.files[0];
     if (!file) return;
@@ -734,7 +736,7 @@
       pSignatureImg.src = e.target.result;
       pSignatureImg.style.display = 'block';
       defaultSignSvg.style.display = 'none';
-      signaturePad.clear(); // Hapus gambar di canvas jika user upload
+      signaturePad.clear();
     };
     reader.readAsDataURL(file);
   });
