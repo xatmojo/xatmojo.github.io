@@ -320,8 +320,10 @@ const go=r=>{if(location.hash==='#'+r)render();else location.hash=r};
 function render(){route=(location.hash||'#dashboard').slice(1);if(!V[route])route='dashboard';$$('#nav button').forEach(b=>b.classList.toggle('on',b.dataset.id===route));$('#ttl').textContent=NAV.find(n=>n[0]===route)[1];$('#sb').classList.remove('open');closeM();V[route]()}
 window.addEventListener('hashchange',render);
 $('#mb').onclick=()=>innerWidth<=800?$('#sb').classList.toggle('open'):$('#app').classList.toggle('col');
+/* tutup menu samping (mobile) saat klik/tap di luar menu */
+document.addEventListener('click',e=>{const sb=$('#sb');if(sb.classList.contains('open')&&!e.target.closest('#sb')&&!e.target.closest('#mb'))sb.classList.remove('open')});
 $('#th').onclick=()=>{CFG.theme=CFG.theme==='dark'?'light':'dark';setCfg()};
 {let t;$('#gs').oninput=e=>{clearTimeout(t);t=setTimeout(()=>{Object.assign(U,{q:e.target.value,cat:'',file:'',flt:'',cc:'',from:'',page:0});if(route==='contacts')V.contacts();else go('contacts')},250)}}
-document.addEventListener('keydown',e=>{if(e.key==='Escape')closeM()});
+document.addEventListener('keydown',e=>{if(e.key==='Escape'){closeM();$('#sb').classList.remove('open')}});
 (async()=>{setCfg();try{await DB.init();S.contacts=await DB.get('contacts')||[];S.files=await DB.get('files')||[];S.log=await DB.get('log')||[]}catch{MEM=true;toast('IndexedDB tidak tersedia — data tidak akan tersimpan','er')}render()})();
 </script></body></html>
