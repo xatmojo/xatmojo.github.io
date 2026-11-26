@@ -181,7 +181,11 @@
   .row .val {
     flex: 1; min-width: 0;
     text-transform: uppercase;
-    white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    white-space: nowrap;
+    /* overflow dibiarkan visible: overflow:hidden membuat html2canvas memotong
+       teks (setengah bawah hilang). Teks panjang dikecilkan via fitValues(). */
+    overflow: visible;
+    padding-bottom: 2px;
     font-weight: bold;
   }
 
@@ -806,6 +810,19 @@
     el.textContent = v === '' ? '-' : v;
   }
 
+  /* Kecilkan font otomatis jika teks melebihi lebar kolom (pengganti ellipsis) */
+  function fitValues() {
+    document.querySelectorAll('.ktp .row .val').forEach(function (el) {
+      el.style.fontSize = '';
+      let size = parseFloat(getComputedStyle(el).fontSize);
+      const min = 8;
+      while (el.scrollWidth > el.clientWidth + 0.5 && size > min) {
+        size -= 0.5;
+        el.style.fontSize = size + 'px';
+      }
+    });
+  }
+
   function syncField(el) {
     const key = el.dataset.field;
     if (!key) return;
@@ -816,6 +833,7 @@
       let kotaText = upper.replace('KOTA ', '').replace('KABUPATEN ADMINISTRASI ', '').replace('KABUPATEN ', '');
       document.getElementById('p-kota').textContent = kotaText || 'JAKARTA';
     }
+    fitValues();
   }
 
   nikEl.addEventListener('input', function () {
@@ -918,6 +936,10 @@
     // Terapkan scaling ke elemen kartu (bukan wrapper)
     ktpCard.style.transform = `scale(${scale})`;
   }
+
+  // Hitung ulang fit teks setelah font (OCR-A, dll) selesai dimuat
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitValues);
+  window.addEventListener('load', fitValues);
 
   // Panggil saat window resize
   window.addEventListener('resize', fitCard);
@@ -1042,13 +1064,32 @@
     ktpCard.style.transform = 'scale(1)';
 
     try {
+      // Pastikan font sudah siap & teks sudah pas sebelum dirender
+      if (document.fonts && document.fonts.ready) await document.fonts.ready;
+      fitValues();
+
       const canvasHtml = await html2canvas(ktpCard, {
         scale: 3,
-        backgroundColor: '#ffffff',
+        backgroundColor: null,          // sudut rounded tetap transparan
         useCORS: true,
         logging: false,
         width: CARD_W,
-        height: CARD_H
+        height: CARD_H,
+        scrollX: 0,
+        scrollY: 0,
+        onclone: function (doc) {
+          const card = doc.getElementById(ktpCard.id) || doc.querySelector('.ktp');
+          if (!card) return;
+          card.style.transform = 'none';
+          card.style.boxShadow = 'none';
+          card.style.border = 'none';
+          card.style.borderRadius = '0';
+          card.querySelectorAll('.row').forEach(function (r) { r.style.alignItems = 'flex-start'; });
+          card.querySelectorAll('.val, .val-gol').forEach(function (v) {
+            v.style.overflow = 'visible';
+            v.style.textOverflow = 'clip';
+          });
+        }
       });
 
       const rawName = (document.getElementById('nama').value || 'Tanpa_Nama').trim();
