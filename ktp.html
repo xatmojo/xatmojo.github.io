@@ -12,7 +12,18 @@
 
 <style>
   /* =====================================================================
-     CSS KHUSUS KARTU KTP (Presisi Tinggi & Clone Referensi)
+     CUSTOM FONT
+     ===================================================================== */
+  @font-face {
+    font-family: 'OCR-A';
+    src: url('font/OCR-A_Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
+  /* =====================================================================
+     CSS KHUSUS KARTU KTP (Presisi Tinggi)
      ===================================================================== */
   
   /* Wrapper untuk scaling responsif */
@@ -20,7 +31,7 @@
     position: relative;
     width: 100%;
     max-width: 640px;
-    aspect-ratio: 640 / 403; /* Rasio asli KTP */
+    aspect-ratio: 640 / 403; /* Menjaga rasio asli KTP */
     margin: 0 auto;
     overflow: hidden;
   }
@@ -31,15 +42,15 @@
     left: 0;
     width: 640px;
     height: 403px;
-    transform-origin: top left; /* Titik scaling dari kiri atas */
+    transform-origin: top left; /* Titik awal scaling dari kiri atas */
     border-radius: 4px;
     border: 1px solid rgba(0,0,0,.15);
-    /* Menggunakan background dari GitHub Anda */
+    /* MENGGUNAKAN BACKGROUND DARI GITHUB ANDA */
     background-image: url('img/ktp.png');
-    background-size: 100% 100%; 
+    background-size: 100% 100%; /* Memastikan gambar pas 640x403 */
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #b5d9f2; /* Fallback */
+    background-color: #b5d9f2; /* Warna fallback jika gambar gagal load */
     font-family: Arial, Helvetica, sans-serif;
     color: #000;
     box-shadow: 0 10px 25px -5px rgba(0,0,0,.3);
@@ -50,77 +61,76 @@
     position: relative; z-index: 1;
     display: flex; flex-direction: column;
     height: 100%;
-    padding: 14px 20px 10px; /* Padding disesuaikan */
+    padding: 14px 20px 10px;
   }
 
   /* ---------- Header ---------- */
   .ktp-head { 
     text-align: center; 
-    line-height: 1.1; 
+    line-height: 1.15; 
     margin-bottom: 2px; 
-    margin-top: 2px;
+    margin-top: 0px;
   }
   .ktp-head .line {
-    font-size: 16px; 
+    font-size: 18px; 
     font-weight: bold;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
     color: #000;
   }
   .ktp-head .line.kabupaten {
-    font-size: 18px;
-    letter-spacing: 1px;
+    font-size: 20px;
+    letter-spacing: 0.5px;
   }
 
   /* =======================================================
-     BARIS NIK (Fokus Utama Penyesuaian)
+     BARIS NIK
      ======================================================= */
   .ktp-nik {
     display: flex; 
     align-items: center;
-    margin: 6px 0 10px 0; 
+    margin: 8px 0 10px 0; 
     font-size: 26px; 
   }
   
   .ktp-nik .label { 
-    flex: 0 0 55px; 
-    font-weight: bold; 
-    letter-spacing: 0px;
+    flex: 0 0 60px; 
+    font-weight: 900; 
+    letter-spacing: 1px;
     font-size: 24px;
   }
   
   .ktp-nik .colon { 
     flex: 0 0 15px; 
     text-align: center; 
-    font-weight: bold;
+    font-weight: 900;
     font-size: 24px;
   }
   
   .ktp-nik .value { 
     flex: 1; 
-    /* Menghapus font OCR-A, menggunakan Arial Bold dengan spasi lebar */
-    font-family: Arial, Helvetica, sans-serif; 
+    font-family: 'OCR-A', 'Courier New', Courier, monospace; 
     font-weight: bold;
     font-size: 26px; 
-    letter-spacing: 1.5px; 
+    letter-spacing: 3.5px; 
     margin-left: 5px; 
   }
 
   /* ---------- Body ---------- */
-  .ktp-body { display: flex; gap: 8px; flex: 1; min-height: 0; }
+  .ktp-body { display: flex; gap: 10px; flex: 1; min-height: 0; }
   .ktp-data { flex: 1; min-width: 0; padding-right: 0px; }
 
   /* ---------- Baris Data Diri ---------- */
   .row {
     display: flex; align-items: baseline;
     font-size: 12.5px; 
-    line-height: 1.25; /* Spasi baris sangat rapat sesuai referensi */
-    letter-spacing: 0px;
+    line-height: 1.35; 
+    letter-spacing: 0.1px;
     color: #000;
-    margin-bottom: 1px;
+    margin-bottom: 0.5px;
   }
   
-  .row .lbl { flex: 0 0 120px; font-weight: bold;}
-  .row .sep { flex: 0 0 12px; text-align: center; font-weight: bold;}
+  .row .lbl { flex: 0 0 125px; font-weight: bold;}
+  .row .sep { flex: 0 0 10px; text-align: center; font-weight: bold;}
   .row .val {
     flex: 1; min-width: 0;
     text-transform: uppercase;
@@ -128,16 +138,15 @@
     font-weight: bold; 
   }
 
-  /* Indentasi untuk RT/RW, Kel/Desa, Kecamatan */
-  .row.indent .lbl { padding-left: 32px; }
+  .row.indent .lbl { padding-left: 35px; }
 
   /* Baris gabungan (Jenis Kelamin & Gol Darah) */
-  .row-split { display: flex; width: 100%; margin-bottom: 1px;}
+  .row-split { display: flex; width: 100%; margin-bottom: 0.5px;}
   .row-split .left { display: flex; flex: 1; }
-  .row-split .right { display: flex; flex: 0 0 115px; } /* Lebar disesuaikan */
+  .row-split .right { display: flex; flex: 0 0 125px; }
   .row-split .lbl-gol { flex: 0 0 60px; font-weight: bold; font-size: 12.5px;}
   .row-split .val-gol { flex: 1; font-weight: bold; text-transform: uppercase; font-size: 12.5px;}
-  .row-split .sep { font-weight: bold; flex: 0 0 12px; text-align: center;}
+  .row-split .sep { font-weight: bold; flex: 0 0 10px; text-align: center;}
 
   /* ---------- Kolom foto & Tanda Tangan ---------- */
   .ktp-photo-col {
@@ -149,7 +158,8 @@
     width: 130px; height: 170px;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
-    background: #d92c2c; /* Merah solid tanpa border */
+    background: #d92c2c;
+    border: 1px solid #000;
     color: #fff;
     font-size: 11px; font-weight: bold;
     text-align: center; line-height: 1.35;
@@ -170,10 +180,10 @@
   /* Area Tanda Tangan (Menimpa Teks Tanggal) */
   .sign-area {
     position: absolute;
-    bottom: -28px; 
-    right: 15px;
-    width: 85px; 
-    height: 50px;
+    bottom: -35px; 
+    right: 10px;
+    width: 90px; 
+    height: 55px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -392,7 +402,7 @@
         
         <!-- Stage tempat kartu di-scale -->
         <div class="w-full flex justify-center" id="ktpStage">
-          <!-- Wrapper responsif -->
+          <!-- Wrapper responsif untuk menjaga rasio 640x403 -->
           <div class="ktp-wrapper" id="ktpWrapper">
             
             <!-- ================== KARTU KTP ================== -->
@@ -686,8 +696,13 @@
     ktpCard.style.transform = `scale(${scale})`;
   }
   
+  // Panggil saat window resize
   window.addEventListener('resize', fitCard);
+  
+  // Panggil saat halaman selesai load
   window.addEventListener('load', fitCard);
+  
+  // Pastikan dipanggil saat inisialisasi awal (jika load event sudah lewat)
   setTimeout(fitCard, 100); 
 
   /* =======================================================================
@@ -799,6 +814,7 @@
     loader.classList.add('flex');
     btnDownload.disabled = true;
 
+    // SEMENTARA HILANGKAN SCALING UNTUK HASIL MAKSIMAL
     const prevTransform = ktpCard.style.transform;
     ktpCard.style.transform = 'scale(1)';
 
@@ -826,7 +842,10 @@
       console.error(err);
       alert('Gagal mengunduh gambar: ' + err.message);
     } finally {
+      // KEMBALIKAN SCALING KE SEMULA
       ktpCard.style.transform = prevTransform;
+      
+      // Pastikan preview pas setelah download
       fitCard();
 
       loader.classList.add('hidden');
