@@ -3,29 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-<!-- ================= SEO META TAGS ================= -->
-<title>Generator KTP Interaktif & Database — Presisi Tinggi</title>
-<meta name="description" content="Buat, edit, dan simpan data KTP secara interaktif dengan desain presisi tinggi. Dilengkapi fitur unduh PNG, upload foto, dan tanda tangan digital." />
-<meta name="keywords" content="generator ktp, buat ktp online, ktp interaktif, database ktp, desain ktp, clone ktp" />
-<meta name="author" content="xatmojo" />
-<link rel="canonical" href="https://xatmojo.github.io/ktp" />
-
-<!-- ================= OPEN GRAPH (Facebook, WhatsApp, dll) ================= -->
-<meta property="og:type" content="website" />
-<meta property="og:url" content="https://xatmojo.github.io/ktp" />
-<meta property="og:title" content="Generator KTP Interaktif & Database" />
-<meta property="og:description" content="Buat dan simpan data KTP secara interaktif. Desain presisi tinggi, unduh PNG, upload foto, dan tanda tangan digital." />
-<meta property="og:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/ktp_og.png" />
-<meta property="og:image:width" content="1200" />
-<meta property="og:image:height" content="630" />
-
-<!-- ================= TWITTER CARD ================= -->
-<meta name="twitter:card" content="summary_large_image" />
-<meta name="twitter:url" content="https://xatmojo.github.io/ktp" />
-<meta name="twitter:title" content="Generator KTP Interaktif & Database" />
-<meta name="twitter:description" content="Buat dan simpan data KTP secara interaktif. Desain presisi tinggi, unduh PNG, upload foto, dan tanda tangan digital." />
-<meta name="twitter:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/ktp_og.png" />
+<title>Generator & Database KTP — Presisi Tinggi</title>
 
 <!-- ============ LIBRARY CDN ============ -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -33,6 +11,17 @@
 <script src="https://cdn.jsdelivr.net/npm/signature_pad@4.1.7/dist/signature_pad.umd.min.js"></script>
 
 <style>
+  /* =====================================================================
+     CUSTOM FONT
+     ===================================================================== */
+  @font-face {
+    font-family: 'OCR-A';
+    src: url('font/OCR-A_Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+  }
+
   /* =====================================================================
      CSS KHUSUS KARTU KTP (Presisi Tinggi)
      ===================================================================== */
@@ -119,11 +108,10 @@
   
   .ktp-nik .value { 
     flex: 1; 
-    /* Menggunakan Arial Bold dengan tracking spasi */
-    font-family: Arial, Helvetica, sans-serif; 
+    font-family: 'OCR-A', 'Courier New', Courier, monospace; 
     font-weight: bold;
     font-size: 26px; 
-    letter-spacing: 2px; 
+    letter-spacing: 3.5px; 
     margin-left: 5px; 
   }
 
