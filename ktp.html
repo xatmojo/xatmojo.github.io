@@ -215,7 +215,7 @@
     font-size: 11px; font-weight: bold;
     text-align: center; line-height: 1.35;
   }
-  .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .photo-box img { width: 100%; height: 100%; display: block; } /* sudah di-crop via canvas */
 
   .photo-meta {
     margin-top: 4px;
@@ -231,7 +231,7 @@
   /* Area Tanda Tangan (Menimpa Teks Tanggal) */
   .sign-area {
     position: absolute;
-    bottom: -35px;
+    bottom: -43px;
     right: 10px;
     width: 90px;
     height: 55px;
@@ -849,16 +849,42 @@
   /* =======================================================================
      FOTO & TANDA TANGAN
      ======================================================================= */
+  /* html2canvas 1.4.1 tidak mendukung object-fit, sehingga foto tertarik saat
+     diunduh. Solusinya: foto di-crop (cover, rasio kotak foto) langsung ke
+     canvas, sehingga <img> sudah berukuran tepat dan tidak perlu di-fit lagi. */
+  function cropPhotoToBox(src, done) {
+    const img = new Image();
+    img.onload = function () {
+      const targetRatio = 130 / 170;               // rasio .photo-box
+      const sw = img.naturalWidth, sh = img.naturalHeight;
+      let cw, ch;
+      if (sw / sh > targetRatio) { ch = sh; cw = sh * targetRatio; }
+      else { cw = sw; ch = sw / targetRatio; }
+      const cx = (sw - cw) / 2;
+      const cy = (sh - ch) * 0.25;                 // sedikit condong ke atas (kepala)
+      const out = document.createElement('canvas');
+      out.width = 520; out.height = Math.round(520 / targetRatio);
+      const ctx = out.getContext('2d');
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(img, cx, cy, cw, ch, 0, 0, out.width, out.height);
+      done(out.toDataURL('image/jpeg', 0.95));
+    };
+    img.onerror = function () { done(src); };
+    img.src = src;
+  }
+
   let currentPhotoBase64 = '';
   fotoEl.addEventListener('change', function () {
     const file = this.files && this.files[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = function (e) {
-      currentPhotoBase64 = e.target.result;
-      photoImg.src = currentPhotoBase64;
-      photoImg.style.display = 'block';
-      photoPlaceholder.style.display = 'none';
+      cropPhotoToBox(e.target.result, function (cropped) {
+        currentPhotoBase64 = cropped;
+        photoImg.src = cropped;
+        photoImg.style.display = 'block';
+        photoPlaceholder.style.display = 'none';
+      });
     };
     reader.readAsDataURL(file);
   });
@@ -992,7 +1018,10 @@
 
     if (data.foto) {
       currentPhotoBase64 = data.foto;
-      photoImg.src = currentPhotoBase64;
+      cropPhotoToBox(data.foto, function (cropped) {
+        currentPhotoBase64 = cropped;
+        photoImg.src = cropped;
+      });
       photoImg.style.display = 'block';
       photoPlaceholder.style.display = 'none';
     } else {
