@@ -22,7 +22,7 @@
   }
 
   /* =====================================================================
-     CSS KHUSUS KARTU KTP (Presisi Tinggi)
+     CSS KHUSUS KARTU KTP (Presisi Tinggi - Semua Bold)
      ===================================================================== */
   .ktp {
     position: relative;
@@ -37,7 +37,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #b5d9f2; /* Fallback color jika gambar gagal dimuat */
+    background-color: #b5d9f2; /* Fallback color */
     
     font-family: Arial, Helvetica, sans-serif;
     color: #000;
@@ -50,30 +50,30 @@
     position: relative; z-index: 1;
     display: flex; flex-direction: column;
     height: 100%;
-    padding: 18px 24px 14px; /* Penyesuaian padding */
+    padding: 18px 24px 14px;
   }
 
   /* ---------- Header (Provinsi & Kabupaten) ---------- */
   .ktp-head { 
     text-align: center; 
     line-height: 1.15; 
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     margin-top: 2px;
   }
   .ktp-head .line {
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 17px; /* ~12.75pt */
-    font-weight: bold;
+    font-size: 18px; /* Sedikit diperbesar */
+    font-weight: bold; /* Wajib Bold */
     letter-spacing: 0.5px;
     white-space: pre;
     color: #000;
   }
 
-  /* ---------- Baris NIK ---------- */
+  /* ---------- Baris NIK (Fokus Utama) ---------- */
   .ktp-nik {
     display: flex; align-items: center;
-    margin: 0 0 10px 0;
-    font-size: 19px; /* ~14pt */
+    margin: 0 0 12px 0; /* Jarak ke bawah ditambah */
+    font-size: 21px; /* Ukuran diperbesar */
     font-weight: bold;
   }
   .ktp-nik .label { 
@@ -83,16 +83,18 @@
     letter-spacing: 3px;
   }
   .ktp-nik .colon { 
-    flex: 0 0 25px; 
+    flex: 0 0 30px; 
     text-align: center; 
     font-weight: 900;
+    font-size: 22px;
   }
   .ktp-nik .value { 
     flex: 1; 
-    /* Menggunakan font OCR A Extended yang sudah dideklarasikan di @font-face */
+    /* Wajib menggunakan font OCR-A */
     font-family: 'OCR A Extended', 'Courier New', Courier, monospace; 
-    font-weight: normal; /* Dibuat normal karena font TTF asli sudah tebal */
-    letter-spacing: 1.5px; /* Jarak antar angka NIK */
+    font-weight: bold; /* Tetap di-bold */
+    font-size: 22px; /* Ukuran NIK dibuat lebih besar dari teks lain */
+    letter-spacing: 2.5px; /* Jarak antar angka NIK */
   }
 
   /* ---------- Body: data kiri + foto kanan ---------- */
@@ -104,34 +106,35 @@
   .row {
     display: flex; align-items: baseline;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 10.5px; /* ~7.8pt */
-    line-height: 1.48; 
+    font-size: 11px; /* Ukuran disesuaikan sedikit karena semua bold */
+    line-height: 1.45; 
     letter-spacing: 0.2px;
     color: #000;
     margin-bottom: 1px;
   }
   
-  /* Label tidak di-bold, Value di-bold (sesuai gambar referensi) */
-  .row .lbl { flex: 0 0 125px; font-weight: normal;}
-  .row .sep { flex: 0 0 15px; text-align: center;}
+  /* SEMUA LABEL, TITIK DUA, DAN VALUE DIBUAT BOLD */
+  .row .lbl { flex: 0 0 135px; font-weight: bold;}
+  .row .sep { flex: 0 0 15px; text-align: center; font-weight: bold;}
   .row .val {
     flex: 1; min-width: 0;
     text-transform: uppercase;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    font-weight: bold; /* Data diri menggunakan Arial Bold */
+    font-weight: bold; 
   }
 
   /* Indentasi Khusus untuk RT/RW, Kel/Desa, Kecamatan */
   .row.indent .lbl {
-    padding-left: 35px; 
+    padding-left: 38px; 
   }
 
   /* Baris gabungan: Jenis Kelamin + Golongan Darah */
   .row-split { display: flex; width: 100%; margin-bottom: 1px;}
   .row-split .left { display: flex; flex: 1; }
   .row-split .right { display: flex; flex: 0 0 140px; }
-  .row-split .lbl-gol { flex: 0 0 65px; font-weight: normal;}
+  .row-split .lbl-gol { flex: 0 0 65px; font-weight: bold;} /* Bold */
   .row-split .val-gol { flex: 1; font-weight: bold; text-transform: uppercase; }
+  .row-split .sep { font-weight: bold; }
 
   /* ---------- Kolom foto ---------- */
   .ktp-photo-col {
@@ -158,16 +161,16 @@
   
   /* Meta Foto (Kota & Tanggal) */
   .photo-meta {
-    margin-top: 5px;
+    margin-top: 6px;
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
-    font-size: 11.5px; /* ~8.6pt */
+    font-size: 11.5px;
     line-height: 1.25;
-    font-weight: bold;
+    font-weight: bold; /* Semua bold */
     letter-spacing: .2px;
   }
   .photo-meta .kota { text-transform: uppercase; }
-  .photo-meta .tgl { font-weight: normal; }
+  .photo-meta .tgl { font-weight: bold; } /* Tanggal dibuat bold juga */
   
   /* Tanda Tangan */
   .sign { 
