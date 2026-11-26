@@ -3,7 +3,44 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Generator & Database KTP — Presisi Tinggi</title>
+<meta name="theme-color" content="#2563eb" />
+
+<!-- ================= PRIMARY SEO ================= -->
+<title>Generator KTP Online — Buat & Unduh KTP Demo Presisi Tinggi</title>
+<meta name="description" content="Generator & database KTP online gratis. Isi data identitas, tanda tangan digital, dan foto, simpan ke database, lalu unduh KTP dalam PNG resolusi tinggi. Presisi 640×403 px." />
+<meta name="keywords" content="generator ktp, buat ktp online, ktp demo, ktp mockup, database ktp, download ktp png, tanda tangan digital ktp, template ktp, ktp generator indonesia" />
+<meta name="author" content="xatmojo" />
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
+<meta name="googlebot" content="index, follow" />
+
+<link rel="canonical" href="https://xatmojo.github.io/ktp" />
+
+<!-- ================= OPEN GRAPH (Facebook, WhatsApp, LinkedIn) ================= -->
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Generator & Database KTP" />
+<meta property="og:locale" content="id_ID" />
+<meta property="og:url" content="https://xatmojo.github.io/ktp" />
+<meta property="og:title" content="Generator KTP Online — Buat & Unduh KTP Demo Presisi Tinggi" />
+<meta property="og:description" content="Isi data identitas, tanda tangan digital, dan foto. Simpan ke database lokal & unduh KTP dalam PNG resolusi tinggi. Gratis, tanpa install." />
+<meta property="og:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/ktp_og.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:alt" content="Pratinjau Generator KTP Online dengan kartu KTP presisi tinggi" />
+
+<!-- ================= TWITTER / X CARD ================= -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Generator KTP Online — Buat & Unduh KTP Demo Presisi Tinggi" />
+<meta name="twitter:description" content="Isi data identitas, tanda tangan digital, dan foto. Simpan ke database lokal & unduh KTP dalam PNG resolusi tinggi. Gratis, tanpa install." />
+<meta name="twitter:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/ktp_og.png" />
+<meta name="twitter:image:alt" content="Pratinjau Generator KTP Online dengan kartu KTP presisi tinggi" />
+
+<!-- ================= FAVICON ================= -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%232563eb'/%3E%3Ctext x='50' y='68' font-size='54' text-anchor='middle' fill='white' font-family='Arial' font-weight='bold'%3EK%3C/text%3E%3C/svg%3E" />
+
+<!-- ================= PRECONNECT (performa / Core Web Vitals) ================= -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net" />
+<link rel="preconnect" href="https://cdn.tailwindcss.com" crossorigin />
+<link rel="dns-prefetch" href="https://cdn.tailwindcss.com" />
 
 <!-- ============ LIBRARY CDN ============ -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -25,7 +62,7 @@
   /* =====================================================================
      CSS KHUSUS KARTU KTP (Presisi Tinggi)
      ===================================================================== */
-  
+
   /* Wrapper untuk scaling responsif */
   .ktp-wrapper {
     position: relative;
@@ -65,14 +102,14 @@
   }
 
   /* ---------- Header ---------- */
-  .ktp-head { 
-    text-align: center; 
-    line-height: 1.15; 
-    margin-bottom: 2px; 
+  .ktp-head {
+    text-align: center;
+    line-height: 1.15;
+    margin-bottom: 2px;
     margin-top: 0px;
   }
   .ktp-head .line {
-    font-size: 18px; 
+    font-size: 18px;
     font-weight: bold;
     letter-spacing: 0.5px;
     color: #000;
@@ -86,33 +123,33 @@
      BARIS NIK
      ======================================================= */
   .ktp-nik {
-    display: flex; 
+    display: flex;
     align-items: center;
-    margin: 8px 0 10px 0; 
-    font-size: 26px; 
+    margin: 8px 0 10px 0;
+    font-size: 26px;
   }
-  
-  .ktp-nik .label { 
-    flex: 0 0 60px; 
-    font-weight: 900; 
+
+  .ktp-nik .label {
+    flex: 0 0 60px;
+    font-weight: 900;
     letter-spacing: 1px;
     font-size: 24px;
   }
-  
-  .ktp-nik .colon { 
-    flex: 0 0 15px; 
-    text-align: center; 
+
+  .ktp-nik .colon {
+    flex: 0 0 15px;
+    text-align: center;
     font-weight: 900;
     font-size: 24px;
   }
-  
-  .ktp-nik .value { 
-    flex: 1; 
-    font-family: 'OCR-A', 'Courier New', Courier, monospace; 
+
+  .ktp-nik .value {
+    flex: 1;
+    font-family: 'OCR-A', 'Courier New', Courier, monospace;
     font-weight: bold;
-    font-size: 26px; 
-    letter-spacing: 3.5px; 
-    margin-left: 5px; 
+    font-size: 26px;
+    letter-spacing: 3.5px;
+    margin-left: 5px;
   }
 
   /* ---------- Body ---------- */
@@ -122,20 +159,20 @@
   /* ---------- Baris Data Diri ---------- */
   .row {
     display: flex; align-items: baseline;
-    font-size: 12.5px; 
-    line-height: 1.35; 
+    font-size: 12.5px;
+    line-height: 1.35;
     letter-spacing: 0.1px;
     color: #000;
     margin-bottom: 0.5px;
   }
-  
+
   .row .lbl { flex: 0 0 125px; font-weight: bold;}
   .row .sep { flex: 0 0 10px; text-align: center; font-weight: bold;}
   .row .val {
     flex: 1; min-width: 0;
     text-transform: uppercase;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    font-weight: bold; 
+    font-weight: bold;
   }
 
   .row.indent .lbl { padding-left: 35px; }
@@ -165,7 +202,7 @@
     text-align: center; line-height: 1.35;
   }
   .photo-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
-  
+
   .photo-meta {
     margin-top: 4px;
     text-align: center;
@@ -176,13 +213,13 @@
     width: 100%;
   }
   .photo-meta .kota { text-transform: uppercase; }
-  
+
   /* Area Tanda Tangan (Menimpa Teks Tanggal) */
   .sign-area {
     position: absolute;
-    bottom: -35px; 
+    bottom: -35px;
     right: 10px;
-    width: 90px; 
+    width: 90px;
     height: 55px;
     display: flex;
     justify-content: center;
@@ -206,6 +243,51 @@
   }
   @keyframes spin { to { transform: rotate(360deg); } }
 </style>
+
+<!-- ================= STRUCTURED DATA (Rich Results) ================= -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "@id": "https://xatmojo.github.io/ktp#app",
+      "name": "Generator & Database KTP",
+      "url": "https://xatmojo.github.io/ktp",
+      "description": "Generator & database KTP online gratis untuk membuat, menyimpan, dan mengunduh KTP demo presisi tinggi langsung di browser.",
+      "image": "https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/ktp_og.png",
+      "applicationCategory": "DesignApplication",
+      "operatingSystem": "Any (Web Browser)",
+      "browserRequirements": "Memerlukan JavaScript",
+      "inLanguage": "id-ID",
+      "isAccessibleForFree": true,
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "IDR"
+      },
+      "featureList": [
+        "Live preview kartu KTP presisi 640x403 px",
+        "Database KTP tersimpan di localStorage",
+        "Tanda tangan digital (draw / upload PNG)",
+        "Unduh KTP sebagai PNG resolusi tinggi (3x)"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://xatmojo.github.io/ktp#website",
+      "url": "https://xatmojo.github.io/ktp",
+      "name": "Generator & Database KTP",
+      "inLanguage": "id-ID",
+      "publisher": {
+        "@type": "Person",
+        "name": "xatmojo",
+        "url": "https://github.com/xatmojo"
+      }
+    }
+  ]
+}
+</script>
 </head>
 
 <body class="min-h-screen bg-slate-100 text-slate-800 antialiased">
@@ -228,7 +310,7 @@
          KOLOM KIRI : FORM INPUT & CRUD
          ============================================================ -->
     <section class="lg:col-span-5 space-y-6">
-      
+
       <!-- Form Input -->
       <div class="rounded-2xl bg-white p-6 shadow-xl ring-1 ring-slate-200">
         <div class="mb-5 flex items-center justify-between">
@@ -241,7 +323,7 @@
 
         <form id="ktpForm" autocomplete="off" class="space-y-4">
           <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            
+
             <input type="hidden" id="recordId" value="" />
 
             <div>
@@ -399,16 +481,16 @@
       </div>
 
       <div class="rounded-2xl bg-white p-4 shadow-xl ring-1 ring-slate-200 sm:p-6 flex flex-col items-center">
-        
+
         <!-- Stage tempat kartu di-scale -->
         <div class="w-full flex justify-center" id="ktpStage">
           <!-- Wrapper responsif untuk menjaga rasio 640x403 -->
           <div class="ktp-wrapper" id="ktpWrapper">
-            
+
             <!-- ================== KARTU KTP ================== -->
             <div class="ktp" id="ktpCard">
               <div class="ktp-inner">
-                
+
                 <!-- Header -->
                 <div class="ktp-head">
                   <div class="line">PROVINSI <span id="p-provinsi">DKI JAKARTA</span></div>
@@ -490,7 +572,7 @@
                     <div class="photo-meta">
                       <div class="kota" id="p-kota">JAKARTA</div>
                       <div class="tgl" id="p-tanggal">05-10-2018</div>
-                      
+
                       <div class="sign-area" id="ktpSignArea">
                         <svg id="default-sign" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg" style="width: 100%; height: 100%;">
                           <path d="M10 30 C 20 10, 25 15, 30 25 C 35 35, 25 35, 32 22 C 38 10, 45 15, 48 25 C 52 35, 42 35, 50 22 C 55 12, 65 10, 68 25 C 70 35, 65 35, 72 20 C 78 8, 85 10, 88 25 C 90 32, 85 35, 95 15" fill="none" stroke="#000" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -518,7 +600,7 @@
           </button>
         </div>
       </div>
-      
+
       <p class="mt-4 text-center text-[11px] leading-relaxed text-slate-400">
         Hasil unduhan beresolusi tinggi.<br>
         Kartu ini hanya untuk keperluan demo / desain.
@@ -552,11 +634,11 @@
   const btnReset       = document.getElementById('btnReset');
   const btnSaveRecord  = document.getElementById('btnSaveRecord');
   const loader         = document.getElementById('loader');
-  
+
   // Elemen Scaling Responsif
   const ktpCard        = document.getElementById('ktpCard');
   const ktpWrapper     = document.getElementById('ktpWrapper');
-  
+
   // Elemen CRUD
   const form           = document.getElementById('ktpForm');
   const recordIdInput  = document.getElementById('recordId');
@@ -643,12 +725,12 @@
       pSignatureImg.src = currentSignatureBase64;
       pSignatureImg.style.display = 'block';
       defaultSignSvg.style.display = 'none';
-      signUpload.value = ''; 
+      signUpload.value = '';
     });
   }
 
   initSignaturePad();
-  
+
   window.addEventListener("resize", () => {
     const data = signaturePad.toData();
     const ratio =  Math.max(window.devicePixelRatio || 1, 1);
@@ -691,19 +773,19 @@
     if (!ktpWrapper || !ktpCard) return;
     const containerWidth = ktpWrapper.clientWidth;
     const scale = containerWidth / CARD_W;
-    
+
     // Terapkan scaling ke elemen kartu (bukan wrapper)
     ktpCard.style.transform = `scale(${scale})`;
   }
-  
+
   // Panggil saat window resize
   window.addEventListener('resize', fitCard);
-  
+
   // Panggil saat halaman selesai load
   window.addEventListener('load', fitCard);
-  
+
   // Pastikan dipanggil saat inisialisasi awal (jika load event sudah lewat)
-  setTimeout(fitCard, 100); 
+  setTimeout(fitCard, 100);
 
   /* =======================================================================
      CRUD LOGIC (LOCAL STORAGE)
@@ -737,7 +819,7 @@
     const data = ktpDatabase[index];
     recordIdInput.value = index;
     editModeBadge.classList.remove('hidden');
-    
+
     fields.forEach(el => {
       if (data[el.dataset.field] !== undefined) {
         el.value = data[el.dataset.field];
@@ -844,7 +926,7 @@
     } finally {
       // KEMBALIKAN SCALING KE SEMULA
       ktpCard.style.transform = prevTransform;
-      
+
       // Pastikan preview pas setelah download
       fitCard();
 
@@ -862,7 +944,7 @@
     form.reset();
     recordIdInput.value = '';
     editModeBadge.classList.add('hidden');
-    
+
     document.getElementById('provinsi').value = "DKI JAKARTA";
     document.getElementById('kabupaten').value = "JAKARTA SELATAN";
     document.getElementById('nik').value = "3174081708790014";
@@ -874,7 +956,7 @@
     document.getElementById('kecamatan').value = "PANCORAN";
     document.getElementById('pekerjaan').value = "KARYAWAN SWASTA";
 
-    fotoEl.value = ''; 
+    fotoEl.value = '';
     currentPhotoBase64 = '';
     photoImg.src = '';
     photoImg.style.display = 'none';
