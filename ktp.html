@@ -8,6 +8,10 @@
 <!-- ============ LIBRARY CDN ============ -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<!-- Google Fonts untuk NIK bergaya OCR-B / Digital -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap" rel="stylesheet">
 
 <style>
   /* =====================================================================
@@ -26,7 +30,7 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    background-color: #b5d9f2; /* Fallback color jika gambar gagal dimuat */
+    background-color: #b5d9f2; 
     
     font-family: Arial, Helvetica, sans-serif;
     color: #000;
@@ -39,10 +43,10 @@
     position: relative; z-index: 1;
     display: flex; flex-direction: column;
     height: 100%;
-    padding: 16px 22px 12px; /* Penyesuaian padding agar pas di background */
+    padding: 16px 25px 12px 22px;
   }
 
-  /* ---------- Header ---------- */
+  /* ---------- Header (Judul) ---------- */
   .ktp-head{ 
     text-align: center; 
     line-height: 1.2; 
@@ -50,49 +54,62 @@
     margin-top: 4px;
   }
   .ktp-head .line{
-    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
-    letter-spacing: .5px;
+    font-size: 19px; /* Setara 8-9pt pada skala fisik */
+    letter-spacing: 1px;
     white-space: pre;
     color: #000;
   }
 
-  /* ---------- Baris NIK ---------- */
+  /* ---------- Baris NIK (Gaya Digital/OCR-B) ---------- */
   .ktp-nik{
     display: flex; align-items: center;
     margin: 0 0 10px 0;
-    font-size: 20px; /* NIK dibuat lebih besar sesuai gambar */
-    font-weight: bold;
-    letter-spacing: 1px;
   }
-  .ktp-nik .label { flex: 0 0 60px; font-weight: bold; letter-spacing: 2px;}
-  .ktp-nik .colon { flex: 0 0 20px; text-align: center; font-weight: bold;}
+  .ktp-nik .label { 
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px; /* Lebih besar sesuai referensi */
+    font-weight: bold; 
+    letter-spacing: 2px;
+    flex: 0 0 65px; 
+  }
+  .ktp-nik .colon { 
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 22px;
+    flex: 0 0 20px; 
+    text-align: center; 
+    font-weight: bold;
+  }
   .ktp-nik .value { 
     flex: 1; 
-    font-family: 'Courier New', Courier, monospace; 
-    font-weight: 900; 
-    letter-spacing: 3px; /* Jarak antar angka NIK */
+    font-family: 'Share Tech Mono', 'Courier New', Courier, monospace; /* Font bergaya digital */
+    font-size: 26px; /* Lebih besar dan tebal */
+    font-weight: normal; 
+    letter-spacing: 2px; 
   }
 
   /* ---------- Body: data kiri + foto kanan ---------- */
-  .ktp-body{ display: flex; gap: 15px; flex: 1; min-height: 0; }
+  .ktp-body{ display: flex; gap: 12px; flex: 1; min-height: 0; }
 
-  .ktp-data{ flex: 1; min-width: 0; padding-right: 5px; }
+  .ktp-data{ flex: 1; min-width: 0; padding-right: 0px; }
 
+  /* Blok Data */
   .row{
     display: flex; align-items: baseline;
-    font-size: 13px; /* Ukuran font data disesuaikan */
-    line-height: 1.6; 
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13.5px; /* Setara 6-7pt pada skala fisik */
+    line-height: 1.38; /* Spasi antarbaris rapat dan rapi */
     letter-spacing: 0px;
     color: #000;
   }
-  .row .lbl{ flex: 0 0 120px; font-weight: normal;}
-  .row .sep{ flex: 0 0 15px; text-align: center;}
+  .row .lbl{ flex: 0 0 120px; font-weight: normal;} /* Arial Regular untuk label */
+  .row .sep{ flex: 0 0 15px; text-align: center; font-weight: normal;}
   .row .val{
     flex: 1; min-width: 0;
     text-transform: uppercase;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    font-weight: bold;
+    font-weight: bold; /* Nilai dibuat bold agar kontras */
   }
 
   /* Indentasi Khusus untuk RT/RW, Kel/Desa, Kecamatan */
@@ -103,8 +120,8 @@
   /* Baris gabungan: Jenis Kelamin + Golongan Darah */
   .row-split { display: flex; width: 100%; }
   .row-split .left { display: flex; flex: 1; }
-  .row-split .right { display: flex; flex: 0 0 130px; }
-  .row-split .lbl-gol{ flex: 0 0 65px; font-weight: normal;}
+  .row-split .right { display: flex; flex: 0 0 140px; } 
+  .row-split .lbl-gol{ flex: 0 0 70px; font-weight: normal;}
   .row-split .val-gol{ flex: 1; font-weight: bold; text-transform: uppercase; }
 
   /* ---------- Kolom foto ---------- */
@@ -117,7 +134,7 @@
     width: 135px; height: 175px;
     display: flex; align-items: center; justify-content: center;
     overflow: hidden;
-    background: #d92c2c; /* Merah khas KTP */
+    background: #d92c2c; 
     border: 1px solid #000;
     color: #fff;
     font-size: 11px; font-weight: bold;
@@ -136,6 +153,7 @@
     line-height: 1.3;
     font-weight: normal;
     letter-spacing: .2px;
+    font-family: Arial, Helvetica, sans-serif;
   }
   .photo-meta .kota{ text-transform: uppercase; }
   
@@ -194,14 +212,14 @@
           <!-- Provinsi -->
           <div>
             <label for="provinsi" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Provinsi</label>
-            <input id="provinsi" data-field="provinsi" type="text" value="DKI JAKARTA"
+            <input id="provinsi" data-field="provinsi" type="text" value="PROVINSI CONTOH"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
           <!-- Kabupaten / Kota -->
           <div>
             <label for="kabupaten" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kabupaten / Kota</label>
-            <input id="kabupaten" data-field="kabupaten" type="text" value="JAKARTA SELATAN"
+            <input id="kabupaten" data-field="kabupaten" type="text" value="KOTA CONTOH"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
@@ -209,21 +227,21 @@
           <div class="sm:col-span-2">
             <label for="nik" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">NIK (16 digit)</label>
             <input id="nik" data-field="nik" type="text" inputmode="numeric" maxlength="16"
-                   value="3174081708790014" placeholder="3174081708790014"
+                   value="0000000000000000" placeholder="0000000000000000"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 font-mono text-sm tracking-widest shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
           <!-- Nama -->
           <div class="sm:col-span-2">
             <label for="nama" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Nama Lengkap</label>
-            <input id="nama" data-field="nama" type="text" value="AGUS PUJIYONO"
+            <input id="nama" data-field="nama" type="text" value="NAMA CONTOH"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
           <!-- Tempat / Tgl Lahir -->
           <div class="sm:col-span-2">
             <label for="ttl" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Tempat / Tanggal Lahir</label>
-            <input id="ttl" data-field="ttl" type="text" value="SEMARANG, 17-08-1979"
+            <input id="ttl" data-field="ttl" type="text" value="KOTA CONTOH, 01-01-1990"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
@@ -253,28 +271,28 @@
           <!-- Alamat -->
           <div class="sm:col-span-2">
             <label for="alamat" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Alamat</label>
-            <input id="alamat" data-field="alamat" type="text" value="JL SWADARMA 2 BLOK B NO 22"
+            <input id="alamat" data-field="alamat" type="text" value="JL. CONTOH NO. 123"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
           <!-- RT/RW -->
           <div>
             <label for="rtRw" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">RT / RW</label>
-            <input id="rtRw" data-field="rtRw" type="text" value="001/008"
+            <input id="rtRw" data-field="rtRw" type="text" value="001/002"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
           <!-- Kel / Desa -->
           <div>
             <label for="kelDesa" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kelurahan / Desa</label>
-            <input id="kelDesa" data-field="kelDesa" type="text" value="KALIBATA"
+            <input id="kelDesa" data-field="kelDesa" type="text" value="KELURAHAN CONTOH"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
           <!-- Kecamatan -->
           <div>
             <label for="kecamatan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Kecamatan</label>
-            <input id="kecamatan" data-field="kecamatan" type="text" value="PANCORAN"
+            <input id="kecamatan" data-field="kecamatan" type="text" value="KECAMATAN CONTOH"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
@@ -307,7 +325,7 @@
           <!-- Pekerjaan -->
           <div>
             <label for="pekerjaan" class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Pekerjaan</label>
-            <input id="pekerjaan" data-field="pekerjaan" type="text" value="KARYAWAN SWASTA"
+            <input id="pekerjaan" data-field="pekerjaan" type="text" value="PEKERJAAN CONTOH"
                    class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
           </div>
 
@@ -373,15 +391,15 @@
 
                 <!-- Header Provinsi / Kabupaten -->
                 <div class="ktp-head">
-                  <div class="line">PROVINSI <span id="p-provinsi">DKI JAKARTA</span></div>
-                  <div class="line"><span id="p-kab-prefix"></span><span id="p-kabupaten">JAKARTA SELATAN</span></div>
+                  <div class="line"><span id="p-provinsi">PROVINSI CONTOH</span></div>
+                  <div class="line"><span id="p-kab-prefix"></span><span id="p-kabupaten">KOTA CONTOH</span></div>
                 </div>
 
                 <!-- NIK -->
                 <div class="ktp-nik">
                   <span class="label">NIK</span>
                   <span class="colon">:</span>
-                  <span class="value" id="p-nik">3174081708790014</span>
+                  <span class="value" id="p-nik">0000000000000000</span>
                 </div>
 
                 <!-- Body -->
@@ -391,12 +409,12 @@
                   <div class="ktp-data">
                     <div class="row">
                       <span class="lbl">Nama</span><span class="sep">:</span>
-                      <span class="val" id="p-nama">AGUS PUJIYONO</span>
+                      <span class="val" id="p-nama">NAMA CONTOH</span>
                     </div>
 
                     <div class="row">
                       <span class="lbl">Tempat/Tgl Lahir</span><span class="sep">:</span>
-                      <span class="val" id="p-ttl">SEMARANG, 17-08-1979</span>
+                      <span class="val" id="p-ttl">KOTA CONTOH, 01-01-1990</span>
                     </div>
 
                     <!-- Baris Gabungan Jenis Kelamin & Gol Darah -->
@@ -413,23 +431,23 @@
 
                     <div class="row">
                       <span class="lbl">Alamat</span><span class="sep">:</span>
-                      <span class="val" id="p-alamat">JL SWADARMA 2 BLOK B NO 22</span>
+                      <span class="val" id="p-alamat">JL. CONTOH NO. 123</span>
                     </div>
 
                     <!-- Baris yang di-indentasi -->
                     <div class="row indent">
                       <span class="lbl">RT/RW</span><span class="sep">:</span>
-                      <span class="val" id="p-rtRw">001/008</span>
+                      <span class="val" id="p-rtRw">001/002</span>
                     </div>
 
                     <div class="row indent">
                       <span class="lbl">Kel/Desa</span><span class="sep">:</span>
-                      <span class="val" id="p-kelDesa">KALIBATA</span>
+                      <span class="val" id="p-kelDesa">KELURAHAN CONTOH</span>
                     </div>
 
                     <div class="row indent">
                       <span class="lbl">Kecamatan</span><span class="sep">:</span>
-                      <span class="val" id="p-kecamatan">PANCORAN</span>
+                      <span class="val" id="p-kecamatan">KECAMATAN CONTOH</span>
                     </div>
 
                     <div class="row">
@@ -444,7 +462,7 @@
 
                     <div class="row">
                       <span class="lbl">Pekerjaan</span><span class="sep">:</span>
-                      <span class="val" id="p-pekerjaan">KARYAWAN SWASTA</span>
+                      <span class="val" id="p-pekerjaan">PEKERJAAN CONTOH</span>
                     </div>
 
                     <div class="row">
@@ -466,8 +484,8 @@
                     </div>
 
                     <div class="photo-meta">
-                      <div class="kota" id="p-kota">JAKARTA</div>
-                      <div class="tgl" id="p-tanggal">05-10-2018</div>
+                      <div class="kota" id="p-kota">KOTA CONTOH</div>
+                      <div class="tgl" id="p-tanggal">01-01-2024</div>
 
                       <!-- Tanda tangan SVG -->
                       <svg class="sign" viewBox="0 0 120 40" xmlns="http://www.w3.org/2000/svg">
@@ -511,7 +529,6 @@
 (function () {
   'use strict';
 
-  /* ----------------------------- Referensi DOM ----------------------------- */
   const fields         = document.querySelectorAll('[data-field]');
   const nikEl          = document.getElementById('nik');
   const fotoEl         = document.getElementById('foto');
@@ -529,14 +546,9 @@
   const CARD_W = 640;
   const CARD_H = 403;
 
-  /* =======================================================================
-     1. SET TANGGAL PEMBUATAN (Sesuai Gambar)
-     ======================================================================= */
-  document.getElementById('p-tanggal').textContent = "05-10-2018";
+  // Set tanggal default placeholder
+  document.getElementById('p-tanggal').textContent = "01-01-2024";
 
-  /* =======================================================================
-     2. HELPER: menulis teks ke elemen preview
-     ======================================================================= */
   function setPreviewText(id, value) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -544,48 +556,30 @@
     el.textContent = v === '' ? '-' : v;
   }
 
-  /* =======================================================================
-     3. SINKRONISASI SATU FIELD -> PREVIEW
-     ======================================================================= */
   function syncField(el) {
     const key = el.dataset.field;
     if (!key) return;
 
     setPreviewText('p-' + key, el.value);
 
-    // Logika khusus untuk Kabupaten/Kota (Teks Header & Bawah Foto)
     if (key === 'kabupaten') {
       const upper = el.value.trim().toUpperCase();
-      
-      // Menghilangkan prefix KOTA/KABUPATEN pada judul atas
       document.getElementById('p-kab-prefix').textContent = '';
-      
-      // Teks di bawah foto (Kota penerbit)
       let kotaText = upper.replace('KOTA ', '').replace('KABUPATEN ADMINISTRASI ', '').replace('KABUPATEN ', '');
-      document.getElementById('p-kota').textContent = kotaText || 'JAKARTA';
+      document.getElementById('p-kota').textContent = upper || 'KOTA CONTOH';
     }
   }
 
-  /* =======================================================================
-     4. FORMAT NIK (Hanya angka, tanpa spasi otomatis)
-     ======================================================================= */
   nikEl.addEventListener('input', function () {
-    // Hanya menerima angka, maksimal 16 digit
     this.value = this.value.replace(/\D/g, '').slice(0, 16);
   });
 
-  /* =======================================================================
-     5. TWO-WAY BINDING
-     ======================================================================= */
   fields.forEach(function (el) {
     el.addEventListener('input', function () { syncField(el); });
     el.addEventListener('change', function () { syncField(el); });
-    syncField(el); // inisialisasi awal
+    syncField(el); 
   });
 
-  /* =======================================================================
-     6. UPLOAD FOTO
-     ======================================================================= */
   fotoEl.addEventListener('change', function () {
     const file = this.files && this.files[0];
     if (!file) return;
@@ -605,9 +599,6 @@
     reader.readAsDataURL(file);
   });
 
-  /* =======================================================================
-     7. RESPONSIVE SCALING KARTU
-     ======================================================================= */
   function fitCard() {
     const available = ktpStage.clientWidth || CARD_W;
     const scale = Math.min(1, available / CARD_W);
@@ -619,12 +610,8 @@
   window.addEventListener('load', fitCard);
   fitCard();
 
-  /* =======================================================================
-     8. DOWNLOAD KTP PNG
-     ======================================================================= */
   btnDownload.addEventListener('click', async function () {
     const originalHTML = btnDownload.innerHTML;
-
     loader.classList.remove('hidden');
     loader.classList.add('flex');
     btnDownload.disabled = true;
@@ -636,7 +623,7 @@
 
     try {
       const canvas = await html2canvas(ktpCard, {
-        scale: 3, // HD
+        scale: 3, 
         backgroundColor: '#ffffff',
         useCORS: true,
         logging: false,
@@ -669,28 +656,24 @@
     }
   });
 
-  /* =======================================================================
-     9. RESET FORM
-     ======================================================================= */
   btnReset.addEventListener('click', function () {
     form.reset();
     
-    // Set nilai default sesuai gambar
-    document.getElementById('provinsi').value = "DKI JAKARTA";
-    document.getElementById('kabupaten').value = "JAKARTA SELATAN";
-    document.getElementById('nik').value = "3174081708790014";
-    document.getElementById('nama').value = "AGUS PUJIYONO";
-    document.getElementById('ttl').value = "SEMARANG, 17-08-1979";
-    document.getElementById('alamat').value = "JL SWADARMA 2 BLOK B NO 22";
-    document.getElementById('rtRw').value = "001/008";
-    document.getElementById('kelDesa').value = "KALIBATA";
-    document.getElementById('kecamatan').value = "PANCORAN";
-    document.getElementById('pekerjaan').value = "KARYAWAN SWASTA";
+    // Set nilai default placeholder sesuai instruksi
+    document.getElementById('provinsi').value = "PROVINSI CONTOH";
+    document.getElementById('kabupaten').value = "KOTA CONTOH";
+    document.getElementById('nik').value = "0000000000000000";
+    document.getElementById('nama').value = "NAMA CONTOH";
+    document.getElementById('ttl').value = "KOTA CONTOH, 01-01-1990";
+    document.getElementById('alamat').value = "JL. CONTOH NO. 123";
+    document.getElementById('rtRw').value = "001/002";
+    document.getElementById('kelDesa').value = "KELURAHAN CONTOH";
+    document.getElementById('kecamatan').value = "KECAMATAN CONTOH";
+    document.getElementById('pekerjaan').value = "PEKERJAAN CONTOH";
 
-    // Hapus foto
     photoImg.src = '';
     photoImg.style.display = 'none';
-    photoPlaceholder.style.display = 'none'; // Tetap sembunyikan karena background merah solid
+    photoPlaceholder.style.display = 'none';
 
     fields.forEach(function (el) { syncField(el); });
   });
