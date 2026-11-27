@@ -1,1 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Xatmojo Games – Play Classic Browser Games</title>
+<meta name="description" content="Play classic arcade games online at Xatmojo Games. Enjoy Tetris, Bounce, Snake, and more browser gaming experiences.">
+<meta name="theme-color" content="#0a0b12">
+<link rel="canonical" href="https://xatmojo.github.io/games/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="XATMOJO GAMES">
+<meta property="og:title" content="Xatmojo Games – Play Classic Browser Games">
+<meta property="og:description" content="Play classic arcade games online at Xatmojo Games. Enjoy Tetris, Bounce, Snake, and more browser gaming experiences.">
+<meta property="og:url" content="https://xatmojo.github.io/games/">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Xatmojo Games – Play Classic Browser Games">
+<meta name="twitter:description" content="Play classic arcade games online at Xatmojo Games. Enjoy Tetris, Bounce, Snake, and more browser gaming experiences.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3E%3Crect width='8' height='8' rx='1.5' fill='%230a0b12'/%3E%3Cpath d='M1 1h2v2H1zM5 1h2v2H5zM1 5h2v2H1zM5 5h2v2H5z' fill='%233d7bff'/%3E%3Cpath d='M3 3h2v2H3z' fill='%23ff4fa3'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&display=swap">
+<style>
+:root{
+  --bg:#0a0b12; --panel:#141726; --panel-2:#1a1e31; --line:#272c45;
+  --text:#eceefb; --muted:#9ca3c4;
+  --blue:#3d7bff; --blue-d:#1f3f94; --purple:#8b5cf6; --pink:#ff4fa3;
+  --font-d:"Chakra Petch","Trebuchet MS",system-ui,sans-serif;
+  --font-b:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  --nav-h:64px; --r:14px; --wrap:1120px; --ease:cubic-bezier(.2,.7,.2,1);
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:var(--nav-h);-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--bg);color:var(--text);font:400 1rem/1.6 var(--font-b);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,p,ul{margin:0}
+ul{padding:0;list-style:none}
+a{color:inherit;text-decoration:none}
+svg{display:block}
+:focus-visible{outline:3px solid #8fb0ff;outline-offset:3px;border-radius:6px}
+.wrap{width:100%;max-width:var(--wrap);margin-inline:auto;padding-inline:20px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;left:12px;top:-60px;background:var(--blue);color:#fff;padding:10px 16px;border-radius:8px;z-index:100;font-weight:600}
+.skip:focus{top:12px}
 
+/* Buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:12px 24px;border:2px solid transparent;border-radius:10px;font:700 .95rem/1 var(--font-d);letter-spacing:.06em;cursor:pointer;transition:transform .12s var(--ease),box-shadow .12s var(--ease),background .2s,border-color .2s}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 4px 0 var(--blue-d)}
+.btn-primary:hover{background:#5b92ff;transform:translateY(-1px);box-shadow:0 5px 0 var(--blue-d)}
+.btn-primary:active{transform:translateY(4px);box-shadow:0 0 0 var(--blue-d)}
+.btn-ghost{background:transparent;color:var(--text);border-color:var(--line)}
+.btn-ghost:hover{border-color:var(--purple);background:rgba(139,92,246,.12)}
+.btn-ghost:active{transform:scale(.97)}
+
+/* Navigation */
+.nav{position:sticky;top:0;z-index:50;height:var(--nav-h);background:rgba(10,11,18,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
+.nav.scrolled{border-color:var(--line)}
+.nav .wrap{height:100%;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{display:inline-flex;align-items:center;gap:10px;font:700 1.1rem/1 var(--font-d);letter-spacing:.08em}
+.logo svg{width:30px;height:30px}
+.logo span{color:var(--muted);font-weight:500}
+.menu{position:absolute;top:var(--nav-h);left:0;right:0;display:none;flex-direction:column;gap:4px;padding:12px 20px 20px;background:var(--bg);border-bottom:1px solid var(--line)}
+.menu.open{display:flex}
+.menu a:not(.btn){display:block;padding:14px 12px;border-radius:8px;font:600 1rem var(--font-d);letter-spacing:.06em;color:var(--muted);transition:color .2s,background .2s}
+.menu a:not(.btn):hover{color:var(--text);background:var(--panel)}
+.menu a.active{color:var(--text);background:var(--panel);box-shadow:inset 3px 0 0 var(--pink)}
+.menu .btn{margin-top:8px}
+.burger{display:inline-grid;place-items:center;width:46px;height:46px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--text);cursor:pointer}
+.burger span,.burger span::before,.burger span::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;transition:transform .25s var(--ease),background .2s}
+.burger span{position:relative}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-6px}.burger span::after{top:6px}
+.burger[aria-expanded="true"] span{background:transparent}
+.burger[aria-expanded="true"] span::before{transform:translateY(6px) rotate(45deg)}
+.burger[aria-expanded="true"] span::after{transform:translateY(-6px) rotate(-45deg)}
+
+/* Hero */
+.hero{position:relative;padding:48px 0 56px;overflow:hidden;isolation:isolate}
+.hero::before{content:"";position:absolute;inset:0;z-index:-1;
+  background:
+   radial-gradient(500px 300px at 85% 10%,rgba(139,92,246,.22),transparent 70%),
+   radial-gradient(500px 300px at 5% 90%,rgba(61,123,255,.16),transparent 70%),
+   linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px,
+   linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px) 0 0/32px 32px;
+  -webkit-mask-image:linear-gradient(#000 60%,transparent);mask-image:linear-gradient(#000 60%,transparent)}
+.hero-grid{display:grid;gap:32px;align-items:center}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:6px;background:var(--panel);font:600 .75rem/1 var(--font-d);letter-spacing:.14em;color:var(--muted)}
+.badge::before{content:"";width:8px;height:8px;background:var(--pink);box-shadow:0 0 10px var(--pink)}
+h1{margin:20px 0 16px;font:700 clamp(2.4rem,10vw,4.8rem)/1.02 var(--font-d);letter-spacing:.01em}
+h1 em{display:block;font-style:normal;color:transparent;-webkit-text-stroke:1.5px var(--blue)}
+.lead{max-width:46ch;color:var(--muted);font-size:1.075rem}
+.actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:28px}
+.actions .btn{flex:1 1 100%}
+.hero-art{display:none}
+.screen{position:relative;padding:14px;border:1px solid var(--line);border-radius:18px;background:linear-gradient(160deg,var(--panel-2),var(--panel));box-shadow:0 0 60px rgba(139,92,246,.2)}
+.screen svg{width:100%;height:auto;border-radius:10px;background:#0b0d17}
+.screen::after{content:"";position:absolute;inset:14px;border-radius:10px;pointer-events:none;background:repeating-linear-gradient(transparent 0 3px,rgba(0,0,0,.18) 3px 4px)}
+.float{animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-6px)}}
+.rise>*{opacity:0;transform:translateY(14px);animation:rise .6s var(--ease) forwards}
+.rise>:nth-child(2){animation-delay:.08s}.rise>:nth-child(3){animation-delay:.16s}.rise>:nth-child(4){animation-delay:.24s}
+@keyframes rise{to{opacity:1;transform:none}}
+
+/* Sections */
+section{padding:56px 0}
+.sec-head{margin-bottom:32px}
+h2{font:700 clamp(1.7rem,6vw,2.5rem)/1.1 var(--font-d);letter-spacing:.02em}
+.sec-head p{margin-top:10px;color:var(--muted);max-width:52ch}
+.bar{display:block;width:56px;height:4px;margin-top:16px;background:linear-gradient(90deg,var(--blue) 66%,var(--pink) 66%)}
+
+/* Games */
+.grid{display:grid;gap:20px;grid-template-columns:1fr}
+.card{position:relative;display:flex;flex-direction:column;background:var(--panel);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;transition:transform .25s var(--ease),border-color .25s,box-shadow .25s}
+.card:hover,.card:focus-within{transform:translateY(-5px);border-color:var(--purple);box-shadow:0 12px 36px -8px rgba(139,92,246,.45)}
+.card:focus-within{outline:3px solid #8fb0ff;outline-offset:3px}
+.card :focus-visible{outline:none}
+.art{position:relative;aspect-ratio:16/10;background:#0b0d17;border-bottom:1px solid var(--line);overflow:hidden}
+.art svg{width:100%;height:100%;transition:transform .5s var(--ease)}
+.card:hover .art svg{transform:scale(1.04)}
+.tag{position:absolute;top:12px;left:12px;padding:6px 10px;border-radius:6px;background:rgba(10,11,18,.85);border:1px solid var(--line);font:600 .7rem/1 var(--font-d);letter-spacing:.12em;color:#d7dbf5}
+.body{display:flex;flex-direction:column;flex:1;gap:10px;padding:22px}
+h3{font:700 1.5rem/1.1 var(--font-d);letter-spacing:.06em}
+.body p{color:var(--muted);flex:1}
+.body .btn{margin-top:12px;width:100%;position:static}
+.body .btn::after{content:"";position:absolute;inset:0;z-index:1}
+.arrow{width:16px;height:16px;transition:transform .2s var(--ease)}
+.card:hover .arrow{transform:translateX(4px)}
+
+/* About */
+#about{background:linear-gradient(var(--panel),var(--bg))}
+.about-grid{display:grid;gap:32px}
+.about-text{font-size:1.1rem;color:var(--muted);max-width:50ch}
+.values{display:grid;gap:14px}
+.value{display:flex;gap:16px;padding:20px;background:var(--panel-2);border:1px solid var(--line);border-left:3px solid var(--pink);border-radius:10px}
+.value svg{flex:none;width:28px;height:28px;margin-top:2px;fill:none;stroke:var(--blue);stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.value h3{font-size:1.05rem;margin-bottom:4px}
+.value p{color:var(--muted);font-size:.95rem}
+
+/* Footer */
+footer{border-top:1px solid var(--line);padding:48px 0 28px;background:#080910}
+.f-grid{display:grid;gap:32px}
+.f-about p{margin-top:14px;color:var(--muted);max-width:38ch;font-size:.95rem}
+.f-col h4{margin:0 0 12px;font:600 .8rem/1 var(--font-d);letter-spacing:.14em;color:var(--text)}
+.f-col a{display:inline-block;padding:6px 0;color:var(--muted);transition:color .2s}
+.f-col a:hover{color:#fff}
+.f-bottom{display:flex;flex-direction:column;gap:16px;align-items:flex-start;margin-top:36px;padding-top:22px;border-top:1px solid var(--line);color:var(--muted);font-size:.875rem}
+.top{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:10px 16px;background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--text);font:600 .85rem var(--font-d);letter-spacing:.08em;cursor:pointer;transition:border-color .2s,transform .12s}
+.top:hover{border-color:var(--blue)}.top:active{transform:scale(.96)}
+
+/* Breakpoints */
+@media (min-width:600px){
+  .actions .btn{flex:0 0 auto}
+  .values{grid-template-columns:1fr}
+  .grid{grid-template-columns:repeat(2,1fr)}
+  .f-grid{grid-template-columns:1.4fr 1fr 1fr}
+  .f-bottom{flex-direction:row;justify-content:space-between;align-items:center}
+}
+@media (min-width:900px){
+  :root{--nav-h:72px}
+  .wrap{padding-inline:32px}
+  .burger{display:none}
+  .menu{position:static;display:flex;flex-direction:row;align-items:center;gap:4px;padding:0;background:none;border:0}
+  .menu a:not(.btn){padding:10px 16px}
+  .menu a.active{box-shadow:inset 0 -3px 0 var(--pink);border-radius:8px 8px 0 0}
+  .menu .btn{margin:0 0 0 12px;min-height:42px;padding:10px 20px}
+  .hero{padding:72px 0 80px}
+  .hero-grid{grid-template-columns:1.15fr .85fr}
+  .hero-art{display:block}
+  section{padding:80px 0}
+  .grid{grid-template-columns:repeat(3,1fr);gap:24px}
+  .about-grid{grid-template-columns:1fr 1.1fr;gap:56px;align-items:start}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{animation:none!important;transition:none!important}
+  .rise>*{opacity:1;transform:none}
+  .card:hover,.card:focus-within{transform:none}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#games">Skip to games</a>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="logo" viewBox="0 0 8 8"><rect width="8" height="8" rx="1.5" fill="#141726"/><path d="M1 1h2v2H1zM5 1h2v2H5zM1 5h2v2H1zM5 5h2v2H5z" fill="#3d7bff"/><path d="M3 3h2v2H3z" fill="#ff4fa3"/></symbol>
+  <symbol id="arrow" viewBox="0 0 16 16"><path d="M3 8h10M9 4l4 4-4 4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+</svg>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#home" aria-label="Xatmojo Games – back to top"><svg aria-hidden="true"><use href="#logo"/></svg>XATMOJO <span>GAMES</span></a>
+    <button class="burger" id="burger" aria-label="Toggle menu" aria-expanded="false" aria-controls="menu"><span></span></button>
+    <nav class="menu" id="menu" aria-label="Main">
+      <a href="#home" data-s="home">HOME</a>
+      <a href="#games" data-s="games">GAMES</a>
+      <a href="#about" data-s="about">ABOUT</a>
+      <a class="btn btn-primary" href="#games">PLAY NOW</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" id="home" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="rise">
+      <span class="badge">WELCOME TO XATMOJO ARCADE</span>
+      <h1 id="hero-title">PLAY. RELAX.<em>REPEAT.</em></h1>
+      <p class="lead">Your favorite classic games, reimagined for endless fun.</p>
+      <div class="actions">
+        <a class="btn btn-primary" href="#games">EXPLORE GAMES</a>
+        <a class="btn btn-ghost" href="#about">DISCOVER MORE</a>
+      </div>
+    </div>
+    <div class="hero-art" aria-hidden="true">
+      <div class="screen float">
+        <svg viewBox="0 0 160 100" shape-rendering="crispEdges">
+          <g stroke="#0b0d17" stroke-width="1">
+            <rect x="20" y="10" width="10" height="10" fill="#8b5cf6"/><rect x="30" y="10" width="10" height="10" fill="#8b5cf6"/><rect x="40" y="10" width="10" height="10" fill="#8b5cf6"/><rect x="30" y="20" width="10" height="10" fill="#8b5cf6"/>
+            <rect x="110" y="20" width="10" height="10" fill="#2ee6ff"/><rect x="120" y="20" width="10" height="10" fill="#2ee6ff"/><rect x="110" y="30" width="10" height="10" fill="#2ee6ff"/><rect x="120" y="30" width="10" height="10" fill="#2ee6ff"/>
+            <rect x="20" y="70" width="10" height="10" fill="#3ddc84"/><rect x="30" y="70" width="10" height="10" fill="#3ddc84"/><rect x="40" y="70" width="10" height="10" fill="#3ddc84"/><rect x="50" y="70" width="10" height="10" fill="#3ddc84"/><rect x="50" y="60" width="10" height="10" fill="#3ddc84"/><rect x="50" y="50" width="10" height="10" fill="#3ddc84"/>
+            <rect x="60" y="80" width="10" height="10" fill="#ff4fa3"/>
+            <rect x="90" y="90" width="50" height="10" fill="#3d7bff"/><rect x="110" y="80" width="30" height="10" fill="#3d7bff"/><rect x="130" y="70" width="10" height="10" fill="#3d7bff"/>
+          </g>
+          <circle cx="96" cy="60" r="12" fill="#ff3b3b"/><circle cx="92" cy="55" r="4" fill="#ff9a9a"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="games" aria-labelledby="games-title">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 id="games-title">GAMES COLLECTION</h2>
+      <span class="bar"></span>
+      <p>Pick a game and start playing instantly. No downloads, no sign-ups.</p>
+    </div>
+    <div class="grid">
+
+      <article class="card">
+        <div class="art">
+          <span class="tag">PUZZLE / CLASSIC</span>
+          <svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Colorful falling Tetris blocks" shape-rendering="crispEdges">
+            <path d="M0 0h160v100H0z" fill="#0b0d17"/>
+            <path d="M40 0v100M50 0v100M60 0v100M70 0v100M80 0v100M90 0v100M100 0v100M110 0v100M120 0v100" stroke="#171b2e"/>
+            <g stroke="#0b0d17" stroke-width="1">
+              <g fill="#8b5cf6"><rect x="70" y="10" width="10" height="10"/><rect x="80" y="10" width="10" height="10"/><rect x="90" y="10" width="10" height="10"/><rect x="80" y="20" width="10" height="10"/></g>
+              <g fill="#ff9f43"><rect x="110" y="50" width="10" height="10"/><rect x="110" y="60" width="10" height="10"/><rect x="110" y="70" width="10" height="10"/><rect x="100" y="70" width="10" height="10"/></g>
+              <g fill="#2ee6ff"><rect x="40" y="60" width="10" height="10"/><rect x="40" y="70" width="10" height="10"/><rect x="40" y="80" width="10" height="10"/><rect x="40" y="90" width="10" height="10"/></g>
+              <g fill="#ffd23f"><rect x="50" y="80" width="10" height="10"/><rect x="60" y="80" width="10" height="10"/><rect x="50" y="90" width="10" height="10"/><rect x="60" y="90" width="10" height="10"/></g>
+              <g fill="#3ddc84"><rect x="70" y="90" width="10" height="10"/><rect x="80" y="90" width="10" height="10"/><rect x="80" y="80" width="10" height="10"/><rect x="90" y="80" width="10" height="10"/></g>
+              <g fill="#3d7bff"><rect x="90" y="90" width="10" height="10"/><rect x="100" y="90" width="10" height="10"/><rect x="110" y="90" width="10" height="10"/><rect x="110" y="80" width="10" height="10"/></g>
+              <g fill="#ff4d6d"><rect x="120" y="80" width="10" height="10"/><rect x="120" y="90" width="10" height="10"/></g>
+            </g>
+          </svg>
+        </div>
+        <div class="body">
+          <h3>TETRIS</h3>
+          <p>Arrange falling blocks, clear lines, and challenge your strategy.</p>
+          <a class="btn btn-primary" href="https://xatmojo.github.io/games/tetris" aria-label="Play Tetris">PLAY TETRIS <svg class="arrow" aria-hidden="true"><use href="#arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="art">
+          <span class="tag">ARCADE / ACTION</span>
+          <svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Red bouncing ball above platforms" shape-rendering="crispEdges">
+            <path d="M0 0h160v100H0z" fill="#0b0d17"/>
+            <circle cx="30" cy="30" r="1.5" fill="#2a3052"/><circle cx="130" cy="20" r="1.5" fill="#2a3052"/><circle cx="120" cy="50" r="1" fill="#2a3052"/><circle cx="50" cy="12" r="1" fill="#2a3052"/>
+            <g fill="#3d7bff" stroke="#0b0d17"><rect x="0" y="80" width="40" height="20"/><rect x="40" y="80" width="40" height="20" opacity=".6"/><rect x="100" y="80" width="60" height="20"/><rect x="0" y="80" width="160" height="4" fill="#6d9bff"/></g>
+            <path d="M104 80l8-14 8 14z" fill="#ff4fa3"/><path d="M120 80l8-14 8 14z" fill="#ff4fa3"/>
+            <ellipse cx="62" cy="80" rx="16" ry="3" fill="#000" opacity=".5"/>
+            <path d="M18 62q12-30 20-10M30 44q8-14 14-4" fill="none" stroke="#ff3b3b" stroke-width="2" stroke-dasharray="3 4" opacity=".5" shape-rendering="auto"/>
+            <g shape-rendering="auto"><circle cx="62" cy="50" r="20" fill="#e5252a"/><circle cx="62" cy="50" r="20" fill="none" stroke="#ff7a7a" stroke-width="2" opacity=".6"/><circle cx="54" cy="42" r="6" fill="#ffb3b3"/></g>
+          </svg>
+        </div>
+        <div class="body">
+          <h3>BOUNCE</h3>
+          <p>Jump, bounce, and navigate through challenging obstacles.</p>
+          <a class="btn btn-primary" href="https://xatmojo.github.io/games/bounce" aria-label="Play Bounce">PLAY BOUNCE <svg class="arrow" aria-hidden="true"><use href="#arrow"/></svg></a>
+        </div>
+      </article>
+
+      <article class="card">
+        <div class="art">
+          <span class="tag">CLASSIC / ARCADE</span>
+          <svg viewBox="0 0 160 100" preserveAspectRatio="xMidYMid slice" role="img" aria-label="Pixel-style snake heading toward food" shape-rendering="crispEdges">
+            <path d="M0 0h160v100H0z" fill="#0b0d17"/>
+            <path d="M0 10h160M0 20h160M0 30h160M0 40h160M0 50h160M0 60h160M0 70h160M0 80h160M0 90h160M10 0v100M20 0v100M30 0v100M40 0v100M50 0v100M60 0v100M70 0v100M80 0v100M90 0v100M100 0v100M110 0v100M120 0v100M130 0v100M140 0v100M150 0v100" stroke="#141829"/>
+            <g fill="#3ddc84" stroke="#0b0d17">
+              <rect x="20" y="70" width="10" height="10" opacity=".55"/><rect x="30" y="70" width="10" height="10" opacity=".7"/><rect x="40" y="70" width="10" height="10" opacity=".85"/><rect x="40" y="60" width="10" height="10"/><rect x="40" y="50" width="10" height="10"/><rect x="50" y="50" width="10" height="10"/><rect x="60" y="50" width="10" height="10"/><rect x="70" y="50" width="10" height="10"/><rect x="80" y="50" width="10" height="10"/><rect x="90" y="50" width="10" height="10"/>
+              <rect x="100" y="50" width="10" height="10" fill="#7dffb0"/>
+            </g>
+            <rect x="105" y="52" width="3" height="3" fill="#0b0d17"/><rect x="105" y="57" width="3" height="3" fill="#0b0d17"/>
+            <rect x="130" y="50" width="10" height="10" fill="#ff4d6d" stroke="#0b0d17"/><rect x="134" y="46" width="2" height="4" fill="#ffd23f"/>
+          </svg>
+        </div>
+        <div class="body">
+          <h3>SNAKE</h3>
+          <p>Grow your snake, collect food, and beat your high score.</p>
+          <a class="btn btn-primary" href="https://xatmojo.github.io/games/snake" aria-label="Play Snake">PLAY SNAKE <svg class="arrow" aria-hidden="true"><use href="#arrow"/></svg></a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<section id="about" aria-labelledby="about-title">
+  <div class="wrap about-grid">
+    <div>
+      <h2 id="about-title">ABOUT XATMOJO GAMES</h2>
+      <span class="bar"></span>
+      <p class="about-text" style="margin-top:20px">Xatmojo Games is a collection of classic and casual browser games designed to bring simple entertainment, nostalgic experiences, and endless fun directly to your screen.</p>
+    </div>
+    <ul class="values">
+      <li class="value">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="7" width="20" height="10" rx="5"/><path d="M7 10v4M5 12h4"/><circle cx="15.5" cy="11" r=".8"/><circle cx="18" cy="13" r=".8"/></svg>
+        <div><h3>EASY TO PLAY</h3><p>Simple controls and accessible gameplay.</p></div>
+      </li>
+      <li class="value">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c3 3 3 15 0 18M12 3c-3 3-3 15 0 18"/></svg>
+        <div><h3>PLAY ANYWHERE</h3><p>Enjoy games directly from your browser.</p></div>
+      </li>
+      <li class="value">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3l2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1L3.2 9.5l6.1-.9z"/></svg>
+        <div><h3>CLASSIC FUN</h3><p>Timeless games for everyone.</p></div>
+      </li>
+    </ul>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div class="f-about">
+        <a class="logo" href="#home"><svg aria-hidden="true"><use href="#logo"/></svg>XATMOJO <span>GAMES</span></a>
+        <p>Classic and casual browser games, ready to play in seconds.</p>
+      </div>
+      <nav class="f-col" aria-label="Quick navigation">
+        <h4>QUICK NAVIGATION</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#games">Games</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+      <nav class="f-col" aria-label="Game links">
+        <h4>GAMES</h4>
+        <ul>
+          <li><a href="https://xatmojo.github.io/games/tetris">Tetris</a></li>
+          <li><a href="https://xatmojo.github.io/games/bounce">Bounce</a></li>
+          <li><a href="https://xatmojo.github.io/games/snake">Snake</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="f-bottom">
+      <p>© 2026 XATMOJO GAMES. All Rights Reserved.</p>
+      <button class="top" type="button" id="top" aria-label="Back to top"><svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true" style="transform:rotate(-90deg)"><use href="#arrow"/></svg>BACK TO TOP</button>
+    </div>
+  </div>
+</footer>
+
+<script>
+(() => {
+  const $ = (s, c = document) => c.querySelector(s);
+  const nav = $('#nav'), menu = $('#menu'), burger = $('#burger');
+  const links = [...menu.querySelectorAll('a[data-s]')];
+
+  const setMenu = open => {
+    menu.classList.toggle('open', open);
+    burger.setAttribute('aria-expanded', open);
+  };
+  burger.addEventListener('click', () => setMenu(!menu.classList.contains('open')));
+  menu.addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') { setMenu(false); burger.focus(); } });
+  matchMedia('(min-width:900px)').addEventListener('change', e => e.matches && setMenu(false));
+
+  const onScroll = () => nav.classList.toggle('scrolled', scrollY > 8);
+  addEventListener('scroll', onScroll, { passive: true }); onScroll();
+
+  const setActive = id => links.forEach(a => {
+    const on = a.dataset.s === id;
+    a.classList.toggle('active', on);
+    on ? a.setAttribute('aria-current', 'true') : a.removeAttribute('aria-current');
+  });
+  setActive('home');
+  if ('IntersectionObserver' in window) {
+    const io = new IntersectionObserver(es => es.forEach(e => e.isIntersecting && setActive(e.target.id)),
+      { rootMargin: '-45% 0px -50% 0px' });
+    ['home', 'games', 'about'].forEach(id => io.observe($('#' + id)));
+  }
+
+  $('#top').addEventListener('click', () => {
+    scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion:reduce)').matches ? 'auto' : 'smooth' });
+  });
+})();
+</script>
+</body>
+</html>
