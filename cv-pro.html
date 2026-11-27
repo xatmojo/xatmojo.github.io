@@ -734,6 +734,25 @@ input[type=range]{accent-color:var(--accent)}
   .preview-toolbar .pt-label{display:none}
   .preview-toolbar .pt-sp{display:none}
 }
+
+/* ===== Help / Contact card ===== */
+.help-pop{position:fixed;top:calc(var(--header-h) + 10px);right:16px;z-index:450;width:320px;max-width:calc(100vw - 32px);
+  background:var(--panel);color:var(--text);border:1px solid var(--border);border-radius:var(--radius-lg);box-shadow:var(--shadow-lg);
+  padding:18px;display:none;animation:helpIn .18s ease}
+.help-pop.show{display:block}
+@keyframes helpIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.help-pop h4{margin:0 0 2px;font-size:15px;font-weight:700;color:var(--text)}
+.help-pop p{margin:0 0 12px;font-size:12px;color:var(--muted)}
+.help-pop .help-close{position:absolute;top:10px;right:10px;background:none;border:0;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:4px 8px;border-radius:8px}
+.help-pop .help-close:hover{background:var(--panel-2);color:var(--text)}
+.help-item{display:flex;align-items:center;gap:12px;padding:10px;margin-top:6px;border:1px solid var(--border);border-radius:10px;
+  background:var(--panel-2);color:var(--text);text-decoration:none;transition:.15s}
+.help-item:hover{border-color:var(--gold);transform:translateY(-1px)}
+.help-item .hi-ic{flex:none;width:34px;height:34px;border-radius:9px;background:var(--navy);color:var(--gold);display:flex;align-items:center;justify-content:center}
+.help-item .hi-tx{min-width:0;display:flex;flex-direction:column}
+.help-item .hi-tx small{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.help-item .hi-tx b{font-size:13px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media print{.help-pop{display:none!important}}
 </style>
 </head>
 <body data-theme="light" class="mode-edit">
@@ -779,6 +798,10 @@ input[type=range]{accent-color:var(--accent)}
 
   <div class="save-dot" id="saveDot" title="Auto-save aktif"><i></i><span>Auto-save aktif</span></div>
 
+  <button class="hdr-btn" id="btnHelp" title="Bantuan / Kontak" aria-haspopup="true" aria-expanded="false">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+  </button>
+
   <button class="hdr-btn" id="btnTheme" title="Ganti tema">
     <svg id="iconTheme" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
     <span>Dark</span>
@@ -794,6 +817,30 @@ input[type=range]{accent-color:var(--accent)}
     <span>Cetak PDF</span>
   </button>
 </header>
+
+
+<!-- ================= HELP CARD ================= -->
+<div class="help-pop" id="helpPop" role="dialog" aria-label="Kontak">
+  <button class="help-close" id="helpClose" aria-label="Tutup">&times;</button>
+  <h4>Hubungi Kami</h4>
+  <p>Butuh bantuan? Kontak kami lewat salah satu kanal berikut.</p>
+  <a class="help-item" href="https://xatmojo.github.io" target="_blank" rel="noopener">
+    <span class="hi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15 15 0 0 1 0 20a15 15 0 0 1 0-20z"/></svg></span>
+    <span class="hi-tx"><small>Website</small><b>xatmojo.github.io</b></span>
+  </a>
+  <a class="help-item" href="https://instagram.com/xatmojo" target="_blank" rel="noopener">
+    <span class="hi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".6" fill="currentColor"/></svg></span>
+    <span class="hi-tx"><small>Instagram</small><b>@xatmojo</b></span>
+  </a>
+  <a class="help-item" href="https://wa.me/6289668262520" target="_blank" rel="noopener">
+    <span class="hi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.5 8.5 0 0 1-12.6 7.4L3 20.5l1.7-5.2A8.5 8.5 0 1 1 21 11.5z"/><path d="M9 8.5c0 3 3 6 6 6l1.2-1.4-2-1-1 .7a4 4 0 0 1-2-2l.7-1-1-2z"/></svg></span>
+    <span class="hi-tx"><small>WhatsApp</small><b>0896-6826-2520</b></span>
+  </a>
+  <a class="help-item" href="mailto:xatmojo@gmail.com">
+    <span class="hi-ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="22 6 12 13 2 6"/></svg></span>
+    <span class="hi-tx"><small>Email</small><b>xatmojo@gmail.com</b></span>
+  </a>
+</div>
 
 <!-- ================= MAIN ================= -->
 <main class="app-main">
@@ -2769,6 +2816,16 @@ function bindGlobalEvents() {
     if (mode === 'preview') setTimeout(fitPreview, 60);
     else setTimeout(fitPreview, 60);
   });
+
+  // Help card
+  (function(){
+    const b=document.getElementById('btnHelp'),p=document.getElementById('helpPop'),c=document.getElementById('helpClose');
+    const set=v=>{p.classList.toggle('show',v);b.setAttribute('aria-expanded',v)};
+    b.addEventListener('click',e=>{e.stopPropagation();set(!p.classList.contains('show'))});
+    c.addEventListener('click',()=>set(false));
+    document.addEventListener('click',e=>{if(!p.contains(e.target)&&!b.contains(e.target))set(false)});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')set(false)});
+  })();
 
   // Theme button
   document.getElementById('btnTheme').addEventListener('click', () => {
