@@ -41,8 +41,8 @@ body{display:flex;align-items:center;justify-content:center;padding:env(safe-are
 .dp .btn:last-child{grid-column:span 2}
 .ab{display:grid;grid-template-columns:1fr 1fr;gap:3cqw;justify-items:center}
 .ab .hold{grid-column:span 2;width:100%}
-.btn{border:0;font:inherit;font-size:2.8cqw;letter-spacing:.06em;color:#d6dcf0;background:linear-gradient(#4b567c,#303a5c);box-shadow:0 1.2cqw 0 #121830,0 2cqw 2.5cqw rgba(0,0,0,.55),inset 0 .4cqw 0 rgba(255,255,255,.22);cursor:pointer;touch-action:none;transition:transform .06s,box-shadow .06s}
-.btn.on,.btn:active{transform:translateY(1cqw);box-shadow:0 .2cqw 0 #121830,inset 0 .5cqw 1cqw rgba(0,0,0,.45)}
+.btn{border:0;font:inherit;font-size:2.8cqw;letter-spacing:.06em;color:#d6dcf0;background:linear-gradient(#4b567c,#303a5c);box-shadow:0 1.2cqw 0 #121830,0 2cqw 2.5cqw rgba(0,0,0,.55),inset 0 .4cqw 0 rgba(255,255,255,.22);cursor:pointer;touch-action:none;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none;transition:none}
+.btn.on{transform:translateY(1cqw);box-shadow:0 .2cqw 0 #121830,inset 0 .5cqw 1cqw rgba(0,0,0,.45)}
 .dp .btn{height:13cqw;border-radius:4cqw;font-size:5cqw}
 .rnd{width:17cqw;height:17cqw;border-radius:50%}
 .rot{background:radial-gradient(circle at 35% 30%,#e0586a,#b3283b)}
@@ -50,7 +50,7 @@ body{display:flex;align-items:center;justify-content:center;padding:env(safe-are
 .hold{height:8cqw;border-radius:4cqw}
 .sys{display:flex;justify-content:center;gap:4cqw;margin-top:5cqw}
 .sys .btn{height:7cqw;padding:0 4cqw;border-radius:3.5cqw;font-size:2.4cqw;transform:rotate(-14deg);box-shadow:0 1cqw 0 #121830,0 1.8cqw 2cqw rgba(0,0,0,.5),inset 0 .4cqw 0 rgba(255,255,255,.2)}
-.sys .btn.on,.sys .btn:active{transform:rotate(-14deg) translateY(.8cqw)}
+.sys .btn.on{transform:rotate(-14deg) translateY(.8cqw)}
 @media (orientation:landscape) and (min-aspect-ratio:11/10){
 .wrap{width:min(96vw,980px,calc((100vh - 12px)*1.5));width:min(96vw,980px,calc((100dvh - 12px)*1.5))}
 .console{display:grid;grid-template-columns:1fr 1fr;column-gap:5cqw;align-content:center;border-radius:7cqw}
@@ -149,19 +149,20 @@ class StorageManager{
 }
 
 class AudioManager{
- constructor(){this.ctx=null;this.on=true;}
- unlock(){if(!this.ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return;try{this.ctx=new A();}catch(e){return;}}
+ constructor(){this.ctx=null;this.on=true;this.master=10;this.out=null;}
+ unlock(){if(!this.ctx){const A=window.AudioContext||window.webkitAudioContext;if(!A)return;try{this.ctx=new A();}catch(e){return;}
+  const c=this.ctx,m=c.createGain(),k=c.createDynamicsCompressor();m.gain.value=this.master;k.threshold.value=-3;k.knee.value=0;k.ratio.value=20;k.attack.value=.001;k.release.value=.08;m.connect(k);k.connect(c.destination);this.out=m;}
   if(this.ctx.state==='suspended')this.ctx.resume();}
  tone(f,d,type='square',v=.05,t0=0,to=null){
   if(!this.on||!this.ctx)return;const c=this.ctx,t=c.currentTime+t0,o=c.createOscillator(),g=c.createGain();
   o.type=type;o.frequency.setValueAtTime(f,t);if(to)o.frequency.exponentialRampToValueAtTime(to,t+d);
   g.gain.setValueAtTime(v,t);g.gain.exponentialRampToValueAtTime(.0001,t+d);
-  o.connect(g);g.connect(c.destination);o.start(t);o.stop(t+d+.03);}
+  o.connect(g);g.connect(this.out||c.destination);o.start(t);o.stop(t+d+.03);}
  seq(fs,d,type,v){fs.forEach((f,i)=>this.tone(f,d,type,v,i*d*.9));}
  play(n){switch(n){
-  case 'move':this.tone(200,.04,'square',.03);break;
+  case 'move':this.tone(320,.04,'square',.04);break;
   case 'rotate':this.tone(420,.06,'square',.04,0,680);break;
-  case 'drop':this.tone(140,.1,'triangle',.12,0,55);break;
+  case 'drop':this.tone(220,.1,'triangle',.14,0,80);break;
   case 'hold':this.seq([330,494],.06,'square',.04);break;
   case 'line':this.seq([523,659,784],.08,'square',.05);break;
   case 'tetris':this.seq([523,659,784,1047,1319],.09,'square',.06);break;
@@ -282,7 +283,7 @@ class InputController{
   addEventListener('pagehide',()=>this.g.saveHi());}
  bindButton(b){const a=b.dataset.a;
   b.addEventListener('pointerdown',e=>{e.preventDefault();try{b.setPointerCapture(e.pointerId);}catch(_){}this.press(a,e.pointerId);});
-  ['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,()=>this.release(a)));
+  ['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,e=>{const h=this.held.get(a);if(h&&h.pid!==undefined&&h.pid!==e.pointerId)return;this.release(a);}));
   b.addEventListener('contextmenu',e=>e.preventDefault());}
  press(a,pid){this.a.unlock();if(this.held.has(a)){if(pid===undefined)return;this.release(a);}
   if(a==='left')this.release('right');if(a==='right')this.release('left');
