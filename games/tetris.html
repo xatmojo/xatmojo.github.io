@@ -111,13 +111,32 @@ body{display:flex;align-items:center;justify-content:center;padding:env(safe-are
 .sys .btn{height:7cqw;padding:0 4cqw;border-radius:3.5cqw;font-size:2.4cqw;transform:rotate(-14deg);box-shadow:0 1cqw 0 #121830,0 1.8cqw 2cqw rgba(0,0,0,.5),inset 0 .4cqw 0 rgba(255,255,255,.2)}
 .sys .btn.on{transform:rotate(-14deg) translateY(.8cqw)}
 @media (orientation:landscape) and (min-aspect-ratio:11/10){
-.wrap{width:min(96vw,980px,calc((100vh - 12px)*1.5));width:min(96vw,980px,calc((100dvh - 12px)*1.5))}
-.console{display:grid;grid-template-columns:1fr 1fr;column-gap:5cqw;align-content:center;border-radius:7cqw}
+.wrap{width:min(98vw,calc((100vh - 8px)*1.18));width:min(98vw,calc((100dvh - 8px)*1.18))}
+.console{display:grid;grid-template-columns:minmax(0,1.7fr) minmax(0,1fr);grid-template-rows:auto 1fr auto;column-gap:4cqw;padding:3cqw 3.5cqw;border-radius:5cqw}
 .hd{grid-column:1/-1;margin-bottom:2cqw}
-.hd h1{font-size:4.4cqw}
-.bezel{grid-column:1;grid-row:2/4}
-.ctl{grid-column:2;grid-row:2;margin-top:2cqw;align-self:end}
-.sys{grid-column:2;grid-row:3;margin-top:4cqw;align-self:start}
+.hd h1{font-size:3.2cqw}
+.hd:before,.hd:after{height:1.6cqw;width:6cqw;background:repeating-linear-gradient(90deg,#c63b4e 0 .8cqw,transparent .8cqw 1.6cqw)}
+.bezel{grid-column:1;grid-row:2/4;padding:1.6cqw;border-radius:2cqw}
+.lcd{grid-template-columns:1.9fr 1fr;gap:1.6cqw;padding:1.4cqw;border-radius:1cqw}
+#board{outline-width:.4cqw;outline-offset:.3cqw}
+.side{gap:.6cqw}
+.box b{font-size:1.5cqw}
+.box span{font-size:2.6cqw}
+#vStat{font-size:1.7cqw}
+.ov h2{font-size:5.4cqw}
+.ov p{font-size:1.7cqw}
+.bar{width:26cqw;height:2cqw}
+.lb{font-size:2.3cqw;padding:.9cqw 3.5cqw;border-width:.4cqw}
+.ctl{grid-column:2;grid-row:2;grid-template-columns:1fr;gap:2.4cqw;margin-top:0;align-self:center}
+.dp{gap:1.8cqw}
+.dp .btn{height:7.5cqw;border-radius:2.4cqw;font-size:3cqw}
+.ab{gap:1.8cqw}
+.rnd{width:11cqw;height:11cqw}
+.btn{font-size:1.8cqw;box-shadow:0 .8cqw 0 #121830,0 1.4cqw 1.8cqw rgba(0,0,0,.55),inset 0 .3cqw 0 rgba(255,255,255,.22)}
+.btn.on{transform:translateY(.7cqw)}
+.hold{height:5cqw;border-radius:2.5cqw}
+.sys{grid-column:2;grid-row:3;margin-top:2cqw;gap:2cqw;align-self:end}
+.sys .btn{height:4.6cqw;padding:0 2.4cqw;border-radius:2.3cqw;font-size:1.5cqw}
 }
 @media (prefers-reduced-motion:reduce){.lcd:after,.lcd.flash{animation:none}}
 </style>
