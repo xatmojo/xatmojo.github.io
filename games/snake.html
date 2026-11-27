@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="id" data-theme="neon">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0a0f1e">
+<title>SNAKE.IO</title>
+<style>
+:root{--bg:#0a0f1e;--panel:#121a2f;--line:#26324f;--tx:#f1f5f9;--mut:#9aa8c2;--p:#39ff88;--s:#22d3ee;--a:#a855f7;--r:14px}
+[data-theme=ocean]{--p:#22d3ee;--s:#60a5fa;--a:#f472b6}
+[data-theme=violet]{--p:#c084fc;--s:#f0abfc;--a:#facc15}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0}
+body{min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--tx);font:15px/1.4 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;overflow-x:hidden;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-gradient(40% 40% at 20% 25%,color-mix(in srgb,var(--a) 22%,transparent),transparent),radial-gradient(40% 40% at 80% 75%,color-mix(in srgb,var(--s) 18%,transparent),transparent);animation:drift 22s ease-in-out infinite alternate}
+@keyframes drift{to{transform:translate(4%,-3%) scale(1.1)}}
+button,select,input{font:inherit;color:inherit}
+button{cursor:pointer;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 14px;transition:transform .12s,border-color .2s,background .2s,box-shadow .2s}
+button:hover{border-color:var(--s)}button:active{transform:scale(.95)}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--s);outline-offset:2px}
+button:disabled{opacity:.4;cursor:not-allowed}
+.primary{background:var(--p);color:#04210f;border-color:var(--p);font-weight:700}
+.primary:hover{box-shadow:0 0 18px color-mix(in srgb,var(--p) 60%,transparent)}
+header,footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;max-width:1040px;width:100%;margin:0 auto}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.06em}
+.logo i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--s));box-shadow:0 0 16px color-mix(in srgb,var(--p) 50%,transparent)}
+.logo b{color:var(--p)}
+.hr{display:flex;align-items:center;gap:8px}
+.ib{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:17px}
+.pill{display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:var(--panel);font-size:13px;color:var(--mut)}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--s)}
+.pill.playing i{background:var(--p);box-shadow:0 0 8px var(--p)}.pill.paused i{background:#fbbf24}.pill.over i{background:#fb4b6b}
+main{flex:1;display:grid;gap:14px;max-width:1040px;width:100%;margin:0 auto;padding:6px 14px 14px;grid-template-areas:"st""sg""sd";grid-template-columns:minmax(0,1fr);align-content:start}
+.stats{grid-area:st;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;min-width:0}
+.card small{display:block;color:var(--mut);font-size:11px}.card b{font-size:17px;white-space:nowrap}
+.card.big b{font-size:28px;color:var(--p)}
+.stage{grid-area:sg;display:grid;place-items:center}
+.board{position:relative;width:min(100%,calc(100dvh - 430px));min-width:250px;aspect-ratio:1;border-radius:var(--r);border:1px solid var(--line);overflow:hidden;box-shadow:0 0 40px color-mix(in srgb,var(--s) 14%,transparent);touch-action:none;background:#0d1426}
+.board.shake{animation:shake .5s}
+@keyframes shake{20%{transform:translate(-6px,3px)}40%{transform:translate(6px,-3px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
+canvas{width:100%;height:100%;display:block}
+.ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px;background:rgba(7,11,24,.72);backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .3s}
+.ov.show{opacity:1;pointer-events:auto}
+.ov h2{margin:0;font-size:clamp(24px,6vw,36px);letter-spacing:.04em}
+.ov p{margin:0;color:var(--mut);max-width:30ch}.ov .best{color:var(--p);font-weight:700}
+.toast{position:absolute;left:50%;top:12px;transform:translate(-50%,-30px);opacity:0;padding:8px 16px;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--s));font-weight:700;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+.side{grid-area:sd;display:grid;gap:12px}
+.ctl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--mut);font-size:13px}
+select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 8px}
+.dpad{display:none;grid-template-columns:repeat(3,62px);grid-template-rows:repeat(3,56px);gap:6px;justify-content:center}
+.dpad button{padding:0;font-size:22px;touch-action:manipulation}
+.dpad .u{grid-area:1/2}.dpad .l{grid-area:2/1}.dpad .r{grid-area:2/3}.dpad .d{grid-area:3/2}
+@media (pointer:coarse),(max-width:860px){.dpad{display:grid}}
+@media (min-width:861px),(orientation:landscape) and (max-height:520px){
+ main{grid-template-columns:minmax(0,1fr) 270px;grid-template-areas:"sg st" "sg sd";grid-template-rows:auto 1fr}
+ .board{width:min(100%,calc(100dvh - 150px))}
+ .stats{grid-template-columns:repeat(6,1fr)}.stats .card{grid-column:span 2}.stats .big{grid-column:span 3}
+ .side{align-content:start}
+}
+@media (orientation:landscape) and (max-height:520px){footer{display:none}.board{width:min(100%,calc(100dvh - 80px))}.dpad{grid-template-rows:repeat(3,44px)}}
+footer{font-size:12px;color:var(--mut);flex-wrap:wrap;justify-content:center;text-align:center}
+kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:11px}
+.modal{position:fixed;inset:0;z-index:20;display:none;place-items:center;background:rgba(5,8,18,.75);padding:16px}
+.modal.open{display:grid}
+.sheet{width:min(420px,100%);max-height:90dvh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:12px;animation:pop .2s}
+@keyframes pop{from{transform:scale(.94);opacity:0}}
+.sheet h2{margin:0}.row label{color:var(--tx)}
+input[type=range]{accent-color:var(--p);width:130px}input[type=checkbox]{width:20px;height:20px;accent-color:var(--p)}
+#boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--bg);transition:opacity .5s}
+#boot.off{opacity:0;pointer-events:none}
+#boot span{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--p);border-radius:50%;animation:sp .8s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){*,body::before{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div id="boot" role="status" aria-label="Memuat"><span></span></div>
+<header>
+ <div class="logo"><i></i><span>SNAKE<b>.IO</b></span></div>
+ <div class="pill" id="pill" role="status"><i></i><span id="pillT">Ready</span></div>
+ <div class="hr">
+  <button class="ib" id="bSound" aria-label="Sound on/off" title="Sound">🔊</button>
+  <button class="ib" id="bFull" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+  <button class="ib" id="bSet" aria-label="Pengaturan" title="Pengaturan">⚙</button>
+ </div>
+</header>
+<main>
+ <section class="stats" aria-label="Informasi permainan">
+  <div class="card big"><small>Score</small><b id="vScore">0</b></div>
+  <div class="card big"><small>Best</small><b id="vBest">0</b></div>
+  <div class="card"><small>Food</small><b id="vFood">0</b></div>
+  <div class="card"><small>Level</small><b id="vLvl">1</b></div>
+  <div class="card"><small>Status</small><b id="vStat">Ready</b></div>
+ </section>
+ <section class="stage">
+  <div class="board" id="board">
+   <canvas id="cv" aria-label="Papan permainan Snake"></canvas>
+   <div class="toast" id="toast" aria-live="polite"></div>
+   <div class="ov show" id="ov"></div>
+  </div>
+ </section>
+ <section class="side">
+  <div class="ctl">
+   <button class="primary" id="bStart" data-act="start">Start Game</button>
+   <button id="bPause" data-act="pause" disabled>Pause</button>
+   <button id="bRest" data-act="restart">Restart</button>
+  </div>
+  <div class="row"><label for="selDiff">Kesulitan</label>
+   <select id="selDiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert">Expert</option></select>
+   <span>Speed <b id="vSpd" style="color:var(--s)">0</b></span></div>
+  <div class="dpad" aria-label="Kontrol arah">
+   <button class="u" data-dir="up" aria-label="Atas">▲</button><button class="l" data-dir="left" aria-label="Kiri">◀</button>
+   <button class="r" data-dir="right" aria-label="Kanan">▶</button><button class="d" data-dir="down" aria-label="Bawah">▼</button>
+  </div>
+ </section>
+</main>
+<footer><span>© 2026 SNAKE.IO · v1.0.0</span><span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> gerak · <kbd>Space</kbd> jeda · <kbd>Enter</kbd> mulai/ulang · geser layar di HP</span></footer>
+
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
+ <div class="sheet">
+  <h2 id="mt">Pengaturan</h2>
+  <div class="row"><label for="cSound">Sound</label><input type="checkbox" id="cSound"></div>
+  <div class="row"><label for="cVol">Volume</label><input type="range" id="cVol" min="0" max="1" step=".05"></div>
+  <div class="row"><label for="cMusic">Musik latar</label><input type="checkbox" id="cMusic"></div>
+  <div class="row"><label for="cTheme">Tema</label><select id="cTheme"><option value="neon">Neon Green</option><option value="ocean">Ocean Cyan</option><option value="violet">Electric Violet</option></select></div>
+  <div class="row"><label for="cSpeed">Kecepatan</label><select id="cSpeed"><option value="1.25">Lambat</option><option value="1">Standar</option><option value="0.8">Cepat</option></select></div>
+  <div class="row"><label for="cDiff">Kesulitan</label><select id="cDiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert">Expert</option></select></div>
+  <div class="row"><label for="cGrid">Grid</label><input type="checkbox" id="cGrid"></div>
+  <div class="row"><label for="cPart">Efek partikel</label><input type="checkbox" id="cPart"></div>
+  <button class="primary" id="bClose">Selesai</button>
+ </div>
+</div>
+
+<script>
+(() => {
+'use strict';
+const $ = s => document.querySelector(s);
+const N = 20;
+const DIFF = {easy:170, normal:130, hard:95, expert:70};
+const DIRS = {up:{x:0,y:-1}, down:{x:0,y:1}, left:{x:-1,y:0}, right:{x:1,y:0}};
+const KEYS = {ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right'};
+const DEF = {sound:true, volume:.6, music:false, theme:'neon', speed:'1', diff:'normal', grid:true, particles:true};
+const cv = $('#cv'), ctx = cv.getContext('2d'), board = $('#board'), ov = $('#ov');
+let cfg = {...DEF}, best = 0, S = {}, C = {}, parts = [], raf = 0, toastT = 0, overT = 0, lastFocus = null;
+
+/* ---------- storage ---------- */
+function loadSettings() {
+  try { cfg = {...DEF, ...JSON.parse(localStorage.getItem('snakeio.cfg') || '{}')}; best = +localStorage.getItem('snakeio.best') || 0; } catch (e) {}
+}
+function saveSettings() { try { localStorage.setItem('snakeio.cfg', JSON.stringify(cfg)); } catch (e) {} }
+function saveHighScore() { try { localStorage.setItem('snakeio.best', best); } catch (e) {} }
+
+/* ---------- audio ---------- */
+let ac, master, musicI = 0, mStep = 0;
+function ensureAudio() {
+  if (!ac) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.connect(ac.destination); } catch (e) { return; } }
+  if (ac.state === 'suspended') ac.resume();
+  master.gain.value = cfg.volume;
+}
+function tone(f, d, type = 'sine', v = .25, when = 0, to) {
+  if (!ac || !cfg.sound) return;
+  const t = ac.currentTime + when, o = ac.createOscillator(), g = ac.createGain();
+  o.type = type; o.frequency.setValueAtTime(f, t);
+  if (to) o.frequency.exponentialRampToValueAtTime(to, t + d);
+  g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.001, t + d);
+  o.connect(g); g.connect(master); o.start(t); o.stop(t + d);
+}
+const sfx = {
+  eat: () => tone(520, .12, 'square', .15, 0, 900),
+  level: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, .15, 'triangle', .22, i * .09)),
+  over: () => tone(330, .6, 'sawtooth', .22, 0, 70),
+  click: () => tone(700, .05, 'sine', .12)
+};
+function syncMusic() {
+  clearInterval(musicI); musicI = 0;
+  if (cfg.music && cfg.sound && ac && S.state === 'playing') {
+    const notes = [262, 330, 392, 330, 294, 370, 440, 370];
+    musicI = setInterval(() => tone(notes[mStep++ % 8], .22, 'triangle', .06), 260);
+  }
+}
+
+/* ---------- init & state ---------- */
+function readColors() {
+  const cs = getComputedStyle(document.documentElement);
+  C = {p: cs.getPropertyValue('--p').trim(), s: cs.getPropertyValue('--s').trim(), a: cs.getPropertyValue('--a').trim()};
+}
+function initGame() {
+  clearTimeout(overT);
+  const snake = [{x:9,y:10}, {x:8,y:10}, {x:7,y:10}];
+  S = {state:'ready', snake, prev:snake.map(c => ({...c})), dir:DIRS.right, queue:[], food:null, score:0, eaten:0, level:1, acc:0, alpha:1, last:0};
+  parts = []; spawnFood(); updateScore(); setState('ready');
+}
+function setState(st) {
+  S.state = st;
+  const name = {ready:'Ready', playing:'Playing', paused:'Paused', over:'Game Over'}[st];
+  $('#vStat').textContent = name; $('#pillT').textContent = name; $('#pill').className = 'pill ' + st;
+  $('#bStart').disabled = st === 'playing' || st === 'paused';
+  $('#bPause').disabled = st !== 'playing' && st !== 'paused';
+  $('#bPause').textContent = st === 'paused' ? 'Resume' : 'Pause';
+  let h = '';
+  if (st === 'ready') h = '<h2>SNAKE.IO</h2><p>Makan, tumbuh, bertahan. Jangan menabrak dinding atau tubuhmu sendiri.</p><button class="primary" data-act="start">Start Game</button><p>Tekan Enter atau geser layar</p>';
+  if (st === 'paused') h = '<h2>Paused</h2><p>Permainan dijeda.</p><button class="primary" data-act="pause">Resume</button>';
+  if (st === 'over') h = `<h2>Game Over</h2><p>Score <b>${S.score}</b> · Level ${S.level}</p>${S.newBest ? '<p class="best">🏆 Best score baru!</p>' : `<p>Best: ${best}</p>`}<button class="primary" data-act="restart">Play Again</button>`;
+  ov.innerHTML = h; ov.classList.toggle('show', st !== 'playing');
+  const b = ov.querySelector('button'); if (b && st !== 'ready') b.focus({preventScroll:true});
+  updateSpeed(); syncMusic();
+}
+function tickMs() { return Math.max(45, (DIFF[cfg.diff] - (S.level - 1) * 7) * +cfg.speed); }
+function updateSpeed() { $('#vSpd').textContent = (1000 / tickMs()).toFixed(1) + '/s'; }
+function startGame() {
+  ensureAudio(); sfx.click();
+  if (S.state === 'over') initGame();
+  if (S.state !== 'ready') return;
+  setState('playing'); S.last = 0; toast('Go!');
+}
+function pauseGame() { if (S.state === 'playing') { setState('paused'); } }
+function resumeGame() { if (S.state === 'paused') { ensureAudio(); setState('playing'); S.last = 0; toast('Lanjut!'); } }
+function restartGame() { ensureAudio(); sfx.click(); initGame(); setState('playing'); toast('Go!'); }
+
+/* ---------- gameplay ---------- */
+function spawnFood() {
+  const used = new Set(S.snake.map(c => c.x + ',' + c.y)), free = [];
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (!used.has(x + ',' + y)) free.push({x, y});
+  S.food = free.length ? free[Math.floor(Math.random() * free.length)] : null;
+}
+function updateGame() {
+  if (S.queue.length) S.dir = S.queue.shift();
+  moveSnake();
+}
+function checkCollision(h, growing) {
+  if (h.x < 0 || h.y < 0 || h.x >= N || h.y >= N) return true;
+  const body = growing ? S.snake : S.snake.slice(0, -1);
+  return body.some(c => c.x === h.x && c.y === h.y);
+}
+function moveSnake() {
+  const h = {x:S.snake[0].x + S.dir.x, y:S.snake[0].y + S.dir.y};
+  const ate = S.food && h.x === S.food.x && h.y === S.food.y;
+  if (checkCollision(h, ate)) return gameOver();
+  S.prev = S.snake.map(c => ({...c}));
+  S.snake.unshift(h);
+  if (!ate) { S.snake.pop(); return; }
+  S.eaten++; S.score += 10; updateScore();
+  const cs = 1 / N;
+  burst(h.x + .5, h.y + .5, C.a, 14); popup(h.x + .5, h.y, '+10');
+  sfx.eat();
+  const lv = Math.floor(S.eaten / 5) + 1;
+  if (lv > S.level) { S.level = lv; toast('Level ' + lv + '!'); sfx.level(); updateScore(); }
+  spawnFood(); updateSpeed();
+  if (!S.food) gameOver();
+}
+function gameOver() {
+  S.alpha = 1; S.newBest = S.score > best && S.score > 0;
+  if (S.newBest) { best = S.score; saveHighScore(); }
+  updateScore(); sfx.over();
+  const hd = S.snake[0]; burst(hd.x + .5, hd.y + .5, '#fb4b6b', 30);
+  board.classList.remove('shake'); void board.offsetWidth; board.classList.add('shake');
+  S.state = 'over'; $('#bPause').disabled = true; syncMusic();
+  overT = setTimeout(() => setState('over'), 650);
+}
+function updateScore() {
+  $('#vScore').textContent = S.score; $('#vBest').textContent = best;
+  $('#vFood').textContent = S.eaten; $('#vLvl').textContent = S.level;
+}
+
+/* ---------- input ---------- */
+function handleInput(name) {
+  if (S.state !== 'playing') return;
+  const d = DIRS[name], last = S.queue.length ? S.queue[S.queue.length - 1] : S.dir;
+  if ((d.x === -last.x && d.y === -last.y) || (d.x === last.x && d.y === last.y)) return;
+  if (S.queue.length < 2) S.queue.push(d);
+}
+function action(a) {
+  if (a === 'start') startGame();
+  else if (a === 'restart') restartGame();
+  else if (a === 'pause') S.state === 'paused' ? resumeGame() : pauseGame();
+}
+const modalOpen = () => $('#modal').classList.contains('open');
+document.addEventListener('keydown', e => {
+  if (modalOpen()) { if (e.key === 'Escape') closeSettings(); return; }
+  if (KEYS[e.key]) { e.preventDefault(); handleInput(KEYS[e.key]); }
+  else if (e.code === 'Space') { e.preventDefault(); if (!e.repeat) action('pause'); }
+  else if (e.key === 'Enter') { e.preventDefault(); if (!e.repeat) action(S.state === 'ready' ? 'start' : 'restart'); }
+});
+document.addEventListener('keyup', e => { if (e.code === 'Space' && !modalOpen()) e.preventDefault(); });
+document.addEventListener('click', e => { const b = e.target.closest('[data-act]'); if (b) action(b.dataset.act); });
+document.querySelectorAll('[data-dir]').forEach(b => b.addEventListener('pointerdown', e => { e.preventDefault(); ensureAudio(); handleInput(b.dataset.dir); }));
+let tx = 0, ty = 0;
+board.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive:true});
+board.addEventListener('touchend', e => {
+  const t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
+  if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
+  handleInput(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
+}, {passive:true});
+document.addEventListener('visibilitychange', () => { if (document.hidden) pauseGame(); });
+
+/* ---------- UI helpers ---------- */
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1100);
+}
+function burst(x, y, color, n) {
+  if (!cfg.particles) return;
+  for (let i = 0; i < n; i++) { const a = Math.random() * 6.283, v = .002 + Math.random() * .006; parts.push({x, y, vx:Math.cos(a) * v, vy:Math.sin(a) * v, life:500 + Math.random() * 300, max:800, c:color}); }
+}
+function popup(x, y, txt) { parts.push({x, y, vx:0, vy:-.0018, life:700, max:700, c:'#fff', txt}); }
+function updateParticles(dt) {
+  for (let i = parts.length - 1; i >= 0; i--) {
+    const p = parts[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt;
+    if (p.life <= 0) parts.splice(i, 1);
+  }
+}
+function applySettings() {
+  document.documentElement.dataset.theme = cfg.theme; readColors();
+  $('#bSound').textContent = cfg.sound ? '🔊' : '🔇';
+  $('#cSound').checked = cfg.sound; $('#cVol').value = cfg.volume; $('#cMusic').checked = cfg.music;
+  $('#cTheme').value = cfg.theme; $('#cSpeed').value = cfg.speed; $('#cDiff').value = cfg.diff; $('#selDiff').value = cfg.diff;
+  $('#cGrid').checked = cfg.grid; $('#cPart').checked = cfg.particles;
+  if (master) master.gain.value = cfg.volume;
+  if (S.snake) updateSpeed();
+  syncMusic();
+}
+function set(k, v) { cfg[k] = v; saveSettings(); ensureAudio(); applySettings(); }
+function setDifficulty(v) { set('diff', v); if (S.state === 'ready' || S.state === 'over') { if (S.state === 'over') initGame(); } else toast('Berlaku di tick berikutnya'); }
+function openSettings() { lastFocus = document.activeElement; pauseGame(); $('#modal').classList.add('open'); $('#cSound').focus(); }
+function closeSettings() { $('#modal').classList.remove('open'); if (lastFocus) lastFocus.focus(); }
+function bindUI() {
+  $('#bSet').onclick = openSettings; $('#bClose').onclick = closeSettings;
+  $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeSettings(); });
+  $('#bSound').onclick = () => { set('sound', !cfg.sound); sfx.click(); };
+  $('#bFull').onclick = () => {
+    try { document.fullscreenElement ? document.exitFullscreen() : (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen).call(document.documentElement); }
+    catch (e) { toast('Fullscreen tidak didukung'); }
+  };
+  $('#cSound').onchange = e => set('sound', e.target.checked);
+  $('#cVol').oninput = e => set('volume', +e.target.value);
+  $('#cMusic').onchange = e => set('music', e.target.checked);
+  $('#cTheme').onchange = e => set('theme', e.target.value);
+  $('#cSpeed').onchange = e => set('speed', e.target.value);
+  $('#cDiff').onchange = e => setDifficulty(e.target.value);
+  $('#selDiff').onchange = e => { setDifficulty(e.target.value); e.target.blur(); };
+  $('#cGrid').onchange = e => set('grid', e.target.checked);
+  $('#cPart').onchange = e => set('particles', e.target.checked);
+  new ResizeObserver(resize).observe(board);
+}
+function resize() {
+  const r = board.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2), s = Math.round(r.width * d);
+  if (cv.width !== s) { cv.width = s; cv.height = s; }
+}
+
+/* ---------- render ---------- */
+function renderGame() {
+  const w = cv.width, c = w / N, now = performance.now();
+  ctx.fillStyle = '#0d1426'; ctx.fillRect(0, 0, w, w);
+  if (cfg.grid) {
+    ctx.strokeStyle = 'rgba(148,163,184,.08)'; ctx.lineWidth = 1; ctx.beginPath();
+    for (let i = 1; i < N; i++) { ctx.moveTo(i * c, 0); ctx.lineTo(i * c, w); ctx.moveTo(0, i * c); ctx.lineTo(w, i * c); }
+    ctx.stroke();
+  }
+  if (S.food) {
+    const pu = 1 + Math.sin(now / 160) * .14;
+    ctx.save(); ctx.shadowColor = C.a; ctx.shadowBlur = c * .9; ctx.fillStyle = C.a;
+    ctx.beginPath(); ctx.arc((S.food.x + .5) * c, (S.food.y + .5) * c, c * .3 * pu, 0, 6.283); ctx.fill(); ctx.restore();
+  }
+  const L = S.snake.length, al = S.alpha, dead = S.state === 'over';
+  for (let i = L - 1; i >= 0; i--) {
+    const cu = S.snake[i], pv = S.prev[i] || S.prev[S.prev.length - 1];
+    const x = (pv.x + (cu.x - pv.x) * al) * c, y = (pv.y + (cu.y - pv.y) * al) * c, head = i === 0;
+    const sz = c * (head ? .96 : .84), o = (c - sz) / 2;
+    ctx.save();
+    ctx.globalAlpha = head ? 1 : Math.max(.5, 1 - i / (L + 6));
+    ctx.fillStyle = dead ? '#fb4b6b' : (i % 2 ? C.s : C.p);
+    if (head) { ctx.shadowColor = dead ? '#fb4b6b' : C.p; ctx.shadowBlur = c * .7; ctx.fillStyle = dead ? '#fb4b6b' : C.p; }
+    ctx.beginPath(); ctx.roundRect(x + o, y + o, sz, sz, c * (head ? .38 : .28)); ctx.fill(); ctx.restore();
+    if (head) {
+      const dx = S.dir.x, dy = S.dir.y, px = -dy, py = dx, cx = x + c / 2 + dx * c * .12, cy = y + c / 2 + dy * c * .12;
+      ctx.fillStyle = '#04210f';
+      for (const k of [-1, 1]) { ctx.beginPath(); ctx.arc(cx + px * k * c * .2 + dx * c * .08, cy + py * k * c * .2 + dy * c * .08, c * .09, 0, 6.283); ctx.fill(); }
+    }
+  }
+  for (const p of parts) {
+    const a = Math.max(0, p.life / p.max);
+    ctx.globalAlpha = a;
+    if (p.txt) { ctx.fillStyle = '#fff'; ctx.font = `700 ${c * .6}px Segoe UI,sans-serif`; ctx.textAlign = 'center'; ctx.fillText(p.txt, p.x * c, p.y * c); }
+    else { ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x * c, p.y * c, c * .09 * (.4 + a), 0, 6.283); ctx.fill(); }
+  }
+  ctx.globalAlpha = 1;
+}
+function frame(t) {
+  raf = requestAnimationFrame(frame);
+  const dt = Math.min(t - (S.last || t), 100); S.last = t;
+  if (S.state === 'playing') {
+    S.acc += dt; let tk = tickMs();
+    while (S.acc >= tk && S.state === 'playing') { S.acc -= tk; updateGame(); tk = tickMs(); }
+    S.alpha = S.state === 'playing' ? Math.min(S.acc / tk, 1) : 1;
+  } else if (S.state === 'ready') S.alpha = 1;
+  updateParticles(dt); renderGame();
+}
+
+/* ---------- boot ---------- */
+loadSettings(); readColors(); bindUI(); initGame(); applySettings(); resize();
+cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
+setTimeout(() => $('#boot').classList.add('off'), 500);
+})();
+</script>
+</body>
+</html>
