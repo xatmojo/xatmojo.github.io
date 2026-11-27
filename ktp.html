@@ -517,6 +517,10 @@
               <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Berlaku Hingga</label>
               <input id="berlakuHingga" data-field="berlakuHingga" type="text" value="SEUMUR HIDUP" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
             </div>
+            <div>
+              <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Tanggal Penerbitan</label>
+              <input id="tanggal" data-field="tanggal" type="text" value="05-10-2018" placeholder="DD-MM-YYYY" class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-sm shadow-sm outline-none transition focus:border-blue-500 focus:ring-2 focus:ring-blue-200" />
+            </div>
             <div class="sm:col-span-2">
               <label class="mb-1.5 block text-xs font-semibold uppercase tracking-wide text-slate-500">Foto Utama (Rasio 3&times;4)</label>
               <input id="foto" type="file" accept="image/*" class="block w-full cursor-pointer rounded-lg border border-slate-300 bg-white text-sm text-slate-600 shadow-sm file:mr-3 file:cursor-pointer file:rounded-l-lg file:border-0 file:bg-blue-600 file:px-4 file:py-2.5 file:text-sm file:font-semibold file:text-white hover:file:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-200" />
@@ -802,8 +806,6 @@
   const CARD_W = 640;
   const CARD_H = 403;
 
-  document.getElementById('p-tanggal').textContent = "05-10-2018";
-
   function setPreviewText(id, value) {
     const el = document.getElementById(id);
     if (!el) return;
@@ -1010,6 +1012,7 @@
     recordIdInput.value = index;
     editModeBadge.classList.remove('hidden');
 
+    if (data.tanggal === undefined) data.tanggal = '05-10-2018';
     fields.forEach(el => {
       if (data[el.dataset.field] !== undefined) {
         el.value = data[el.dataset.field];
@@ -1167,6 +1170,7 @@
     document.getElementById('kelDesa').value = "KALIBATA";
     document.getElementById('kecamatan').value = "PANCORAN";
     document.getElementById('pekerjaan').value = "KARYAWAN SWASTA";
+    document.getElementById('tanggal').value = "05-10-2018";
 
     fotoEl.value = '';
     currentPhotoBase64 = '';
