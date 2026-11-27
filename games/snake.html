@@ -95,9 +95,10 @@ button:disabled{opacity:.4;cursor:not-allowed}
 .primary{background:var(--p);color:#04210f;border-color:var(--p);font-weight:700}
 .primary:hover{box-shadow:0 0 18px color-mix(in srgb,var(--p) 60%,transparent)}
 header,footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;max-width:1040px;width:100%;margin:0 auto}
-h1.logo{margin:0}
 .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.06em}
-.logo i{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,var(--p),var(--s));box-shadow:0 0 16px color-mix(in srgb,var(--p) 50%,transparent)}
+.logo h1{margin:0;font:inherit;letter-spacing:inherit}
+.logo .info{width:30px;height:30px;padding:0;border:0;border-radius:8px;display:grid;place-items:center;font-size:17px;font-weight:800;line-height:1;color:#04210f;background:linear-gradient(135deg,var(--p),var(--s));box-shadow:0 0 16px color-mix(in srgb,var(--p) 50%,transparent)}
+.logo .info:hover{box-shadow:0 0 22px color-mix(in srgb,var(--p) 80%,transparent)}
 .logo b{color:var(--p)}
 .hr{display:flex;align-items:center;gap:8px}
 .ib{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:17px}
@@ -135,14 +136,16 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:8px;paddi
  .side{align-content:start}
 }
 @media (orientation:landscape) and (max-height:520px){footer{display:none}.board{width:min(100%,calc(100dvh - 80px))}.dpad{grid-template-rows:repeat(3,44px)}}
-.about{max-width:1040px;width:100%;margin:0 auto;padding:8px 14px 28px;color:var(--mut);font-size:14px;line-height:1.65}
-.about h2{color:var(--tx);font-size:18px;margin:22px 0 8px}
+.sheet.about{display:block;width:min(560px,100%);color:var(--mut);font-size:14px;line-height:1.6}
+.about h2{color:var(--tx);font-size:18px;margin:18px 0 8px}
+.about h2:first-child{margin-top:0}
 .about p{margin:0 0 10px}
 .about ul{margin:0 0 10px;padding-left:20px}
-.about details{border:1px solid var(--line);border-radius:10px;background:var(--panel);padding:10px 14px;margin:0 0 8px}
+.about details{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px 14px;margin:0 0 8px}
 .about summary{cursor:pointer;color:var(--tx);font-weight:600}
 .about details p{margin:8px 0 0}
 .about a{color:var(--s)}
+.about .primary{width:100%;margin-top:14px}
 footer{font-size:12px;color:var(--mut);flex-wrap:wrap;justify-content:center;text-align:center}
 kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:11px}
 .modal{position:fixed;inset:0;z-index:20;display:none;place-items:center;background:rgba(5,8,18,.75);padding:16px}
@@ -162,7 +165,7 @@ input[type=range]{accent-color:var(--p);width:130px}input[type=checkbox]{width:2
 <noscript><p style="padding:16px;text-align:center">SNAKE.IO membutuhkan JavaScript untuk dimainkan. Aktifkan JavaScript di browser kamu.</p></noscript>
 <div id="boot" role="status" aria-label="Memuat"><span></span></div>
 <header>
- <h1 class="logo"><i></i><span>SNAKE<b>.IO</b></span></h1>
+ <div class="logo"><button class="info" id="bInfo" type="button" aria-label="Tentang game dan cara bermain" aria-haspopup="dialog" title="Tentang &amp; cara bermain">?</button><h1>SNAKE<b>.IO</b></h1></div>
  <div class="pill" id="pill" role="status"><i></i><span id="pillT">Ready</span></div>
  <div class="hr">
   <button class="ib" id="bSound" aria-label="Sound on/off" title="Sound">🔊</button>
@@ -200,7 +203,11 @@ input[type=range]{accent-color:var(--p);width:130px}input[type=checkbox]{width:2
   </div>
  </section>
 </main>
-<section class="about" aria-labelledby="abt">
+<footer><span>© 2026 SNAKE.IO · v1.0.0</span><span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> gerak · <kbd>Space</kbd> jeda · <kbd>Enter</kbd> mulai/ulang · geser layar di HP</span></footer>
+
+
+<div class="modal" id="about" role="dialog" aria-modal="true" aria-labelledby="abt">
+<div class="sheet about">
  <h2 id="abt">Main Snake Game Online Gratis</h2>
  <p>SNAKE.IO adalah game Snake klasik yang bisa dimainkan langsung di browser, di HP maupun laptop, tanpa instal dan tanpa daftar. Kendalikan ular, makan sebanyak mungkin, dan jangan sampai menabrak dinding atau tubuhmu sendiri.</p>
  <h2>Fitur</h2>
@@ -220,9 +227,9 @@ input[type=range]{accent-color:var(--p);width:130px}input[type=checkbox]{width:2
  <details><summary>Bisa dimainkan di HP?</summary><p>Bisa. Di layar sentuh kamu dapat menggeser layar atau memakai tombol arah di bawah papan permainan.</p></details>
  <details><summary>Apakah skor tertinggi tersimpan?</summary><p>Ya, skor tertinggi dan pengaturanmu disimpan otomatis di browser perangkat yang sama.</p></details>
  <p><a href="https://xatmojo.github.io/">← Kembali ke beranda xatmojo.github.io</a></p>
-</section>
-<footer><span>© 2026 SNAKE.IO · v1.0.0</span><span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> gerak · <kbd>Space</kbd> jeda · <kbd>Enter</kbd> mulai/ulang · geser layar di HP</span></footer>
-
+ <button class="primary" id="bAboutClose" type="button">Tutup</button>
+</div>
+</div>
 
 <div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
  <div class="sheet">
@@ -382,10 +389,9 @@ function action(a) {
   else if (a === 'restart') restartGame();
   else if (a === 'pause') S.state === 'paused' ? resumeGame() : pauseGame();
 }
-const modalOpen = () => $('#modal').classList.contains('open');
+const modalOpen = () => !!document.querySelector('.modal.open');
 document.addEventListener('keydown', e => {
   if (modalOpen()) { if (e.key === 'Escape') closeSettings(); return; }
-  if (e.target.closest && e.target.closest('.about')) return;
   if (KEYS[e.key]) { e.preventDefault(); handleInput(KEYS[e.key]); }
   else if (e.code === 'Space') { e.preventDefault(); if (!e.repeat) action('pause'); }
   else if (e.key === 'Enter') { e.preventDefault(); if (!e.repeat) action(S.state === 'ready' ? 'start' : 'restart'); }
@@ -431,10 +437,13 @@ function applySettings() {
 function set(k, v) { cfg[k] = v; saveSettings(); ensureAudio(); applySettings(); }
 function setDifficulty(v) { set('diff', v); if (S.state === 'ready' || S.state === 'over') { if (S.state === 'over') initGame(); } else toast('Berlaku di tick berikutnya'); }
 function openSettings() { lastFocus = document.activeElement; pauseGame(); $('#modal').classList.add('open'); $('#cSound').focus(); }
-function closeSettings() { $('#modal').classList.remove('open'); if (lastFocus) lastFocus.focus(); }
+function closeSettings() { document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open')); if (lastFocus) lastFocus.focus(); }
+function openAbout() { lastFocus = document.activeElement; pauseGame(); $('#about').classList.add('open'); $('#bAboutClose').focus({preventScroll:true}); $('#about .sheet').scrollTop = 0; }
 function bindUI() {
   $('#bSet').onclick = openSettings; $('#bClose').onclick = closeSettings;
   $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeSettings(); });
+  $('#bInfo').onclick = openAbout; $('#bAboutClose').onclick = closeSettings;
+  $('#about').addEventListener('click', e => { if (e.target.id === 'about') closeSettings(); });
   $('#bSound').onclick = () => { set('sound', !cfg.sound); sfx.click(); };
   $('#bFull').onclick = () => {
     try { document.fullscreenElement ? document.exitFullscreen() : (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen).call(document.documentElement); }
