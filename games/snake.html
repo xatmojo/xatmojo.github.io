@@ -111,7 +111,7 @@ main{flex:1;display:grid;gap:14px;max-width:1040px;width:100%;margin:0 auto;padd
 .card small{display:block;color:var(--mut);font-size:11px}.card b{font-size:17px;white-space:nowrap}
 .card.big b{font-size:28px;color:var(--p)}
 .stage{grid-area:sg;display:grid;place-items:center}
-.board{position:relative;width:min(100%,calc(100dvh - 430px));min-width:250px;aspect-ratio:1;border-radius:var(--r);border:1px solid var(--line);overflow:hidden;box-shadow:0 0 40px color-mix(in srgb,var(--s) 14%,transparent);touch-action:none;background:#0d1426}
+.board{position:relative;max-width:720px;width:min(100%,calc(100dvh - 430px));min-width:250px;aspect-ratio:1;border-radius:var(--r);border:1px solid var(--line);overflow:hidden;box-shadow:0 0 40px color-mix(in srgb,var(--s) 14%,transparent);touch-action:none;background:#0d1426}
 .board.shake{animation:shake .5s}
 @keyframes shake{20%{transform:translate(-6px,3px)}40%{transform:translate(6px,-3px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
 canvas{width:100%;height:100%;display:block}
@@ -129,11 +129,12 @@ select{background:var(--bg);border:1px solid var(--line);border-radius:8px;paddi
 .dpad button{padding:0;font-size:22px;touch-action:manipulation}
 .dpad .u{grid-area:1/2}.dpad .l{grid-area:2/1}.dpad .r{grid-area:2/3}.dpad .d{grid-area:3/2}
 @media (pointer:coarse),(max-width:860px){.dpad{display:grid}}
-@media (min-width:861px),(orientation:landscape) and (max-height:520px){
+@media (min-width:861px) and (orientation:landscape),(orientation:landscape) and (max-height:520px){
  main{grid-template-columns:minmax(0,1fr) 270px;grid-template-areas:"sg st" "sg sd";grid-template-rows:auto 1fr}
  .board{width:min(100%,calc(100dvh - 150px))}
  .stats{grid-template-columns:repeat(6,1fr)}.stats .card{grid-column:span 2}.stats .big{grid-column:span 3}
  .side{align-content:start}
+ .stage{align-self:start}
 }
 @media (orientation:landscape) and (max-height:520px){footer{display:none}.board{width:min(100%,calc(100dvh - 80px))}.dpad{grid-template-rows:repeat(3,44px)}}
 .sheet.about{display:block;width:min(560px,100%);color:var(--mut);font-size:14px;line-height:1.6}
