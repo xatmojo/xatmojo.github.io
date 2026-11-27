@@ -160,6 +160,16 @@ ul.list{list-style:none;margin:0;padding:0;display:grid;gap:8px}
 .toast{background:var(--ink);color:var(--paper);padding:11px 18px;border-radius:12px;font-size:14px;box-shadow:var(--shadow);animation:rise .25s var(--ease)}.toast.bad{background:var(--bad);color:var(--on-bad)}
 footer{max-width:1080px;margin:0 auto;padding:22px max(20px,env(safe-area-inset-right)) calc(40px + env(safe-area-inset-bottom)) max(20px,env(safe-area-inset-left));color:var(--mut);font-size:13px;border-top:1px solid var(--line)}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+.ctl{display:flex;gap:8px;align-items:center}
+.icon.lang{display:inline-flex;width:auto;min-width:38px;padding:0 11px;gap:6px;align-items:center;justify-content:center;font:500 12px "IBM Plex Mono",ui-monospace,monospace;letter-spacing:.02em}
+dialog{border:1px solid var(--line);border-radius:var(--r);background:var(--surface);color:var(--ink);padding:0;width:min(420px,calc(100% - 32px));box-shadow:var(--shadow);overflow:hidden}
+dialog[open]{animation:rise .3s var(--ease)}
+dialog::backdrop{background:rgba(8,12,24,.55);-webkit-backdrop-filter:blur(2px);backdrop-filter:blur(2px)}
+.dev-in{padding:22px;display:grid;gap:6px}
+.dev-head{display:flex;justify-content:space-between;align-items:center;gap:12px}.dev-head h2{font-size:22px}
+.dev-row{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--paper);color:var(--ink);text-decoration:none;transition:border-color .15s,transform .15s var(--ease)}
+.dev-row:hover{border-color:var(--ink);transform:translateY(-1px)}
+.dev-row .meta b{font-weight:600}
 </style>
 </head>
 <body>
@@ -178,107 +188,126 @@ footer{max-width:1080px;margin:0 auto;padding:22px max(20px,env(safe-area-inset-
 <symbol id="i-file" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/></symbol>
 <symbol id="i-anchor" viewBox="0 0 24 24"><circle cx="12" cy="5" r="3"/><path d="M12 22V8M5 12H2a10 10 0 0 0 20 0h-3"/></symbol>
 <symbol id="i-theme" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v18" /><path d="M12 3a9 9 0 0 1 0 18z" fill="currentColor"/></symbol>
+<symbol id="i-globe" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></symbol>
+<symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3M12 17h.01"/></symbol>
+<symbol id="i-insta" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37zM17.5 6.5h.01"/></symbol>
+<symbol id="i-mail" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 7L2 7"/></symbol>
 </defs></svg>
 
-<a class="skip" href="#main">Lewati ke konten</a>
+<a class="skip" href="#main" data-i18n="skip">Lewati ke konten</a>
 <header class="top"><div class="bar">
- <div class="brand"><span class="mark"><svg class="i"><use href="#i-anchor"/></svg></span>Alat Tambahan</div>
- <div role="tablist" aria-label="Pilih alat">
-  <button role="tab" id="t-foto" aria-controls="foto" data-tab="foto"><svg class="i"><use href="#i-photo"/></svg>Foto &amp; PDF</button>
-  <button role="tab" id="t-pesan" aria-controls="pesan" data-tab="pesan"><svg class="i"><use href="#i-chat"/></svg>Pesan</button>
-  <button role="tab" id="t-latihan" aria-controls="latihan" data-tab="latihan"><svg class="i"><use href="#i-cards"/></svg>Latihan</button>
-  <button role="tab" id="t-qr" aria-controls="qr" data-tab="qr"><svg class="i"><use href="#i-qr"/></svg>QR</button>
+ <div class="brand"><span class="mark"><svg class="i"><use href="#i-anchor"/></svg></span><span data-i18n="brand">Alat Tambahan</span></div>
+ <div role="tablist" aria-label="Pilih alat" data-i18n-aria="tabs_aria">
+  <button role="tab" id="t-foto" aria-controls="foto" data-tab="foto"><svg class="i"><use href="#i-photo"/></svg><span data-i18n="tab_foto">Foto &amp; PDF</span></button>
+  <button role="tab" id="t-pesan" aria-controls="pesan" data-tab="pesan"><svg class="i"><use href="#i-chat"/></svg><span data-i18n="tab_pesan">Pesan</span></button>
+  <button role="tab" id="t-latihan" aria-controls="latihan" data-tab="latihan"><svg class="i"><use href="#i-cards"/></svg><span data-i18n="tab_latihan">Latihan</span></button>
+  <button role="tab" id="t-qr" aria-controls="qr" data-tab="qr"><svg class="i"><use href="#i-qr"/></svg><span data-i18n="tab_qr">QR</span></button>
  </div>
- <button type="button" class="icon" id="theme" aria-label="Ganti tema terang atau gelap" aria-pressed="false"><svg class="i"><use href="#i-theme"/></svg></button>
+ <div class="ctl">
+  <button type="button" class="icon" id="info" aria-haspopup="dialog" aria-label="Info developer" data-i18n-aria="info_aria"><svg class="i"><use href="#i-help"/></svg></button>
+  <button type="button" class="icon lang" id="lang" aria-label="Ganti bahasa ke English"><svg class="i"><use href="#i-globe"/></svg><span id="lang-cur">ID</span></button>
+  <button type="button" class="icon" id="theme" aria-label="Ganti tema terang atau gelap" data-i18n-aria="theme_aria" aria-pressed="false"><svg class="i"><use href="#i-theme"/></svg></button>
+ </div>
 </div></header>
 
 <main class="wrap" id="main" tabindex="-1">
 
 <!-- FOTO & PDF -->
 <section id="foto" role="tabpanel" aria-labelledby="t-foto">
- <div class="head"><h2>Foto &amp; PDF</h2><p>Kecilkan foto dokumen agar lolos batas ukuran portal crewing, atau gabungkan scan sertifikat menjadi satu PDF. Semua diproses di perangkat ini, tidak ada yang diunggah.</p></div>
+ <div class="head"><h2 data-i18n="f_h">Foto &amp; PDF</h2><p data-i18n="f_p">Kecilkan foto dokumen agar lolos batas ukuran portal crewing, atau gabungkan scan sertifikat menjadi satu PDF. Semua diproses di perangkat ini, tidak ada yang diunggah.</p></div>
  <div class="grid2">
   <div class="stack">
-   <label class="drop" id="f-drop" tabindex="0"><svg class="i" style="width:28px;height:28px"><use href="#i-up2"/></svg><span><b>Pilih file</b> atau seret ke sini</span><span class="note">Foto (JPG, PNG, HEIC bila didukung) dan PDF</span><input class="sr" type="file" id="f-in" accept="image/*,application/pdf" multiple></label>
+   <label class="drop" id="f-drop" tabindex="0"><svg class="i" style="width:28px;height:28px"><use href="#i-up2"/></svg><span data-i18n-html="f_drop"><b>Pilih file</b> atau seret ke sini</span><span class="note" data-i18n="f_drop2">Foto (JPG, PNG, HEIC bila didukung) dan PDF</span><input class="sr" type="file" id="f-in" accept="image/*,application/pdf" multiple></label>
    <div class="card stack">
-    <h3>Pengaturan</h3>
-    <div class="chips" id="f-presets" role="group" aria-label="Preset ukuran">
-     <button class="chip" data-kb="150" data-px="1280">Portal ketat 150 KB</button><button class="chip" data-kb="300" data-px="1600" aria-pressed="true">Standar 300 KB</button><button class="chip" data-kb="800" data-px="2400">Kualitas tinggi 800 KB</button>
+    <h3 data-i18n="f_set">Pengaturan</h3>
+    <div class="chips" id="f-presets" role="group" aria-label="Preset ukuran" data-i18n-aria="presets_aria">
+     <button class="chip" data-kb="150" data-px="1280" data-i18n="f_p150">Portal ketat 150 KB</button><button class="chip" data-kb="300" data-px="1600" aria-pressed="true" data-i18n="f_p300">Standar 300 KB</button><button class="chip" data-kb="800" data-px="2400" data-i18n="f_p800">Kualitas tinggi 800 KB</button>
     </div>
-    <label class="f">Ukuran maksimum per foto: <span class="mono" id="f-kbv">300 KB</span><input type="range" id="f-kb" min="50" max="1000" step="10" value="300"></label>
-    <label class="f">Sisi terpanjang: <span class="mono" id="f-pxv">1600 px</span><input type="range" id="f-px" min="600" max="3000" step="100" value="1600"></label>
-    <div class="row"><button class="btn" id="f-go-img"><svg class="i"><use href="#i-photo"/></svg>Kompres foto</button><button class="btn ghost" id="f-go-pdf"><svg class="i"><use href="#i-file"/></svg>Gabung jadi PDF</button></div>
+    <label class="f"><span data-i18n="f_max">Ukuran maksimum per foto:</span> <span class="mono" id="f-kbv">300 KB</span><input type="range" id="f-kb" min="50" max="1000" step="10" value="300"></label>
+    <label class="f"><span data-i18n="f_side">Sisi terpanjang:</span> <span class="mono" id="f-pxv">1600 px</span><input type="range" id="f-px" min="600" max="3000" step="100" value="1600"></label>
+    <div class="row"><button class="btn" id="f-go-img"><svg class="i"><use href="#i-photo"/></svg><span data-i18n="f_go_img">Kompres foto</span></button><button class="btn ghost" id="f-go-pdf"><svg class="i"><use href="#i-file"/></svg><span data-i18n="f_go_pdf">Gabung jadi PDF</span></button></div>
     <div class="bar-p" id="f-prog" hidden><i></i></div>
    </div>
   </div>
   <div class="stack">
-   <div class="card"><h3>File dipilih</h3><ul class="list" id="f-list"></ul><p class="note" style="margin-top:10px">Urutan di sini menjadi urutan halaman PDF.</p></div>
-   <div class="card" id="f-outcard" hidden><h3>Hasil</h3><ul class="list" id="f-out"></ul></div>
+   <div class="card"><h3 data-i18n="f_files">File dipilih</h3><ul class="list" id="f-list"></ul><p class="note" style="margin-top:10px" data-i18n="f_order">Urutan di sini menjadi urutan halaman PDF.</p></div>
+   <div class="card" id="f-outcard" hidden><h3 data-i18n="result">Hasil</h3><ul class="list" id="f-out"></ul></div>
   </div>
  </div>
 </section>
 
 <!-- PESAN -->
 <section id="pesan" role="tabpanel" aria-labelledby="t-pesan" hidden>
- <div class="head"><h2>Templat Pesan</h2><p>Pesan singkat untuk crewing atau perusahaan pelayaran. Isi data sekali, hasilnya langsung diperbarui dan tersimpan di perangkat ini.</p></div>
+ <div class="head"><h2 data-i18n="m_h">Templat Pesan</h2><p data-i18n="m_p">Pesan singkat untuk crewing atau perusahaan pelayaran. Isi data sekali, hasilnya langsung diperbarui dan tersimpan di perangkat ini.</p></div>
  <div class="grid2">
   <form class="card stack" id="m-form" autocomplete="off">
-   <div class="two keep"><label class="f">Jenis pesan<select name="type"><option value="lamar">Melamar</option><option value="status">Tanya status</option><option value="follow">Setelah interview</option></select></label><label class="f">Bahasa<select name="lang"><option value="id">Indonesia</option><option value="en">English</option></select></label></div>
-   <div class="two"><label class="f">Nama Anda<input type="text" name="nama" placeholder="Nama lengkap"></label><label class="f">Nomor telepon<input type="tel" name="tel" placeholder="08xxxxxxxxxx"></label></div>
-   <div class="two"><label class="f">Posisi<input type="text" name="pos" placeholder="mis. Oiler"></label><label class="f">Perusahaan <span class="note">(opsional)</span><input type="text" name="co"></label></div>
-   <label class="f">Nama penerima <span class="note">(opsional)</span><input type="text" name="pen" placeholder="mis. Bapak Andi"></label>
+   <div class="two keep"><label class="f"><span data-i18n="m_type">Jenis pesan</span><select name="type"><option value="lamar" data-i18n="m_t_lamar">Melamar</option><option value="status" data-i18n="m_t_status">Tanya status</option><option value="follow" data-i18n="m_t_follow">Setelah interview</option></select></label><label class="f"><span data-i18n="m_lang">Bahasa</span><select name="lang"><option value="id" data-i18n="m_l_id">Indonesia</option><option value="en">English</option></select></label></div>
+   <div class="two"><label class="f"><span data-i18n="m_name">Nama Anda</span><input type="text" name="nama" placeholder="Nama lengkap" data-i18n-ph="m_name_ph"></label><label class="f"><span data-i18n="m_tel">Nomor telepon</span><input type="tel" name="tel" placeholder="08xxxxxxxxxx"></label></div>
+   <div class="two"><label class="f"><span data-i18n="m_pos">Posisi</span><input type="text" name="pos" placeholder="mis. Oiler" data-i18n-ph="m_pos_ph"></label><label class="f"><span data-i18n="m_co">Perusahaan</span> <span class="note" data-i18n="opt">(opsional)</span><input type="text" name="co"></label></div>
+   <label class="f"><span data-i18n="m_rcp">Nama penerima</span> <span class="note" data-i18n="opt">(opsional)</span><input type="text" name="pen" placeholder="mis. Bapak Andi" data-i18n-ph="m_rcp_ph"></label>
   </form>
   <div class="card stack">
-   <div class="row" style="justify-content:space-between"><h3 style="margin:0">Hasil</h3><span class="note mono" id="m-count"></span></div>
-   <textarea id="m-out" aria-label="Hasil pesan"></textarea>
-   <div class="row"><button class="btn" id="m-copy"><svg class="i"><use href="#i-copy"/></svg>Salin</button><button class="btn sea" id="m-wa">WhatsApp</button><a class="btn ghost" id="m-mail" href="#">Email</a></div>
+   <div class="row" style="justify-content:space-between"><h3 style="margin:0" data-i18n="result">Hasil</h3><span class="note mono" id="m-count"></span></div>
+   <textarea id="m-out" aria-label="Hasil pesan" data-i18n-aria="m_out_aria"></textarea>
+   <div class="row"><button class="btn" id="m-copy"><svg class="i"><use href="#i-copy"/></svg><span data-i18n="copy_btn">Salin</span></button><button class="btn sea" id="m-wa">WhatsApp</button><a class="btn ghost" id="m-mail" href="#">Email</a></div>
   </div>
  </div>
 </section>
 
 <!-- LATIHAN -->
 <section id="latihan" role="tabpanel" aria-labelledby="t-latihan" hidden>
- <div class="head"><h2>Latihan Interview</h2><p>Tanya jawab teknis kamar mesin, aturan keselamatan, dan bahasa Inggris maritim. Balik kartu, tandai yang sudah hafal, dan tambahkan kartu Anda sendiri.</p></div>
+ <div class="head"><h2 data-i18n="l_h">Latihan Interview</h2><p data-i18n="l_p">Tanya jawab teknis kamar mesin, aturan keselamatan, dan bahasa Inggris maritim. Balik kartu, tandai yang sudah hafal, dan tambahkan kartu Anda sendiri.</p></div>
  <div class="grid2">
   <div class="stack">
-   <div class="chips" id="l-cats" role="group" aria-label="Kategori"></div>
+   <div class="chips" id="l-cats" role="group" aria-label="Kategori" data-i18n-aria="cats_aria"></div>
    <div class="flip" id="l-card" role="button" tabindex="0" aria-live="polite">
-    <div class="flip-in"><div class="face front"><span class="tag" id="l-tag"></span><p id="l-q"></p></div><div class="face back" aria-hidden="true"><span class="tag">Jawaban</span><p id="l-a"></p></div></div>
+    <div class="flip-in"><div class="face front"><span class="tag" id="l-tag"></span><p id="l-q"></p></div><div class="face back" aria-hidden="true"><span class="tag" data-i18n="l_ans">Jawaban</span><p id="l-a"></p></div></div>
    </div>
-   <div class="row"><button class="btn ghost" id="l-prev">Sebelumnya</button><button class="btn" id="l-flip">Balik</button><button class="btn ghost" id="l-next">Berikutnya</button><button class="btn ghost" id="l-known"></button><button class="btn ghost" id="l-shuf">Acak</button></div>
-   <p class="note">Pintasan: <span class="kbd">←</span> <span class="kbd">→</span> pindah kartu, <span class="kbd">Spasi</span> balik, <span class="kbd">K</span> tandai hafal.</p>
+   <div class="row"><button class="btn ghost" id="l-prev" data-i18n="l_prev">Sebelumnya</button><button class="btn" id="l-flip" data-i18n="l_flip">Balik</button><button class="btn ghost" id="l-next" data-i18n="l_next">Berikutnya</button><button class="btn ghost" id="l-known"></button><button class="btn ghost" id="l-shuf" data-i18n="l_shuf">Acak</button></div>
+   <p class="note" data-i18n-html="l_hint">Pintasan: <span class="kbd">←</span> <span class="kbd">→</span> pindah kartu, <span class="kbd">Spasi</span> balik, <span class="kbd">K</span> tandai hafal.</p>
   </div>
   <div class="stack">
-   <div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0">Kemajuan</h3><span class="mono note" id="l-prog-t"></span></div><div class="bar-p" style="margin-top:12px"><i id="l-prog"></i></div></div>
-   <form class="card stack" id="l-form" autocomplete="off"><h3>Tambah kartu sendiri</h3><label class="f">Pertanyaan<input type="text" name="q" required></label><label class="f">Jawaban<input type="text" name="a" required></label><div class="row"><button class="btn">Tambah kartu</button><button type="button" class="btn ghost" id="l-del" hidden>Hapus kartu ini</button></div></form>
+   <div class="card"><div class="row" style="justify-content:space-between"><h3 style="margin:0" data-i18n="l_prog">Kemajuan</h3><span class="mono note" id="l-prog-t"></span></div><div class="bar-p" style="margin-top:12px"><i id="l-prog"></i></div></div>
+   <form class="card stack" id="l-form" autocomplete="off"><h3 data-i18n="l_add">Tambah kartu sendiri</h3><label class="f"><span data-i18n="l_q">Pertanyaan</span><input type="text" name="q" required></label><label class="f"><span data-i18n="l_ans">Jawaban</span><input type="text" name="a" required></label><div class="row"><button class="btn" data-i18n="l_addbtn">Tambah kartu</button><button type="button" class="btn ghost" id="l-del" hidden data-i18n="l_delbtn">Hapus kartu ini</button></div></form>
   </div>
  </div>
 </section>
 
 <!-- QR -->
 <section id="qr" role="tabpanel" aria-labelledby="t-qr" hidden>
- <div class="head"><h2>QR Code</h2><p>QR untuk tautan portfolio, nomor WhatsApp, atau teks lain. Cetak di CV atau tempel di kartu nama.</p></div>
+ <div class="head"><h2 data-i18n="q_h">QR Code</h2><p data-i18n="q_p">QR untuk tautan portfolio, nomor WhatsApp, atau teks lain. Cetak di CV atau tempel di kartu nama.</p></div>
  <div class="grid2">
   <form class="card stack" id="q-form" autocomplete="off">
-   <div class="chips" id="q-mode" role="group" aria-label="Jenis isi"><button type="button" class="chip" data-m="link" aria-pressed="true">Tautan</button><button type="button" class="chip" data-m="wa">WhatsApp</button><button type="button" class="chip" data-m="text">Teks</button></div>
-   <label class="f" data-for="link">Alamat tautan<input type="text" name="link" placeholder="https://xatmojo.github.io/cv-maker"></label>
-   <label class="f" data-for="wa" hidden>Nomor WhatsApp<input type="tel" name="tel" placeholder="08xxxxxxxxxx"></label>
-   <label class="f" data-for="wa" hidden>Pesan pembuka <span class="note">(opsional)</span><input type="text" name="wam" placeholder="Halo, saya ingin bertanya..."></label>
-   <label class="f" data-for="text" hidden>Teks<input type="text" name="text"></label>
-   <label class="f">Ukuran<select name="sz"><option value="256">Sedang</option><option value="384">Besar</option><option value="160">Kecil</option></select></label>
+   <div class="chips" id="q-mode" role="group" aria-label="Jenis isi" data-i18n-aria="q_mode_aria"><button type="button" class="chip" data-m="link" aria-pressed="true" data-i18n="q_link">Tautan</button><button type="button" class="chip" data-m="wa">WhatsApp</button><button type="button" class="chip" data-m="text" data-i18n="q_text">Teks</button></div>
+   <label class="f" data-for="link"><span data-i18n="q_linklabel">Alamat tautan</span><input type="text" name="link" placeholder="https://xatmojo.github.io/cv-maker"></label>
+   <label class="f" data-for="wa" hidden><span data-i18n="q_walabel">Nomor WhatsApp</span><input type="tel" name="tel" placeholder="08xxxxxxxxxx"></label>
+   <label class="f" data-for="wa" hidden><span data-i18n="q_wam">Pesan pembuka</span> <span class="note" data-i18n="opt">(opsional)</span><input type="text" name="wam" placeholder="Halo, saya ingin bertanya..." data-i18n-ph="q_wam_ph"></label>
+   <label class="f" data-for="text" hidden><span data-i18n="q_text">Teks</span><input type="text" name="text"></label>
+   <label class="f"><span data-i18n="q_size">Ukuran</span><select name="sz"><option value="256" data-i18n="q_s_m">Sedang</option><option value="384" data-i18n="q_s_l">Besar</option><option value="160" data-i18n="q_s_s">Kecil</option></select></label>
   </form>
   <div class="card stack">
    <p class="note" id="q-msg">Isi data di samping untuk membuat QR.</p>
    <div id="qrbox"></div>
    <p class="qrval" id="q-val" hidden></p>
-   <div class="row"><button class="btn" id="q-dl" disabled><svg class="i"><use href="#i-dl"/></svg>Unduh PNG</button><button class="btn ghost" id="q-copy" disabled><svg class="i"><use href="#i-copy"/></svg>Salin isi</button></div>
+   <div class="row"><button class="btn" id="q-dl" disabled><svg class="i"><use href="#i-dl"/></svg><span data-i18n="q_dl">Unduh PNG</span></button><button class="btn ghost" id="q-copy" disabled><svg class="i"><use href="#i-copy"/></svg><span data-i18n="q_copy">Salin isi</span></button></div>
   </div>
  </div>
 </section>
 
 </main>
-<footer>Semua proses berjalan di browser Anda. Data tersimpan di perangkat ini saja.</footer>
+<footer data-i18n="footer">Semua proses berjalan di browser Anda. Data tersimpan di perangkat ini saja.</footer>
 <div id="toasts" role="status" aria-live="polite"></div>
+
+<dialog id="dev" aria-labelledby="dev-t"><div class="dev-in">
+ <div class="dev-head"><h2 id="dev-t" data-i18n="dev_title">Info Developer</h2><button type="button" class="icon" id="dev-x" aria-label="Tutup" data-i18n-aria="close"><svg class="i"><use href="#i-x"/></svg></button></div>
+ <p class="note" data-i18n="dev_sub">Dibuat oleh xatmojo. Hubungi untuk saran, laporan masalah, atau kerja sama.</p>
+ <ul class="list" style="margin-top:14px">
+  <li><a class="dev-row" href="https://xatmojo.github.io" target="_blank" rel="noopener"><span class="thumb"><svg class="i"><use href="#i-globe"/></svg></span><span class="meta"><small data-i18n="dev_web">Website</small><b>https://xatmojo.github.io</b></span></a></li>
+  <li><a class="dev-row" href="https://instagram.com/xatmojo" target="_blank" rel="noopener"><span class="thumb"><svg class="i"><use href="#i-insta"/></svg></span><span class="meta"><small>Instagram</small><b>@xatmojo</b></span></a></li>
+  <li><a class="dev-row" href="https://wa.me/6289668262520" target="_blank" rel="noopener"><span class="thumb"><svg class="i"><use href="#i-chat"/></svg></span><span class="meta"><small>WhatsApp</small><b>089668262520</b></span></a></li>
+  <li><a class="dev-row" href="mailto:xatmojo@gmail.com"><span class="thumb"><svg class="i"><use href="#i-mail"/></svg></span><span class="meta"><small>Email</small><b>xatmojo@gmail.com</b></span></a></li>
+ </ul>
+</div></dialog>
 
 <script>
 const $=(s,r=document)=>r.querySelector(s),$$=(s,r=document)=>[...r.querySelectorAll(s)];
@@ -287,16 +316,77 @@ const store={get(k,d){try{const v=localStorage.getItem('alat:'+k);return v==null
 const kb=n=>n>=1048576?(n/1048576).toFixed(1)+' MB':Math.max(1,Math.round(n/1024))+' KB';
 const debounce=(f,ms)=>{let t;return(...a)=>{clearTimeout(t);t=setTimeout(()=>f(...a),ms)}};
 function toast(msg,kind=''){const t=document.createElement('div');t.className='toast '+kind;t.textContent=msg;$('#toasts').append(t);setTimeout(()=>t.remove(),3200)}
-async function copy(text,ok='Tersalin'){try{await navigator.clipboard.writeText(text)}catch{const a=document.createElement('textarea');a.value=text;document.body.append(a);a.select();document.execCommand('copy');a.remove()}toast(ok)}
-const libs={};const load=u=>libs[u]??=new Promise((ok,no)=>{const s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=()=>{delete libs[u];no(new Error('Gagal memuat pustaka. Periksa koneksi internet.'))};document.head.append(s)});
+async function copy(text,ok){try{await navigator.clipboard.writeText(text)}catch{const a=document.createElement('textarea');a.value=text;document.body.append(a);a.select();document.execCommand('copy');a.remove()}toast(ok||t('copied'))}
+const libs={};const load=u=>libs[u]??=new Promise((ok,no)=>{const s=document.createElement('script');s.src=u;s.onload=ok;s.onerror=()=>{delete libs[u];no(new Error(t('libfail')))};document.head.append(s)});
 const PDFLIB='https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js',QRLIB='https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js';
 const wa=n=>{let d=String(n).replace(/\D/g,'');if(d.startsWith('0'))d='62'+d.slice(1);else if(d.startsWith('8'))d='62'+d;return d};
+
+/* ===== Bahasa / Language ===== */
+const I18N={
+id:{skip:'Lewati ke konten',brand:'Alat Tambahan',tab_foto:'Foto & PDF',tab_pesan:'Pesan',tab_latihan:'Latihan',tab_qr:'QR',tabs_aria:'Pilih alat',theme_aria:'Ganti tema terang atau gelap',lang_aria:'Ganti bahasa ke English',info_aria:'Info developer',close:'Tutup',
+dev_title:'Info Developer',dev_sub:'Dibuat oleh xatmojo. Hubungi untuk saran, laporan masalah, atau kerja sama.',dev_web:'Website',
+copied:'Tersalin',libfail:'Gagal memuat pustaka. Periksa koneksi internet.',done:'Selesai',result:'Hasil',opt:'(opsional)',copy_btn:'Salin',
+f_h:'Foto & PDF',f_p:'Kecilkan foto dokumen agar lolos batas ukuran portal crewing, atau gabungkan scan sertifikat menjadi satu PDF. Semua diproses di perangkat ini, tidak ada yang diunggah.',
+f_drop:'<b>Pilih file</b> atau seret ke sini',f_drop2:'Foto (JPG, PNG, HEIC bila didukung) dan PDF',f_set:'Pengaturan',presets_aria:'Preset ukuran',
+f_p150:'Portal ketat 150 KB',f_p300:'Standar 300 KB',f_p800:'Kualitas tinggi 800 KB',f_max:'Ukuran maksimum per foto:',f_side:'Sisi terpanjang:',
+f_go_img:'Kompres foto',f_go_pdf:'Gabung jadi PDF',f_files:'File dipilih',f_order:'Urutan di sini menjadi urutan halaman PDF.',
+f_onlyfiles:'Hanya foto dan PDF yang diterima',f_empty:'Belum ada file.',up:'Naikkan',down:'Turunkan',del:'Hapus',f_pick:'Pilih file dulu',f_pickimg:'Pilih minimal satu foto.',
+f_unread:n=>'Tidak bisa membaca '+n+' (format tidak didukung browser)',f_to:'menjadi',f_save:'hemat',download:'Unduh',f_pages:(n,s)=>n+' halaman, '+s,
+f_fail:'Gagal memproses. Pastikan PDF tidak dikunci kata sandi.',
+m_h:'Templat Pesan',m_p:'Pesan singkat untuk crewing atau perusahaan pelayaran. Isi data sekali, hasilnya langsung diperbarui dan tersimpan di perangkat ini.',
+m_type:'Jenis pesan',m_t_lamar:'Melamar',m_t_status:'Tanya status',m_t_follow:'Setelah interview',m_lang:'Bahasa',m_l_id:'Indonesia',
+m_name:'Nama Anda',m_name_ph:'Nama lengkap',m_tel:'Nomor telepon',m_pos:'Posisi',m_pos_ph:'mis. Oiler',m_co:'Perusahaan',m_rcp:'Nama penerima',m_rcp_ph:'mis. Bapak Andi',
+m_out_aria:'Hasil pesan',chars:n=>n+' karakter',
+l_h:'Latihan Interview',l_p:'Tanya jawab teknis kamar mesin, aturan keselamatan, dan bahasa Inggris maritim. Balik kartu, tandai yang sudah hafal, dan tambahkan kartu Anda sendiri.',
+cats_aria:'Kategori',c_all:'Semua',c_tech:'Teknis',c_safe:'Keselamatan',c_eng:'English',c_mine:'Kartu saya',
+l_prev:'Sebelumnya',l_flip:'Balik',l_next:'Berikutnya',l_shuf:'Acak',l_known:'Tandai hafal',l_unknown:'Batal hafal',
+l_hint:'Pintasan: <span class="kbd">←</span> <span class="kbd">→</span> pindah kartu, <span class="kbd">Spasi</span> balik, <span class="kbd">K</span> tandai hafal.',
+l_ans:'Jawaban',l_prog:'Kemajuan',l_prog_t:(h,n)=>h+' dari '+n+' hafal',l_none:'Belum ada kartu.',l_tag:(i,n)=>'kartu '+i+' dari '+n,l_card_aria:q=>'Kartu: '+q+'. Tekan untuk membalik.',
+l_add:'Tambah kartu sendiri',l_q:'Pertanyaan',l_addbtn:'Tambah kartu',l_delbtn:'Hapus kartu ini',l_shuffled:'Kartu diacak',l_added:'Kartu ditambahkan',l_deleted:'Kartu dihapus',
+q_h:'QR Code',q_p:'QR untuk tautan portfolio, nomor WhatsApp, atau teks lain. Cetak di CV atau tempel di kartu nama.',q_mode_aria:'Jenis isi',q_link:'Tautan',q_text:'Teks',
+q_linklabel:'Alamat tautan',q_walabel:'Nomor WhatsApp',q_wam:'Pesan pembuka',q_wam_ph:'Halo, saya ingin bertanya...',q_size:'Ukuran',q_s_m:'Sedang',q_s_l:'Besar',q_s_s:'Kecil',
+q_empty:'Isi data di samping untuk membuat QR.',q_dl:'Unduh PNG',q_copy:'Salin isi',q_copied:'Isi QR tersalin',
+footer:'Semua proses berjalan di browser Anda. Data tersimpan di perangkat ini saja.'},
+en:{skip:'Skip to content',brand:'Extra Tools',tab_foto:'Photo & PDF',tab_pesan:'Message',tab_latihan:'Practice',tab_qr:'QR',tabs_aria:'Choose a tool',theme_aria:'Switch light or dark theme',lang_aria:'Switch language to Bahasa Indonesia',info_aria:'Developer info',close:'Close',
+dev_title:'Developer Info',dev_sub:'Built by xatmojo. Get in touch for feedback, bug reports, or collaboration.',dev_web:'Website',
+copied:'Copied',libfail:'Failed to load the library. Check your internet connection.',done:'Done',result:'Result',opt:'(optional)',copy_btn:'Copy',
+f_h:'Photo & PDF',f_p:'Shrink document photos to fit crewing portal size limits, or merge certificate scans into a single PDF. Everything is processed on this device, nothing is uploaded.',
+f_drop:'<b>Choose files</b> or drag them here',f_drop2:'Photos (JPG, PNG, HEIC if supported) and PDF',f_set:'Settings',presets_aria:'Size presets',
+f_p150:'Strict portal 150 KB',f_p300:'Standard 300 KB',f_p800:'High quality 800 KB',f_max:'Maximum size per photo:',f_side:'Longest side:',
+f_go_img:'Compress photos',f_go_pdf:'Merge into PDF',f_files:'Selected files',f_order:'The order here becomes the PDF page order.',
+f_onlyfiles:'Only photos and PDFs are accepted',f_empty:'No files yet.',up:'Move up',down:'Move down',del:'Remove',f_pick:'Choose files first',f_pickimg:'Choose at least one photo.',
+f_unread:n=>'Cannot read '+n+' (format not supported by this browser)',f_to:'to',f_save:'saved',download:'Download',f_pages:(n,s)=>n+(n===1?' page, ':' pages, ')+s,
+f_fail:'Processing failed. Make sure the PDF is not password protected.',
+m_h:'Message Templates',m_p:'Short messages for crewing agents or shipping companies. Fill in your details once; the result updates instantly and is saved on this device.',
+m_type:'Message type',m_t_lamar:'Apply',m_t_status:'Ask for status',m_t_follow:'After interview',m_lang:'Language',m_l_id:'Indonesian',
+m_name:'Your name',m_name_ph:'Full name',m_tel:'Phone number',m_pos:'Position',m_pos_ph:'e.g. Oiler',m_co:'Company',m_rcp:'Recipient name',m_rcp_ph:'e.g. Mr. Andi',
+m_out_aria:'Message result',chars:n=>n+' characters',
+l_h:'Interview Practice',l_p:'Engine room technical Q&A, safety rules, and maritime English. Flip the cards, mark the ones you have memorized, and add your own cards.',
+cats_aria:'Categories',c_all:'All',c_tech:'Technical',c_safe:'Safety',c_eng:'Maritime English',c_mine:'My cards',
+l_prev:'Previous',l_flip:'Flip',l_next:'Next',l_shuf:'Shuffle',l_known:'Mark memorized',l_unknown:'Unmark',
+l_hint:'Shortcuts: <span class="kbd">←</span> <span class="kbd">→</span> switch card, <span class="kbd">Space</span> flip, <span class="kbd">K</span> mark as memorized.',
+l_ans:'Answer',l_prog:'Progress',l_prog_t:(h,n)=>h+' of '+n+' memorized',l_none:'No cards yet.',l_tag:(i,n)=>'card '+i+' of '+n,l_card_aria:q=>'Card: '+q+'. Press to flip.',
+l_add:'Add your own card',l_q:'Question',l_addbtn:'Add card',l_delbtn:'Delete this card',l_shuffled:'Cards shuffled',l_added:'Card added',l_deleted:'Card deleted',
+q_h:'QR Code',q_p:'QR codes for your portfolio link, WhatsApp number, or any other text. Print it on your CV or put it on a business card.',q_mode_aria:'Content type',q_link:'Link',q_text:'Text',
+q_linklabel:'Link address',q_walabel:'WhatsApp number',q_wam:'Opening message',q_wam_ph:'Hello, I would like to ask...',q_size:'Size',q_s_m:'Medium',q_s_l:'Large',q_s_s:'Small',
+q_empty:'Fill in the form to generate a QR code.',q_dl:'Download PNG',q_copy:'Copy content',q_copied:'QR content copied',
+footer:'Everything runs in your browser. Data is stored on this device only.'}};
+let lang=store.get('lang','id');if(!I18N[lang])lang='id';
+const t=(k,...a)=>{const v=I18N[lang][k]??I18N.id[k]??k;return typeof v==='function'?v(...a):v};
+let curTab='foto';const setTitle=()=>{document.title=$('#t-'+curTab).textContent.trim()+' | '+t('brand')};
+function applyLang(){document.documentElement.lang=lang;
+ $$('[data-i18n]').forEach(e=>e.textContent=t(e.dataset.i18n));
+ $$('[data-i18n-html]').forEach(e=>e.innerHTML=t(e.dataset.i18nHtml));
+ $$('[data-i18n-ph]').forEach(e=>e.placeholder=t(e.dataset.i18nPh));
+ $$('[data-i18n-aria]').forEach(e=>e.setAttribute('aria-label',t(e.dataset.i18nAria)));
+ $('#lang').setAttribute('aria-label',t('lang_aria'));$('#lang-cur').textContent=lang.toUpperCase();
+ setTitle();foto.refresh();pesan.refresh();latihan.refresh();qr.refresh()}
 
 /* ===== Tabs ===== */
 const tabs=$$('[role=tab]'),panels=$$('[role=tabpanel]');
 function go(id){if(!panels.some(p=>p.id===id))id='foto';
  tabs.forEach(t=>{const on=t.dataset.tab===id;t.setAttribute('aria-selected',on);t.tabIndex=on?0:-1});
- panels.forEach(p=>p.hidden=p.id!==id);document.title=$('#t-'+id).textContent.trim()+' | Alat Tambahan';
+ panels.forEach(p=>p.hidden=p.id!==id);curTab=id;setTitle();
  if(id==='qr')qr.render();scrollTo({top:0})}
 tabs.forEach((t,i)=>{t.addEventListener('click',()=>{location.hash=t.dataset.tab});
  t.addEventListener('keydown',e=>{const d={ArrowRight:1,ArrowLeft:-1}[e.key];if(d){const n=tabs[(i+d+tabs.length)%tabs.length];n.focus();location.hash=n.dataset.tab}})});
@@ -305,9 +395,9 @@ addEventListener('hashchange',()=>go(location.hash.slice(1)));
 /* ===== Foto & PDF ===== */
 const foto=(()=>{let files=[],resUrls=[],n=0;const list=$('#f-list'),out=$('#f-out'),kbR=$('#f-kb'),pxR=$('#f-px'),prog=$('#f-prog');
  const isPdf=f=>f.type==='application/pdf'||/\.pdf$/i.test(f.name),isImg=f=>f.type.startsWith('image/');
- function add(fl){const all=[...fl],ok=all.filter(f=>isPdf(f)||isImg(f));if(ok.length<all.length)toast('Hanya foto dan PDF yang diterima','bad');
+ function add(fl){const all=[...fl],ok=all.filter(f=>isPdf(f)||isImg(f));if(ok.length<all.length)toast(t('f_onlyfiles'),'bad');
   ok.forEach(f=>files.push({id:++n,file:f,url:isImg(f)?URL.createObjectURL(f):''}));draw()}
- function draw(){list.innerHTML=files.map((x,i)=>`<li class="file"><span class="thumb">${x.url?`<img src="${x.url}" alt="">`:'<svg class="i"><use href="#i-file"/></svg>'}</span><span class="meta"><b>${esc(x.file.name)}</b><small>${kb(x.file.size)}${isPdf(x.file)?', PDF':''}</small></span><span class="acts"><button class="icon" data-a="up" data-i="${i}" aria-label="Naikkan" ${i?'':'disabled'}><svg class="i"><use href="#i-up"/></svg></button><button class="icon" data-a="dn" data-i="${i}" aria-label="Turunkan" ${i<files.length-1?'':'disabled'}><svg class="i"><use href="#i-down"/></svg></button><button class="icon" data-a="rm" data-i="${i}" aria-label="Hapus"><svg class="i"><use href="#i-x"/></svg></button></span></li>`).join('')||'<p class="empty">Belum ada file.</p>'}
+ function draw(){list.innerHTML=files.map((x,i)=>`<li class="file"><span class="thumb">${x.url?`<img src="${x.url}" alt="">`:'<svg class="i"><use href="#i-file"/></svg>'}</span><span class="meta"><b>${esc(x.file.name)}</b><small>${kb(x.file.size)}${isPdf(x.file)?', PDF':''}</small></span><span class="acts"><button class="icon" data-a="up" data-i="${i}" aria-label="${t('up')}" ${i?'':'disabled'}><svg class="i"><use href="#i-up"/></svg></button><button class="icon" data-a="dn" data-i="${i}" aria-label="${t('down')}" ${i<files.length-1?'':'disabled'}><svg class="i"><use href="#i-down"/></svg></button><button class="icon" data-a="rm" data-i="${i}" aria-label="${t('del')}"><svg class="i"><use href="#i-x"/></svg></button></span></li>`).join('')||`<p class="empty">${t('f_empty')}</p>`}
  list.addEventListener('click',e=>{const b=e.target.closest('[data-a]');if(!b)return;const i=+b.dataset.i,a=b.dataset.a;
   if(a==='rm'){if(files[i].url)URL.revokeObjectURL(files[i].url);files.splice(i,1)}else{const j=a==='up'?i-1:i+1;[files[i],files[j]]=[files[j],files[i]]}draw()});
  const drop=$('#f-drop');['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('over')}));
@@ -326,21 +416,21 @@ const foto=(()=>{let files=[],resUrls=[],n=0;const list=$('#f-list'),out=$('#f-o
   return last}
  const busy=v=>{$$('#f-go-img,#f-go-pdf').forEach(b=>b.disabled=v);prog.hidden=!v;if(v)prog.firstElementChild.style.width='4%'};
  const step=(i,t)=>prog.firstElementChild.style.width=Math.max(4,Math.round(i/t*100))+'%';
- function result(blob,name,info){const u=URL.createObjectURL(blob);resUrls.push(u);out.insertAdjacentHTML('beforeend',`<li class="res"><span class="meta"><b>${esc(name)}</b><small>${info}</small></span><a class="btn sm" href="${u}" download="${esc(name)}"><svg class="i"><use href="#i-dl"/></svg>Unduh</a></li>`);$('#f-outcard').hidden=false}
- async function run(kind){if(!files.length)return toast('Pilih file dulu','bad');const k=+kbR.value,m=+pxR.value;
+ function result(blob,name,info){const u=URL.createObjectURL(blob);resUrls.push(u);out.insertAdjacentHTML('beforeend',`<li class="res"><span class="meta"><b>${esc(name)}</b><small>${info}</small></span><a class="btn sm" href="${u}" download="${esc(name)}"><svg class="i"><use href="#i-dl"/></svg>${t('download')}</a></li>`);$('#f-outcard').hidden=false}
+ async function run(kind){if(!files.length)return toast(t('f_pick'),'bad');const k=+kbR.value,m=+pxR.value;
   resUrls.forEach(URL.revokeObjectURL);resUrls=[];out.innerHTML='';$('#f-outcard').hidden=true;busy(true);
-  try{if(kind==='img'){const im=files.filter(x=>!isPdf(x.file));if(!im.length)throw new Error('Pilih minimal satu foto.');
-    for(let i=0;i<im.length;i++){step(i,im.length);const f=im[i].file;let b;try{b=await squeeze(f,k,m)}catch{toast('Tidak bisa membaca '+f.name+' (format tidak didukung browser)','bad');continue}result(b,f.name.replace(/\.[^.]+$/,'')+'-kecil.jpg',`${kb(f.size)} menjadi ${kb(b.size)} <span class="save">(hemat ${Math.max(0,Math.round(100-b.size/f.size*100))}%)</span>`)}}
+  try{if(kind==='img'){const im=files.filter(x=>!isPdf(x.file));if(!im.length)throw new Error(t('f_pickimg'));
+    for(let i=0;i<im.length;i++){step(i,im.length);const f=im[i].file;let b;try{b=await squeeze(f,k,m)}catch{toast(t('f_unread',f.name),'bad');continue}result(b,f.name.replace(/\.[^.]+$/,'')+'-kecil.jpg',`${kb(f.size)} ${t('f_to')} ${kb(b.size)} <span class="save">(${t('f_save')} ${Math.max(0,Math.round(100-b.size/f.size*100))}%)</span>`)}}
    else{await load(PDFLIB);const{PDFDocument}=PDFLib,doc=await PDFDocument.create();
     for(let i=0;i<files.length;i++){step(i,files.length);const f=files[i].file;
      if(isPdf(f)){const s=await PDFDocument.load(await f.arrayBuffer(),{ignoreEncryption:true});(await doc.copyPages(s,s.getPageIndices())).forEach(p=>doc.addPage(p))}
      else{const b=await squeeze(f,k,m),img=await doc.embedJpg(await b.arrayBuffer()),W=595.28,H=841.89,g=24,sc=Math.min((W-2*g)/img.width,(H-2*g)/img.height);
       doc.addPage([W,H]).drawImage(img,{x:(W-img.width*sc)/2,y:(H-img.height*sc)/2,width:img.width*sc,height:img.height*sc})}}
-    const bytes=await doc.save();result(new Blob([bytes],{type:'application/pdf'}),'dokumen-gabungan.pdf',`${doc.getPageCount()} halaman, ${kb(bytes.length)}`)}
-   step(1,1);toast('Selesai')}
-  catch(e){toast(e.message||'Gagal memproses. Pastikan PDF tidak dikunci kata sandi.','bad')}finally{setTimeout(()=>busy(false),250)}}
+    const bytes=await doc.save();result(new Blob([bytes],{type:'application/pdf'}),'dokumen-gabungan.pdf',t('f_pages',doc.getPageCount(),kb(bytes.length)))}
+   step(1,1);toast(t('done'))}
+  catch(e){toast(e.message||t('f_fail'),'bad')}finally{setTimeout(()=>busy(false),250)}}
  $('#f-go-img').addEventListener('click',()=>run('img'));$('#f-go-pdf').addEventListener('click',()=>run('pdf'));
- draw();sync()})();
+ draw();sync();return{refresh:draw}})();
 
 /* ===== Templat pesan ===== */
 const pesan=(()=>{const f=$('#m-form'),out=$('#m-out');
@@ -355,15 +445,15 @@ const pesan=(()=>{const f=$('#m-form'),out=$('#m-out');
   follow:m=>`Thank you for the interview opportunity for the position of ${m.pos}${m.co?' at '+m.co:''}. This is ${m.nama}. May I ask about the next steps and which documents I should prepare?`,
   subj:{lamar:m=>`Application for ${m.pos} - ${m.nama}`,status:m=>`Application status: ${m.pos} - ${m.nama}`,follow:m=>`Interview follow-up: ${m.pos} - ${m.nama}`}}};
  const saved=store.get('msg',{});for(const[k,v]of Object.entries(saved)){if(f.elements[k])f.elements[k].value=v}
- let subject='';
+ let subject='';const cnt=()=>{$('#m-count').textContent=t('chars',out.value.length)};
  function gen(){const m=Object.fromEntries(new FormData(f));store.set('msg',m);Object.keys(m).forEach(k=>m[k]=m[k].trim());
   const L=T[m.lang],v={...m,nama:m.nama||'[nama]',pos:m.pos||'[posisi]'};
   out.value=`${L.hi(m.pen)}\n\n${L[m.type](v)}\n\n${L.bye(v.nama,m.tel)}`;subject=L.subj[m.type](v);
-  $('#m-count').textContent=out.value.length+' karakter';$('#m-mail').href=`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(out.value)}`}
+  cnt();$('#m-mail').href=`mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(out.value)}`}
  f.addEventListener('input',gen);f.addEventListener('change',gen);
  $('#m-copy').addEventListener('click',()=>copy(out.value));
  $('#m-wa').addEventListener('click',()=>window.open('https://wa.me/?text='+encodeURIComponent(out.value),'_blank','noopener'));
- gen()})();
+ gen();return{refresh:cnt}})();
 
 /* ===== Latihan interview ===== */
 const latihan=(()=>{
@@ -386,27 +476,46 @@ const latihan=(()=>{
  ['English','Finished with engine','Mesin tidak diperlukan lagi, biasanya setelah kapal sandar atau berlabuh.'],
  ['English','Bagaimana mengatakan "Saya sedang jaga mesin" dalam bahasa Inggris?','I am on engine watch.'],
  ['English','Bagaimana mengatakan "Ada kebocoran di pipa" dalam bahasa Inggris?','There is a leak in the pipe.']];
+ const EN_C=[
+['What are the main duties of an Oiler on engine watch?','Patrol the engine room, record temperatures, pressures and levels, check for leaks and abnormal noise, assist with maintenance, and report to the Duty Engineer.'],
+['What does a purifier do for fuel and lubricating oil?','It separates water and dirt from the oil by centrifugal force so the oil is cleaner before the engine uses it.'],
+['What is the function of a turbocharger?','Exhaust gas spins a turbine that drives a compressor, so air enters the cylinders at higher pressure and the engine produces more power.'],
+['What is the function of an engine governor?','It keeps engine speed steady by adjusting the fuel supply as the load changes.'],
+['Why does HFO need to be heated before use?','HFO is very viscous at normal temperature. Heating lowers its viscosity so it can be pumped and atomized properly by the injectors.'],
+['Name the functions of lubricating oil in an engine.','Reduces friction, cools, cleans, seals clearances, and protects against corrosion.'],
+['A centrifugal pump is not building pressure. What could be the cause?','Air in the pump that needs priming, a closed suction valve or clogged strainer, a damaged impeller, or the wrong direction of rotation.'],
+['What do you do during a blackout in the engine room?','Make sure the emergency generator starts, report to the bridge and the Chief Engineer, find the cause, then restore power following the ship procedure.'],
+['What does SOLAS stand for and what is it for?','Safety of Life at Sea: the international convention on safety standards for life at sea.'],
+['What is MARPOL?','The international convention for preventing marine pollution from ships, including oil, chemicals, garbage, and sewage.'],
+['What does STCW stand for?','Standards of Training, Certification and Watchkeeping for Seafarers: the standards for seafarer training, certification, and watchkeeping.'],
+['What is the oil content limit for bilge water discharged through an Oily Water Separator?','15 ppm, and only as permitted by MARPOL Annex I and the ship procedure.'],
+['What are the three elements of the fire triangle?','Fuel, oxygen, and heat.'],
+['Dead slow ahead','An engine order for the slowest possible speed ahead.'],
+['Stand by engine','The engine is made ready for maneuvering, for example when entering or leaving port.'],
+['Finished with engine','The engine is no longer needed, usually after the ship has berthed or anchored.'],
+['How do you say "Saya sedang jaga mesin" (Indonesian) in English?','I am on engine watch.'],
+['How do you say "Ada kebocoran di pipa" (Indonesian) in English?','There is a leak in the pipe.']];
  let mine=store.get('cards',[]),known=store.get('known',{}),cat='Semua',order=[],i=0;
- const card=$('#l-card'),all=()=>[...CARDS,...mine.map(c=>['Kartu saya',c[0],c[1]])];
+ const card=$('#l-card'),all=()=>[...CARDS.map((c,k)=>[...c,...(EN_C[k]||[])]),...mine.map(c=>['Kartu saya',c[0],c[1]])],catLabel=x=>({Semua:t('c_all'),Teknis:t('c_tech'),Keselamatan:t('c_safe'),English:t('c_eng'),'Kartu saya':t('c_mine')}[x]||x);
  const build=(shuffle)=>{order=all().filter(c=>cat==='Semua'||c[0]===cat);if(shuffle)for(let a=order.length-1;a>0;a--){const b=Math.random()*(a+1)|0;[order[a],order[b]]=[order[b],order[a]]};if(i>=order.length)i=0};
- function cats(){const c=['Semua',...new Set(all().map(x=>x[0]))];$('#l-cats').innerHTML=c.map(x=>`<button class="chip" data-c="${esc(x)}" aria-pressed="${x===cat}">${esc(x)}</button>`).join('')}
+ function cats(){const c=['Semua',...new Set(all().map(x=>x[0]))];$('#l-cats').innerHTML=c.map(x=>`<button class="chip" data-c="${esc(x)}" aria-pressed="${x===cat}">${esc(catLabel(x))}</button>`).join('')}
  function draw(){const c=order[i];$('#l-prog-t').textContent='';const pool=order,h=pool.filter(x=>known[x[1]]).length;
-  $('#l-prog').style.width=(pool.length?h/pool.length*100:0)+'%';$('#l-prog-t').textContent=`${h} dari ${pool.length} hafal`;
-  if(!c){card.classList.remove('on');$('#l-q').textContent='Belum ada kartu.';$('#l-a').textContent='';$('#l-tag').textContent='';return}
-  $('#l-tag').textContent=`${c[0]}, kartu ${i+1} dari ${pool.length}`;$('#l-q').textContent=c[1];$('#l-a').textContent=c[2];
-  $('#l-known').textContent=known[c[1]]?'Batal hafal':'Tandai hafal';$('#l-del').hidden=c[0]!=='Kartu saya';card.setAttribute('aria-label','Kartu: '+c[1]+'. Tekan untuk membalik.')}
+  $('#l-prog').style.width=(pool.length?h/pool.length*100:0)+'%';$('#l-prog-t').textContent=t('l_prog_t',h,pool.length);
+  if(!c){card.classList.remove('on');$('#l-q').textContent=t('l_none');$('#l-a').textContent='';$('#l-tag').textContent='';return}
+  $('#l-tag').textContent=`${catLabel(c[0])}, ${t('l_tag',i+1,pool.length)}`;const en=lang==='en'&&c[3],dq=en?c[3]:c[1],da=en?c[4]:c[2];$('#l-q').textContent=dq;$('#l-a').textContent=da;
+  $('#l-known').textContent=t(known[c[1]]?'l_unknown':'l_known');$('#l-del').hidden=c[0]!=='Kartu saya';card.setAttribute('aria-label',t('l_card_aria',dq))}
  const flip=v=>{const on=v??!card.classList.contains('on');card.classList.toggle('on',on);$('.back',card).setAttribute('aria-hidden',!on);$('.front',card).setAttribute('aria-hidden',on)};
  const move=d=>{if(!order.length)return;i=(i+d+order.length)%order.length;flip(false);draw()};
  card.addEventListener('click',()=>flip());card.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();flip()}});
  $('#l-flip').addEventListener('click',()=>flip());$('#l-next').addEventListener('click',()=>move(1));$('#l-prev').addEventListener('click',()=>move(-1));
- $('#l-shuf').addEventListener('click',()=>{build(true);i=0;flip(false);draw();toast('Kartu diacak')});
+ $('#l-shuf').addEventListener('click',()=>{build(true);i=0;flip(false);draw();toast(t('l_shuffled'))});
  $('#l-known').addEventListener('click',()=>{const q=order[i]?.[1];if(!q)return;known[q]?delete known[q]:known[q]=1;store.set('known',known);draw()});
  $('#l-cats').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(b){cat=b.dataset.c;i=0;build();cats();flip(false);draw()}});
- $('#l-form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;mine.push([f.q.value.trim(),f.a.value.trim()]);store.set('cards',mine);f.reset();cat='Kartu saya';build();i=order.length-1;cats();flip(false);draw();toast('Kartu ditambahkan')});
- $('#l-del').addEventListener('click',()=>{const q=order[i][1];mine=mine.filter(c=>c[0]!==q);store.set('cards',mine);delete known[q];store.set('known',known);if(!mine.length)cat='Semua';build();cats();flip(false);draw();toast('Kartu dihapus')});
+ $('#l-form').addEventListener('submit',e=>{e.preventDefault();const f=e.target;mine.push([f.q.value.trim(),f.a.value.trim()]);store.set('cards',mine);f.reset();cat='Kartu saya';build();i=order.length-1;cats();flip(false);draw();toast(t('l_added'))});
+ $('#l-del').addEventListener('click',()=>{const q=order[i][1];mine=mine.filter(c=>c[0]!==q);store.set('cards',mine);delete known[q];store.set('known',known);if(!mine.length)cat='Semua';build();cats();flip(false);draw();toast(t('l_deleted'))});
  addEventListener('keydown',e=>{if($('#latihan').hidden||/INPUT|TEXTAREA|SELECT/.test(e.target.tagName)||e.target.closest('.flip'))return;
   if(e.key==='ArrowRight')move(1);else if(e.key==='ArrowLeft')move(-1);else if(e.key===' '){e.preventDefault();flip()}else if(e.key.toLowerCase()==='k')$('#l-known').click()});
- build();cats();draw()})();
+ build();cats();draw();return{refresh(){cats();draw()}}})();
 
 /* ===== QR code ===== */
 const qr=(()=>{const f=$('#q-form'),box=$('#qrbox'),msg=$('#q-msg'),val=$('#q-val');let mode='link',cur='';
@@ -415,16 +524,16 @@ const qr=(()=>{const f=$('#q-form'),box=$('#qrbox'),msg=$('#q-msg'),val=$('#q-va
  function setMode(m){mode=m;$$('#q-mode .chip').forEach(c=>c.setAttribute('aria-pressed',c.dataset.m===m));$$('[data-for]',f).forEach(l=>l.hidden=l.dataset.for!==m)}
  async function render(){const v=value();store.set('qr',{mode,f:Object.fromEntries(new FormData(f))});cur=v;
   $('#q-dl').disabled=$('#q-copy').disabled=!v;
-  if(!v){box.innerHTML='';box.style.display='none';val.hidden=true;msg.hidden=false;msg.textContent='Isi data di samping untuk membuat QR.';return}
+  if(!v){box.innerHTML='';box.style.display='none';val.hidden=true;msg.hidden=false;msg.textContent=t('q_empty');return}
   try{await load(QRLIB)}catch(e){msg.hidden=false;msg.textContent=e.message;box.style.display='none';return}
   if(cur!==v)return;msg.hidden=true;box.innerHTML='';box.style.display='block';const z=+f.elements.sz.value;
   new QRCode(box,{text:v,width:z,height:z,correctLevel:QRCode.CorrectLevel.M});val.hidden=false;val.textContent=v}
  f.addEventListener('submit',e=>e.preventDefault());const soon=debounce(render,250);f.addEventListener('input',soon);f.addEventListener('change',render);
  $('#q-mode').addEventListener('click',e=>{const c=e.target.closest('.chip');if(c){setMode(c.dataset.m);render()}});
- $('#q-copy').addEventListener('click',()=>copy(cur,'Isi QR tersalin'));
+ $('#q-copy').addEventListener('click',()=>copy(cur,t('q_copied')));
  $('#q-dl').addEventListener('click',()=>{const c=$('canvas',box);if(!c)return;const o=document.createElement('canvas'),p=24;o.width=c.width+2*p;o.height=c.height+2*p;
   const x=o.getContext('2d');x.fillStyle='#fff';x.fillRect(0,0,o.width,o.height);x.drawImage(c,p,p);const a=document.createElement('a');a.href=o.toDataURL('image/png');a.download='qr-code.png';a.click()});
- setMode(mode);return{render}})();
+ setMode(mode);return{render,refresh(){if(!cur)msg.textContent=t('q_empty')}}})();
 
 /* ===== Tema terang/gelap ===== */
 (()=>{const r=document.documentElement,b=$('#theme'),mq=matchMedia('(prefers-color-scheme:dark)');
@@ -432,7 +541,15 @@ const qr=(()=>{const f=$('#q-form'),box=$('#qrbox'),msg=$('#q-msg'),val=$('#q-va
  b.addEventListener('click',()=>{const t=cur()==='dark'?'light':'dark';r.dataset.theme=t;store.set('theme',t);sync()});
  mq.addEventListener?.('change',sync);sync()})();
 
+/* ===== Info developer & bahasa ===== */
+(()=>{const dlg=$('#dev');
+ $('#info').addEventListener('click',()=>dlg.showModal?dlg.showModal():dlg.setAttribute('open',''));
+ $('#dev-x').addEventListener('click',()=>dlg.close());
+ dlg.addEventListener('click',e=>{if(e.target===dlg)dlg.close()});
+ $('#lang').addEventListener('click',()=>{lang=lang==='id'?'en':'id';store.set('lang',lang);applyLang()})})();
+
 go(location.hash.slice(1));
+applyLang();
 </script>
 </body>
 </html>
