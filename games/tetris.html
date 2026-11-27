@@ -51,6 +51,15 @@ body{display:flex;align-items:center;justify-content:center;padding:env(safe-are
 .sys{display:flex;justify-content:center;gap:4cqw;margin-top:5cqw}
 .sys .btn{height:7cqw;padding:0 4cqw;border-radius:3.5cqw;font-size:2.4cqw;transform:rotate(-14deg);box-shadow:0 1cqw 0 #121830,0 1.8cqw 2cqw rgba(0,0,0,.5),inset 0 .4cqw 0 rgba(255,255,255,.2)}
 .sys .btn.on,.sys .btn:active{transform:rotate(-14deg) translateY(.8cqw)}
+@media (orientation:landscape) and (min-aspect-ratio:11/10){
+.wrap{width:min(96vw,980px,calc((100vh - 12px)*1.5));width:min(96vw,980px,calc((100dvh - 12px)*1.5))}
+.console{display:grid;grid-template-columns:1fr 1fr;column-gap:5cqw;align-content:center;border-radius:7cqw}
+.hd{grid-column:1/-1;margin-bottom:2cqw}
+.hd h1{font-size:4.4cqw}
+.bezel{grid-column:1;grid-row:2/4}
+.ctl{grid-column:2;grid-row:2;margin-top:2cqw;align-self:end}
+.sys{grid-column:2;grid-row:3;margin-top:4cqw;align-self:start}
+}
 @media (prefers-reduced-motion:reduce){.lcd:after,.lcd.flash{animation:none}}
 </style>
 </head>
@@ -186,6 +195,7 @@ class GameEngine{
   if(a==='enter'){if(s==='paused')this.resume();else if(s!=='playing')this.start();return;}
   if(a==='reset'){this.start();return;}
   if(a==='sound'){this.toggleSound();return;}
+  if(s==='start'&&['left','right','down','rotate','ccw','drop','hold'].includes(a)){this.start();return;}
   if(s!=='playing'||!this.cur)return;
   const p=this.cur;
   switch(a){
@@ -267,15 +277,16 @@ class InputController{
   addEventListener('keydown',e=>{const a=KEYS[e.key];if(!a||e.ctrlKey||e.metaKey||e.altKey)return;e.preventDefault();if(!e.repeat)this.press(a);});
   addEventListener('keyup',e=>{const a=KEYS[e.key];if(!a)return;e.preventDefault();this.release(a);});
   addEventListener('blur',()=>this.releaseAll());
+  ['pointerup','pointercancel'].forEach(t=>addEventListener(t,e=>{for(const[a,h]of[...this.held])if(h.pid===e.pointerId)this.release(a);},true));
   document.addEventListener('visibilitychange',()=>{if(document.hidden){this.releaseAll();this.g.pause();}});
   addEventListener('pagehide',()=>this.g.saveHi());}
  bindButton(b){const a=b.dataset.a;
-  b.addEventListener('pointerdown',e=>{e.preventDefault();try{b.setPointerCapture(e.pointerId);}catch(_){}this.press(a);});
+  b.addEventListener('pointerdown',e=>{e.preventDefault();try{b.setPointerCapture(e.pointerId);}catch(_){}this.press(a,e.pointerId);});
   ['pointerup','pointercancel','lostpointercapture'].forEach(t=>b.addEventListener(t,()=>this.release(a)));
   b.addEventListener('contextmenu',e=>e.preventDefault());}
- press(a){this.a.unlock();if(this.held.has(a))return;
+ press(a,pid){this.a.unlock();if(this.held.has(a)){if(pid===undefined)return;this.release(a);}
   if(a==='left')this.release('right');if(a==='right')this.release('left');
-  this.held.set(a,{t:0,on:false});if(this.btns[a])this.btns[a].classList.add('on');this.g.act(a);}
+  this.held.set(a,{t:0,on:false,pid});if(this.btns[a])this.btns[a].classList.add('on');this.g.act(a);}
  release(a){if(this.held.delete(a)&&this.btns[a])this.btns[a].classList.remove('on');}
  releaseAll(){[...this.held.keys()].forEach(a=>this.release(a));}
  update(dt){const REP={left:[170,50],right:[170,50],down:[110,45]};
@@ -293,7 +304,7 @@ const game=new GameEngine(audio,store,n=>{if(n==='tetris')ui.flash();else if(n==
 ui=new UIManager(game,audio,rend);
 const input=new InputController(game,audio);
 ui.sound();
-$('lcd').addEventListener('click',e=>{const b=e.target.closest('[data-c]');if(!b)return;audio.unlock();
+$('lcd').addEventListener('pointerdown',e=>{const b=e.target.closest('[data-c]');if(!b)return;e.preventDefault();audio.unlock();
  ({play:()=>game.act('enter'),snd:()=>game.toggleSound(),resume:()=>game.resume(),restart:()=>game.start(),menu:()=>game.menu()})[b.dataset.c]();b.blur();});
 document.addEventListener('pointerdown',()=>audio.unlock());
 ['gesturestart','gesturechange','dblclick','contextmenu'].forEach(t=>document.addEventListener(t,e=>e.preventDefault()));
