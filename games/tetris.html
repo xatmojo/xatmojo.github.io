@@ -199,11 +199,25 @@ class Engine{
 /* ============ STORAGE & AUDIO ============ */
 const ls={get(k,d){try{return localStorage.getItem(k)??d}catch(e){return d}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 let ac=null,muted=ls.get('nb_mute','0')==='1';
-const SFX={move:[[300,.03,'square',.025,0]],rotate:[[520,.05,'triangle',.06,0]],lock:[[150,.09,'sine',.14,0]],drop:[[110,.14,'sawtooth',.07,0]],hold:[[420,.06,'triangle',.06,0],[600,.06,'triangle',.06,.06]],
- clear:[[520,.09,'square',.05,0],[660,.09,'square',.05,.08],[880,.14,'square',.05,.16]],tetris:[[520,.1,'square',.06,0],[660,.1,'square',.06,.08],[880,.1,'square',.06,.16],[1180,.28,'square',.06,.24]],
- level:[[440,.12,'triangle',.08,0],[660,.12,'triangle',.08,.12],[990,.3,'triangle',.08,.24]],over:[[400,.25,'sawtooth',.07,0],[300,.25,'sawtooth',.07,.22],[200,.5,'sawtooth',.07,.44]]};
+/* Efek suara lembut: nada sine/triangle, attack halus, low-pass, kompresor. Format: [freq, durasi, tipe, volume, delay, freqAkhir?] */
+const SFX={
+ move:[[392,.05,'sine',.05,0]],
+ rotate:[[494,.09,'sine',.09,0,587]],
+ lock:[[196,.14,'sine',.2,0,110]],
+ drop:[[240,.22,'sine',.28,0,70],[480,.08,'triangle',.05,0,200]],
+ hold:[[440,.10,'sine',.09,0],[587,.14,'sine',.09,.07]],
+ clear:[[523,.30,'sine',.14,0],[523,.20,'triangle',.04,0],[659,.30,'sine',.14,.08],[659,.20,'triangle',.04,.08],[784,.45,'sine',.14,.16],[784,.30,'triangle',.04,.16]],
+ tetris:[[523,.35,'sine',.14,0],[659,.35,'sine',.14,.08],[784,.35,'sine',.14,.16],[1047,.45,'sine',.14,.24],[1319,.70,'sine',.13,.32],[523,.60,'triangle',.05,.32],[1047,.60,'triangle',.04,.32]],
+ level:[[392,.22,'sine',.12,0],[523,.22,'sine',.12,.10],[659,.22,'sine',.12,.20],[784,.22,'sine',.12,.30],[1047,.60,'sine',.13,.40],[523,.50,'triangle',.05,.40]],
+ over:[[330,.45,'sine',.14,0],[262,.45,'sine',.14,.30],[220,.50,'sine',.14,.60],[165,.90,'sine',.15,.90],[165,.90,'triangle',.05,.90]]};
 function initAudio(f){try{ac=ac||new(window.AudioContext||window.webkitAudioContext)();if(ac.state==='suspended'&&(f||E.state!=='pause'))ac.resume()}catch(e){}}
-function snd(n){if(muted||!ac)return;const t0=ac.currentTime;for(const[f,d,ty,v,at]of SFX[n]){const o=ac.createOscillator(),g=ac.createGain();o.type=ty;o.frequency.value=f;g.gain.setValueAtTime(Math.min(v*3.2,.6),t0+at);g.gain.exponentialRampToValueAtTime(.0001,t0+at+d);o.connect(g);g.connect(ac.destination);o.start(t0+at);o.stop(t0+at+d+.03)}}
+let sfxBus=null;
+function sfxOut(){if(!sfxBus){const c=ac.createDynamicsCompressor();c.threshold.value=-20;c.knee.value=24;c.ratio.value=4;c.attack.value=.005;c.release.value=.15;const m=ac.createGain();m.gain.value=3;m.connect(c);c.connect(ac.destination);sfxBus=m}return sfxBus}
+function snd(n){if(muted||!ac)return;const t0=ac.currentTime+.005,out=sfxOut();for(const[f,d,ty,v,at,f2]of SFX[n]){const o=ac.createOscillator(),g=ac.createGain(),lp=ac.createBiquadFilter(),t=t0+at;
+ o.type=ty;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);
+ lp.type='lowpass';lp.frequency.value=2400;lp.Q.value=.5;
+ g.gain.setValueAtTime(.0001,t);g.gain.linearRampToValueAtTime(v,t+.01);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+ o.connect(lp);lp.connect(g);g.connect(out);o.start(t);o.stop(t+d+.05)}}
 
 /* ============ BACKSOUND (synth, Korobeiniki) ============ */
 const NF=s=>{const m={C:0,D:2,E:4,F:5,G:7,A:9,B:11},x=/^([A-G])(#?)(\d)$/.exec(s);return 440*Math.pow(2,(m[x[1]]+(x[2]?1:0)+(+x[3]-4)*12-9)/12)};
