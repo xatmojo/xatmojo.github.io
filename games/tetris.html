@@ -135,7 +135,7 @@ kbd{font:700 10px var(--f);color:var(--tx);border:1px solid var(--ln);background
  :root{--mc:52px}
  header{height:44px}.tag{display:none}
  main{grid-template-columns:1fr 1.5fr 1fr;grid-template-rows:auto minmax(0,1fr);gap:8px;padding:2px 10px 10px;grid-template-areas:"hold stats next" "board board board"}
- .ib#ba{display:grid;position:relative;z-index:6}
+ .ib#ba{display:grid}
  #help{display:none}#side{display:none;position:fixed;top:calc(50px + env(safe-area-inset-top,0px));right:calc(10px + env(safe-area-inset-right,0px));width:min(230px,calc(100vw - 20px));z-index:7}
  #side.open{display:flex}#side #aud{background:rgba(8,10,28,.96);width:100%;padding:12px}
  .pn{padding:7px 8px;width:100%;border-radius:13px;align-self:stretch}
@@ -310,7 +310,7 @@ function showOv(s){ov.className='ov on '+s;
  :`<div class="ttl">GAME OVER</div>${E.score>prevBest?'<div class="nb">★ NEW BEST ★</div>':''}<div class="res"><div><span class="lb">SCORE</span><b>${E.score}</b></div><div><span class="lb">BEST</span><b>${hi}</b></div><div><span class="lb">LINES</span><b>${E.lines}</b></div></div><button class="btn" data-a="play">PLAY AGAIN</button>`;
  status()}
 const hideOv=()=>{ov.className='ov';status()};
-function status(){const s=E.state,st=$('st');st.className='st '+(s==='menu'?'':s);$('stt').textContent={menu:'READY',play:'PLAYING',pause:'PAUSED',over:'GAME OVER'}[s]}
+function status(){const s=E.state,st=$('st');st.className='st '+(s==='menu'?'':s);$('stt').textContent={menu:'READY',play:'PLAYING',pause:'PAUSED',over:'GAME OVER'}[s];const bp=$('bp'),ps=s==='pause';bp.innerHTML=ps?'<svg viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></svg>':'<svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg>';bp.setAttribute('aria-label',ps?'Resume':'Pause')}
 function start(){initAudio(1);prevBest=hi;E.reset(true);parts=[];hideOv();showHint();musicStart()}
 function pause(){if(E.state==='play'){E.togglePause();showOv('pause');if(ac)ac.suspend()}else if(E.state==='pause'){E.togglePause();hideOv();if(ac)ac.resume()}}
 ov.addEventListener('click',e=>{const a=e.target.closest('[data-a]');if(!a)return;a.dataset.a==='resume'?pause():start()});
