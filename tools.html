@@ -179,6 +179,11 @@ dialog::backdrop{background:rgba(8,12,24,.55);-webkit-backdrop-filter:blur(2px);
 <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></symbol>
 <symbol id="i-cards" viewBox="0 0 24 24"><path d="m12 2 10 5-10 5L2 7z"/><path d="m2 17 10 5 10-5"/><path d="m2 12 10 5 10-5"/></symbol>
 <symbol id="i-qr" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h3M20 17v4"/></symbol>
+<symbol id="i-more" viewBox="0 0 24 24"><circle cx="5" cy="12" r="1.6"/><circle cx="12" cy="12" r="1.6"/><circle cx="19" cy="12" r="1.6"/></symbol>
+<symbol id="i-id" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"/><circle cx="8.5" cy="11" r="2"/><path d="M5.5 16c.5-1.6 1.7-2.4 3-2.4s2.5.8 3 2.4M14 10h5M14 13.5h3"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></symbol>
+<symbol id="i-game" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="11" rx="5"/><path d="M7 10.5v4M5 12.5h4M15.5 11.5h.01M18 13.5h.01"/></symbol>
+<symbol id="i-ext" viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></symbol>
 <symbol id="i-up" viewBox="0 0 24 24"><path d="m18 15-6-6-6 6"/></symbol>
 <symbol id="i-down" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></symbol>
 <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12"/></symbol>
@@ -202,6 +207,7 @@ dialog::backdrop{background:rgba(8,12,24,.55);-webkit-backdrop-filter:blur(2px);
   <button role="tab" id="t-pesan" aria-controls="pesan" data-tab="pesan"><svg class="i"><use href="#i-chat"/></svg><span data-i18n="tab_pesan">Pesan</span></button>
   <button role="tab" id="t-latihan" aria-controls="latihan" data-tab="latihan"><svg class="i"><use href="#i-cards"/></svg><span data-i18n="tab_latihan">Latihan</span></button>
   <button role="tab" id="t-qr" aria-controls="qr" data-tab="qr"><svg class="i"><use href="#i-qr"/></svg><span data-i18n="tab_qr">QR</span></button>
+  <button role="tab" id="t-lain" aria-controls="lain" data-tab="lain"><svg class="i"><use href="#i-more"/></svg><span data-i18n="tab_lain">Lainnya</span></button>
  </div>
  <div class="ctl">
   <button type="button" class="icon" id="info" aria-haspopup="dialog" aria-label="Info developer" data-i18n-aria="info_aria"><svg class="i"><use href="#i-help"/></svg></button>
@@ -294,6 +300,16 @@ dialog::backdrop{background:rgba(8,12,24,.55);-webkit-backdrop-filter:blur(2px);
  </div>
 </section>
 
+<!-- LAINNYA -->
+<section id="lain" role="tabpanel" aria-labelledby="t-lain" hidden>
+ <div class="head"><h2 data-i18n="o_h">Lainnya</h2><p data-i18n="o_p">Tautan ke halaman dan alat lain di situs xatmojo.</p></div>
+ <ul class="list" style="max-width:560px">
+  <li><a class="dev-row" href="https://xatmojo.github.io/ktp" target="_blank" rel="noopener"><span class="thumb"><svg class="i"><use href="#i-id"/></svg></span><span class="meta"><b data-i18n="l_ktp">KTP</b><small>https://xatmojo.github.io/ktp</small></span><svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+  <li><a class="dev-row" href="https://xatmojo.github.io/contact" target="_blank" rel="noopener"><span class="thumb"><svg class="i"><use href="#i-phone"/></svg></span><span class="meta"><b data-i18n="l_contact">Contact</b><small>https://xatmojo.github.io/contact</small></span><svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+  <li><a class="dev-row" href="https://xatmojo.github.io/games" target="_blank" rel="noopener"><span class="thumb"><svg class="i"><use href="#i-game"/></svg></span><span class="meta"><b data-i18n="l_games">Games</b><small>https://xatmojo.github.io/games</small></span><svg class="i" aria-hidden="true"><use href="#i-ext"/></svg></a></li>
+ </ul>
+</section>
+
 </main>
 <footer data-i18n="footer">Semua proses berjalan di browser Anda. Data tersimpan di perangkat ini saja.</footer>
 <div id="toasts" role="status" aria-live="polite"></div>
@@ -346,6 +362,7 @@ l_add:'Tambah kartu sendiri',l_q:'Pertanyaan',l_addbtn:'Tambah kartu',l_delbtn:'
 q_h:'QR Code',q_p:'QR untuk tautan portfolio, nomor WhatsApp, atau teks lain. Cetak di CV atau tempel di kartu nama.',q_mode_aria:'Jenis isi',q_link:'Tautan',q_text:'Teks',
 q_linklabel:'Alamat tautan',q_walabel:'Nomor WhatsApp',q_wam:'Pesan pembuka',q_wam_ph:'Halo, saya ingin bertanya...',q_size:'Ukuran',q_s_m:'Sedang',q_s_l:'Besar',q_s_s:'Kecil',
 q_empty:'Isi data di samping untuk membuat QR.',q_dl:'Unduh PNG',q_copy:'Salin isi',q_copied:'Isi QR tersalin',
+tab_lain:'Lainnya',o_h:'Lainnya',o_p:'Tautan ke halaman dan alat lain di situs xatmojo.',l_ktp:'KTP',l_contact:'Contact',l_games:'Games',
 footer:'Semua proses berjalan di browser Anda. Data tersimpan di perangkat ini saja.'},
 en:{skip:'Skip to content',brand:'Extra Tools',tab_foto:'Photo & PDF',tab_pesan:'Message',tab_latihan:'Practice',tab_qr:'QR',tabs_aria:'Choose a tool',theme_aria:'Switch light or dark theme',lang_aria:'Switch language to Bahasa Indonesia',info_aria:'Developer info',close:'Close',
 dev_title:'Developer Info',dev_sub:'Built by xatmojo. Get in touch for feedback, bug reports, or collaboration.',dev_web:'Website',
@@ -370,6 +387,7 @@ l_add:'Add your own card',l_q:'Question',l_addbtn:'Add card',l_delbtn:'Delete th
 q_h:'QR Code',q_p:'QR codes for your portfolio link, WhatsApp number, or any other text. Print it on your CV or put it on a business card.',q_mode_aria:'Content type',q_link:'Link',q_text:'Text',
 q_linklabel:'Link address',q_walabel:'WhatsApp number',q_wam:'Opening message',q_wam_ph:'Hello, I would like to ask...',q_size:'Size',q_s_m:'Medium',q_s_l:'Large',q_s_s:'Small',
 q_empty:'Fill in the form to generate a QR code.',q_dl:'Download PNG',q_copy:'Copy content',q_copied:'QR content copied',
+tab_lain:'More',o_h:'More',o_p:'Links to other pages and tools on the xatmojo site.',l_ktp:'ID Card (KTP)',l_contact:'Contact',l_games:'Games',
 footer:'Everything runs in your browser. Data is stored on this device only.'}};
 let lang=store.get('lang','id');if(!I18N[lang])lang='id';
 const t=(k,...a)=>{const v=I18N[lang][k]??I18N.id[k]??k;return typeof v==='function'?v(...a):v};
