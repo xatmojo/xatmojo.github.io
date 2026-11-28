@@ -11,7 +11,7 @@
 :root{--bg:#05070f;--g:#39ff88;--c:#22e4ff;--r:#ff3d6e;--txt:#e8f1ff;--mut:#7f8fae;--glass:rgba(255,255,255,.06);--bd:rgba(255,255,255,.12)}
 *{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
 html{height:100%;overflow:hidden;overscroll-behavior:none;touch-action:none;background:var(--bg)}
-body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;color:var(--txt);font-family:'Space Grotesk',Inter,system-ui,sans-serif;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+body{position:fixed;left:0;top:0;width:var(--vw,100%);height:var(--vh,100dvh);display:flex;flex-direction:column;overflow:hidden;color:var(--txt);font-family:'Space Grotesk',Inter,system-ui,sans-serif;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
 .bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 80% at 50% 0,#0b1430,#05070f 65%)}
 .bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.2;animation:drift 20s ease-in-out infinite alternate}
 .bg i:nth-child(1){background:var(--g);left:-22vmax;top:-14vmax}
@@ -52,10 +52,10 @@ canvas{display:block}
 #cn{font-size:clamp(72px,26vmin,150px);font-weight:700;line-height:1;background:linear-gradient(180deg,#fff,var(--g));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(57,255,136,.55));animation:cd .6s ease-out both}
 @keyframes cd{0%{opacity:0;transform:scale(1.7)}35%{opacity:1}100%{opacity:.9;transform:scale(1)}}
 .ov.soft h2{animation:cd .35s ease-out both}
-@media(max-width:560px){.stats{order:3;width:100%}.stat{flex:1;min-width:0}}
-@media(max-width:400px){h1{font-size:18px}.acts{gap:6px}.ib{width:36px;height:36px}}
-@media(max-width:340px){h1{font-size:15px}.acts{gap:4px}.ib{width:32px;height:32px}}
-@media(max-height:480px){header{padding-top:6px}h1{font-size:17px}.stat{padding:3px 10px}.stat span{font-size:16px}.ib{width:34px;height:34px}main{padding:4px 14px 8px}}
+html.w560 .stats{order:3;width:100%}html.w560 .stat{flex:1;min-width:0}
+html.w400 h1{font-size:18px}html.w400 .acts{gap:6px}html.w400 .ib{width:36px;height:36px}
+html.w340 h1{font-size:15px}html.w340 .acts{gap:4px}html.w340 .ib{width:32px;height:32px}
+html.h480 header{padding-top:6px}html.h480 h1{font-size:17px}html.h480 .stat{padding:3px 10px}html.h480 .stat span{font-size:16px}html.h480 .ib{width:34px;height:34px}html.h480 main{padding:4px 14px 8px}
 @media(prefers-reduced-motion:reduce){.bg i{animation:none}}
 </style>
 </head>
@@ -301,7 +301,18 @@ function toggleFs(){try{if(fsEl())(document.exitFullscreen||document.webkitExitF
   else{const r=fsReq.call(de);if(r&&r.catch)r.catch(()=>{})}}catch(e){}}
 if(!fsReq)$('#bFs').style.display='none';
 press('#bFs',toggleFs);setFsIcon();
-['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,()=>{setFsIcon();setTimeout(resize,120)}));
+['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,()=>{setFsIcon();setTimeout(fit,120)}));
+
+/* Mode "desktop site" di browser HP: layout lebih lebar dari layar. Samakan ukuran halaman dengan area yang terlihat. */
+function fit(){
+  const v=window.visualViewport,r=document.documentElement.style;
+  if(v&&(Math.abs(v.scale-1)>.02||Math.abs(v.width-innerWidth)>2||Math.abs(v.height-innerHeight)>80)){
+    r.setProperty('--vw',v.width+'px');r.setProperty('--vh',v.height+'px');
+  }else{r.removeProperty('--vw');r.removeProperty('--vh')}
+  const w=v&&r.getPropertyValue('--vw')?v.width:innerWidth,h=v&&r.getPropertyValue('--vh')?v.height:innerHeight,cl=document.documentElement.classList;
+  cl.toggle('w560',w<=560);cl.toggle('w400',w<=400);cl.toggle('w340',w<=340);cl.toggle('h480',h<=480);
+  resize();
+}
 
 /* ---------- Input ---------- */
 const KM={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'};
@@ -325,7 +336,8 @@ addEventListener('touchmove',e=>{
 addEventListener('contextmenu',e=>e.preventDefault());
 document.addEventListener('visibilitychange',()=>{if(document.hidden&&(G.state==='playing'||G.state==='countdown'))pauseNow()});
 addEventListener('blur',()=>{if(G.state==='playing'||G.state==='countdown')pauseNow()});
-addEventListener('resize',resize);addEventListener('orientationchange',()=>setTimeout(resize,150));
+addEventListener('resize',fit);addEventListener('orientationchange',()=>setTimeout(fit,150));
+if(window.visualViewport)visualViewport.addEventListener('resize',fit);
 if(window.ResizeObserver)new ResizeObserver(resize).observe($('main'));
 
 /* ---------- Loop ---------- */
@@ -345,7 +357,7 @@ function frame(now){
   if(G.shown<G.score){G.shown=Math.min(G.score,G.shown+Math.max(1,Math.ceil((G.score-G.shown)*.2)));sc.textContent=G.shown;bump($('#stScore'))}
   draw(now);
 }
-setMuteIcon();setMusicIcon();setPauseIcon();resize();reset();requestAnimationFrame(frame);
+setMuteIcon();setMusicIcon();setPauseIcon();fit();reset();requestAnimationFrame(frame);
 })();
 </script>
 </body>
