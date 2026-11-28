@@ -1,524 +1,351 @@
 <!DOCTYPE html>
-<html lang="id" data-theme="neon">
+<html lang="id">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0a0f1e">
-<title>Main Snake Game Online Gratis – SNAKE.IO</title>
-<meta name="description" content="Main game Snake klasik online gratis di HP dan laptop. 4 tingkat kesulitan, 3 tema, skor tertinggi tersimpan otomatis. Tanpa instal, langsung main.">
-<meta name="keywords" content="snake game, game snake online, main snake gratis, game ular, game ular klasik, game browser, game HTML5, snake io">
-<meta name="author" content="xatmojo">
-<meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
-<meta name="color-scheme" content="dark">
-<link rel="canonical" href="https://xatmojo.github.io/games/snake">
-<link rel="alternate" hreflang="id" href="https://xatmojo.github.io/games/snake">
-<link rel="alternate" hreflang="x-default" href="https://xatmojo.github.io/games/snake">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%230a0f1e'/%3E%3Crect x='10' y='34' width='14' height='14' rx='4' fill='%2339ff88'/%3E%3Crect x='24' y='34' width='14' height='14' rx='4' fill='%2339ff88'/%3E%3Crect x='24' y='20' width='14' height='14' rx='4' fill='%2339ff88'/%3E%3Crect x='38' y='20' width='14' height='14' rx='4' fill='%2322d3ee'/%3E%3C/svg%3E">
-<meta name="application-name" content="SNAKE.IO">
-<meta name="apple-mobile-web-app-title" content="SNAKE.IO">
-<meta name="mobile-web-app-capable" content="yes">
-
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SNAKE.IO">
-<meta property="og:locale" content="id_ID">
-<meta property="og:title" content="Main Snake Game Online Gratis – SNAKE.IO">
-<meta property="og:description" content="Game Snake klasik gratis langsung di browser. Makan, tumbuh, bertahan, dan pecahkan skor tertinggimu. Tanpa instal.">
-<meta property="og:url" content="https://xatmojo.github.io/games/snake">
-<meta property="og:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/games/snake.png">
-<meta property="og:image:secure_url" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/games/snake.png">
-<meta property="og:image:type" content="image/png">
-<meta property="og:image:width" content="1200">
-<meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SNAKE.IO – ular hijau neon mengejar apel di papan permainan gelap">
-
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Main Snake Game Online Gratis – SNAKE.IO">
-<meta name="twitter:description" content="Game Snake klasik gratis langsung di browser. Makan, tumbuh, bertahan, dan pecahkan skor tertinggimu. Tanpa instal.">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/games/snake.png">
-<meta name="twitter:image:alt" content="SNAKE.IO – ular hijau neon mengejar apel di papan permainan gelap">
-
-<script type="application/ld+json">
-{
- "@context":"https://schema.org",
- "@graph":[
-  {
-   "@type":"VideoGame",
-   "@id":"https://xatmojo.github.io/games/snake#game",
-   "name":"SNAKE.IO",
-   "alternateName":"Snake Game Online",
-   "url":"https://xatmojo.github.io/games/snake",
-   "description":"Main game Snake klasik online gratis di HP dan laptop. 4 tingkat kesulitan, 3 tema, skor tertinggi tersimpan otomatis. Tanpa instal, langsung main.",
-   "image":"https://raw.githubusercontent.com/xatmojo/xatmojo.github.io/refs/heads/main/img/games/snake.png",
-   "genre":["Arcade","Puzzle"],
-   "applicationCategory":"GameApplication",
-   "gamePlatform":["Web browser","Android","iOS","Windows","macOS","Linux"],
-   "operatingSystem":"Any",
-   "playMode":"SinglePlayer",
-   "inLanguage":"id",
-   "isAccessibleForFree":true,
-   "offers":{"@type":"Offer","price":"0","priceCurrency":"IDR","availability":"https://schema.org/InStock"},
-   "author":{"@type":"Person","name":"xatmojo","url":"https://xatmojo.github.io/"}
-  },
-  {
-   "@type":"BreadcrumbList",
-   "itemListElement":[
-    {"@type":"ListItem","position":1,"name":"Beranda","item":"https://xatmojo.github.io/"},
-    {"@type":"ListItem","position":2,"name":"Snake Game","item":"https://xatmojo.github.io/games/snake"}
-   ]
-  },
-  {
-   "@type":"FAQPage",
-   "mainEntity":[
-    {"@type":"Question","name":"Bagaimana cara bermain Snake?","acceptedAnswer":{"@type":"Answer","text":"Gerakkan ular dengan tombol panah di keyboard atau geser layar di HP. Makan makanan agar ular tumbuh panjang dan skor naik, tetapi jangan menabrak dinding atau tubuhmu sendiri."}},
-    {"@type":"Question","name":"Apakah game Snake ini gratis?","acceptedAnswer":{"@type":"Answer","text":"Ya, gratis sepenuhnya. Tidak perlu instal atau daftar, cukup buka halaman ini di browser."}},
-    {"@type":"Question","name":"Bisa dimainkan di HP?","acceptedAnswer":{"@type":"Answer","text":"Bisa. Di layar sentuh kamu dapat menggeser layar atau memakai tombol arah di bawah papan permainan."}},
-    {"@type":"Question","name":"Apakah skor tertinggi tersimpan?","acceptedAnswer":{"@type":"Answer","text":"Ya, skor tertinggi dan pengaturanmu disimpan otomatis di browser perangkat yang sama."}}
-   ]
-  }
- ]
-}
-</script>
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#05070f">
+<title>Neon Snake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
-:root{--bg:#0a0f1e;--panel:#121a2f;--line:#26324f;--tx:#f1f5f9;--mut:#9aa8c2;--p:#39ff88;--s:#22d3ee;--a:#a855f7;--r:14px}
-[data-theme=ocean]{--p:#22d3ee;--s:#60a5fa;--a:#f472b6}
-[data-theme=violet]{--p:#c084fc;--s:#f0abfc;--a:#facc15}
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-html,body{margin:0}
-body{min-height:100dvh;display:flex;flex-direction:column;background:var(--bg);color:var(--tx);font:15px/1.4 "Segoe UI",system-ui,-apple-system,Roboto,sans-serif;overflow-x:hidden;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
-body::before{content:"";position:fixed;inset:-20%;z-index:-1;background:radial-gradient(40% 40% at 20% 25%,color-mix(in srgb,var(--a) 22%,transparent),transparent),radial-gradient(40% 40% at 80% 75%,color-mix(in srgb,var(--s) 18%,transparent),transparent);animation:drift 22s ease-in-out infinite alternate}
-@keyframes drift{to{transform:translate(4%,-3%) scale(1.1)}}
-button,select,input{font:inherit;color:inherit}
-button{cursor:pointer;border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:10px 14px;transition:transform .12s,border-color .2s,background .2s,box-shadow .2s}
-button:hover{border-color:var(--s)}button:active{transform:scale(.95)}
-button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid var(--s);outline-offset:2px}
-button:disabled{opacity:.4;cursor:not-allowed}
-.primary{background:var(--p);color:#04210f;border-color:var(--p);font-weight:700}
-.primary:hover{box-shadow:0 0 18px color-mix(in srgb,var(--p) 60%,transparent)}
-header,footer{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 14px;max-width:1040px;width:100%;margin:0 auto}
-.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;letter-spacing:.06em}
-.logo h1{margin:0;font:inherit;letter-spacing:inherit}
-.logo .info{width:30px;height:30px;padding:0;border:0;border-radius:8px;display:grid;place-items:center;font-size:17px;font-weight:800;line-height:1;color:#04210f;background:linear-gradient(135deg,var(--p),var(--s));box-shadow:0 0 16px color-mix(in srgb,var(--p) 50%,transparent)}
-.logo .info:hover{box-shadow:0 0 22px color-mix(in srgb,var(--p) 80%,transparent)}
-.logo b{color:var(--p)}
-.hr{display:flex;align-items:center;gap:8px}
-.ib{width:40px;height:40px;padding:0;display:grid;place-items:center;font-size:17px}
-.pill{display:flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line);border-radius:99px;background:var(--panel);font-size:13px;color:var(--mut)}
-.pill i{width:8px;height:8px;border-radius:50%;background:var(--s)}
-.pill.playing i{background:var(--p);box-shadow:0 0 8px var(--p)}.pill.paused i{background:#fbbf24}.pill.over i{background:#fb4b6b}
-main{flex:1;display:grid;gap:14px;max-width:1040px;width:100%;margin:0 auto;padding:6px 14px 14px;grid-template-areas:"st""sg""sd";grid-template-columns:minmax(0,1fr);align-content:start}
-.stats{grid-area:st;display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:8px 10px;min-width:0}
-.card small{display:block;color:var(--mut);font-size:11px}.card b{font-size:17px;white-space:nowrap}
-.card.big b{font-size:28px;color:var(--p)}
-.stage{grid-area:sg;display:grid;place-items:center}
-.board{position:relative;max-width:720px;width:min(100%,calc(100dvh - 430px));min-width:250px;aspect-ratio:1;border-radius:var(--r);border:1px solid var(--line);overflow:hidden;box-shadow:0 0 40px color-mix(in srgb,var(--s) 14%,transparent);touch-action:none;background:#0d1426}
-.board.shake{animation:shake .5s}
-@keyframes shake{20%{transform:translate(-6px,3px)}40%{transform:translate(6px,-3px)}60%{transform:translate(-4px,2px)}80%{transform:translate(3px,-1px)}}
-canvas{width:100%;height:100%;display:block}
-.ov{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;text-align:center;padding:16px;background:rgba(7,11,24,.72);backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .3s}
-.ov.show{opacity:1;pointer-events:auto}
-.ov h2{margin:0;font-size:clamp(24px,6vw,36px);letter-spacing:.04em}
-.ov p{margin:0;color:var(--mut);max-width:30ch}.ov .best{color:var(--p);font-weight:700}
-.toast{position:absolute;left:50%;top:12px;transform:translate(-50%,-30px);opacity:0;padding:8px 16px;border-radius:99px;background:linear-gradient(90deg,var(--a),var(--s));font-weight:700;transition:all .3s;pointer-events:none;white-space:nowrap}
-.toast.show{opacity:1;transform:translate(-50%,0)}
-.side{grid-area:sd;display:grid;gap:12px}
-.ctl{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
-.row{display:flex;align-items:center;justify-content:space-between;gap:10px;color:var(--mut);font-size:13px}
-select{background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:7px 8px}
-.dpad{display:none;grid-template-columns:repeat(3,62px);grid-template-rows:repeat(3,56px);gap:6px;justify-content:center}
-.dpad button{padding:0;font-size:22px;touch-action:manipulation}
-.dpad .u{grid-area:1/2}.dpad .l{grid-area:2/1}.dpad .r{grid-area:2/3}.dpad .d{grid-area:3/2}
-@media (pointer:coarse),(max-width:860px){.dpad{display:grid}}
-@media (min-width:861px) and (orientation:landscape),(orientation:landscape) and (max-height:520px){
- main{grid-template-columns:minmax(0,1fr) 270px;grid-template-areas:"sg st" "sg sd";grid-template-rows:auto 1fr}
- .board{width:min(100%,calc(100dvh - 150px))}
- .stats{grid-template-columns:repeat(6,1fr)}.stats .card{grid-column:span 2}.stats .big{grid-column:span 3}
- .side{align-content:start}
- .stage{align-self:start}
-}
-@media (orientation:landscape) and (max-height:520px){footer{display:none}.board{width:min(100%,calc(100dvh - 80px))}.dpad{grid-template-rows:repeat(3,44px)}}
-.sheet.about{display:block;width:min(560px,100%);color:var(--mut);font-size:14px;line-height:1.6}
-.about h2{color:var(--tx);font-size:18px;margin:18px 0 8px}
-.about h2:first-child{margin-top:0}
-.about p{margin:0 0 10px}
-.about ul{margin:0 0 10px;padding-left:20px}
-.about details{border:1px solid var(--line);border-radius:10px;background:var(--bg);padding:10px 14px;margin:0 0 8px}
-.about summary{cursor:pointer;color:var(--tx);font-weight:600}
-.about details p{margin:8px 0 0}
-.about a{color:var(--s)}
-.about .primary{width:100%;margin-top:14px}
-footer{font-size:12px;color:var(--mut);flex-wrap:wrap;justify-content:center;text-align:center}
-kbd{border:1px solid var(--line);border-bottom-width:2px;border-radius:5px;padding:0 5px;font-size:11px}
-.modal{position:fixed;inset:0;z-index:20;display:none;place-items:center;background:rgba(5,8,18,.75);padding:16px}
-.modal.open{display:grid}
-.sheet{width:min(420px,100%);max-height:90dvh;overflow:auto;background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:18px;display:grid;gap:12px;animation:pop .2s}
-@keyframes pop{from{transform:scale(.94);opacity:0}}
-.sheet h2{margin:0}.row label{color:var(--tx)}
-input[type=range]{accent-color:var(--p);width:130px}input[type=checkbox]{width:20px;height:20px;accent-color:var(--p)}
-#boot{position:fixed;inset:0;z-index:50;display:grid;place-items:center;background:var(--bg);transition:opacity .5s}
-#boot.off{opacity:0;pointer-events:none}
-#boot span{width:36px;height:36px;border:3px solid var(--line);border-top-color:var(--p);border-radius:50%;animation:sp .8s linear infinite}
-@keyframes sp{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion:reduce){*,body::before{animation:none!important;transition:none!important}}
+:root{--bg:#05070f;--g:#39ff88;--c:#22e4ff;--r:#ff3d6e;--txt:#e8f1ff;--mut:#7f8fae;--glass:rgba(255,255,255,.06);--bd:rgba(255,255,255,.12)}
+*{box-sizing:border-box;margin:0;-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none}
+html{height:100%;overflow:hidden;overscroll-behavior:none;touch-action:none;background:var(--bg)}
+body{height:100dvh;display:flex;flex-direction:column;overflow:hidden;color:var(--txt);font-family:'Space Grotesk',Inter,system-ui,sans-serif;padding:env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left)}
+.bg{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(120% 80% at 50% 0,#0b1430,#05070f 65%)}
+.bg i{position:absolute;width:55vmax;height:55vmax;border-radius:50%;filter:blur(90px);opacity:.2;animation:drift 20s ease-in-out infinite alternate}
+.bg i:nth-child(1){background:var(--g);left:-22vmax;top:-14vmax}
+.bg i:nth-child(2){background:var(--c);right:-26vmax;bottom:-18vmax;animation-delay:-10s}
+@keyframes drift{to{transform:translate(8vmax,6vmax) scale(1.15)}}
+header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:8px 12px;padding:10px 14px 4px}
+h1{font-size:20px;font-weight:700;letter-spacing:.04em}
+h1 b{margin-left:6px;background:linear-gradient(90deg,var(--g),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 24px rgba(57,255,136,.35)}
+.stats{display:flex;gap:8px}
+.stat{min-width:76px;padding:6px 12px;border-radius:12px;background:var(--glass);border:1px solid var(--bd);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)}
+.stat small{display:block;font-size:11px;color:var(--mut)}
+.stat span{display:block;font-size:20px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1.15}
+.stat.bump span{animation:bump .35s ease-out}
+@keyframes bump{40%{transform:scale(1.3);color:var(--g);text-shadow:0 0 14px var(--g)}}
+.acts{display:flex;gap:8px}
+.ib{width:40px;height:40px;display:grid;place-items:center;border-radius:12px;color:var(--txt);background:var(--glass);border:1px solid var(--bd);cursor:pointer;transition:transform .15s,border-color .2s}
+.ib:hover{border-color:var(--c)}.ib:active{transform:scale(.92)}
+.ib svg,.btn svg{width:20px;height:20px;fill:currentColor;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+main{flex:1;min-height:0;display:grid;place-items:center;padding:8px 14px 14px}
+#board{position:relative;border-radius:16px;overflow:hidden;background:rgba(8,12,24,.7);box-shadow:0 0 0 1px var(--bd),0 0 70px rgba(57,255,136,.12),0 20px 60px rgba(0,0,0,.5)}
+canvas{display:block}
+.ov{position:absolute;inset:0;display:grid;place-content:center;justify-items:center;gap:10px;padding:16px;text-align:center;background:rgba(5,7,15,.58);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);opacity:0;visibility:hidden;transform:scale(1.05);transition:opacity .3s,transform .3s,visibility .3s}
+.ov.on{opacity:1;visibility:visible;transform:none}
+.ov h2{font-size:clamp(26px,8vmin,44px);font-weight:700;letter-spacing:.03em;line-height:1.1}
+.ov h2.grad{background:linear-gradient(90deg,var(--g),var(--c));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ov h2.bad{color:var(--r);text-shadow:0 0 28px rgba(255,61,110,.5)}
+.ov p{color:var(--mut);font-size:14px;max-width:26ch;line-height:1.4}
+.res{display:flex;gap:10px}
+.res div{min-width:88px;padding:8px 14px;border-radius:12px;background:var(--glass);border:1px solid var(--bd)}
+.res small{display:block;font-size:11px;color:var(--mut)}.res b{font-size:24px}
+#nb{color:var(--g);font-weight:700;font-size:14px;text-shadow:0 0 12px var(--g);display:none}
+.btn{margin-top:6px;display:inline-flex;align-items:center;gap:8px;padding:13px 30px;border:0;border-radius:999px;font:700 16px 'Space Grotesk',system-ui,sans-serif;letter-spacing:.06em;color:#03140a;cursor:pointer;background:linear-gradient(90deg,var(--g),var(--c));box-shadow:0 0 28px rgba(57,255,136,.4);transition:transform .15s,box-shadow .2s}
+.btn:hover{transform:translateY(-1px);box-shadow:0 0 40px rgba(34,228,255,.5)}.btn:active{transform:scale(.96)}
+.ov.soft{background:rgba(5,7,15,.38);-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
+.ov.clear{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;pointer-events:none}
+.ov.soft .res div{min-width:72px}
+.kbd{font-size:12px;color:var(--mut)}
+#cn{font-size:clamp(72px,26vmin,150px);font-weight:700;line-height:1;background:linear-gradient(180deg,#fff,var(--g));-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 22px rgba(57,255,136,.55));animation:cd .6s ease-out both}
+@keyframes cd{0%{opacity:0;transform:scale(1.7)}35%{opacity:1}100%{opacity:.9;transform:scale(1)}}
+.ov.soft h2{animation:cd .35s ease-out both}
+@media(max-width:560px){.stats{order:3;width:100%}.stat{flex:1;min-width:0}}
+@media(max-width:400px){h1{font-size:18px}.acts{gap:6px}.ib{width:36px;height:36px}}
+@media(max-width:340px){h1{font-size:15px}.acts{gap:4px}.ib{width:32px;height:32px}}
+@media(max-height:480px){header{padding-top:6px}h1{font-size:17px}.stat{padding:3px 10px}.stat span{font-size:16px}.ib{width:34px;height:34px}main{padding:4px 14px 8px}}
+@media(prefers-reduced-motion:reduce){.bg i{animation:none}}
 </style>
 </head>
 <body>
-<noscript><p style="padding:16px;text-align:center">SNAKE.IO membutuhkan JavaScript untuk dimainkan. Aktifkan JavaScript di browser kamu.</p></noscript>
-<div id="boot" role="status" aria-label="Memuat"><span></span></div>
+<div class="bg"><i></i><i></i></div>
 <header>
- <div class="logo"><button class="info" id="bInfo" type="button" aria-label="Tentang game dan cara bermain" aria-haspopup="dialog" title="Tentang &amp; cara bermain">?</button><h1>SNAKE<b>.IO</b></h1></div>
- <div class="pill" id="pill" role="status"><i></i><span id="pillT">Ready</span></div>
- <div class="hr">
-  <button class="ib" id="bSound" aria-label="Sound on/off" title="Sound">🔊</button>
-  <button class="ib" id="bFull" aria-label="Fullscreen" title="Fullscreen">⛶</button>
-  <button class="ib" id="bSet" aria-label="Pengaturan" title="Pengaturan">⚙</button>
- </div>
+  <h1>NEON<b>SNAKE</b></h1>
+  <div class="stats">
+    <div class="stat" id="stScore"><small>Skor</small><span id="sc">0</span></div>
+    <div class="stat"><small>Terbaik</small><span id="best">0</span></div>
+    <div class="stat"><small>Level</small><span id="lv">1</span></div>
+  </div>
+  <div class="acts">
+    <button class="ib" id="bFs" aria-label="Layar penuh"></button>
+    <button class="ib" id="bMusic" aria-label="Musik"></button>
+    <button class="ib" id="bMute" aria-label="Suara"></button>
+    <button class="ib" id="bPause" aria-label="Jeda"></button>
+  </div>
 </header>
 <main>
- <section class="stats" aria-label="Informasi permainan">
-  <div class="card big"><small>Score</small><b id="vScore">0</b></div>
-  <div class="card big"><small>Best</small><b id="vBest">0</b></div>
-  <div class="card"><small>Food</small><b id="vFood">0</b></div>
-  <div class="card"><small>Level</small><b id="vLvl">1</b></div>
-  <div class="card"><small>Status</small><b id="vStat">Ready</b></div>
- </section>
- <section class="stage">
-  <div class="board" id="board">
-   <canvas id="cv" aria-label="Papan permainan Snake"></canvas>
-   <div class="toast" id="toast" aria-live="polite"></div>
-   <div class="ov show" id="ov"></div>
+  <div id="board">
+    <canvas id="cv"></canvas>
+    <div class="ov on" id="ovStart">
+      <h2 class="grad">NEON SNAKE</h2>
+      <p id="hint"></p>
+      <button class="btn" id="bPlay">PLAY</button>
+    </div>
+    <div class="ov soft" id="ovPause">
+      <h2 class="grad">JEDA</h2>
+      <div class="res"><div><small>Skor</small><b id="ps">0</b></div><div><small>Level</small><b id="pl">1</b></div></div>
+      <button class="btn" id="bResume">LANJUT</button>
+      <span class="kbd" id="pk">Spasi untuk lanjut</span>
+    </div>
+    <div class="ov clear" id="ovCount"><div id="cn">3</div></div>
+    <div class="ov" id="ovOver">
+      <h2 class="bad">GAME OVER</h2>
+      <div class="res"><div><small>Skor</small><b id="fs">0</b></div><div><small>Terbaik</small><b id="fb">0</b></div></div>
+      <div id="nb">Rekor baru!</div>
+      <button class="btn" id="bAgain">PLAY AGAIN</button>
+    </div>
   </div>
- </section>
- <section class="side">
-  <div class="ctl">
-   <button class="primary" id="bStart" data-act="start">Start Game</button>
-   <button id="bPause" data-act="pause" disabled>Pause</button>
-   <button id="bRest" data-act="restart">Restart</button>
-  </div>
-  <div class="row"><label for="selDiff">Kesulitan</label>
-   <select id="selDiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert">Expert</option></select>
-   <span>Speed <b id="vSpd" style="color:var(--s)">0</b></span></div>
-  <div class="dpad" aria-label="Kontrol arah">
-   <button class="u" data-dir="up" aria-label="Atas">▲</button><button class="l" data-dir="left" aria-label="Kiri">◀</button>
-   <button class="r" data-dir="right" aria-label="Kanan">▶</button><button class="d" data-dir="down" aria-label="Bawah">▼</button>
-  </div>
- </section>
 </main>
-<footer><span>© 2026 SNAKE.IO · v1.0.0</span><span><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd> gerak · <kbd>Space</kbd> jeda · <kbd>Enter</kbd> mulai/ulang · geser layar di HP</span></footer>
-
-
-<div class="modal" id="about" role="dialog" aria-modal="true" aria-labelledby="abt">
-<div class="sheet about">
- <h2 id="abt">Main Snake Game Online Gratis</h2>
- <p>SNAKE.IO adalah game Snake klasik yang bisa dimainkan langsung di browser, di HP maupun laptop, tanpa instal dan tanpa daftar. Kendalikan ular, makan sebanyak mungkin, dan jangan sampai menabrak dinding atau tubuhmu sendiri.</p>
- <h2>Fitur</h2>
- <ul>
-  <li>4 tingkat kesulitan: Easy, Normal, Hard, dan Expert</li>
-  <li>Level naik otomatis, kecepatan ular makin tinggi</li>
-  <li>3 tema warna: Neon Green, Ocean Cyan, dan Electric Violet</li>
-  <li>Kontrol keyboard, geser layar, dan tombol arah di layar sentuh</li>
-  <li>Skor tertinggi dan pengaturan tersimpan otomatis di perangkatmu</li>
-  <li>Efek suara, musik latar, mode layar penuh, dan efek partikel yang bisa diatur</li>
- </ul>
- <h2>Cara Bermain</h2>
- <p>Tekan <b>Start Game</b> atau <kbd>Enter</kbd>. Gerakkan ular dengan tombol panah, atau geser layar di HP. Tekan <kbd>Space</kbd> untuk jeda. Setiap makanan menambah skor dan panjang ular.</p>
- <h2>Pertanyaan Umum</h2>
- <details><summary>Bagaimana cara bermain Snake?</summary><p>Gerakkan ular dengan tombol panah di keyboard atau geser layar di HP. Makan makanan agar ular tumbuh panjang dan skor naik, tetapi jangan menabrak dinding atau tubuhmu sendiri.</p></details>
- <details><summary>Apakah game Snake ini gratis?</summary><p>Ya, gratis sepenuhnya. Tidak perlu instal atau daftar, cukup buka halaman ini di browser.</p></details>
- <details><summary>Bisa dimainkan di HP?</summary><p>Bisa. Di layar sentuh kamu dapat menggeser layar atau memakai tombol arah di bawah papan permainan.</p></details>
- <details><summary>Apakah skor tertinggi tersimpan?</summary><p>Ya, skor tertinggi dan pengaturanmu disimpan otomatis di browser perangkat yang sama.</p></details>
- <p><a href="https://xatmojo.github.io/">← Kembali ke beranda xatmojo.github.io</a></p>
- <button class="primary" id="bAboutClose" type="button">Tutup</button>
-</div>
-</div>
-
-<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="mt">
- <div class="sheet">
-  <h2 id="mt">Pengaturan</h2>
-  <div class="row"><label for="cSound">Sound</label><input type="checkbox" id="cSound"></div>
-  <div class="row"><label for="cVol">Volume</label><input type="range" id="cVol" min="0" max="1" step=".05"></div>
-  <div class="row"><label for="cMusic">Musik latar</label><input type="checkbox" id="cMusic"></div>
-  <div class="row"><label for="cTheme">Tema</label><select id="cTheme"><option value="neon">Neon Green</option><option value="ocean">Ocean Cyan</option><option value="violet">Electric Violet</option></select></div>
-  <div class="row"><label for="cSpeed">Kecepatan</label><select id="cSpeed"><option value="1.25">Lambat</option><option value="1">Standar</option><option value="0.8">Cepat</option></select></div>
-  <div class="row"><label for="cDiff">Kesulitan</label><select id="cDiff"><option value="easy">Easy</option><option value="normal">Normal</option><option value="hard">Hard</option><option value="expert">Expert</option></select></div>
-  <div class="row"><label for="cGrid">Grid</label><input type="checkbox" id="cGrid"></div>
-  <div class="row"><label for="cPart">Efek partikel</label><input type="checkbox" id="cPart"></div>
-  <button class="primary" id="bClose">Selesai</button>
- </div>
-</div>
-
 <script>
-(() => {
+(()=>{
 'use strict';
-const $ = s => document.querySelector(s);
-const N = 20;
-const DIFF = {easy:170, normal:130, hard:95, expert:70};
-const DIRS = {up:{x:0,y:-1}, down:{x:0,y:1}, left:{x:-1,y:0}, right:{x:1,y:0}};
-const KEYS = {ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right'};
-const DEF = {sound:true, volume:.6, music:false, theme:'neon', speed:'1', diff:'normal', grid:true, particles:true};
-const cv = $('#cv'), ctx = cv.getContext('2d'), board = $('#board'), ov = $('#ov');
-let cfg = {...DEF}, best = 0, S = {}, C = {}, parts = [], raf = 0, toastT = 0, overT = 0, lastFocus = null;
+const N=20,$=s=>document.querySelector(s);
+const D={up:{x:0,y:-1},down:{x:0,y:1},left:{x:-1,y:0},right:{x:1,y:0}};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v===null?d:v}catch(e){return d}},set(k,v){try{localStorage.setItem(k,v)}catch(e){}}};
 
-/* ---------- storage ---------- */
-function loadSettings() {
-  try { cfg = {...DEF, ...JSON.parse(localStorage.getItem('snakeio.cfg') || '{}')}; best = +localStorage.getItem('snakeio.best') || 0; } catch (e) {}
-}
-function saveSettings() { try { localStorage.setItem('snakeio.cfg', JSON.stringify(cfg)); } catch (e) {} }
-function saveHighScore() { try { localStorage.setItem('snakeio.best', best); } catch (e) {} }
+/* ---------- Audio ---------- */
+const CH=[[220,261.63,329.63],[174.61,220,261.63],[261.63,329.63,392],[196,246.94,293.66]],BS=[110,87.31,130.81,98];
+const Sfx={ctx:null,master:null,mus:null,timer:0,step:0,next:0,
+  muted:store.get('snake_mute','0')==='1',music:store.get('snake_music','1')!=='0',
+  init(){if(!this.ctx){const A=window.AudioContext||window.webkitAudioContext;
+      if(A){const c=this.ctx=new A(),k=c.createDynamicsCompressor();
+        this.master=c.createGain();this.master.gain.value=1.5;this.master.connect(k);k.connect(c.destination);
+        this.mus=c.createGain();this.mus.gain.value=.4;this.mus.connect(this.master)}}
+    if(this.ctx&&this.ctx.state==='suspended')this.ctx.resume()},
+  osc(f,t,d,type,v,bus,f2){const c=this.ctx,o=c.createOscillator(),g=c.createGain();
+    o.type=type;o.frequency.setValueAtTime(f,t);if(f2)o.frequency.exponentialRampToValueAtTime(f2,t+d);
+    g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(v,t+.012);g.gain.exponentialRampToValueAtTime(.0001,t+d);
+    o.connect(g);g.connect(bus);o.start(t);o.stop(t+d+.02)},
+  tone(f,d,type,v,at,f2){if(this.muted||!this.ctx)return;this.osc(f,this.ctx.currentTime+(at||0),d,type||'sine',v||.3,this.master,f2)},
+  eat(){this.tone(520,.1,'triangle',.4);this.tone(780,.14,'triangle',.4,.07);this.tone(1040,.16,'sine',.25,.14)},
+  over(){this.tone(320,.6,'sawtooth',.35,0,50);this.tone(160,.6,'square',.2,0,35)},
+  tick(){this.tone(440,.06,'square',.12)},
+  sched(){const c=this.ctx;if(!c)return;const sd=60/Math.min(150,104+(G.level-1)*4)/2;
+    while(this.next<c.currentTime+.2){const i=this.step%16,q=i&3,t=this.next;
+      this.osc(CH[i>>2][[0,1,2,1][q]]*2,t,sd*1.6,'triangle',.3,this.mus);
+      if(q===0||q===2)this.osc(BS[i>>2],t,sd*1.8,'sine',.55,this.mus);
+      if(q===3)this.osc(CH[i>>2][2]*4,t,sd*.8,'sine',.1,this.mus);
+      this.next+=sd;this.step++}},
+  sync(want){const on=want&&this.music&&!this.muted&&this.ctx;
+    if(on&&!this.timer){this.next=this.ctx.currentTime+.05;this.timer=setInterval(()=>this.sched(),40)}
+    else if(!on&&this.timer){clearInterval(this.timer);this.timer=0}}};
 
-/* ---------- audio ---------- */
-let ac, master, musicI = 0, mStep = 0;
-function ensureAudio() {
-  if (!ac) { try { ac = new (window.AudioContext || window.webkitAudioContext)(); master = ac.createGain(); master.connect(ac.destination); } catch (e) { return; } }
-  if (ac.state === 'suspended') ac.resume();
-  master.gain.value = cfg.volume;
-}
-function tone(f, d, type = 'sine', v = .25, when = 0, to) {
-  if (!ac || !cfg.sound) return;
-  const t = ac.currentTime + when, o = ac.createOscillator(), g = ac.createGain();
-  o.type = type; o.frequency.setValueAtTime(f, t);
-  if (to) o.frequency.exponentialRampToValueAtTime(to, t + d);
-  g.gain.setValueAtTime(v, t); g.gain.exponentialRampToValueAtTime(.001, t + d);
-  o.connect(g); g.connect(master); o.start(t); o.stop(t + d);
-}
-const sfx = {
-  eat: () => tone(520, .12, 'square', .15, 0, 900),
-  level: () => [523, 659, 784, 1047].forEach((f, i) => tone(f, .15, 'triangle', .22, i * .09)),
-  over: () => tone(330, .6, 'sawtooth', .22, 0, 70),
-  click: () => tone(700, .05, 'sine', .12)
-};
-function syncMusic() {
-  clearInterval(musicI); musicI = 0;
-  if (cfg.music && cfg.sound && ac && S.state === 'playing') {
-    const notes = [262, 330, 392, 330, 294, 370, 440, 370];
-    musicI = setInterval(() => tone(notes[mStep++ % 8], .22, 'triangle', .06), 260);
-  }
-}
+/* ---------- State & logic ---------- */
+const G={state:'ready',snake:[],prev:[],dir:D.right,queue:[],food:null,foodAt:0,score:0,eaten:0,level:1,
+  best:parseInt(store.get('snake_best','0'),10)||0,acc:0,t:0,shake:0,flash:0,shown:0,timer:0};
+const interval=()=>Math.max(62,150-(G.level-1)*10);
 
-/* ---------- init & state ---------- */
-function readColors() {
-  const cs = getComputedStyle(document.documentElement);
-  C = {p: cs.getPropertyValue('--p').trim(), s: cs.getPropertyValue('--s').trim(), a: cs.getPropertyValue('--a').trim()};
+function spawnFood(){
+  const used=new Set(G.snake.map(s=>s.y*N+s.x)),free=[];
+  for(let i=0;i<N*N;i++)if(!used.has(i))free.push(i);
+  if(!free.length)return win();
+  const i=free[Math.floor(Math.random()*free.length)];
+  G.food={x:i%N,y:Math.floor(i/N)};G.foodAt=performance.now();
 }
-function initGame() {
-  clearTimeout(overT);
-  const snake = [{x:9,y:10}, {x:8,y:10}, {x:7,y:10}];
-  S = {state:'ready', snake, prev:snake.map(c => ({...c})), dir:DIRS.right, queue:[], food:null, score:0, eaten:0, level:1, acc:0, alpha:1, last:0};
-  parts = []; spawnFood(); updateScore(); setState('ready');
+function reset(){
+  clearTimeout(G.timer);clearTimeout(G.cdT);
+  const m=N>>1;G.snake=[{x:m,y:m},{x:m-1,y:m},{x:m-2,y:m}];G.prev=G.snake.map(s=>({...s}));
+  G.dir=D.right;G.queue=[];G.score=0;G.shown=0;G.eaten=0;G.level=1;G.acc=0;G.t=0;G.shake=0;G.flash=0;
+  fx.p.length=fx.r.length=fx.t.length=0;spawnFood();updUI(true);
 }
-function setState(st) {
-  S.state = st;
-  const name = {ready:'Ready', playing:'Playing', paused:'Paused', over:'Game Over'}[st];
-  $('#vStat').textContent = name; $('#pillT').textContent = name; $('#pill').className = 'pill ' + st;
-  $('#bStart').disabled = st === 'playing' || st === 'paused';
-  $('#bPause').disabled = st !== 'playing' && st !== 'paused';
-  $('#bPause').textContent = st === 'paused' ? 'Resume' : 'Pause';
-  let h = '';
-  if (st === 'ready') h = '<h2>SNAKE.IO</h2><p>Makan, tumbuh, bertahan. Jangan menabrak dinding atau tubuhmu sendiri.</p><button class="primary" data-act="start">Start Game</button><p>Tekan Enter atau geser layar</p>';
-  if (st === 'paused') h = '<h2>Paused</h2><p>Permainan dijeda.</p><button class="primary" data-act="pause">Resume</button>';
-  if (st === 'over') h = `<h2>Game Over</h2><p>Score <b>${S.score}</b> · Level ${S.level}</p>${S.newBest ? '<p class="best">🏆 Best score baru!</p>' : `<p>Best: ${best}</p>`}<button class="primary" data-act="restart">Play Again</button>`;
-  ov.innerHTML = h; ov.classList.toggle('show', st !== 'playing');
-  const b = ov.querySelector('button'); if (b && st !== 'ready') b.focus({preventScroll:true});
-  updateSpeed(); syncMusic();
+function start(){Sfx.init();Sfx.tick();reset();G.state='playing';show(null);setPauseIcon()}
+function pauseNow(){
+  clearTimeout(G.cdT);G.state='paused';
+  $('#ps').textContent=G.score;$('#pl').textContent=G.level;show('ovPause');setPauseIcon();
 }
-function tickMs() { return Math.max(45, (DIFF[cfg.diff] - (S.level - 1) * 7) * +cfg.speed); }
-function updateSpeed() { $('#vSpd').textContent = (1000 / tickMs()).toFixed(1) + '/s'; }
-function startGame() {
-  ensureAudio(); sfx.click();
-  if (S.state === 'over') initGame();
-  if (S.state !== 'ready') return;
-  setState('playing'); S.last = 0; toast('Go!');
+function countdown(n){
+  G.state='countdown';show('ovCount');setPauseIcon();
+  const el=$('#cn');el.textContent=n;el.style.animation='none';void el.offsetWidth;el.style.animation='';
+  Sfx.tone(n>1?520:780,.12,'triangle',.3);
+  G.cdT=setTimeout(()=>{if(n>1)countdown(n-1);else{G.state='playing';show(null);setPauseIcon()}},600);
 }
-function pauseGame() { if (S.state === 'playing') { setState('paused'); } }
-function resumeGame() { if (S.state === 'paused') { ensureAudio(); setState('playing'); S.last = 0; toast('Lanjut!'); } }
-function restartGame() { ensureAudio(); sfx.click(); initGame(); setState('playing'); toast('Go!'); }
-
-/* ---------- gameplay ---------- */
-function spawnFood() {
-  const used = new Set(S.snake.map(c => c.x + ',' + c.y)), free = [];
-  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) if (!used.has(x + ',' + y)) free.push({x, y});
-  S.food = free.length ? free[Math.floor(Math.random() * free.length)] : null;
+function togglePause(){
+  if(G.state==='playing'||G.state==='countdown')pauseNow();
+  else if(G.state==='paused'){Sfx.init();countdown(3)}
 }
-function updateGame() {
-  if (S.queue.length) S.dir = S.queue.shift();
-  moveSnake();
+function turn(d){
+  if(G.state!=='playing'&&G.state!=='countdown')return;
+  const last=G.queue.length?G.queue[G.queue.length-1]:G.dir;
+  if(d===last||(d.x+last.x===0&&d.y+last.y===0))return;
+  if(G.queue.length<2)G.queue.push(d);
 }
-function checkCollision(h, growing) {
-  if (h.x < 0 || h.y < 0 || h.x >= N || h.y >= N) return true;
-  const body = growing ? S.snake : S.snake.slice(0, -1);
-  return body.some(c => c.x === h.x && c.y === h.y);
+function step(){
+  if(G.queue.length)G.dir=G.queue.shift();
+  G.prev=G.snake.map(s=>({x:s.x,y:s.y}));
+  const h={x:G.snake[0].x+G.dir.x,y:G.snake[0].y+G.dir.y};
+  const eat=h.x===G.food.x&&h.y===G.food.y;
+  const body=eat?G.snake:G.snake.slice(0,-1);
+  if(h.x<0||h.y<0||h.x>=N||h.y>=N||body.some(s=>s.x===h.x&&s.y===h.y))return die();
+  G.snake.unshift(h);
+  if(!eat){G.snake.pop();return}
+  G.score+=10;G.eaten++;G.level=1+Math.floor(G.eaten/4);
+  burst(G.food);Sfx.eat();spawnFood();updUI();
 }
-function moveSnake() {
-  const h = {x:S.snake[0].x + S.dir.x, y:S.snake[0].y + S.dir.y};
-  const ate = S.food && h.x === S.food.x && h.y === S.food.y;
-  if (checkCollision(h, ate)) return gameOver();
-  S.prev = S.snake.map(c => ({...c}));
-  S.snake.unshift(h);
-  if (!ate) { S.snake.pop(); return; }
-  S.eaten++; S.score += 10; updateScore();
-  const cs = 1 / N;
-  burst(h.x + .5, h.y + .5, C.a, 14); popup(h.x + .5, h.y, '+10');
-  sfx.eat();
-  const lv = Math.floor(S.eaten / 5) + 1;
-  if (lv > S.level) { S.level = lv; toast('Level ' + lv + '!'); sfx.level(); updateScore(); }
-  spawnFood(); updateSpeed();
-  if (!S.food) gameOver();
-}
-function gameOver() {
-  S.alpha = 1; S.newBest = S.score > best && S.score > 0;
-  if (S.newBest) { best = S.score; saveHighScore(); }
-  updateScore(); sfx.over();
-  const hd = S.snake[0]; burst(hd.x + .5, hd.y + .5, '#fb4b6b', 30);
-  board.classList.remove('shake'); void board.offsetWidth; board.classList.add('shake');
-  S.state = 'over'; $('#bPause').disabled = true; syncMusic();
-  overT = setTimeout(() => setState('over'), 650);
-}
-function updateScore() {
-  $('#vScore').textContent = S.score; $('#vBest').textContent = best;
-  $('#vFood').textContent = S.eaten; $('#vLvl').textContent = S.level;
+function win(){die()}
+function die(){
+  G.state='dying';G.shake=1;G.flash=1;G.t=0;Sfx.over();
+  const nb=G.score>G.best;if(nb){G.best=G.score;store.set('snake_best',G.best)}
+  G.timer=setTimeout(()=>{G.state='over';$('#fs').textContent=G.score;$('#fb').textContent=G.best;
+    $('#nb').style.display=nb?'block':'none';updUI(true);show('ovOver')},750);
 }
 
-/* ---------- input ---------- */
-function handleInput(name) {
-  if (S.state !== 'playing') return;
-  const d = DIRS[name], last = S.queue.length ? S.queue[S.queue.length - 1] : S.dir;
-  if ((d.x === -last.x && d.y === -last.y) || (d.x === last.x && d.y === last.y)) return;
-  if (S.queue.length < 2) S.queue.push(d);
+/* ---------- Effects ---------- */
+const fx={p:[],r:[],t:[]};
+function burst(c){
+  const x=(c.x+.5)*cell,y=(c.y+.5)*cell;
+  for(let i=0;i<18;i++){const a=Math.random()*6.283,s=cell*(2+Math.random()*4);
+    fx.p.push({x,y,vx:Math.cos(a)*s,vy:Math.sin(a)*s,l:.55,m:.55,c:i%3?'#ff3d6e':'#39ff88',r:cell*(.07+Math.random()*.08)})}
+  fx.r.push({x,y,l:.45,m:.45});fx.t.push({x,y,l:.8,m:.8});
 }
-function action(a) {
-  if (a === 'start') startGame();
-  else if (a === 'restart') restartGame();
-  else if (a === 'pause') S.state === 'paused' ? resumeGame() : pauseGame();
+
+/* ---------- Rendering ---------- */
+const cv=$('#cv'),ctx=cv.getContext('2d'),board=$('#board');
+let cell=20,S=400,dpr=1,grid=null;
+function resize(){
+  const st=$('main'),cs=getComputedStyle(st);
+  const w=st.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight);
+  const h=st.clientHeight-parseFloat(cs.paddingTop)-parseFloat(cs.paddingBottom);
+  cell=Math.max(8,Math.floor(Math.min(w,h)/N));S=cell*N;dpr=Math.min(window.devicePixelRatio||1,2.5);
+  board.style.width=board.style.height=S+'px';
+  cv.style.width=cv.style.height=S+'px';
+  cv.width=cv.height=Math.round(S*dpr);
+  grid=document.createElement('canvas');grid.width=grid.height=cv.width;
+  const g=grid.getContext('2d');g.scale(dpr,dpr);
+  for(let y=0;y<N;y++)for(let x=0;x<N;x++){g.fillStyle=(x+y)&1?'rgba(255,255,255,.018)':'rgba(255,255,255,0)';g.fillRect(x*cell,y*cell,cell,cell)}
+  g.strokeStyle='rgba(120,200,255,.07)';g.lineWidth=1;g.beginPath();
+  for(let i=1;i<N;i++){g.moveTo(i*cell+.5,0);g.lineTo(i*cell+.5,S);g.moveTo(0,i*cell+.5);g.lineTo(S,i*cell+.5)}
+  g.stroke();
+  const v=g.createRadialGradient(S/2,S/2,S*.3,S/2,S/2,S*.75);v.addColorStop(0,'rgba(0,0,0,0)');v.addColorStop(1,'rgba(0,0,0,.45)');
+  g.fillStyle=v;g.fillRect(0,0,S,S);
 }
-const modalOpen = () => !!document.querySelector('.modal.open');
-document.addEventListener('keydown', e => {
-  if (modalOpen()) { if (e.key === 'Escape') closeSettings(); return; }
-  if (KEYS[e.key]) { e.preventDefault(); handleInput(KEYS[e.key]); }
-  else if (e.code === 'Space') { e.preventDefault(); if (!e.repeat) action('pause'); }
-  else if (e.key === 'Enter') { e.preventDefault(); if (!e.repeat) action(S.state === 'ready' ? 'start' : 'restart'); }
+function drawFood(now){
+  const f=G.food;if(!f)return;
+  const p=.5+.5*Math.sin(now/260),born=Math.max(0,Math.min(1,(now-G.foodAt)/220)),sc=born<1?1-Math.pow(1-born,3):1;
+  const x=(f.x+.5)*cell,y=(f.y+.5)*cell,r=Math.max(.5,cell*(.27+.05*p)*sc);
+  ctx.save();ctx.shadowColor='#ff3d6e';ctx.shadowBlur=cell*(.7+.6*p);
+  const g=ctx.createRadialGradient(x-r*.3,y-r*.3,r*.1,x,y,r);g.addColorStop(0,'#ffd1dd');g.addColorStop(1,'#ff3d6e');
+  ctx.fillStyle=g;ctx.beginPath();ctx.arc(x,y,r,0,6.283);ctx.fill();
+  ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,61,110,'+(.35-.25*p)+')';ctx.lineWidth=1.5;
+  ctx.beginPath();ctx.arc(x,y,cell*(.38+.1*p)*sc,0,6.283);ctx.stroke();ctx.restore();
+}
+function drawSnake(){
+  const t=Math.min(1,G.t),n=G.snake.length,dead=G.state==='dying'||G.state==='over';
+  const pts=G.snake.map((s,i)=>{const p=G.prev[Math.min(i,G.prev.length-1)];
+    return{x:(p.x+(s.x-p.x)*t+.5)*cell,y:(p.y+(s.y-p.y)*t+.5)*cell}});
+  const a=pts[0],b=pts[n-1];
+  const gr=ctx.createLinearGradient(a.x,a.y,b.x+.01,b.y);
+  gr.addColorStop(0,dead?'#ff7a99':'#7dffb0');gr.addColorStop(1,dead?'#7a2038':'#0fb86a');
+  ctx.save();ctx.lineCap=ctx.lineJoin='round';
+  ctx.shadowColor=dead?'#ff3d6e':'#39ff88';ctx.shadowBlur=cell*.8;
+  ctx.strokeStyle=gr;ctx.lineWidth=cell*.7;ctx.beginPath();
+  pts.forEach((q,i)=>i?ctx.lineTo(q.x,q.y):ctx.moveTo(q.x,q.y));
+  if(n===1)ctx.lineTo(a.x+.01,a.y);ctx.stroke();
+  ctx.shadowBlur=0;ctx.strokeStyle='rgba(255,255,255,.16)';ctx.lineWidth=cell*.24;ctx.stroke();
+  // head
+  ctx.shadowColor=dead?'#ff3d6e':'#39ff88';ctx.shadowBlur=cell*.9;
+  ctx.fillStyle=dead?'#ffb3c4':'#c9ffe0';ctx.beginPath();ctx.arc(a.x,a.y,cell*.44,0,6.283);ctx.fill();
+  ctx.shadowBlur=0;
+  const d=G.dir,px=-d.y,py=d.x;
+  ctx.fillStyle='#04130b';
+  for(const s of[-1,1]){ctx.beginPath();ctx.arc(a.x+d.x*cell*.13+px*s*cell*.18,a.y+d.y*cell*.13+py*s*cell*.18,cell*.085,0,6.283);ctx.fill()}
+  ctx.restore();
+}
+function drawFx(){
+  for(const p of fx.p){ctx.globalAlpha=Math.max(0,p.l/p.m);ctx.fillStyle=p.c;ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,6.283);ctx.fill()}
+  for(const r of fx.r){const k=1-r.l/r.m;ctx.globalAlpha=1-k;ctx.strokeStyle='#ff3d6e';ctx.lineWidth=2;ctx.beginPath();ctx.arc(r.x,r.y,cell*(.3+k*1.3),0,6.283);ctx.stroke()}
+  ctx.textAlign='center';ctx.font='700 '+Math.round(cell*.7)+'px "Space Grotesk",system-ui,sans-serif';
+  for(const t of fx.t){const k=1-t.l/t.m;ctx.globalAlpha=1-k*k;ctx.fillStyle='#39ff88';ctx.fillText('+10',t.x,t.y-cell*.5-k*cell*1.2)}
+  ctx.globalAlpha=1;
+}
+function draw(now){
+  ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,S,S);ctx.drawImage(grid,0,0,S,S);
+  ctx.save();
+  if(G.shake>0)ctx.translate((Math.random()-.5)*G.shake*cell*.7,(Math.random()-.5)*G.shake*cell*.7);
+  drawFood(now);drawSnake();drawFx();ctx.restore();
+  if(G.flash>0){ctx.fillStyle='rgba(255,61,110,'+G.flash*.28+')';ctx.fillRect(0,0,S,S)}
+}
+
+/* ---------- UI ---------- */
+const IC={on:'<svg viewBox="0 0 24 24"><path stroke="none" d="M4 9v6h4l5 4V5L8 9H4z"/><path fill="none" d="M16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/></svg>',
+  off:'<svg viewBox="0 0 24 24"><path stroke="none" d="M4 9v6h4l5 4V5L8 9H4z"/><path fill="none" d="M17 9.5l5 5M22 9.5l-5 5"/></svg>',
+  pause:'<svg viewBox="0 0 24 24"><path stroke="none" d="M7 5h3.5v14H7zM13.5 5H17v14h-3.5z"/></svg>',
+  play:'<svg viewBox="0 0 24 24"><path stroke="none" d="M8 5v14l11-7z"/></svg>'};
+const sc=$('#sc');
+function show(id){['ovStart','ovPause','ovCount','ovOver'].forEach(o=>$('#'+o).classList.toggle('on',o===id))}
+function setPauseIcon(){$('#bPause').innerHTML=G.state==='paused'?IC.play:IC.pause;$('#bPause').setAttribute('aria-label',G.state==='paused'?'Lanjut':'Jeda')}
+const MI={on:'<svg viewBox="0 0 24 24"><path fill="none" d="M9 18V6l10-2v12"/><circle cx="7" cy="18" r="2.5" stroke="none"/><circle cx="17" cy="16" r="2.5" stroke="none"/></svg>',
+  off:'<svg viewBox="0 0 24 24"><path fill="none" d="M9 18V6l10-2v12M4 4l16 16"/><circle cx="7" cy="18" r="2.5" stroke="none"/><circle cx="17" cy="16" r="2.5" stroke="none"/></svg>'};
+function setMusicIcon(){$('#bMusic').innerHTML=Sfx.music?MI.on:MI.off}
+function setMuteIcon(){$('#bMute').innerHTML=Sfx.muted?IC.off:IC.on}
+function bump(el){el.classList.remove('bump');void el.offsetWidth;el.classList.add('bump')}
+function updUI(silent){
+  $('#best').textContent=G.best;
+  const lv=$('#lv');if(lv.textContent!=G.level){lv.textContent=G.level;if(!silent)bump(lv.parentNode)}
+  if(silent)sc.textContent=G.shown=G.score;
+}
+$('#pk').style.display=matchMedia('(pointer:coarse)').matches?'none':'';
+$('#hint').textContent=matchMedia('(pointer:coarse)').matches?'Geser jari ke atas, bawah, kiri, atau kanan untuk mengarahkan ular.':'Panah atau WASD untuk bergerak. Spasi untuk jeda.';
+const press=(sel,fn)=>$(sel).addEventListener('click',e=>{e.currentTarget.blur();fn()});
+press('#bPlay',start);press('#bAgain',start);press('#bResume',togglePause);
+press('#bPause',()=>{if(G.state==='playing'||G.state==='paused'||G.state==='countdown')togglePause()});
+press('#bMusic',()=>{Sfx.music=!Sfx.music;store.set('snake_music',Sfx.music?'1':'0');Sfx.init();setMusicIcon()});
+press('#bMute',()=>{Sfx.muted=!Sfx.muted;store.set('snake_mute',Sfx.muted?'1':'0');Sfx.init();setMuteIcon();Sfx.tick()});
+
+const de=document.documentElement,fsReq=de.requestFullscreen||de.webkitRequestFullscreen;
+const fsEl=()=>document.fullscreenElement||document.webkitFullscreenElement;
+const FI={on:'<svg viewBox="0 0 24 24"><path fill="none" d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg>',off:'<svg viewBox="0 0 24 24"><path fill="none" d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg>'};
+function setFsIcon(){$('#bFs').innerHTML=fsEl()?FI.off:FI.on}
+function toggleFs(){try{if(fsEl())(document.exitFullscreen||document.webkitExitFullscreen).call(document);
+  else{const r=fsReq.call(de);if(r&&r.catch)r.catch(()=>{})}}catch(e){}}
+if(!fsReq)$('#bFs').style.display='none';
+press('#bFs',toggleFs);setFsIcon();
+['fullscreenchange','webkitfullscreenchange'].forEach(ev=>document.addEventListener(ev,()=>{setFsIcon();setTimeout(resize,120)}));
+
+/* ---------- Input ---------- */
+const KM={ArrowUp:'up',ArrowDown:'down',ArrowLeft:'left',ArrowRight:'right',w:'up',s:'down',a:'left',d:'right'};
+addEventListener('keydown',e=>{
+  const k=KM[e.key]||KM[e.key.toLowerCase()];
+  if(k){e.preventDefault();turn(D[k]);return}
+  if(e.key==='f'||e.key==='F'){e.preventDefault();toggleFs();return}
+  if(e.code==='Space'||e.key==='Escape'||e.key==='p'||e.key==='P'){
+    e.preventDefault();if(e.repeat)return;
+    if(G.state==='ready'||G.state==='over')start();else togglePause();
+  }else if(e.key==='Enter'&&(G.state==='ready'||G.state==='over')){e.preventDefault();start()}
 });
-document.addEventListener('keyup', e => { if (e.code === 'Space' && !modalOpen()) e.preventDefault(); });
-document.addEventListener('click', e => { const b = e.target.closest('[data-act]'); if (b) action(b.dataset.act); });
-document.querySelectorAll('[data-dir]').forEach(b => b.addEventListener('pointerdown', e => { e.preventDefault(); ensureAudio(); handleInput(b.dataset.dir); }));
-let tx = 0, ty = 0;
-board.addEventListener('touchstart', e => { tx = e.touches[0].clientX; ty = e.touches[0].clientY; }, {passive:true});
-board.addEventListener('touchend', e => {
-  const t = e.changedTouches[0], dx = t.clientX - tx, dy = t.clientY - ty;
-  if (Math.max(Math.abs(dx), Math.abs(dy)) < 24) return;
-  handleInput(Math.abs(dx) > Math.abs(dy) ? (dx > 0 ? 'right' : 'left') : (dy > 0 ? 'down' : 'up'));
-}, {passive:true});
-document.addEventListener('visibilitychange', () => { if (document.hidden) pauseGame(); });
+addEventListener('keyup',e=>{if(e.code==='Space')e.preventDefault()});
+let tx=0,ty=0;const TH=20;
+addEventListener('touchstart',e=>{const t=e.touches[0];tx=t.clientX;ty=t.clientY;Sfx.init()},{passive:true});
+addEventListener('touchmove',e=>{
+  e.preventDefault();const t=e.touches[0],dx=t.clientX-tx,dy=t.clientY-ty,ax=Math.abs(dx),ay=Math.abs(dy);
+  if(Math.max(ax,ay)<TH)return;
+  turn(ax>ay?(dx>0?D.right:D.left):(dy>0?D.down:D.up));tx=t.clientX;ty=t.clientY;
+},{passive:false});
+addEventListener('contextmenu',e=>e.preventDefault());
+document.addEventListener('visibilitychange',()=>{if(document.hidden&&(G.state==='playing'||G.state==='countdown'))pauseNow()});
+addEventListener('blur',()=>{if(G.state==='playing'||G.state==='countdown')pauseNow()});
+addEventListener('resize',resize);addEventListener('orientationchange',()=>setTimeout(resize,150));
+if(window.ResizeObserver)new ResizeObserver(resize).observe($('main'));
 
-/* ---------- UI helpers ---------- */
-function toast(msg) {
-  const t = $('#toast'); t.textContent = msg; t.classList.add('show');
-  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('show'), 1100);
-}
-function burst(x, y, color, n) {
-  if (!cfg.particles) return;
-  for (let i = 0; i < n; i++) { const a = Math.random() * 6.283, v = .002 + Math.random() * .006; parts.push({x, y, vx:Math.cos(a) * v, vy:Math.sin(a) * v, life:500 + Math.random() * 300, max:800, c:color}); }
-}
-function popup(x, y, txt) { parts.push({x, y, vx:0, vy:-.0018, life:700, max:700, c:'#fff', txt}); }
-function updateParticles(dt) {
-  for (let i = parts.length - 1; i >= 0; i--) {
-    const p = parts[i]; p.x += p.vx * dt; p.y += p.vy * dt; p.life -= dt;
-    if (p.life <= 0) parts.splice(i, 1);
+/* ---------- Loop ---------- */
+let last=0;
+function frame(now){
+  requestAnimationFrame(frame);
+  const dt=Math.min(.05,(now-last)/1000||0);last=now;
+  if(G.state==='playing'){
+    G.acc+=dt*1000;let iv=interval();
+    while(G.acc>=iv&&G.state==='playing'){G.acc-=iv;step();iv=interval()}
+    G.t=G.state==='playing'?Math.min(1,G.acc/iv):0;
   }
+  Sfx.sync(G.state==='playing');
+  if(G.shake>0)G.shake=Math.max(0,G.shake-dt*1.8);
+  if(G.flash>0)G.flash=Math.max(0,G.flash-dt*2.2);
+  for(const a of[fx.p,fx.r,fx.t])for(let i=a.length-1;i>=0;i--){const o=a[i];o.l-=dt;if(o.l<=0)a.splice(i,1);else if(o.vx!==undefined){o.x+=o.vx*dt;o.y+=o.vy*dt;o.vx*=.94;o.vy*=.94}}
+  if(G.shown<G.score){G.shown=Math.min(G.score,G.shown+Math.max(1,Math.ceil((G.score-G.shown)*.2)));sc.textContent=G.shown;bump($('#stScore'))}
+  draw(now);
 }
-function applySettings() {
-  document.documentElement.dataset.theme = cfg.theme; readColors();
-  $('#bSound').textContent = cfg.sound ? '🔊' : '🔇';
-  $('#cSound').checked = cfg.sound; $('#cVol').value = cfg.volume; $('#cMusic').checked = cfg.music;
-  $('#cTheme').value = cfg.theme; $('#cSpeed').value = cfg.speed; $('#cDiff').value = cfg.diff; $('#selDiff').value = cfg.diff;
-  $('#cGrid').checked = cfg.grid; $('#cPart').checked = cfg.particles;
-  if (master) master.gain.value = cfg.volume;
-  if (S.snake) updateSpeed();
-  syncMusic();
-}
-function set(k, v) { cfg[k] = v; saveSettings(); ensureAudio(); applySettings(); }
-function setDifficulty(v) { set('diff', v); if (S.state === 'ready' || S.state === 'over') { if (S.state === 'over') initGame(); } else toast('Berlaku di tick berikutnya'); }
-function openSettings() { lastFocus = document.activeElement; pauseGame(); $('#modal').classList.add('open'); $('#cSound').focus(); }
-function closeSettings() { document.querySelectorAll('.modal.open').forEach(m => m.classList.remove('open')); if (lastFocus) lastFocus.focus(); }
-function openAbout() { lastFocus = document.activeElement; pauseGame(); $('#about').classList.add('open'); $('#bAboutClose').focus({preventScroll:true}); $('#about .sheet').scrollTop = 0; }
-function bindUI() {
-  $('#bSet').onclick = openSettings; $('#bClose').onclick = closeSettings;
-  $('#modal').addEventListener('click', e => { if (e.target.id === 'modal') closeSettings(); });
-  $('#bInfo').onclick = openAbout; $('#bAboutClose').onclick = closeSettings;
-  $('#about').addEventListener('click', e => { if (e.target.id === 'about') closeSettings(); });
-  $('#bSound').onclick = () => { set('sound', !cfg.sound); sfx.click(); };
-  $('#bFull').onclick = () => {
-    try { document.fullscreenElement ? document.exitFullscreen() : (document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen).call(document.documentElement); }
-    catch (e) { toast('Fullscreen tidak didukung'); }
-  };
-  $('#cSound').onchange = e => set('sound', e.target.checked);
-  $('#cVol').oninput = e => set('volume', +e.target.value);
-  $('#cMusic').onchange = e => set('music', e.target.checked);
-  $('#cTheme').onchange = e => set('theme', e.target.value);
-  $('#cSpeed').onchange = e => set('speed', e.target.value);
-  $('#cDiff').onchange = e => setDifficulty(e.target.value);
-  $('#selDiff').onchange = e => { setDifficulty(e.target.value); e.target.blur(); };
-  $('#cGrid').onchange = e => set('grid', e.target.checked);
-  $('#cPart').onchange = e => set('particles', e.target.checked);
-  new ResizeObserver(resize).observe(board);
-}
-function resize() {
-  const r = board.getBoundingClientRect(), d = Math.min(window.devicePixelRatio || 1, 2), s = Math.round(r.width * d);
-  if (cv.width !== s) { cv.width = s; cv.height = s; }
-}
-
-/* ---------- render ---------- */
-function renderGame() {
-  const w = cv.width, c = w / N, now = performance.now();
-  ctx.fillStyle = '#0d1426'; ctx.fillRect(0, 0, w, w);
-  if (cfg.grid) {
-    ctx.strokeStyle = 'rgba(148,163,184,.08)'; ctx.lineWidth = 1; ctx.beginPath();
-    for (let i = 1; i < N; i++) { ctx.moveTo(i * c, 0); ctx.lineTo(i * c, w); ctx.moveTo(0, i * c); ctx.lineTo(w, i * c); }
-    ctx.stroke();
-  }
-  if (S.food) {
-    const pu = 1 + Math.sin(now / 160) * .14;
-    ctx.save(); ctx.shadowColor = C.a; ctx.shadowBlur = c * .9; ctx.fillStyle = C.a;
-    ctx.beginPath(); ctx.arc((S.food.x + .5) * c, (S.food.y + .5) * c, c * .3 * pu, 0, 6.283); ctx.fill(); ctx.restore();
-  }
-  const L = S.snake.length, al = S.alpha, dead = S.state === 'over';
-  for (let i = L - 1; i >= 0; i--) {
-    const cu = S.snake[i], pv = S.prev[i] || S.prev[S.prev.length - 1];
-    const x = (pv.x + (cu.x - pv.x) * al) * c, y = (pv.y + (cu.y - pv.y) * al) * c, head = i === 0;
-    const sz = c * (head ? .96 : .84), o = (c - sz) / 2;
-    ctx.save();
-    ctx.globalAlpha = head ? 1 : Math.max(.5, 1 - i / (L + 6));
-    ctx.fillStyle = dead ? '#fb4b6b' : (i % 2 ? C.s : C.p);
-    if (head) { ctx.shadowColor = dead ? '#fb4b6b' : C.p; ctx.shadowBlur = c * .7; ctx.fillStyle = dead ? '#fb4b6b' : C.p; }
-    ctx.beginPath(); ctx.roundRect(x + o, y + o, sz, sz, c * (head ? .38 : .28)); ctx.fill(); ctx.restore();
-    if (head) {
-      const dx = S.dir.x, dy = S.dir.y, px = -dy, py = dx, cx = x + c / 2 + dx * c * .12, cy = y + c / 2 + dy * c * .12;
-      ctx.fillStyle = '#04210f';
-      for (const k of [-1, 1]) { ctx.beginPath(); ctx.arc(cx + px * k * c * .2 + dx * c * .08, cy + py * k * c * .2 + dy * c * .08, c * .09, 0, 6.283); ctx.fill(); }
-    }
-  }
-  for (const p of parts) {
-    const a = Math.max(0, p.life / p.max);
-    ctx.globalAlpha = a;
-    if (p.txt) { ctx.fillStyle = '#fff'; ctx.font = `700 ${c * .6}px Segoe UI,sans-serif`; ctx.textAlign = 'center'; ctx.fillText(p.txt, p.x * c, p.y * c); }
-    else { ctx.fillStyle = p.c; ctx.beginPath(); ctx.arc(p.x * c, p.y * c, c * .09 * (.4 + a), 0, 6.283); ctx.fill(); }
-  }
-  ctx.globalAlpha = 1;
-}
-function frame(t) {
-  raf = requestAnimationFrame(frame);
-  const dt = Math.min(t - (S.last || t), 100); S.last = t;
-  if (S.state === 'playing') {
-    S.acc += dt; let tk = tickMs();
-    while (S.acc >= tk && S.state === 'playing') { S.acc -= tk; updateGame(); tk = tickMs(); }
-    S.alpha = S.state === 'playing' ? Math.min(S.acc / tk, 1) : 1;
-  } else if (S.state === 'ready') S.alpha = 1;
-  updateParticles(dt); renderGame();
-}
-
-/* ---------- boot ---------- */
-loadSettings(); readColors(); bindUI(); initGame(); applySettings(); resize();
-cancelAnimationFrame(raf); raf = requestAnimationFrame(frame);
-setTimeout(() => $('#boot').classList.add('off'), 500);
+setMuteIcon();setMusicIcon();setPauseIcon();resize();reset();requestAnimationFrame(frame);
 })();
 </script>
 </body>
